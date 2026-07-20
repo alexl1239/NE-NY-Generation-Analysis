@@ -1,0 +1,21 @@
+utility_id_eia,utility,legal_entity,state,year,snapshot_date,rate_class,fixed_customer_charge_usd_month,base_distribution_rate_usd_kwh,usage_assumption_kwh,modeled_base_delivery_bill_usd,source_id
+4226,"Con Edison","Consolidated Edison Company of New York, Inc.",NY,2020,2020-12-31,"SC 1 Rate I - Residential",16.00,0.11125,700,93.88,CE-2020
+4226,"Con Edison","Consolidated Edison Company of New York, Inc.",NY,2021,2021-12-31,"SC 1 Rate I - Residential",16.50,0.11976,700,100.33,CE-2021
+4226,"Con Edison","Consolidated Edison Company of New York, Inc.",NY,2022,2022-12-31,"SC 1 Rate I - Residential",17.00,0.12732,700,106.12,CE-2022
+4226,"Con Edison","Consolidated Edison Company of New York, Inc.",NY,2023,2023-12-31,"SC 1 Rate I - Residential",18.00,0.14116,700,116.81,CE-2023
+4226,"Con Edison","Consolidated Edison Company of New York, Inc.",NY,2024,2024-12-31,"SC 1 Rate I - Residential",19.00,0.15112,700,124.78,CE-2024
+13511,"NYSEG","New York State Electric & Gas Corporation",NY,2020,2020-12-31,"SC 1 - Residential",15.11,0.04515,700,46.72,NY-PLAN
+13511,"NYSEG","New York State Electric & Gas Corporation",NY,2021,2021-12-31,"SC 1 - Residential",16.05,0.04850,700,50.00,NY-PLAN
+13511,"NYSEG","New York State Electric & Gas Corporation",NY,2022,2022-12-31,"SC 1 - Residential",17.00,0.05095,700,52.67,NY-PLAN
+13511,"NYSEG","New York State Electric & Gas Corporation",NY,2023,2023-12-31,"SC 1 - Residential",19.00,0.06139,700,61.97,NY-2024
+13511,"NYSEG","New York State Electric & Gas Corporation",NY,2024,2024-12-31,"SC 1 - Residential",19.00,0.07618,700,72.33,NY-2024
+54913,"NSTAR Electric","NSTAR Electric Company d/b/a Eversource Energy",MA,2020,2020-12-31,"R-1 Residential",7.00,0.04764,700,40.35,NS-2020
+54913,"NSTAR Electric","NSTAR Electric Company d/b/a Eversource Energy",MA,2021,2021-12-31,"R-1 Residential",7.00,0.04944,700,41.61,NS-2021
+54913,"NSTAR Electric","NSTAR Electric Company d/b/a Eversource Energy",MA,2022,2022-12-31,"R-1 Residential",7.00,0.05165,700,43.16,NS-2022
+54913,"NSTAR Electric","NSTAR Electric Company d/b/a Eversource Energy",MA,2023,2023-12-31,"R-1 Residential",10.00,0.05243,700,46.70,NS-2023
+54913,"NSTAR Electric","NSTAR Electric Company d/b/a Eversource Energy",MA,2024,2024-12-31,"R-1 Residential",10.00,0.05909,700,51.36,NS-2024
+19497,"United Illuminating","The United Illuminating Company",CT,2020,2020-12-31,"Rate R - Residential",12.84,0.091435,700,76.84,UI-2020
+19497,"United Illuminating","The United Illuminating Company",CT,2021,2021-12-31,"Rate R - Residential",12.84,0.087560,700,74.13,UI-2021
+19497,"United Illuminating","The United Illuminating Company",CT,2022,2022-12-31,"Rate R - Residential",12.84,0.087560,700,74.13,UI-2022
+19497,"United Illuminating","The United Illuminating Company",CT,2023,2023-12-31,"Rate R - Residential",11.34,0.100714,700,81.84,UI-2023
+19497,"United Illuminating","The United Illuminating Company",CT,2024,2024-12-31,"Rate R - Residential",11.34,0.100714,700,81.84,UI-2024

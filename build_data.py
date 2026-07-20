@@ -21,6 +21,12 @@ PLANTS_FILE = (
     "core_eia860__scd_plants.parquet"
 )
 
+SALES_FILE = (
+    "https://s3.us-west-2.amazonaws.com/"
+    "pudl.catalyst.coop/stable/"
+    "core_eia861__yearly_sales.parquet"
+)
+
 YEAR_START = 2020
 YEAR_END = 2024
 
@@ -52,6 +58,10 @@ REGIONS = {
 
 GENERATION_MIX_OUTPUT = Path(__file__).parent / "site" / "data" / "generation_mix.json"
 REGIONAL_MIX_OUTPUT = Path(__file__).parent / "site" / "data" / "regional_grid_mix.json"
+RESIDENTIAL_RATES_OUTPUT = Path(__file__).parent / "site" / "data" / "residential_rates.json"
+
+BASE_RATES_CSV = Path(__file__).parent / "data" / "processed" / "base_rates_2020_2024.csv"
+BASE_RATES_OUTPUT = Path(__file__).parent / "site" / "data" / "base_rates.json"
 
 
 def fetch_generation(con):
@@ -86,6 +96,46 @@ def fetch_regional_generation(con):
         GROUP BY 1, 2, 3
     """
     return con.execute(query).df()
+
+
+def fetch_residential_rates(con):
+    utility_ids = ", ".join(str(uid) for uid in UTILITIES)
+    query = f"""
+        SELECT
+            CAST(EXTRACT(YEAR FROM report_date) AS INTEGER) AS year,
+            utility_id_eia,
+            SUM(sales_revenue) AS revenue,
+            SUM(sales_mwh) AS mwh
+        FROM read_parquet('{SALES_FILE}')
+        WHERE EXTRACT(YEAR FROM report_date) BETWEEN {YEAR_START} AND {YEAR_END}
+          AND utility_id_eia IN ({utility_ids})
+          AND customer_class = 'residential'
+        GROUP BY 1, 2
+    """
+    return con.execute(query).df()
+
+
+def build_residential_rate_records(df):
+    df = df.copy()
+    df["utility"] = df["utility_id_eia"].map(UTILITIES)
+    df["cents_per_kwh"] = 100 * df["revenue"] / (df["mwh"] * 1000)
+
+    records = df[["utility", "year", "cents_per_kwh"]].sort_values(["utility", "year"])
+    return records.to_dict(orient="records")
+
+
+def build_base_rate_records(df):
+    df = df.copy()
+    records = df[
+        [
+            "utility",
+            "year",
+            "fixed_customer_charge_usd_month",
+            "base_distribution_rate_usd_kwh",
+            "modeled_base_delivery_bill_usd",
+        ]
+    ].sort_values(["utility", "year"])
+    return records.to_dict(orient="records")
 
 
 def _build_records(df, id_col, id_map, group_key):
@@ -135,6 +185,16 @@ def main():
     if regional_df.empty:
         raise ValueError("No generation records returned for the target regions/years.")
     _write_json(build_regional_records(regional_df), REGIONAL_MIX_OUTPUT)
+
+    rates_df = fetch_residential_rates(con)
+    if rates_df.empty:
+        raise ValueError("No residential rate records returned for the target utilities/years.")
+    _write_json(build_residential_rate_records(rates_df), RESIDENTIAL_RATES_OUTPUT)
+
+    base_rates_df = pd.read_csv(BASE_RATES_CSV)
+    if base_rates_df.empty:
+        raise ValueError(f"No base rate records found in {BASE_RATES_CSV}.")
+    _write_json(build_base_rate_records(base_rates_df), BASE_RATES_OUTPUT)
 
 
 if __name__ == "__main__":

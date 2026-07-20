@@ -6,7 +6,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import pandas as pd
 
-from build_data import build_records, build_regional_records
+from build_data import (
+    build_records,
+    build_regional_records,
+    build_residential_rate_records,
+    build_base_rate_records,
+)
 
 
 class TestBuildRecords(unittest.TestCase):
@@ -87,6 +92,50 @@ class TestBuildRegionalRecords(unittest.TestCase):
         records = build_regional_records(df)
         fuels = {r["fuel"] for r in records}
         self.assertEqual(fuels, {"Gas"})
+
+
+class TestBuildResidentialRateRecords(unittest.TestCase):
+    def test_computes_cents_per_kwh_from_revenue_and_mwh(self):
+        df = pd.DataFrame(
+            [{"utility_id_eia": 4226, "year": 2020, "revenue": 3_442_687_000.0, "mwh": 14_179_463.0}]
+        )
+        records = build_residential_rate_records(df)
+        self.assertEqual(records[0]["utility"], "Con Edison")
+        self.assertEqual(records[0]["year"], 2020)
+        self.assertAlmostEqual(records[0]["cents_per_kwh"], 24.28, places=1)
+
+    def test_maps_all_four_utility_ids(self):
+        df = pd.DataFrame(
+            [
+                {"utility_id_eia": 13511, "year": 2021, "revenue": 100.0, "mwh": 1.0},
+                {"utility_id_eia": 54913, "year": 2021, "revenue": 100.0, "mwh": 1.0},
+                {"utility_id_eia": 4226, "year": 2021, "revenue": 100.0, "mwh": 1.0},
+                {"utility_id_eia": 19497, "year": 2021, "revenue": 100.0, "mwh": 1.0},
+            ]
+        )
+        records = build_residential_rate_records(df)
+        utilities = {r["utility"] for r in records}
+        self.assertEqual(utilities, {"NYSEG", "NSTAR Electric", "Con Edison", "United Illuminating"})
+
+
+class TestBuildBaseRateRecords(unittest.TestCase):
+    def test_passes_through_rate_fields(self):
+        df = pd.DataFrame(
+            [
+                {
+                    "utility_id_eia": 4226,
+                    "utility": "Con Edison",
+                    "year": 2024,
+                    "fixed_customer_charge_usd_month": 19.00,
+                    "base_distribution_rate_usd_kwh": 0.15112,
+                    "modeled_base_delivery_bill_usd": 124.78,
+                }
+            ]
+        )
+        records = build_base_rate_records(df)
+        self.assertEqual(records[0]["utility"], "Con Edison")
+        self.assertEqual(records[0]["year"], 2024)
+        self.assertAlmostEqual(records[0]["modeled_base_delivery_bill_usd"], 124.78)
 
 
 if __name__ == "__main__":

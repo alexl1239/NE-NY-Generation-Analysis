@@ -71,10 +71,49 @@
       </div>
     </section>
 
+    <section class="section-block">
+      <h2 class="section-title">Residential retail rate, 2020–2024</h2>
+      <p class="section-note">
+        What a residential customer actually paid per kWh, computed from each
+        utility's reported residential sales revenue and volume — all 4 on one
+        chart so the trends are directly comparable.
+      </p>
+      <div class="chart-card">
+        <div class="chart-wrap chart-wrap--wide"><canvas id="chart-residential-rate"></canvas></div>
+      </div>
+      <p class="chart-caveat">
+        Caveat: in states with retail choice (especially NY), customers who buy
+        supply from a competitive ESCO have their supply charge excluded from
+        the utility's reported revenue here — only delivery is included. This
+        can pull a utility's computed rate below what a typical bundled/default
+        customer actually pays, more so for NYSEG than for the New England
+        utilities shown.
+      </p>
+    </section>
+
+    <section class="section-block">
+      <h2 class="section-title">Residential base (delivery-only) rate, 2020–2024</h2>
+      <p class="section-note">
+        The regulator-approved base distribution tariff only: fixed monthly
+        customer charge plus base delivery energy charge, modeled as a bill
+        at 700 kWh/month. This excludes supply, transmission, taxes, and
+        riders — it isolates each utility's own approved rate design from
+        the supply-cost swings visible in the retail rate chart above.
+      </p>
+      <div class="chart-card">
+        <div class="chart-wrap chart-wrap--wide"><canvas id="chart-base-rate"></canvas></div>
+      </div>
+      <p class="chart-caveat">
+        Source: tariff filings and regulatory dockets for each utility
+        (Con Edison SC 1 Rate I, NYSEG SC 1, NSTAR R-1, United Illuminating
+        Rate R), year-end snapshot. Not a total electric bill.
+      </p>
+    </section>
+
     <section class="methodology">
       <h2>Methodology &amp; caveats</h2>
       <ul>
-        <li><strong>Data sources:</strong> PUDL's <code>out_eia923__yearly_generation_fuel_combined</code> table (EIA Form 923) for generation by fuel, joined to <code>core_eia860__scd_plants</code> (EIA Form 860) for each plant's balancing authority, queried via DuckDB.</li>
+        <li><strong>Data sources:</strong> PUDL's <code>out_eia923__yearly_generation_fuel_combined</code> table (EIA Form 923) for generation by fuel, joined to <code>core_eia860__scd_plants</code> (EIA Form 860) for each plant's balancing authority; <code>core_eia861__yearly_sales</code> (EIA Form 861) for residential sales revenue and volume. All queried via DuckDB.</li>
         <li><strong>Years:</strong> 2020–2024.</li>
         <li><strong>Utilities:</strong> filtered by exact EIA utility ID, not name matching, to avoid mixing in unrelated same-named subsidiaries (e.g. Con Edison's merchant generation arm).</li>
         <li><strong>These are 4 specific regulated operating utilities, not their parent holding companies.</strong> "NSTAR Electric" here is Eversource Energy's Massachusetts electric utility subsidiary only — it excludes Connecticut Light &amp; Power, Public Service of New Hampshire, and the rest of Eversource. "Con Edison" here is Consolidated Edison Company of New York (CECONY), not the publicly-traded parent Consolidated Edison, Inc. NYSEG and United Illuminating are both Avangrid subsidiaries, so they are not independent competitors at the parent-company level — comparing all 4 charts as if they were 4 unrelated companies would be a mistake.</li>

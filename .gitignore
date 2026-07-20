@@ -1,2 +1,9 @@
 __pycache__/
 *.pyc
+.DS_Store
+
+# Large source PDFs and scratch work for the base-rates extraction -- kept
+# locally for audit purposes, not needed to build or serve the site.
+data/raw/
+outputs/
+tmp/

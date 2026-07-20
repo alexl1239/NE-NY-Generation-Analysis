@@ -1,0 +1,142 @@
+[
+  {
+    "utility": "Con Edison",
+    "year": 2020,
+    "fixed_customer_charge_usd_month": 16.0,
+    "base_distribution_rate_usd_kwh": 0.11125,
+    "modeled_base_delivery_bill_usd": 93.88
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2021,
+    "fixed_customer_charge_usd_month": 16.5,
+    "base_distribution_rate_usd_kwh": 0.11976,
+    "modeled_base_delivery_bill_usd": 100.33
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2022,
+    "fixed_customer_charge_usd_month": 17.0,
+    "base_distribution_rate_usd_kwh": 0.12732,
+    "modeled_base_delivery_bill_usd": 106.12
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2023,
+    "fixed_customer_charge_usd_month": 18.0,
+    "base_distribution_rate_usd_kwh": 0.14116,
+    "modeled_base_delivery_bill_usd": 116.81
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2024,
+    "fixed_customer_charge_usd_month": 19.0,
+    "base_distribution_rate_usd_kwh": 0.15112,
+    "modeled_base_delivery_bill_usd": 124.78
+  },
+  {
+    "utility": "NSTAR Electric",
+    "year": 2020,
+    "fixed_customer_charge_usd_month": 7.0,
+    "base_distribution_rate_usd_kwh": 0.04764,
+    "modeled_base_delivery_bill_usd": 40.35
+  },
+  {
+    "utility": "NSTAR Electric",
+    "year": 2021,
+    "fixed_customer_charge_usd_month": 7.0,
+    "base_distribution_rate_usd_kwh": 0.04944,
+    "modeled_base_delivery_bill_usd": 41.61
+  },
+  {
+    "utility": "NSTAR Electric",
+    "year": 2022,
+    "fixed_customer_charge_usd_month": 7.0,
+    "base_distribution_rate_usd_kwh": 0.05165,
+    "modeled_base_delivery_bill_usd": 43.16
+  },
+  {
+    "utility": "NSTAR Electric",
+    "year": 2023,
+    "fixed_customer_charge_usd_month": 10.0,
+    "base_distribution_rate_usd_kwh": 0.05243,
+    "modeled_base_delivery_bill_usd": 46.7
+  },
+  {
+    "utility": "NSTAR Electric",
+    "year": 2024,
+    "fixed_customer_charge_usd_month": 10.0,
+    "base_distribution_rate_usd_kwh": 0.05909,
+    "modeled_base_delivery_bill_usd": 51.36
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2020,
+    "fixed_customer_charge_usd_month": 15.11,
+    "base_distribution_rate_usd_kwh": 0.04515,
+    "modeled_base_delivery_bill_usd": 46.72
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2021,
+    "fixed_customer_charge_usd_month": 16.05,
+    "base_distribution_rate_usd_kwh": 0.0485,
+    "modeled_base_delivery_bill_usd": 50.0
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2022,
+    "fixed_customer_charge_usd_month": 17.0,
+    "base_distribution_rate_usd_kwh": 0.05095,
+    "modeled_base_delivery_bill_usd": 52.67
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2023,
+    "fixed_customer_charge_usd_month": 19.0,
+    "base_distribution_rate_usd_kwh": 0.06139,
+    "modeled_base_delivery_bill_usd": 61.97
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2024,
+    "fixed_customer_charge_usd_month": 19.0,
+    "base_distribution_rate_usd_kwh": 0.07618,
+    "modeled_base_delivery_bill_usd": 72.33
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2020,
+    "fixed_customer_charge_usd_month": 12.84,
+    "base_distribution_rate_usd_kwh": 0.091435,
+    "modeled_base_delivery_bill_usd": 76.84
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2021,
+    "fixed_customer_charge_usd_month": 12.84,
+    "base_distribution_rate_usd_kwh": 0.08756,
+    "modeled_base_delivery_bill_usd": 74.13
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2022,
+    "fixed_customer_charge_usd_month": 12.84,
+    "base_distribution_rate_usd_kwh": 0.08756,
+    "modeled_base_delivery_bill_usd": 74.13
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2023,
+    "fixed_customer_charge_usd_month": 11.34,
+    "base_distribution_rate_usd_kwh": 0.100714,
+    "modeled_base_delivery_bill_usd": 81.84
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2024,
+    "fixed_customer_charge_usd_month": 11.34,
+    "base_distribution_rate_usd_kwh": 0.100714,
+    "modeled_base_delivery_bill_usd": 81.84
+  }
+]

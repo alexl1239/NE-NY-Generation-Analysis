@@ -40,6 +40,13 @@ const REGIONAL_CHARTS = [
   { key: "ISO-NE", canvasId: "chart-isone" },
 ];
 
+const RESIDENTIAL_RATE_UTILITIES = [
+  { key: "NYSEG", colorVar: "--rate-nyseg" },
+  { key: "NSTAR Electric", colorVar: "--rate-nstar" },
+  { key: "Con Edison", colorVar: "--rate-conedison" },
+  { key: "United Illuminating", colorVar: "--rate-unitedilluminating" },
+];
+
 const totalLabelsPlugin = {
   id: "totalLabels",
   afterDatasetsDraw(chart) {
@@ -155,6 +162,88 @@ function renderChart(canvasId, records, years, fuelOrder, colorVars) {
   });
 }
 
+function renderUtilityLineChart(canvasId, records, valueKey, yLabel, tickFormat, tooltipFormat) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext("2d");
+  const gridline = cssVar("--gridline");
+  const inkSecondary = cssVar("--ink-secondary");
+  const years = [...new Set(records.map((r) => r.year))].sort();
+  const grouped = groupBy(records, "utility");
+
+  const datasets = RESIDENTIAL_RATE_UTILITIES.map(({ key, colorVar }) => {
+    const rowsByYear = new Map((grouped.get(key) ?? []).map((r) => [r.year, r]));
+    const color = cssVar(colorVar);
+    return {
+      label: key,
+      data: years.map((year) => rowsByYear.get(year)?.[valueKey] ?? null),
+      borderColor: color,
+      backgroundColor: color,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      borderWidth: 2,
+      tension: 0,
+      spanGaps: true,
+    };
+  });
+
+  return new Chart(ctx, {
+    type: "line",
+    data: { labels: years, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: inkSecondary },
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: gridline },
+          ticks: {
+            color: inkSecondary,
+            callback: tickFormat,
+          },
+          title: { display: true, text: yLabel, color: inkSecondary },
+        },
+      },
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: { color: inkSecondary, boxWidth: 12 },
+        },
+        tooltip: {
+          callbacks: {
+            label: (context) => tooltipFormat(context.dataset.label, context.parsed.y),
+          },
+        },
+      },
+    },
+  });
+}
+
+function renderResidentialRateChart(canvasId, records) {
+  return renderUtilityLineChart(
+    canvasId,
+    records,
+    "cents_per_kwh",
+    "cents / kWh",
+    (value) => `${value}¢`,
+    (label, value) => `${label}: ${value.toFixed(1)}¢/kWh`
+  );
+}
+
+function renderBaseRateChart(canvasId, records) {
+  return renderUtilityLineChart(
+    canvasId,
+    records,
+    "modeled_base_delivery_bill_usd",
+    "modeled bill @ 700 kWh ($/month)",
+    (value) => `$${value}`,
+    (label, value) => `${label}: $${value.toFixed(2)}/month`
+  );
+}
+
 function renderSection(records, chartConfigs, groupKey, fuelOrder, colorVars) {
   const years = [...new Set(records.map((r) => r.year))].sort();
   const grouped = groupBy(records, groupKey);
@@ -165,15 +254,21 @@ function renderSection(records, chartConfigs, groupKey, fuelOrder, colorVars) {
 }
 
 async function main() {
-  const [generationResponse, regionalResponse] = await Promise.all([
+  const [generationResponse, regionalResponse, ratesResponse, baseRatesResponse] = await Promise.all([
     fetch("data/generation_mix.json"),
     fetch("data/regional_grid_mix.json"),
+    fetch("data/residential_rates.json"),
+    fetch("data/base_rates.json"),
   ]);
   const generationRecords = await generationResponse.json();
   const regionalRecords = await regionalResponse.json();
+  const rateRecords = await ratesResponse.json();
+  const baseRateRecords = await baseRatesResponse.json();
 
   renderSection(generationRecords, UTILITY_CHARTS, "utility", UTILITY_FUEL_ORDER, UTILITY_FUEL_COLOR_VARS);
   renderSection(regionalRecords, REGIONAL_CHARTS, "region", REGIONAL_FUEL_ORDER, REGIONAL_FUEL_COLOR_VARS);
+  renderResidentialRateChart("chart-residential-rate", rateRecords);
+  renderBaseRateChart("chart-base-rate", baseRateRecords);
 }
 
 main();

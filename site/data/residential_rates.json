@@ -1,0 +1,102 @@
+[
+  {
+    "utility": "Con Edison",
+    "year": 2020,
+    "cents_per_kwh": 24.279388972628936
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2021,
+    "cents_per_kwh": 25.44965902071175
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2022,
+    "cents_per_kwh": 27.096305384212876
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2023,
+    "cents_per_kwh": 29.75458767503357
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2024,
+    "cents_per_kwh": 34.24085310079883
+  },
+  {
+    "utility": "NSTAR Electric",
+    "year": 2020,
+    "cents_per_kwh": 16.370546920950012
+  },
+  {
+    "utility": "NSTAR Electric",
+    "year": 2021,
+    "cents_per_kwh": 16.5598997903488
+  },
+  {
+    "utility": "NSTAR Electric",
+    "year": 2022,
+    "cents_per_kwh": 20.17880315883152
+  },
+  {
+    "utility": "NSTAR Electric",
+    "year": 2023,
+    "cents_per_kwh": 21.740128331410606
+  },
+  {
+    "utility": "NSTAR Electric",
+    "year": 2024,
+    "cents_per_kwh": 19.9219184166192
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2020,
+    "cents_per_kwh": 10.747123622035364
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2021,
+    "cents_per_kwh": 12.085423017850596
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2022,
+    "cents_per_kwh": 14.669898863372701
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2023,
+    "cents_per_kwh": 14.87135112201196
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2024,
+    "cents_per_kwh": 17.75199238016954
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2020,
+    "cents_per_kwh": 23.204452494563164
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2021,
+    "cents_per_kwh": 22.998147686806664
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2022,
+    "cents_per_kwh": 22.290284016068775
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2023,
+    "cents_per_kwh": 29.14559091957609
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2024,
+    "cents_per_kwh": 31.064814806883803
+  }
+]

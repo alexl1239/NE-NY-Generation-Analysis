@@ -25,6 +25,14 @@
   --grid-solar: #eb6834;
   --grid-waste: #4a3aa7;
   --grid-wind: #e34948;
+
+  /* Residential rate comparison reuses 4 already-validated hues from the
+     grid palette above, in a fixed per-utility order distinct from their
+     fuel meaning there -- separate chart, separate legend. */
+  --rate-nyseg: #2a78d6;
+  --rate-nstar: #eda100;
+  --rate-conedison: #e34948;
+  --rate-unitedilluminating: #4a3aa7;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -52,6 +60,11 @@
     --grid-solar: #d95926;
     --grid-waste: #9085e9;
     --grid-wind: #e66767;
+
+    --rate-nyseg: #3987e5;
+    --rate-nstar: #c98500;
+    --rate-conedison: #e66767;
+    --rate-unitedilluminating: #9085e9;
   }
 }
 
@@ -134,6 +147,17 @@ main {
 .chart-wrap {
   position: relative;
   height: 280px;
+}
+
+.chart-wrap--wide {
+  height: 360px;
+}
+
+.chart-caveat {
+  margin: 0.75rem 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  line-height: 1.4;
 }
 
 .methodology {
