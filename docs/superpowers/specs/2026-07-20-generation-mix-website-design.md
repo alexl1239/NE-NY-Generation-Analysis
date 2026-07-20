@@ -12,6 +12,17 @@ the ad-hoc exploratory notebook (`Generation_Mix_Name_Check.ipynb`) as the actua
 deliverable. The notebook is left in the repo untouched as historical scratch work and
 is not part of the final product.
 
+**Mid-build addition (discovered while reviewing the first version of the site):**
+these 4 utilities are largely deregulated "wires" companies that own very little
+generation directly (e.g. Eversource's own reported generation is 100% a small solar
+portfolio; NYSEG's is ~100% legacy hydro). That's a real, correctly-caveated finding,
+but it doesn't explain these utilities' costs/rates — that's driven by the wholesale
+grid they buy from. The site therefore also shows the **regional grid mix** (NYISO for
+the NY utilities, ISO-NE for the New England utilities) as a second, complementary
+section, since that's the dataset relevant to a later cost/revenue analysis. This is
+explicitly a coarser signal (2 regional mixes, not 4 utility-specific ones) and is
+labeled as such.
+
 ## Scope
 
 - **Utilities (4, fixed set):**
@@ -29,6 +40,20 @@ is not part of the final product.
   disclosed explicitly on the site rather than corrected.
 - **Story angle:** per-utility fuel-mix trend over time (not a cross-utility
   side-by-side comparison). One chart per utility.
+- **Regional grid mix (added mid-build):** for cost/revenue context, also show the
+  wholesale grid mix each utility actually buys from — NYISO (`balancing_authority_code_eia
+  = 'NYIS'`) for NYSEG/Con Edison, ISO-NE (`= 'ISNE'`) for Eversource/United
+  Illuminating. Same years (2020–2024), same treatment (positive-generation-only
+  shares). This uses `core_eia860__scd_plants.parquet` joined to the generation-fuel
+  table on `(plant_id_eia, report_date)` to get each plant's balancing authority, then
+  aggregates ALL plants in that BA (not just the 4 target utilities' own plants).
+  **Note:** `iso_rto_code` in that table is only populated for 2010–2012 and is empty
+  for 2020–2024 — use `balancing_authority_code_eia` instead, which is well-populated
+  for the target years.
+- **Total generation:** each chart also surfaces the total net generation (MWh) behind
+  the percentages — as a per-fuel-segment tooltip value and a summed 2020–2024 total
+  stat under each chart's title — so the absolute scale isn't lost behind the
+  100%-stacked percentages.
 
 ## Non-goals
 
@@ -67,8 +92,13 @@ A standalone Python script (not a notebook) at the repo root:
    that year.
 6. Writes the result to `site/data/generation_mix.json` as an array of records:
    ```json
-   [{"utility": "Eversource", "year": 2020, "fuel": "Natural Gas", "mwh": 123456.0, "share_pct": 42.1}, ...]
+   [{"utility": "Eversource", "year": 2020, "fuel": "Natural Gas", "mwh": 123456.0, "share_pct": 42.1, "total_mwh": 123456.0}, ...]
    ```
+   (`total_mwh` is that utility/year's total positive generation, repeated across
+   each fuel row of the same utility/year — the denominator behind `share_pct`.)
+7. Separately, fetches and aggregates the regional grid mix (see Scope above) and
+   writes `site/data/regional_grid_mix.json` with the same record shape, using
+   `"region"` in place of `"utility"` (values: `"NYISO"`, `"ISO-NE"`).
 
 Re-running this script is how the data gets refreshed; the website itself never
 queries PUDL directly.
@@ -80,18 +110,32 @@ Plain static site, no build step:
 - `site/index.html` — single page, structure:
   - **Header** — title, one-line description, data source and year range.
   - **Per-utility trend section** — one stacked chart per utility (4 total), each
-    showing fuel-mix share by year across 2020–2024. Chart type: 100%-stacked bar
-    (clearer for discrete year-over-year comparison than stacked area with only 5
-    points).
-  - **Methodology / caveats section** — plain-language explanation of: data source
-    (PUDL / EIA-923 yearly generation-fuel table), year range, the NSTAR→Eversource
-    rename, and the joint-ownership/parent-company limitation.
+    showing fuel-mix share by year across 2020–2024, plus a total-generation stat
+    line under the title. Chart type: 100%-stacked bar (clearer for discrete
+    year-over-year comparison than stacked area with only 5 points). Labeled clearly
+    as generation the utility itself directly owns/reports.
+  - **Regional grid mix section** — one stacked chart per region (2 total: NYISO,
+    ISO-NE), same chart type and stat line, labeled clearly as the wholesale grid
+    mix these utilities buy from (not utility-specific).
+  - **Methodology / caveats section** — plain-language explanation of: data sources
+    (PUDL / EIA-923 generation-fuel table + EIA-860 plant balancing-authority table),
+    year range, the NSTAR→Eversource rename, the joint-ownership/parent-company
+    limitation, and why the regional section exists (these utilities own little
+    generation directly).
   - **Footer** — link back to the GitHub repo.
 - `site/styles.css` — page styling.
-- `site/app.js` — fetches `data/generation_mix.json` and renders the 4 charts via
-  Chart.js (loaded from CDN).
-- Consistent color-per-fuel-type across all 4 charts, shared legend. Palette and
-  accessibility choices follow the project's `dataviz` skill guidance.
+- `site/app.js` — fetches both `data/generation_mix.json` and
+  `data/regional_grid_mix.json`, renders all 6 charts via Chart.js (loaded from CDN),
+  and computes/renders each chart's total-generation stat line.
+- Consistent color-per-fuel-type within each section (fixed order, never cycled) —
+  the per-utility section uses palette slots 1–5 for its 5 fuels; the regional
+  section uses the full validated 8-slot order for its 8 fuels (Coal, Gas, Hydro,
+  Nuclear, Oil, Solar, Waste, Wind). The two sections are not shown side-by-side and
+  each has its own legend, so using the full 8-slot set for the regional section
+  (rather than folding a fuel into a shared 5-color scheme) preserves distinct
+  signals like coal's phase-out in NYISO without violating the palette's per-section
+  CVD-safety guarantee. Palette and accessibility choices follow the project's
+  `dataviz` skill guidance.
 
 ### 3. Deployment — GitHub Pages
 
@@ -118,10 +162,17 @@ Plain static site, no build step:
 - Build approach: plain HTML/CSS/JS + Chart.js, no framework/build tooling.
 - Methodology section: included.
 - Old notebook: left as-is, not part of the deliverable.
+- Regional grid mix (NYISO/ISO-NE) added as a second section, mid-build, once the
+  utility-owned data turned out to be too thin (near-100%-single-fuel) to be useful
+  on its own for the user's eventual cost/revenue analysis.
+- Total generation (MWh) surfaced via tooltip + summed stat line, not a second axis
+  on the percentage charts (avoids the dual-axis anti-pattern).
 
 ## Testing / validation
 
 - Sanity-check `generation_mix.json` output: 4 utilities × 5 years × N fuels, shares per
   utility/year sum to ~100%.
-- Visual check of the rendered site in a browser (all 4 charts render, legend
+- Sanity-check `regional_grid_mix.json` output: 2 regions × 5 years × N fuels, shares
+  per region/year sum to ~100%.
+- Visual check of the rendered site in a browser (all 6 charts render, legends
   consistent, no console errors).
