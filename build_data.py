@@ -1,5 +1,5 @@
-"""Build site/data/generation_mix.json from PUDL's EIA-923 yearly
-generation-fuel table.
+"""Build site/data/generation_mix.json and site/data/regional_grid_mix.json from
+PUDL's EIA-923 yearly generation-fuel table and EIA-860 plant table.
 
 Run: python3 build_data.py
 """
@@ -9,10 +9,16 @@ from pathlib import Path
 import duckdb
 import pandas as pd
 
-PUDL_FILE = (
+GENERATION_FUEL_FILE = (
     "https://s3.us-west-2.amazonaws.com/"
     "pudl.catalyst.coop/stable/"
     "out_eia923__yearly_generation_fuel_combined.parquet"
+)
+
+PLANTS_FILE = (
+    "https://s3.us-west-2.amazonaws.com/"
+    "pudl.catalyst.coop/stable/"
+    "core_eia860__scd_plants.parquet"
 )
 
 YEAR_START = 2020
@@ -28,7 +34,18 @@ UTILITIES = {
     19497: "United Illuminating",
 }
 
-OUTPUT_PATH = Path(__file__).parent / "site" / "data" / "generation_mix.json"
+# balancing_authority_code_eia -> display name. NYSEG/Con Edison sit in NYISO;
+# Eversource/United Illuminating sit in ISO-NE. NOTE: the plants table's
+# `iso_rto_code` column is only populated for 2010-2012 and is empty for
+# 2020-2024 -- `balancing_authority_code_eia` is the field that's actually
+# populated for our target years.
+REGIONS = {
+    "NYIS": "NYISO",
+    "ISNE": "ISO-NE",
+}
+
+GENERATION_MIX_OUTPUT = Path(__file__).parent / "site" / "data" / "generation_mix.json"
+REGIONAL_MIX_OUTPUT = Path(__file__).parent / "site" / "data" / "regional_grid_mix.json"
 
 
 def fetch_generation(con):
@@ -39,7 +56,7 @@ def fetch_generation(con):
             utility_id_eia,
             COALESCE(fuel_type_code_pudl, energy_source_code, 'unknown') AS fuel,
             SUM(net_generation_mwh) AS mwh
-        FROM read_parquet('{PUDL_FILE}')
+        FROM read_parquet('{GENERATION_FUEL_FILE}')
         WHERE EXTRACT(YEAR FROM report_date) BETWEEN {YEAR_START} AND {YEAR_END}
           AND utility_id_eia IN ({utility_ids})
         GROUP BY 1, 2, 3
@@ -47,19 +64,52 @@ def fetch_generation(con):
     return con.execute(query).df()
 
 
-def build_records(df):
+def fetch_regional_generation(con):
+    ba_codes = ", ".join(f"'{code}'" for code in REGIONS)
+    query = f"""
+        SELECT
+            CAST(EXTRACT(YEAR FROM g.report_date) AS INTEGER) AS year,
+            p.balancing_authority_code_eia,
+            COALESCE(g.fuel_type_code_pudl, g.energy_source_code, 'unknown') AS fuel,
+            SUM(g.net_generation_mwh) AS mwh
+        FROM read_parquet('{GENERATION_FUEL_FILE}') g
+        JOIN read_parquet('{PLANTS_FILE}') p
+          ON g.plant_id_eia = p.plant_id_eia AND g.report_date = p.report_date
+        WHERE EXTRACT(YEAR FROM g.report_date) BETWEEN {YEAR_START} AND {YEAR_END}
+          AND p.balancing_authority_code_eia IN ({ba_codes})
+        GROUP BY 1, 2, 3
+    """
+    return con.execute(query).df()
+
+
+def _build_records(df, id_col, id_map, group_key):
     df = df.copy()
-    df["utility"] = df["utility_id_eia"].map(UTILITIES)
+    df[group_key] = df[id_col].map(id_map)
     df["fuel"] = df["fuel"].astype(str).str.replace("_", " ", regex=False).str.title()
 
     positive = df[df["mwh"] > 0].copy()
-    positive["total_mwh"] = positive.groupby(["year", "utility"])["mwh"].transform("sum")
+    positive["total_mwh"] = positive.groupby(["year", group_key])["mwh"].transform("sum")
     positive["share_pct"] = 100 * positive["mwh"] / positive["total_mwh"]
 
-    records = positive[["utility", "year", "fuel", "mwh", "share_pct"]].sort_values(
-        ["utility", "year", "fuel"]
-    )
+    records = positive[
+        [group_key, "year", "fuel", "mwh", "share_pct", "total_mwh"]
+    ].sort_values([group_key, "year", "fuel"])
     return records.to_dict(orient="records")
+
+
+def build_records(df):
+    return _build_records(df, "utility_id_eia", UTILITIES, "utility")
+
+
+def build_regional_records(df):
+    return _build_records(df, "balancing_authority_code_eia", REGIONS, "region")
+
+
+def _write_json(records, output_path):
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w") as f:
+        json.dump(records, f, indent=2)
+    print(f"Wrote {len(records)} records to {output_path}")
 
 
 def main():
@@ -70,17 +120,15 @@ def main():
         con.execute("INSTALL httpfs")
         con.execute("LOAD httpfs")
 
-    df = fetch_generation(con)
-    if df.empty:
+    generation_df = fetch_generation(con)
+    if generation_df.empty:
         raise ValueError("No generation records returned for the target utilities/years.")
+    _write_json(build_records(generation_df), GENERATION_MIX_OUTPUT)
 
-    records = build_records(df)
-
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with OUTPUT_PATH.open("w") as f:
-        json.dump(records, f, indent=2)
-
-    print(f"Wrote {len(records)} records to {OUTPUT_PATH}")
+    regional_df = fetch_regional_generation(con)
+    if regional_df.empty:
+        raise ValueError("No generation records returned for the target regions/years.")
+    _write_json(build_regional_records(regional_df), REGIONAL_MIX_OUTPUT)
 
 
 if __name__ == "__main__":

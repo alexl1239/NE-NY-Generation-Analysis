@@ -6,7 +6,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import pandas as pd
 
-from build_data import build_records
+from build_data import build_records, build_regional_records
 
 
 class TestBuildRecords(unittest.TestCase):
@@ -49,6 +49,44 @@ class TestBuildRecords(unittest.TestCase):
         )
         records = build_records(df)
         self.assertEqual(records[0]["utility"], "Eversource")
+
+    def test_includes_total_mwh_denominator(self):
+        df = pd.DataFrame(
+            [
+                {"utility_id_eia": 13511, "year": 2020, "fuel": "hydro", "mwh": 75.0},
+                {"utility_id_eia": 13511, "year": 2020, "fuel": "oil", "mwh": 25.0},
+            ]
+        )
+        records = build_records(df)
+        for record in records:
+            self.assertAlmostEqual(record["total_mwh"], 100.0)
+
+
+class TestBuildRegionalRecords(unittest.TestCase):
+    def test_maps_ba_code_to_region_label_and_computes_share_pct(self):
+        df = pd.DataFrame(
+            [
+                {"balancing_authority_code_eia": "NYIS", "year": 2020, "fuel": "gas", "mwh": 60.0},
+                {"balancing_authority_code_eia": "NYIS", "year": 2020, "fuel": "hydro", "mwh": 40.0},
+                {"balancing_authority_code_eia": "ISNE", "year": 2020, "fuel": "gas", "mwh": 50.0},
+            ]
+        )
+        records = build_regional_records(df)
+        by_region_fuel = {(r["region"], r["fuel"]): r for r in records}
+        self.assertAlmostEqual(by_region_fuel[("NYISO", "Gas")]["share_pct"], 60.0)
+        self.assertAlmostEqual(by_region_fuel[("NYISO", "Hydro")]["share_pct"], 40.0)
+        self.assertAlmostEqual(by_region_fuel[("ISO-NE", "Gas")]["share_pct"], 100.0)
+
+    def test_excludes_non_positive_generation_from_share_calc(self):
+        df = pd.DataFrame(
+            [
+                {"balancing_authority_code_eia": "NYIS", "year": 2022, "fuel": "gas", "mwh": 100.0},
+                {"balancing_authority_code_eia": "NYIS", "year": 2022, "fuel": "other", "mwh": -5.0},
+            ]
+        )
+        records = build_regional_records(df)
+        fuels = {r["fuel"] for r in records}
+        self.assertEqual(fuels, {"Gas"})
 
 
 if __name__ == "__main__":
