@@ -46,8 +46,20 @@ A standalone Python script (not a notebook) at the repo root:
 
 1. Connects to PUDL's `out_eia923__yearly_generation_fuel_combined.parquet`
    (via DuckDB + httpfs, same source/mechanism as the existing exploratory notebook).
-2. Filters to the 4 utilities (by exact `utility_name_eia` match, following the same
-   name-matching approach validated in the exploratory notebook) and years 2020–2024.
+2. Filters to the 4 utilities by exact `utility_id_eia` (not name-pattern matching —
+   see note below) and years 2020–2024:
+   - NYSEG: `13511` ("New York State Elec & Gas Corp")
+   - Eversource: `54913` ("NSTAR Electric Company" — renamed, see step 3)
+   - Con Edison: `4226` ("Consolidated Edison Co-NY Inc")
+   - United Illuminating: `19497` ("United Illuminating Co")
+
+   **Why exact IDs, not name patterns:** the original notebook's `LIKE
+   '%consolidated edison%'` pattern matches 4 distinct PUDL entities, including
+   "Consolidated Edison Development Inc." — an unregulated merchant generation
+   subsidiary that reports *more* generation (~7.5M MWh/yr) than Con Edison the
+   utility itself (~3M MWh/yr). Filtering by exact utility ID avoids folding an
+   unrelated company's generation into the Con Edison chart. The other 3 utilities
+   each matched only one entity, so this correction only affects Con Edison.
 3. Renames `NSTAR Electric` → `Eversource` before aggregation.
 4. Aggregates net generation (MWh) by utility, year, and fuel type
    (`fuel_type_code_pudl`, falling back to `energy_source_code`).
