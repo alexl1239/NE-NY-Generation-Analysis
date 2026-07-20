@@ -1,0 +1,254 @@
+[
+  {
+    "utility": "Con Edison",
+    "year": 2020,
+    "fuel": "Gas",
+    "mwh": 3117977.5,
+    "share_pct": 99.87006967142489
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2020,
+    "fuel": "Oil",
+    "mwh": 4056.468994140625,
+    "share_pct": 0.1299303285751097
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2021,
+    "fuel": "Gas",
+    "mwh": 3179893.375,
+    "share_pct": 99.90440734796422
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2021,
+    "fuel": "Oil",
+    "mwh": 2962.652961730957,
+    "share_pct": 0.09307924933785623
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2021,
+    "fuel": "Other",
+    "mwh": 80.0,
+    "share_pct": 0.0025134026979244666
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2022,
+    "fuel": "Gas",
+    "mwh": 2986247.5,
+    "share_pct": 99.14506857481831
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2022,
+    "fuel": "Oil",
+    "mwh": 25734.517578125,
+    "share_pct": 0.8544002163327287
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2022,
+    "fuel": "Other",
+    "mwh": 16.0,
+    "share_pct": 0.0005312088489641575
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2023,
+    "fuel": "Gas",
+    "mwh": 3074371.125,
+    "share_pct": 99.83361261874201
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2023,
+    "fuel": "Oil",
+    "mwh": 5123.89111328125,
+    "share_pct": 0.16638738125799143
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2024,
+    "fuel": "Gas",
+    "mwh": 2894596.0,
+    "share_pct": 99.99975817063687
+  },
+  {
+    "utility": "Con Edison",
+    "year": 2024,
+    "fuel": "Oil",
+    "mwh": 7.0,
+    "share_pct": 0.00024182936312855337
+  },
+  {
+    "utility": "Eversource",
+    "year": 2020,
+    "fuel": "Solar",
+    "mwh": 71440.0,
+    "share_pct": 100.0
+  },
+  {
+    "utility": "Eversource",
+    "year": 2021,
+    "fuel": "Solar",
+    "mwh": 66148.0,
+    "share_pct": 100.0
+  },
+  {
+    "utility": "Eversource",
+    "year": 2022,
+    "fuel": "Solar",
+    "mwh": 70025.0,
+    "share_pct": 100.0
+  },
+  {
+    "utility": "Eversource",
+    "year": 2023,
+    "fuel": "Solar",
+    "mwh": 59981.0,
+    "share_pct": 100.0
+  },
+  {
+    "utility": "Eversource",
+    "year": 2024,
+    "fuel": "Solar",
+    "mwh": 60321.0,
+    "share_pct": 100.0
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2020,
+    "fuel": "Hydro",
+    "mwh": 86675.0,
+    "share_pct": 100.0
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2021,
+    "fuel": "Hydro",
+    "mwh": 124966.0,
+    "share_pct": 99.99919978874424
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2021,
+    "fuel": "Oil",
+    "mwh": 1.0,
+    "share_pct": 0.0008002112557715236
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2022,
+    "fuel": "Hydro",
+    "mwh": 166347.0,
+    "share_pct": 99.99939885060235
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2022,
+    "fuel": "Oil",
+    "mwh": 1.0,
+    "share_pct": 0.0006011493976483035
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2023,
+    "fuel": "Hydro",
+    "mwh": 233346.0,
+    "share_pct": 99.999571453672
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2023,
+    "fuel": "Oil",
+    "mwh": 1.0,
+    "share_pct": 0.0004285463280007885
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2024,
+    "fuel": "Hydro",
+    "mwh": 205597.0,
+    "share_pct": 99.99951361394567
+  },
+  {
+    "utility": "NYSEG",
+    "year": 2024,
+    "fuel": "Oil",
+    "mwh": 1.0,
+    "share_pct": 0.00048638605433904997
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2020,
+    "fuel": "Gas",
+    "mwh": 55787.0,
+    "share_pct": 94.70030046342664
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2020,
+    "fuel": "Solar",
+    "mwh": 3122.0,
+    "share_pct": 5.299699536573359
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2021,
+    "fuel": "Gas",
+    "mwh": 56810.73046875,
+    "share_pct": 95.94181960674108
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2021,
+    "fuel": "Solar",
+    "mwh": 2403.0,
+    "share_pct": 4.058180393258927
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2022,
+    "fuel": "Gas",
+    "mwh": 49251.69921875,
+    "share_pct": 98.4291843704407
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2022,
+    "fuel": "Solar",
+    "mwh": 786.0,
+    "share_pct": 1.5708156295593065
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2023,
+    "fuel": "Gas",
+    "mwh": 56981.0,
+    "share_pct": 99.82655921513665
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2023,
+    "fuel": "Solar",
+    "mwh": 99.0,
+    "share_pct": 0.17344078486334968
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2024,
+    "fuel": "Gas",
+    "mwh": 53327.0,
+    "share_pct": 96.43218806509945
+  },
+  {
+    "utility": "United Illuminating",
+    "year": 2024,
+    "fuel": "Solar",
+    "mwh": 1973.0,
+    "share_pct": 3.5678119349005426
+  }
+]
