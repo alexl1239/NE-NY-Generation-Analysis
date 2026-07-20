@@ -95,12 +95,18 @@ Plain static site, no build step:
 
 ### 3. Deployment — GitHub Pages
 
-- Site files live under `/site` in this repo (confirmed location, not `/docs`, since
-  `/docs` is now used for spec documents).
-- GitHub Pages will need to be enabled in repo settings, pointed at the `/site` folder
-  on the default branch (or via a simple GitHub Actions deploy step if folder-based
-  Pages isn't available for this repo's plan) — this is a repo-settings change the
-  user will confirm/apply, not something done unilaterally.
+- Site files live under `/site` in this repo (not `/docs`, since `/docs` holds spec
+  documents, and GitHub Pages' branch-deploy mode only supports root or `/docs` —
+  neither of which we want to use here).
+- Deployed via a GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) that
+  uploads the `/site` folder as a Pages artifact on every push to `main`. This is
+  boilerplate GitHub tooling, not a JS build step — it doesn't conflict with the
+  no-framework decision above.
+- The user needs to do one manual, one-time step: in repo Settings → Pages, set
+  "Build and deployment" source to "GitHub Actions" — a repo-settings change that
+  isn't done unilaterally. GitHub Pages also requires the repo to be public on a
+  free personal plan; if the repo is private, the user will need to make it public
+  or confirm they have a plan that supports private Pages.
 
 ## Open items resolved during brainstorming
 
