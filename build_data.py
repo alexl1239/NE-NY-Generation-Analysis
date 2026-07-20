@@ -24,12 +24,18 @@ PLANTS_FILE = (
 YEAR_START = 2020
 YEAR_END = 2024
 
-# utility_id_eia -> display name. 54913 is recorded in PUDL as "NSTAR Electric
-# Company" -- the same legal entity as Eversource under an older name, not a
-# parent-company rollup.
+# utility_id_eia -> display name. Each of these is a specific regulated
+# operating utility, NOT its parent holding company -- e.g. 54913 is "NSTAR
+# Electric", the Massachusetts electric utility subsidiary of Eversource
+# Energy. It excludes Connecticut Light & Power, Public Service of New
+# Hampshire, and the rest of Eversource's subsidiaries. Similarly "Con Edison"
+# here means Consolidated Edison Company of New York (CECONY), not the
+# publicly-traded parent Consolidated Edison, Inc. NYSEG and United
+# Illuminating are both Avangrid subsidiaries -- not independent competitors
+# at the parent-company level.
 UTILITIES = {
     13511: "NYSEG",
-    54913: "Eversource",
+    54913: "NSTAR Electric",
     4226: "Con Edison",
     19497: "United Illuminating",
 }

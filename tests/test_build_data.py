@@ -43,12 +43,12 @@ class TestBuildRecords(unittest.TestCase):
         records = build_records(df)
         self.assertEqual(records[0]["fuel"], "Waste Heat")
 
-    def test_maps_nstar_id_to_eversource_label(self):
+    def test_maps_nstar_id_to_nstar_electric_label(self):
         df = pd.DataFrame(
             [{"utility_id_eia": 54913, "year": 2023, "fuel": "solar", "mwh": 5.0}]
         )
         records = build_records(df)
-        self.assertEqual(records[0]["utility"], "Eversource")
+        self.assertEqual(records[0]["utility"], "NSTAR Electric")
 
     def test_includes_total_mwh_denominator(self):
         df = pd.DataFrame(

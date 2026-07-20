@@ -30,7 +30,7 @@ const REGIONAL_FUEL_COLOR_VARS = {
 
 const UTILITY_CHARTS = [
   { key: "NYSEG", canvasId: "chart-nyseg" },
-  { key: "Eversource", canvasId: "chart-eversource" },
+  { key: "NSTAR Electric", canvasId: "chart-eversource" },
   { key: "Con Edison", canvasId: "chart-conedison" },
   { key: "United Illuminating", canvasId: "chart-unitedilluminating" },
 ];
@@ -97,9 +97,7 @@ function buildDatasets(records, years, fuelOrder, colorVars) {
       mwhByYear: years.map((year) => rowsByYear.get(year)?.mwh ?? 0),
       backgroundColor: cssVar(colorVars[fuel]),
       borderColor: surfaceColor,
-      borderWidth: 2,
-      borderRadius: 4,
-      borderSkipped: false,
+      borderWidth: { top: 1, right: 0, bottom: 0, left: 0 },
     };
   });
 }

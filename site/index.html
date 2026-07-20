@@ -8,10 +8,11 @@
 </head>
 <body>
   <header class="page-header">
-    <h1>Generation Source Mix: NE &amp; NY Utilities, 2020–2024</h1>
+    <h1>Generation Source Mix: 4 NE &amp; NY Regulated Utilities, 2020–2024</h1>
     <p class="subtitle">
       Net generation reported under PUDL's EIA-923 yearly generation-fuel table,
-      2020–2024.
+      2020–2024. Each chart is one specific regulated operating utility — not its
+      parent holding company (see entity names below and Methodology).
     </p>
   </header>
 
@@ -19,26 +20,30 @@
     <section class="section-block">
       <h2 class="section-title">Generation each utility owns directly</h2>
       <p class="section-note">
-        Net generation reported directly under each utility's own name. As the
-        methodology section below explains, these utilities own very little
+        Net generation reported directly under each utility's own EIA identity. As
+        the methodology section below explains, these utilities own very little
         generation today — this is not the power mix delivered to customers.
         The number above each bar is that year's total net generation in MWh.
       </p>
       <div class="charts" aria-label="Per-utility generation mix charts">
         <div class="chart-card">
           <h3>NYSEG</h3>
+          <p class="chart-entity">New York State Electric &amp; Gas Corp. — an Avangrid subsidiary</p>
           <div class="chart-wrap"><canvas id="chart-nyseg"></canvas></div>
         </div>
         <div class="chart-card">
-          <h3>Eversource</h3>
+          <h3>NSTAR Electric (Eversource — Massachusetts)</h3>
+          <p class="chart-entity">Eversource's MA electric utility only — excludes Connecticut Light &amp; Power, Public Service of NH, and the rest of Eversource</p>
           <div class="chart-wrap"><canvas id="chart-eversource"></canvas></div>
         </div>
         <div class="chart-card">
           <h3>Con Edison</h3>
+          <p class="chart-entity">Consolidated Edison Co. of New York (CECONY) — not the parent Consolidated Edison, Inc.</p>
           <div class="chart-wrap"><canvas id="chart-conedison"></canvas></div>
         </div>
         <div class="chart-card">
           <h3>United Illuminating</h3>
+          <p class="chart-entity">The United Illuminating Company — an Avangrid subsidiary</p>
           <div class="chart-wrap"><canvas id="chart-unitedilluminating"></canvas></div>
         </div>
       </div>
@@ -48,9 +53,10 @@
       <h2 class="section-title">Regional grid mix (where the power actually comes from)</h2>
       <p class="section-note">
         These utilities buy most of their power wholesale from their regional grid.
-        NYSEG and Con Edison both sit in NYISO; Eversource and United Illuminating
-        both sit in ISO-NE — so this shows 2 regional mixes, not 4 utility-specific
-        ones, but it's the dataset relevant to understanding these utilities' costs.
+        NYSEG and Con Edison both sit in NYISO; NSTAR Electric and United
+        Illuminating both sit in ISO-NE — so this shows 2 regional mixes, not 4
+        utility-specific ones, but it's the dataset relevant to understanding these
+        utilities' costs.
         The number above each bar is that year's total net generation in MWh.
       </p>
       <div class="charts" aria-label="Regional grid mix charts">
@@ -71,8 +77,8 @@
         <li><strong>Data sources:</strong> PUDL's <code>out_eia923__yearly_generation_fuel_combined</code> table (EIA Form 923) for generation by fuel, joined to <code>core_eia860__scd_plants</code> (EIA Form 860) for each plant's balancing authority, queried via DuckDB.</li>
         <li><strong>Years:</strong> 2020–2024.</li>
         <li><strong>Utilities:</strong> filtered by exact EIA utility ID, not name matching, to avoid mixing in unrelated same-named subsidiaries (e.g. Con Edison's merchant generation arm).</li>
-        <li><strong>Eversource:</strong> PUDL records this utility's generation under its older name, "NSTAR Electric Company" — the same legal entity, renamed here for continuity.</li>
-        <li><strong>Limitation (utility-owned section):</strong> this shows generation reported directly under each utility's own name only. It does not allocate joint-ownership plants or roll up parent/subsidiary companies, so it is not the full generation mix delivered to retail customers — several of these utilities own little direct generation today and buy most of their power on the wholesale market.</li>
+        <li><strong>These are 4 specific regulated operating utilities, not their parent holding companies.</strong> "NSTAR Electric" here is Eversource Energy's Massachusetts electric utility subsidiary only — it excludes Connecticut Light &amp; Power, Public Service of New Hampshire, and the rest of Eversource. "Con Edison" here is Consolidated Edison Company of New York (CECONY), not the publicly-traded parent Consolidated Edison, Inc. NYSEG and United Illuminating are both Avangrid subsidiaries, so they are not independent competitors at the parent-company level — comparing all 4 charts as if they were 4 unrelated companies would be a mistake.</li>
+        <li><strong>Limitation (utility-owned section):</strong> this shows generation reported directly under each utility's own EIA identity only. It does not allocate jointly-owned plants by ownership share or roll up parent/subsidiary companies, so it is not the full generation mix delivered to retail customers — several of these utilities own little direct generation today and buy most of their power on the wholesale market. PUDL's generation-fuel table uses canonicalized EIA utility identifiers reconciled across multiple EIA sources; see <a href="https://docs.catalyst.coop/pudl/en/latest/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL's data dictionary</a> for how that canonicalization works.</li>
         <li><strong>Why the regional section exists:</strong> because of the above, the utility-owned charts alone don't explain these utilities' costs. The regional grid mix (NYISO / ISO-NE) reflects the wholesale market these utilities actually buy from, which is the more relevant dataset for a cost/revenue analysis.</li>
       </ul>
     </section>

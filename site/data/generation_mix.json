@@ -96,7 +96,7 @@
     "total_mwh": 2894603.0
   },
   {
-    "utility": "Eversource",
+    "utility": "NSTAR Electric",
     "year": 2020,
     "fuel": "Solar",
     "mwh": 71440.0,
@@ -104,7 +104,7 @@
     "total_mwh": 71440.0
   },
   {
-    "utility": "Eversource",
+    "utility": "NSTAR Electric",
     "year": 2021,
     "fuel": "Solar",
     "mwh": 66148.0,
@@ -112,7 +112,7 @@
     "total_mwh": 66148.0
   },
   {
-    "utility": "Eversource",
+    "utility": "NSTAR Electric",
     "year": 2022,
     "fuel": "Solar",
     "mwh": 70025.0,
@@ -120,7 +120,7 @@
     "total_mwh": 70025.0
   },
   {
-    "utility": "Eversource",
+    "utility": "NSTAR Electric",
     "year": 2023,
     "fuel": "Solar",
     "mwh": 59981.0,
@@ -128,7 +128,7 @@
     "total_mwh": 59981.0
   },
   {
-    "utility": "Eversource",
+    "utility": "NSTAR Electric",
     "year": 2024,
     "fuel": "Solar",
     "mwh": 60321.0,
