@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NE/NY Utility Generation Mix, 2020–2024</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <h1>Generation Source Mix: NE &amp; NY Utilities, 2020–2024</h1>
+    <p class="subtitle">
+      Net generation reported under PUDL's EIA-923 yearly generation-fuel table,
+      2020–2024.
+    </p>
+  </header>
+
+  <main>
+    <section class="section-block">
+      <h2 class="section-title">Generation each utility owns directly</h2>
+      <p class="section-note">
+        Net generation reported directly under each utility's own name. As the
+        methodology section below explains, these utilities own very little
+        generation today — this is not the power mix delivered to customers.
+        The number above each bar is that year's total net generation in MWh.
+      </p>
+      <div class="charts" aria-label="Per-utility generation mix charts">
+        <div class="chart-card">
+          <h3>NYSEG</h3>
+          <div class="chart-wrap"><canvas id="chart-nyseg"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>Eversource</h3>
+          <div class="chart-wrap"><canvas id="chart-eversource"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>Con Edison</h3>
+          <div class="chart-wrap"><canvas id="chart-conedison"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>United Illuminating</h3>
+          <div class="chart-wrap"><canvas id="chart-unitedilluminating"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <h2 class="section-title">Regional grid mix (where the power actually comes from)</h2>
+      <p class="section-note">
+        These utilities buy most of their power wholesale from their regional grid.
+        NYSEG and Con Edison both sit in NYISO; Eversource and United Illuminating
+        both sit in ISO-NE — so this shows 2 regional mixes, not 4 utility-specific
+        ones, but it's the dataset relevant to understanding these utilities' costs.
+        The number above each bar is that year's total net generation in MWh.
+      </p>
+      <div class="charts" aria-label="Regional grid mix charts">
+        <div class="chart-card">
+          <h3>NYISO (NY)</h3>
+          <div class="chart-wrap"><canvas id="chart-nyiso"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>ISO-NE (New England)</h3>
+          <div class="chart-wrap"><canvas id="chart-isone"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="methodology">
+      <h2>Methodology &amp; caveats</h2>
+      <ul>
+        <li><strong>Data sources:</strong> PUDL's <code>out_eia923__yearly_generation_fuel_combined</code> table (EIA Form 923) for generation by fuel, joined to <code>core_eia860__scd_plants</code> (EIA Form 860) for each plant's balancing authority, queried via DuckDB.</li>
+        <li><strong>Years:</strong> 2020–2024.</li>
+        <li><strong>Utilities:</strong> filtered by exact EIA utility ID, not name matching, to avoid mixing in unrelated same-named subsidiaries (e.g. Con Edison's merchant generation arm).</li>
+        <li><strong>Eversource:</strong> PUDL records this utility's generation under its older name, "NSTAR Electric Company" — the same legal entity, renamed here for continuity.</li>
+        <li><strong>Limitation (utility-owned section):</strong> this shows generation reported directly under each utility's own name only. It does not allocate joint-ownership plants or roll up parent/subsidiary companies, so it is not the full generation mix delivered to retail customers — several of these utilities own little direct generation today and buy most of their power on the wholesale market.</li>
+        <li><strong>Why the regional section exists:</strong> because of the above, the utility-owned charts alone don't explain these utilities' costs. The regional grid mix (NYISO / ISO-NE) reflects the wholesale market these utilities actually buy from, which is the more relevant dataset for a cost/revenue analysis.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <p><a href="https://github.com/alexl1239/NE-NY-Generation-Analysis" target="_blank" rel="noopener">View source on GitHub</a></p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

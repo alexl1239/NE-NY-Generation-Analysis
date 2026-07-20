@@ -1,0 +1,165 @@
+:root {
+  color-scheme: light;
+  --surface: #fcfcfb;
+  --page: #f9f9f7;
+  --ink-primary: #0b0b0b;
+  --ink-secondary: #52514e;
+  --ink-muted: #898781;
+  --gridline: #e1e0d9;
+  --border: rgba(11, 11, 11, 0.10);
+
+  --fuel-gas: #2a78d6;
+  --fuel-hydro: #008300;
+  --fuel-oil: #e87ba4;
+  --fuel-other: #eda100;
+  --fuel-solar: #1baf7a;
+
+  /* Regional grid mix section uses its own fixed 8-slot order (Coal, Gas,
+     Hydro, Nuclear, Oil, Solar, Waste, Wind) -- a separate section with its
+     own legend, so it doesn't need to match --fuel-* above slot for slot. */
+  --grid-coal: #2a78d6;
+  --grid-gas: #008300;
+  --grid-hydro: #e87ba4;
+  --grid-nuclear: #eda100;
+  --grid-oil: #1baf7a;
+  --grid-solar: #eb6834;
+  --grid-waste: #4a3aa7;
+  --grid-wind: #e34948;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --surface: #1a1a19;
+    --page: #0d0d0d;
+    --ink-primary: #ffffff;
+    --ink-secondary: #c3c2b7;
+    --ink-muted: #898781;
+    --gridline: #2c2c2a;
+    --border: rgba(255, 255, 255, 0.10);
+
+    --fuel-gas: #3987e5;
+    --fuel-hydro: #008300;
+    --fuel-oil: #d55181;
+    --fuel-other: #c98500;
+    --fuel-solar: #199e70;
+
+    --grid-coal: #3987e5;
+    --grid-gas: #008300;
+    --grid-hydro: #d55181;
+    --grid-nuclear: #c98500;
+    --grid-oil: #199e70;
+    --grid-solar: #d95926;
+    --grid-waste: #9085e9;
+    --grid-wind: #e66767;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--page);
+  color: var(--ink-primary);
+}
+
+.page-header {
+  padding: 2.5rem 1.5rem 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.page-header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+}
+
+.subtitle {
+  color: var(--ink-secondary);
+  margin: 0;
+  max-width: 640px;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+.section-block {
+  margin-bottom: 2.5rem;
+}
+
+.section-title {
+  margin: 0 0 0.4rem;
+  font-size: 1.3rem;
+}
+
+.section-note {
+  color: var(--ink-secondary);
+  margin: 0 0 1.25rem;
+  max-width: 720px;
+  line-height: 1.5;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 1.5rem;
+}
+
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem 1.5rem;
+}
+
+.chart-card h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+  color: var(--ink-primary);
+}
+
+.chart-wrap {
+  position: relative;
+  height: 280px;
+}
+
+.methodology {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.methodology h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.methodology ul {
+  color: var(--ink-secondary);
+  line-height: 1.6;
+  padding-left: 1.25rem;
+}
+
+.methodology code {
+  background: var(--gridline);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.page-footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--ink-muted);
+}
+
+.page-footer a {
+  color: var(--ink-secondary);
+}
