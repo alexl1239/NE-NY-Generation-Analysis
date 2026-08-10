@@ -3,131 +3,355 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NE/NY Utility Generation Mix, 2020–2024</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Preliminary comparison of published electricity prices, reliability, and ownership for 30 selected utilities in New York and New England, 2013–2024.">
+  <title>Utility ownership, prices, and reliability</title>
+  <link rel="stylesheet" href="styles.css?v=20260810b">
 </head>
 <body>
-  <header class="page-header">
-    <h1>Generation Source Mix: 4 NE &amp; NY Regulated Utilities, 2020–2024</h1>
-    <p class="subtitle">
-      Net generation reported under PUDL's EIA-923 yearly generation-fuel table,
-      2020–2024. Each chart is one specific regulated operating utility — not its
-      parent holding company (see entity names below and Methodology).
+  <header class="research-header">
+    <h1>Utility ownership, electricity prices, and reliability</h1>
+    <p>
+      Do electricity prices differ across utility ownership types? This site compares
+      published electricity prices for 30 selected utilities in
+      New York and New England from 2013–2024. The utilities are grouped as
+      foreign-owned investor utilities (MTC), U.S.-owned investor utilities (DOM),
+      and local non-shareholder utilities (COOP). The results are preliminary and
+      descriptive: they show where prices differ and add reliability, regional fuel
+      mix, and matched-state return-on-equity context, but do not yet establish why.
     </p>
+    <nav class="research-nav" aria-label="Project links">
+      <a href="#ownership-comparison">Ownership comparison</a>
+      <a href="#utility-panels">Utility histories</a>
+      <a href="#roe-case-study">Matched-state ROE check</a>
+      <a href="#regional-fuel-mix">Regional mix</a>
+      <a href="#methods">Methods and sources</a>
+      <a href="previous-findings.html">Earlier analysis</a>
+    </nav>
   </header>
 
-  <main>
-    <section class="section-block">
-      <h2 class="section-title">Generation each utility owns directly</h2>
-      <p class="section-note">
-        Net generation reported directly under each utility's own EIA identity. As
-        the methodology section below explains, these utilities own very little
-        generation today — this is not the power mix delivered to customers.
-        The number above each bar is that year's total net generation in MWh.
+  <main class="research-main research-main--wide">
+    <section id="ownership-comparison">
+      <h2>Selected-sample prices by ownership</h2>
+      <p>
+        These charts summarize only the 30 utilities shown in the panels below: ten
+        selected utilities in each 2024 ownership group. They do not represent every
+        MTC, DOM, or COOP utility in New York and New England. The line is the
+        selected-sample median and the shaded area is its observed minimum-to-maximum
+        range. Utilities are assigned to the ownership type they had in each year, so
+        an earlier annual count can differ after an ownership change. This is a
+        descriptive comparison, not evidence that ownership caused the price differences.
       </p>
-      <div class="charts" aria-label="Per-utility generation mix charts">
-        <div class="chart-card">
-          <h3>NYSEG</h3>
-          <p class="chart-entity">New York State Electric &amp; Gas Corp. — an Avangrid subsidiary</p>
-          <div class="chart-wrap"><canvas id="chart-nyseg"></canvas></div>
-        </div>
-        <div class="chart-card">
-          <h3>NSTAR Electric (Eversource — Massachusetts)</h3>
-          <p class="chart-entity">Eversource's MA electric utility only — excludes Connecticut Light &amp; Power, Public Service of NH, and the rest of Eversource</p>
-          <div class="chart-wrap"><canvas id="chart-eversource"></canvas></div>
-        </div>
-        <div class="chart-card">
-          <h3>Con Edison</h3>
-          <p class="chart-entity">Consolidated Edison Co. of New York (CECONY) — not the parent Consolidated Edison, Inc.</p>
-          <div class="chart-wrap"><canvas id="chart-conedison"></canvas></div>
-        </div>
-        <div class="chart-card">
-          <h3>United Illuminating</h3>
-          <p class="chart-entity">The United Illuminating Company — an Avangrid subsidiary</p>
-          <div class="chart-wrap"><canvas id="chart-unitedilluminating"></canvas></div>
-        </div>
+      <div class="ownership-key ownership-key--intro" aria-label="Ownership categories in this comparison">
+        <span><i class="ownership-swatch ownership-swatch--mtc"></i><strong>MTC</strong> Foreign or multinational parent</span>
+        <span><i class="ownership-swatch ownership-swatch--dom"></i><strong>DOM</strong> US-based investor-owned parent</span>
+        <span><i class="ownership-swatch ownership-swatch--coop"></i><strong>COOP</strong> Local non-shareholder ownership</span>
       </div>
-    </section>
-
-    <section class="section-block">
-      <h2 class="section-title">Regional grid mix (where the power actually comes from)</h2>
-      <p class="section-note">
-        These utilities buy most of their power wholesale from their regional grid.
-        NYSEG and Con Edison both sit in NYISO; NSTAR Electric and United
-        Illuminating both sit in ISO-NE — so this shows 2 regional mixes, not 4
-        utility-specific ones, but it's the dataset relevant to understanding these
-        utilities' costs.
-        The number above each bar is that year's total net generation in MWh.
+      <p class="table-note ownership-key-note">
+        SOE remains part of the project’s four-category definition, but no SOE utility
+        is represented in this selected comparison.
       </p>
-      <div class="charts" aria-label="Regional grid mix charts">
-        <div class="chart-card">
-          <h3>NYISO (NY)</h3>
-          <div class="chart-wrap"><canvas id="chart-nyiso"></canvas></div>
-        </div>
-        <div class="chart-card">
-          <h3>ISO-NE (New England)</h3>
-          <div class="chart-wrap"><canvas id="chart-isone"></canvas></div>
-        </div>
+      <div class="panel-controls comparison-controls">
+        <label for="comparison-customer-class">
+          Customer type
+          <select id="comparison-customer-class">
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="industrial">Industrial</option>
+          </select>
+        </label>
+        <label for="comparison-coverage-rule">
+          Prices included
+          <select id="comparison-coverage-rule">
+            <option value="all_published">All EIA-published prices</option>
+            <option value="majority_coverage">Only prices covering at least 50% of customers</option>
+          </select>
+        </label>
       </div>
-    </section>
-
-    <section class="section-block">
-      <h2 class="section-title">Residential retail rate, 2020–2024</h2>
-      <p class="section-note">
-        What a residential customer actually paid per kWh, computed from each
-        utility's reported residential sales revenue and volume — all 4 on one
-        chart so the trends are directly comparable.
-      </p>
-      <div class="chart-card">
-        <div class="chart-wrap chart-wrap--wide"><canvas id="chart-residential-rate"></canvas></div>
+      <div class="comparison-legend" aria-label="Ownership comparison legend">
+        <span><i class="comparison-legend__line"></i> Median</span>
+        <span><i class="comparison-legend__range"></i> Minimum–maximum range</span>
+        <span><i class="comparison-legend__flag"></i> At least one included price covers under 50% of customers</span>
       </div>
-      <p class="chart-caveat">
-        Caveat: in states with retail choice (especially NY), customers who buy
-        supply from a competitive ESCO have their supply charge excluded from
-        the utility's reported revenue here — only delivery is included. This
-        can pull a utility's computed rate below what a typical bundled/default
-        customer actually pays, more so for NYSEG than for the New England
-        utilities shown.
+      <p id="ownership-comparison-status" class="chart-status" hidden></p>
+      <div id="ownership-comparison-charts" class="ownership-comparison-charts" aria-live="polite"></div>
+      <p id="ownership-comparison-finding" class="result-note"></p>
+      <p class="table-note">
+        The default keeps every EIA-published bundled price. An orange-outlined point
+        means at least one utility in that annual median reports a bundled price
+        covering fewer than half of its customers in the selected class. The
+        alternative view excludes those observations; it does not alter any price.
+        Prices come from
+        <a href="https://www.eia.gov/electricity/sales_revenue_price/" target="_blank" rel="noopener">EIA Tables 6–8</a>;
+        <a href="https://docs.catalyst.coop/pudl/en/stable/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL customer counts</a>
+        are used only for the coverage check.
       </p>
     </section>
 
-    <section class="section-block">
-      <h2 class="section-title">Residential base (delivery-only) rate, 2020–2024</h2>
-      <p class="section-note">
-        The regulator-approved base distribution tariff only: fixed monthly
-        customer charge plus base delivery energy charge, modeled as a bill
-        at 700 kWh/month. This excludes supply, transmission, taxes, and
-        riders — it isolates each utility's own approved rate design from
-        the supply-cost swings visible in the retail rate chart above.
+    <section id="utility-panels">
+      <h2>Utility histories</h2>
+      <p>
+        Each chart follows one operating utility from 2013 through 2024. Utilities
+        stay grouped by their 2024 ownership category so their positions remain
+        consistent across the page. Each group contains its ten largest qualifying
+        utilities by 2024 residential customers, arranged as two rows of five.
       </p>
-      <div class="chart-card">
-        <div class="chart-wrap chart-wrap--wide"><canvas id="chart-base-rate"></canvas></div>
+      <div class="panel-controls panel-controls--metric">
+        <label id="customer-class-control" for="customer-class">
+          Customer type
+          <select id="customer-class">
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="industrial">Industrial</option>
+          </select>
+        </label>
+        <label for="panel-metric">
+          Measure
+          <select id="panel-metric">
+            <option value="price">Bundled average price</option>
+            <option value="coverage">Bundled customer coverage</option>
+            <option value="saidi">SAIDI — outage minutes</option>
+            <option value="saifi">SAIFI — outage frequency</option>
+            <option value="caidi">CAIDI — restoration time</option>
+          </select>
+        </label>
+        <label id="reliability-scope-control" for="reliability-scope" hidden>
+          Reliability treatment
+          <select id="reliability-scope">
+            <option value="without-major-events">Exclude major events</option>
+            <option value="with-major-events">Include major events</option>
+          </select>
+        </label>
       </div>
-      <p class="chart-caveat">
-        Source: tariff filings and regulatory dockets for each utility
-        (Con Edison SC 1 Rate I, NYSEG SC 1, NSTAR R-1, United Illuminating
-        Rate R), year-end snapshot. Not a total electric bill.
+      <p id="metric-description" class="plain-note"></p>
+      <p id="matrix-status" class="chart-status" hidden></p>
+      <div class="matrix-scroll">
+        <div id="utility-matrix" class="utility-matrix" aria-live="polite"></div>
+      </div>
+      <p class="table-note">
+        Point colors show the ownership code in that year. United Illuminating and
+        Narragansett Electric therefore change color when their parent ownership
+        changes. On reliability views, dotted vertical lines mark changes between
+        IEEE and Non-IEEE reporting methods. On price views, an orange-outlined point
+        means the published price covers less than 50% of customers in that class.
+        Hover, tap, or focus a point for the exact annual value and customer count.
+        Lines stop where EIA/PUDL has no usable value.
+      </p>
+      <p id="metric-finding" class="result-note"></p>
+    </section>
+
+    <section id="roe-case-study">
+      <h2>Matched-state check: prices and authorized return</h2>
+      <p>
+        Investor-owned utilities receive an authorized return for shareholders;
+        local non-shareholder utilities do not have that same shareholder-return
+        requirement. That return applies to the distribution business, while a
+        bundled price also includes electricity supply. This section compares one
+        DOM and one MTC utility under the same regulator in Connecticut, then repeats
+        the check in Massachusetts. Matching within a state keeps the regulator and
+        much of the market setting more similar. It is still descriptive, not causal.
+        These four utilities are enough for a focused preliminary check, but not for
+        an ownership-wide estimate.
+      </p>
+      <div class="panel-controls ct-case-study-controls">
+        <label for="ct-case-customer-class">
+          Customer type
+          <select id="ct-case-customer-class">
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="industrial">Industrial</option>
+          </select>
+        </label>
+      </div>
+      <p id="ct-case-study-status" class="chart-status" hidden></p>
+      <div id="ct-case-study-charts" class="ct-case-study-grid" aria-live="polite"></div>
+      <p class="table-note">
+        Each utility stays separate. Its price uses the left axis and authorized ROE
+        uses the right axis; both scales are held fixed across all four charts. ROE
+        is a step line because it changes when a new decision takes effect. The two
+        axes help compare timing, not the size of the two measures. An orange-outlined
+        price point still marks bundled coverage below 50%.
+      </p>
+      <p id="ct-case-study-finding" class="result-note"></p>
+      <p class="table-note">
+        Prices come from EIA. ROE comes from PURA and Massachusetts DPU decisions,
+        with SEC or official company filings used where they provide the clearest
+        stable record. The chart uses the authorized rate in force at year-end.
+        Hover, tap, or focus a point to open the source used for that year.
+        <a href="data/roe_case_study.csv">Download the four-utility data</a>
+        ·
+        <a href="data/roe_source_register.csv">View the source register</a>
       </p>
     </section>
 
-    <section class="methodology">
-      <h2>Methodology &amp; caveats</h2>
+    <section id="regional-fuel-mix">
+      <h2>Regional generation mix</h2>
+      <p>
+        These charts show the fuel used by power plants in the NYISO and ISO-NE
+        balancing areas. They describe the regional supply environment shared by
+        utilities—not the power owned or purchased by any one utility.
+      </p>
+      <div id="iso-fuel-mix-legend" class="iso-fuel-mix-legend" aria-label="Fuel legend"></div>
+      <p id="iso-fuel-mix-status" class="chart-status" hidden></p>
+      <div id="iso-fuel-mix-charts" class="iso-fuel-mix-charts" aria-live="polite"></div>
+      <p class="table-note">
+        Source: plant-level net generation reported on
+        <a href="https://www.eia.gov/electricity/data/eia923/" target="_blank" rel="noopener">EIA Form 923</a>,
+        grouped using each plant’s annual EIA balancing-authority code through
+        <a href="https://catalystcoop-pudl.readthedocs.io/en/stable/data_sources/eia923.html" target="_blank" rel="noopener">PUDL</a>.
+        Imports are not included, so this is not the exact electricity mix delivered
+        to customers. The 2024 totals were checked against reports published by
+        <a href="https://www.iso-ne.com/static-assets/documents/100028/final-2024-air-emission-report.pdf" target="_blank" rel="noopener">ISO New England</a>
+        and
+        <a href="https://www.nyiso.com/documents/20142/2223020/2025-Power-Trends.pdf/" target="_blank" rel="noopener">NYISO</a>.
+      </p>
+      <p class="result-note">
+        Fuel mix can help explain changes in regional supply costs. It cannot, by
+        itself, explain why utilities with different ownership types charge different
+        retail prices while operating in the same regional market.
+      </p>
+    </section>
+
+    <section id="methods">
+      <h2>Methods and sources</h2>
       <ul>
-        <li><strong>Data sources:</strong> PUDL's <code>out_eia923__yearly_generation_fuel_combined</code> table (EIA Form 923) for generation by fuel, joined to <code>core_eia860__scd_plants</code> (EIA Form 860) for each plant's balancing authority; <code>core_eia861__yearly_sales</code> (EIA Form 861) for residential sales revenue and volume. All queried via DuckDB.</li>
-        <li><strong>Years:</strong> 2020–2024.</li>
-        <li><strong>Utilities:</strong> filtered by exact EIA utility ID, not name matching, to avoid mixing in unrelated same-named subsidiaries (e.g. Con Edison's merchant generation arm).</li>
-        <li><strong>These are 4 specific regulated operating utilities, not their parent holding companies.</strong> "NSTAR Electric" here is Eversource Energy's Massachusetts electric utility subsidiary only — it excludes Connecticut Light &amp; Power, Public Service of New Hampshire, and the rest of Eversource. "Con Edison" here is Consolidated Edison Company of New York (CECONY), not the publicly-traded parent Consolidated Edison, Inc. NYSEG and United Illuminating are both Avangrid subsidiaries, so they are not independent competitors at the parent-company level — comparing all 4 charts as if they were 4 unrelated companies would be a mistake.</li>
-        <li><strong>Limitation (utility-owned section):</strong> this shows generation reported directly under each utility's own EIA identity only. It does not allocate jointly-owned plants by ownership share or roll up parent/subsidiary companies, so it is not the full generation mix delivered to retail customers — several of these utilities own little direct generation today and buy most of their power on the wholesale market. PUDL's generation-fuel table uses canonicalized EIA utility identifiers reconciled across multiple EIA sources; see <a href="https://docs.catalyst.coop/pudl/en/latest/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL's data dictionary</a> for how that canonicalization works.</li>
-        <li><strong>Why the regional section exists:</strong> because of the above, the utility-owned charts alone don't explain these utilities' costs. The regional grid mix (NYISO / ISO-NE) reflects the wholesale market these utilities actually buy from, which is the more relevant dataset for a cost/revenue analysis.</li>
+        <li>
+          <strong>Price:</strong> copied directly from the “Average Price
+          (cents/kWh)” columns in Tables 6–8 of EIA’s annual
+          <a href="https://www.eia.gov/electricity/sales_revenue_price/" target="_blank" rel="noopener">Electric Sales, Revenue, and Average Price report</a>.
+          These tables cover bundled residential, commercial, and industrial
+          service. The project does not recalculate these prices.
+        </li>
+        <li>
+          <strong>Coverage:</strong> bundled service for the selected customer type.
+          In states with retail choice, this can represent only the utility’s
+          full-service customers, not everyone connected to its distribution system
+          or every part of a customer’s bill.
+        </li>
+        <li>
+          <strong>Coverage check:</strong> total customers in each customer type are
+          the sum of bundled and delivery-only customers reported in
+          <a href="https://docs.catalyst.coop/pudl/en/stable/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL’s EIA-861 yearly sales table</a>.
+          The displayed share is bundled customers divided by that total. The 1,018
+          populated EIA price-table rows reconcile exactly with PUDL’s bundled
+          counts. Missing published prices remain blank.
+        </li>
+        <li>
+          <strong>Coverage flag:</strong> “minority coverage” means the published
+          bundled price applies to less than 50% of bundled plus delivery-only
+          customers in the same customer class. The flag does not change the price.
+          The majority-coverage view is a project sensitivity check, not an EIA
+          quality standard.
+        </li>
+        <li>
+          <strong>Ownership summary:</strong> the annual line is the unweighted median
+          of the 30 panel utilities, selected as ten utilities in each 2024 ownership
+          group. The shaded area is their observed minimum-to-maximum range. Utilities
+          are grouped by their ownership code in that year, so an earlier group can
+          contain a different number. These results do not describe every utility in
+          the region.
+        </li>
+        <li>
+          <strong>Authorized return on equity:</strong> the matched-state pilot uses
+          the ROE approved by Connecticut PURA or Massachusetts DPU for the
+          shareholder-funded portion of rate base.
+          Base ROE, effective ROE after an in-force penalty, and actual earned ROE
+          remain separate in the downloadable data. The chart shows effective
+          authorized ROE. Any dollar return component is calculated only when the
+          decision reports rate base and the approved equity ratio; it is not a
+          customer price or total company profit.
+        </li>
+        <li>
+          <strong>Regional generation:</strong> annual EIA-923 net generation at
+          plants assigned to the NYIS or ISNE balancing authority. Shares are based
+          on eight nonnegative fuel groups. PUDL’s “other” group is zero or slightly
+          negative in these years and is excluded from the percentage stack; the
+          excluded amount is less than 0.02% of annual positive generation. Imports
+          and utility-specific power contracts are not represented.
+        </li>
+        <li>
+          <strong>Sample:</strong> the ten largest qualifying utilities in each 2024
+          ownership group, ranked by residential customers in the regional PUDL
+          roster. This gives 30 utilities and 360 possible utility-years from 2013
+          through 2024. It is a deliberately large-utility sample, not a random or
+          fully representative sample of every utility in the region.
+        </li>
+        <li>
+          <strong>Panel coverage:</strong> residential and commercial prices are
+          available for 347 of 360 utility-years; industrial prices are available
+          for 324. The reliability audit has a populated source row for 321;
+          missing measures are left blank.
+        </li>
+        <li>
+          <strong>Reliability:</strong> utility-reported SAIDI and SAIFI from
+          <a href="https://www.eia.gov/electricity/data/eia861/" target="_blank" rel="noopener">EIA Form 861</a>,
+          standardized through
+          <a href="https://catalystcoop-pudl.readthedocs.io/en/stable/data_sources/eia861.html" target="_blank" rel="noopener">PUDL’s yearly reliability table</a>.
+          PUDL derives CAIDI as SAIDI divided by SAIFI from those reported values.
+          The default view excludes major events; the alternate view includes them.
+        </li>
+        <li>
+          <strong>Reliability limits:</strong> Peabody and Fishers Island have no
+          populated reliability rows in this period; Taunton is blank in 2013–2015;
+          the current FirstEnergy entity is blank before 2024; and Central Hudson is
+          blank in 2014. Some reported rows also omit individual measures. Six
+          utilities change reporting methods during the panel, so reliability
+          ownership-row medians are not shown. EIA allows either IEEE or another
+          utility-defined method; Non-IEEE values are kept for within-utility
+          description but are not treated as directly comparable to IEEE values.
+        </li>
+        <li>
+          <strong>Source check:</strong> for the selected utility rows, 2,841 fields
+          from the official 2013–2024 EIA reliability workbooks matched the PUDL
+          values exactly. Regulator reports then identified two NSTAR source
+          conflicts: routine SAIFI and derived CAIDI in 2017, and the full 2023 EIA
+          row. Those published values remain in the downloadable audit but are
+          withheld from the charts. The reasons and regulator links are stored with
+          each affected row.
+        </li>
+        <li>
+          <strong>Ownership:</strong> project-coded from documented ultimate-parent
+          evidence. United Illuminating is DOM through 2015 and MTC from 2016;
+          Narragansett Electric is MTC through 2021 and DOM from 2022. Central
+          Hudson’s Fortis acquisition closed in 2013, so the project’s
+          end-of-year rule codes it MTC for every displayed year.
+        </li>
       </ul>
+      <p>
+        <a href="data/utility_price_panel.csv">Download the price panel data (CSV)</a>
+        ·
+        <a href="data/ownership_price_summary.csv">Download the ownership summary (CSV)</a>
+        ·
+        <a href="data/reliability_panel.csv">Download the reliability audit (CSV)</a>
+        ·
+        <a href="data/iso_fuel_mix.csv">Download the regional generation data (CSV)</a>
+        ·
+        <a href="data/roe_case_study.csv">Download the matched-state ROE data (CSV)</a>
+        ·
+        <a href="https://github.com/alexl1239/NE-NY-Generation-Analysis" target="_blank" rel="noopener">View the project repository</a>
+      </p>
+    </section>
+
+    <section>
+      <h2>Earlier analysis</h2>
+      <p>
+        The earlier four-utility analysis is kept separately so the work remains
+        traceable. It helped clarify the difference between an operating utility, its
+        parent company, and the regional grid mix, but it does not answer the current
+        ownership question.
+      </p>
+      <p><a href="previous-findings.html">View the earlier analysis</a></p>
     </section>
   </main>
 
-  <footer class="page-footer">
-    <p><a href="https://github.com/alexl1239/NE-NY-Generation-Analysis" target="_blank" rel="noopener">View source on GitHub</a></p>
+  <footer class="page-footer research-footer">
+    <p>Working research site for discussion with faculty.</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-  <script src="app.js"></script>
+  <script src="data/utility_price_panel.js?v=20260810a"></script>
+  <script src="data/ownership_price_summary.js"></script>
+  <script src="data/reliability_panel.js?v=20260810a"></script>
+  <script src="data/iso_fuel_mix.js"></script>
+  <script src="data/roe_case_study.js?v=20260810a"></script>
+  <script src="panel.js?v=20260810i"></script>
 </body>
 </html>

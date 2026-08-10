@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Previous Exploratory Findings | NE/NY Utility Research</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="archive-context" aria-labelledby="archive-title">
+    <div class="archive-context__inner">
+      <a class="back-link" href="index.html">&larr; Back to the project overview</a>
+      <p class="archive-label">Earlier analysis</p>
+      <h2 id="archive-title">Four selected utilities, 2020–2024</h2>
+      <p>
+        This was the first version of the project. It looked at generation and rate
+        measures for four utilities and helped clarify the difference between an
+        operating utility, its parent company, and the regional grid. The original
+        analysis is kept below as it was. It is not an ownership comparison.
+      </p>
+    </div>
+  </aside>
+
+  <header class="page-header">
+    <h1>Generation Source Mix: 4 NE &amp; NY Regulated Utilities, 2020–2024</h1>
+    <p class="subtitle">
+      Net generation reported under PUDL's EIA-923 yearly generation-fuel table,
+      2020–2024. Each chart is one specific regulated operating utility — not its
+      parent holding company (see entity names below and Methodology).
+    </p>
+  </header>
+
+  <main>
+    <p id="chart-status" class="chart-status" role="status" hidden></p>
+
+    <section class="section-block">
+      <h2 class="section-title">Generation each utility owns directly</h2>
+      <p class="section-note">
+        Net generation reported directly under each utility's own EIA identity. As
+        the methodology section below explains, these utilities own very little
+        generation today — this is not the power mix delivered to customers.
+        The number above each bar is that year's total net generation in MWh.
+      </p>
+      <div class="charts" aria-label="Per-utility generation mix charts">
+        <div class="chart-card">
+          <h3>NYSEG</h3>
+          <p class="chart-entity">New York State Electric &amp; Gas Corp. — an Avangrid subsidiary</p>
+          <div class="chart-wrap"><canvas id="chart-nyseg"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>NSTAR Electric (Eversource — Massachusetts)</h3>
+          <p class="chart-entity">Eversource's MA electric utility only — excludes Connecticut Light &amp; Power, Public Service of NH, and the rest of Eversource</p>
+          <div class="chart-wrap"><canvas id="chart-eversource"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>Con Edison</h3>
+          <p class="chart-entity">Consolidated Edison Co. of New York (CECONY) — not the parent Consolidated Edison, Inc.</p>
+          <div class="chart-wrap"><canvas id="chart-conedison"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>United Illuminating</h3>
+          <p class="chart-entity">The United Illuminating Company — an Avangrid subsidiary</p>
+          <div class="chart-wrap"><canvas id="chart-unitedilluminating"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <h2 class="section-title">Regional generation mix: NYISO and ISO-NE</h2>
+      <p class="section-note">
+        This provides regional context for the utility charts above. NYSEG and Con
+        Edison are associated with NYISO; NSTAR Electric and United Illuminating are
+        associated with ISO-NE. These are two regional generation mixes, not four
+        utility-specific purchasing mixes, and they do not trace the electricity
+        delivered to any individual utility's customers.
+        The number above each bar is that year's total net generation in MWh.
+      </p>
+      <div class="charts" aria-label="Regional grid mix charts">
+        <div class="chart-card">
+          <h3>NYISO (NY)</h3>
+          <div class="chart-wrap"><canvas id="chart-nyiso"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>ISO-NE (New England)</h3>
+          <div class="chart-wrap"><canvas id="chart-isone"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <h2 class="section-title">Residential average revenue per kWh, 2020–2024</h2>
+      <p class="section-note">
+        Each utility's residential sales revenue divided by its residential sales,
+        using the values reported on EIA Form 861. This is an average across the
+        utility's reported residential service types. It is not an individual
+        customer's tariff or a standardized total bill.
+      </p>
+      <div class="chart-card">
+        <div class="chart-wrap chart-wrap--wide"><canvas id="chart-residential-rate"></canvas></div>
+      </div>
+      <p class="chart-caveat">
+        Caveat: in states with retail choice (especially NY), customers who buy
+        supply from a competitive ESCO have their supply charge excluded from
+        the utility's reported revenue here — only delivery is included. This
+        can make the blended average lower than the total price paid by a
+        bundled or default-service customer. The chart should therefore be used
+        as reported utility revenue per kWh, not as a standardized customer bill.
+      </p>
+    </section>
+
+    <section class="section-block">
+      <h2 class="section-title">Modeled residential base-delivery bill, 2020–2024</h2>
+      <p class="section-note">
+        A simple calculation using two published tariff components: the fixed
+        monthly customer charge plus 700 kWh times the base distribution energy
+        charge. It excludes supply, transmission, taxes, riders, and other delivery
+        adjustments. It is not a reported total customer bill.
+      </p>
+      <div class="chart-card">
+        <div class="chart-wrap chart-wrap--wide"><canvas id="chart-base-rate"></canvas></div>
+      </div>
+      <p class="chart-caveat">
+        Sources: official utility tariffs and regulator records for Con Edison SC 1
+        Rate I, NYSEG SC 1, NSTAR R-1, and United Illuminating Rate R, using a
+        December 31 snapshot. <a href="data/base_rate_sources.csv" download>Download
+        the source register</a> for document names, tariff leaves, notes, and URLs.
+      </p>
+    </section>
+
+    <section class="methodology">
+      <h2>Methodology &amp; caveats</h2>
+      <ul>
+        <li><strong>Generation data:</strong> EIA Form 923 generation by fuel, processed in PUDL's <code>out_eia923__yearly_generation_fuel_combined</code> table. The regional charts join EIA Form 860 plant records from <code>core_eia860__scd_plants</code> to identify each plant's balancing authority. See the official <a href="https://www.eia.gov/electricity/data/eia923/" target="_blank" rel="noopener">EIA-923</a> and <a href="https://www.eia.gov/electricity/data/eia860/" target="_blank" rel="noopener">EIA-860</a> source pages.</li>
+        <li><strong>Residential average revenue:</strong> reported residential sales revenue and sales from EIA Form 861, processed in PUDL's <code>core_eia861__yearly_sales</code> table. The chart divides revenue by sales and converts the result to cents per kWh. See the official <a href="https://www.eia.gov/electricity/data/eia861/" target="_blank" rel="noopener">EIA-861 source page</a>.</li>
+        <li><strong>Base-delivery model:</strong> fixed charges and base distribution energy charges were transcribed from the official tariff documents listed in the <a href="data/base_rate_sources.csv" download>source register</a>. The displayed bill is derived as fixed charge + 700 × base energy charge.</li>
+        <li><strong>Verification:</strong> on August 8, 2026, all three generated PUDL datasets matched a fresh query to displayed precision. All 20 tariff observations tied to the cited official tariff pages, and all modeled bills tied to the stated calculation.</li>
+        <li><strong>Years:</strong> 2020–2024.</li>
+        <li><strong>Utilities:</strong> filtered by exact EIA utility ID, not name matching, to avoid mixing in unrelated same-named subsidiaries (e.g. Con Edison's merchant generation arm).</li>
+        <li><strong>These are 4 specific regulated operating utilities, not their parent holding companies.</strong> "NSTAR Electric" here is Eversource Energy's Massachusetts electric utility subsidiary only — it excludes Connecticut Light &amp; Power, Public Service of New Hampshire, and the rest of Eversource. "Con Edison" here is Consolidated Edison Company of New York (CECONY), not the publicly-traded parent Consolidated Edison, Inc. NYSEG and United Illuminating are both Avangrid subsidiaries, so they are not independent competitors at the parent-company level — comparing all 4 charts as if they were 4 unrelated companies would be a mistake.</li>
+        <li><strong>Limitation (utility-owned section):</strong> this shows generation reported directly under each utility's own EIA identity only. It does not allocate jointly-owned plants by ownership share, roll up parent/subsidiary companies, or measure purchased power, so it is not the full generation mix delivered to retail customers. PUDL's generation-fuel table uses canonicalized EIA utility identifiers reconciled across multiple EIA sources; see <a href="https://docs.catalyst.coop/pudl/en/latest/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL's data dictionary</a> for how that canonicalization works.</li>
+        <li><strong>Why the regional section exists:</strong> utility-reported generation alone does not describe the full supply mix serving retail customers. The NYISO and ISO-NE charts add regional context, but they are not utility procurement data and should not be interpreted as a customer's exact delivered fuel mix.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <p><a href="https://github.com/alexl1239/NE-NY-Generation-Analysis" target="_blank" rel="noopener">View source on GitHub</a></p>
+  </footer>
+
+  <script src="data/chart_data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

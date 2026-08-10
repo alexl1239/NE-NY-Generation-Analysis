@@ -1,5 +1,8 @@
 import sys
 import unittest
+import csv
+import json
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -136,6 +139,68 @@ class TestBuildBaseRateRecords(unittest.TestCase):
         self.assertEqual(records[0]["utility"], "Con Edison")
         self.assertEqual(records[0]["year"], 2024)
         self.assertAlmostEqual(records[0]["modeled_base_delivery_bill_usd"], 124.78)
+
+
+class TestPublishedBaseRateData(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        project_root = Path(__file__).resolve().parent.parent
+        with (project_root / "data" / "processed" / "base_rates_2020_2024.csv").open(
+            newline=""
+        ) as source:
+            cls.rate_rows = list(csv.DictReader(source))
+        with (project_root / "site" / "data" / "base_rate_sources.csv").open(
+            newline=""
+        ) as source:
+            cls.source_rows = list(csv.DictReader(source))
+
+    def test_every_rate_observation_maps_to_a_documented_source(self):
+        registered_ids = {row["source_id"] for row in self.source_rows}
+        observation_ids = {row["source_id"] for row in self.rate_rows}
+        self.assertEqual(observation_ids, registered_ids)
+        self.assertEqual(len(self.rate_rows), 20)
+        self.assertEqual(len(self.source_rows), 17)
+
+    def test_source_register_has_auditable_locations(self):
+        for row in self.source_rows:
+            self.assertTrue(row["document"].strip(), row["source_id"])
+            self.assertTrue(row["page_or_tariff_leaf"].strip(), row["source_id"])
+            self.assertTrue(row["official_source_url"].startswith("https://"), row["source_id"])
+            self.assertTrue(row["audit_note"].strip(), row["source_id"])
+
+    def test_all_modeled_bills_tie_to_the_stated_formula(self):
+        for row in self.rate_rows:
+            expected = (
+                Decimal(row["fixed_customer_charge_usd_month"])
+                + Decimal(row["usage_assumption_kwh"])
+                * Decimal(row["base_distribution_rate_usd_kwh"])
+            ).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+            self.assertEqual(
+                Decimal(row["modeled_base_delivery_bill_usd"]),
+                expected,
+                msg=f'{row["utility"]} {row["year"]}',
+            )
+
+
+class TestPublishedChartBundle(unittest.TestCase):
+    def test_browser_bundle_matches_published_json_files(self):
+        project_root = Path(__file__).resolve().parent.parent
+        data_dir = project_root / "site" / "data"
+        bundle_text = (data_dir / "chart_data.js").read_text()
+        prefix = "window.NE_NY_CHART_DATA = "
+        self.assertTrue(bundle_text.startswith(prefix))
+        self.assertTrue(bundle_text.endswith(";\n"))
+        bundle = json.loads(bundle_text[len(prefix):-2])
+
+        expected_files = {
+            "generationRecords": "generation_mix.json",
+            "regionalRecords": "regional_grid_mix.json",
+            "rateRecords": "residential_rates.json",
+            "baseRateRecords": "base_rates.json",
+        }
+        for key, filename in expected_files.items():
+            with (data_dir / filename).open() as source:
+                self.assertEqual(bundle[key], json.load(source), key)
 
 
 if __name__ == "__main__":

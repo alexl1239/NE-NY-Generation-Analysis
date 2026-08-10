@@ -68,8 +68,6 @@ const totalLabelsPlugin = {
     ctx.restore();
   },
 };
-Chart.register(totalLabelsPlugin);
-
 function cssVar(name) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
@@ -254,12 +252,34 @@ function renderSection(records, chartConfigs, groupKey, fuelOrder, colorVars) {
 }
 
 async function main() {
+  const status = document.getElementById("chart-status");
+  if (typeof Chart === "undefined") {
+    status.hidden = false;
+    status.textContent = "The chart library did not load. Check the internet connection and reload this page.";
+    return;
+  }
+
+  Chart.register(totalLabelsPlugin);
+  const embeddedData = window.NE_NY_CHART_DATA;
+  if (embeddedData) {
+    renderSection(embeddedData.generationRecords, UTILITY_CHARTS, "utility", UTILITY_FUEL_ORDER, UTILITY_FUEL_COLOR_VARS);
+    renderSection(embeddedData.regionalRecords, REGIONAL_CHARTS, "region", REGIONAL_FUEL_ORDER, REGIONAL_FUEL_COLOR_VARS);
+    renderResidentialRateChart("chart-residential-rate", embeddedData.rateRecords);
+    renderBaseRateChart("chart-base-rate", embeddedData.baseRateRecords);
+    return;
+  }
+
   const [generationResponse, regionalResponse, ratesResponse, baseRatesResponse] = await Promise.all([
     fetch("data/generation_mix.json"),
     fetch("data/regional_grid_mix.json"),
     fetch("data/residential_rates.json"),
     fetch("data/base_rates.json"),
   ]);
+  const responses = [generationResponse, regionalResponse, ratesResponse, baseRatesResponse];
+  if (responses.some((response) => !response.ok)) {
+    throw new Error("One or more chart data files could not be loaded.");
+  }
+
   const generationRecords = await generationResponse.json();
   const regionalRecords = await regionalResponse.json();
   const rateRecords = await ratesResponse.json();
@@ -271,4 +291,9 @@ async function main() {
   renderBaseRateChart("chart-base-rate", baseRateRecords);
 }
 
-main();
+main().catch((error) => {
+  console.error("Unable to render charts:", error);
+  const status = document.getElementById("chart-status");
+  status.hidden = false;
+  status.textContent = "The chart data could not be loaded. Reload the page or open it from the published site.";
+});

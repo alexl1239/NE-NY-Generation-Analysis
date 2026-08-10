@@ -36,6 +36,6 @@ The modeled bill is not a customer's total electric bill. It excludes generation
 - Con Edison values come from the historical SC 1 tariff leaves downloaded for the relevant years.
 - NYSEG's 2020-2022 values come from Appendix CC, Schedule A1. The 2023-2024 values come from the official March 2024 historical SC 1 tariff. The locally downloaded current consolidated tariff has subsequently been updated through 2026 and is not treated as the historical 2023-2024 source.
 - NSTAR values come from Massachusetts annual-return tariff supplements for 2020-2022 and 2024, plus the approved D.P.U. 22-22 compliance tariff for 2023.
-- United Illuminating values come from its annual published rate schedules.
+- United Illuminating values come from its annual published rate schedules. The 2021 year-end observation is verified using the old-rate column in the January 2022 schedule; 2022 uses that schedule's new-rate column.
 
-Full source filenames, page or tariff-leaf references, and official URLs are included in the workbook's `Sources` sheet.
+Full source filenames, page or tariff-leaf references, audit notes, and official URLs are included in `site/data/base_rate_sources.csv` and in the local workbook's `Sources` sheet.
