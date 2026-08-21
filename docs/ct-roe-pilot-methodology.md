@@ -1,13 +1,13 @@
 # Matched-State Authorized-ROE Pilot
 
-**Status:** Preliminary source-audited pilot  
-**Utilities:** CL&P and United Illuminating in Connecticut; NSTAR and Massachusetts Electric in Massachusetts  
-**Years:** 2013-2024  
-**Regulators:** Connecticut Public Utilities Regulatory Authority (PURA) and Massachusetts Department of Public Utilities (DPU)
+**Status:** Preliminary source-audited pilot
+**Utilities:** CL&P and United Illuminating in Connecticut; NSTAR and Massachusetts Electric in Massachusetts; Con Edison and NYSEG in New York
+**Years:** 2013-2024
+**Regulators:** Connecticut Public Utilities Regulatory Authority (PURA), Massachusetts Department of Public Utilities (DPU), and New York Public Service Commission (PSC)
 
 ## Purpose
 
-This pilot tests a practical way to investigate the professors' proposed shareholder-return mechanism before collecting rate cases for the full investor-owned sample. It places one domestic investor-owned utility and one multinational-owned utility under the same regulator in each of two states. The within-state pairing keeps regulatory and market context more similar than a cross-state comparison.
+This pilot tests a practical way to investigate the professors' proposed shareholder-return mechanism before collecting rate cases for the full investor-owned sample. It places one domestic investor-owned utility and one multinational-owned utility under the same regulator in each of three states. The within-state pairing keeps regulatory and market context more similar than a cross-state comparison.
 
 The pilot does not test whether return on equity causes higher customer prices. It first establishes which regulatory quantities can be collected consistently and what each one means.
 
@@ -19,16 +19,18 @@ The pilot does not test whether return on equity causes higher customer prices. 
 - `actual_earned_roe` is the utility's realized return reported in an official filing. It is not substituted for authorized ROE.
 - `approved_equity_ratio` is the shareholder-funded share of the approved capital structure.
 - `approved_rate_base_million_usd` is the rate base reported for the particular rate year in a decision.
-- `authorized_equity_return_million_usd` is a derived component:
+- `authorized_equity_return_million_usd` is a derived authorized common-equity return component:
 
   `approved rate base × approved equity ratio × effective authorized ROE`
 
-  This is not a retail price, a bill, or the utility's total profit.
+  This is not shareholder compensation or dividends, a retail price, a bill, or the utility's total profit.
 - `approved_distribution_revenue_requirement_million_usd` is the annual distribution revenue requirement reported for a particular rate year.
 
 ## Time assignment
 
 The annual table records the authorized rate in force at the end of each calendar year. This is a transparent first-pass convention, not an annual average. A mid-year decision is therefore assigned to that year with an explanatory note.
+
+The website pairs this year-end ROE snapshot with EIA's full-calendar-year average price only as a simple descriptive check. The two measures are not treated as perfectly time-aligned.
 
 Decision-year dollar inputs remain attached to the specific rate year reported in the source. They are not silently carried forward. A blank means not found, not reported for that year, or not applicable; it never means zero.
 
@@ -42,13 +44,13 @@ UI's August 2023 final decision is treated separately. The controlling final dec
 
 ## Ownership
 
-CL&P and NSTAR are coded `DOM` throughout the pilot. Massachusetts Electric is coded `MTC` throughout because its ultimate parent is UK-based National Grid plc. UI is coded `DOM` through 2015 and `MTC` from 2016, following the project's existing annual ownership convention after the Iberdrola/UIL combination closed in December 2015. The displayed matched pairs use each utility's 2024 ownership.
+CL&P, NSTAR, and Con Edison are coded `DOM` throughout the pilot. Massachusetts Electric and NYSEG are coded `MTC` throughout. UI is coded `DOM` through 2015 and `MTC` from 2016, following the project's existing annual ownership convention after the Iberdrola/UIL combination closed in December 2015. The displayed matched pairs use each utility's 2024 ownership.
 
 ## Source hierarchy
 
 The source register prioritizes:
 
-1. PURA and Massachusetts DPU final decisions and official regulator pages.
+1. PURA, Massachusetts DPU, and New York PSC final decisions and official regulator pages.
 2. State consumer advocate and attorney general filings.
 3. SEC-filed utility disclosures.
 4. Official company ownership materials.
@@ -59,7 +61,7 @@ Each annual row and event uses source IDs that resolve to a source location. The
 
 Ready:
 
-- A 48-row annual pilot for four utilities from 2013 through 2024.
+- A 72-row annual pilot for six utilities from 2013 through 2024.
 - A separate event register so future orders are not confused with rates already in force.
 - Base, effective, and actual ROE kept as distinct concepts.
 - Formula-derived equity-return components only where official rate base and equity-share inputs are available.
@@ -71,4 +73,4 @@ Not yet ready:
 - A complete decomposition of customer bills into supply, delivery, taxes, and other components.
 - A regression using ROE.
 
-The next decision is whether another same-regulator pair would materially improve the descriptive check. New York and New Hampshire are candidates, but the current four-utility pilot should be reviewed first so the collection does not expand without a clear analytical payoff.
+The three matched-state comparisons are ready to present as preliminary evidence. A wider ROE panel should be collected only if ROE becomes a central variable in the later statistical model.

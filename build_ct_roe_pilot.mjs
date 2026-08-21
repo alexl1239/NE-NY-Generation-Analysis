@@ -36,6 +36,16 @@ const SOURCE_URLS = {
   S25: "https://www.mass.gov/doc/final-recommendations-from-the-financing-the-transition-focus-area-work-group/download",
   S26: "https://www.mass.gov/info-details/dpu-23-150-national-grid-electric-base-distribution-rate-case",
   S27: "https://www.sec.gov/Archives/edgar/data/72741/000007274118000028/a201710kdocument.htm",
+  S28: "https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B1714A09D-088F-4343-BF91-8DEA3685A614%7D",
+  S29: "https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B2148C1DE-E631-4E81-A447-C8E7E11EC6D9%7D",
+  S30: "https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B77923784-556A-47A6-B2CC-19F5C252C966%7D",
+  S31: "https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B7B06921C-6160-4FFD-B10F-1C1D03F16AEE%7D",
+  S32: "https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B40057589-0000-CA12-8AED-981944A08EED%7D",
+  S33: "https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B4CF18507-1968-4E38-9DB6-FD33FAF8426F%7D",
+  S34: "https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B9DD1BECA-915E-427E-A430-CC771B9EDE7C%7D",
+  S35: "https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B4E457600-A932-4843-9EBA-CEEE6CAA6457%7D",
+  S36: "https://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B508D258B-0000-C11C-A3DC-C20B65EE38E7%7D",
+  S37: "https://investor.conedison.com/static-files/0b4e12b3-f43b-4398-a04b-3699537cabb5",
 };
 
 const sources = [
@@ -66,6 +76,16 @@ const sources = [
   ["S25", "Massachusetts Department of Public Utilities", "Financing the Transition work-group final recommendations", "2025-06-30", SOURCE_URLS.S25, "p. 6, table of recently authorized ROEs", "D.P.U. 23-150 approved 9.35% ROE and 52.83% equity ratio for Massachusetts Electric", "Official regulator document summarizing the final order's capital parameters"],
   ["S26", "Massachusetts Department of Public Utilities", "D.P.U. 23-150 National Grid electric base distribution rate case", RETRIEVED_DATE, SOURCE_URLS.S26, "Case overview and key dates", "Final-order date and November 2024 customer-bill timing", "Official regulator case page used to cross-check the 2024 timing"],
   ["S27", "Eversource Energy / SEC", "2017 Form 10-K", "2018-02-22", SOURCE_URLS.S27, "NSTAR Electric distribution rate-case discussion", "D.P.U. 17-05 decision issued 2017-11-30; new rates took effect 2018-02-01 after the compliance filing; 10.00% ROE", "Company filing with the U.S. Securities and Exchange Commission used to verify effective timing"],
+  ["S28", "New York Public Service Commission", "Order Approving Electric, Gas, and Steam Rate Plans in Accord with Joint Proposal", "2014-02-21", SOURCE_URLS.S28, "p. 23 (PDF p. 26)", "Con Edison electric ROE changed from 10.15% to 9.20% for 2014-2015", "Official regulator final order"],
+  ["S29", "New York Public Service Commission", "Order Adopting Terms of Joint Proposal to Extend Electric Rate Plan", "2015-06-17", SOURCE_URLS.S29, "p. 6 (PDF p. 9)", "Con Edison electric ROE changed from 9.20% to 9.00% for 2016", "Official regulator final order"],
+  ["S30", "New York Public Service Commission", "Order Approving Electric and Gas Rate Plans", "2017-01-25", SOURCE_URLS.S30, "p. 26 (PDF p. 30)", "Con Edison 9.00% electric ROE for 2017-2019", "Official regulator final order"],
+  ["S31", "New York Public Service Commission", "Order Adopting Terms of Joint Proposal and Establishing Electric and Gas Rate Plan", "2020-01-16", SOURCE_URLS.S31, "p. 23 (PDF p. 28)", "Con Edison 8.80% electric ROE for 2020-2022", "Official regulator final order"],
+  ["S32", "New York Public Service Commission", "Order Adopting Terms of Joint Proposal and Establishing Electric and Gas Rate Plans with Additional Requirements", "2023-07-20", SOURCE_URLS.S32, "p. 17 (PDF p. 20)", "Con Edison 9.25% electric ROE for 2023-2025", "Official regulator final order"],
+  ["S33", "New York Public Service Commission", "Order Establishing Rate Plan for NYSEG and RG&E", "2010-09-21", SOURCE_URLS.S33, "p. 34 (PDF p. 36)", "NYSEG 10.00% electric ROE carried into the pilot", "Official regulator final order"],
+  ["S34", "New York Public Service Commission", "Order Approving Electric and Gas Rate Plans in Accord with Joint Proposal", "2016-06-15", SOURCE_URLS.S34, "p. 32 (PDF p. 35)", "NYSEG 9.00% electric ROE for the 2016-2019 rate plan", "Official regulator final order"],
+  ["S35", "New York Public Service Commission", "Order Approving Electric and Gas Rate Plans in Accord with Joint Proposal, with Modifications", "2020-11-19", SOURCE_URLS.S35, "p. 62 (PDF p. 65)", "NYSEG 8.80% electric ROE for 2020-2022", "Official regulator final order"],
+  ["S36", "New York Public Service Commission", "Order Adopting Joint Proposal", "2023-10-12", SOURCE_URLS.S36, "p. 27 (PDF p. 29)", "NYSEG 9.20% electric ROE for 2023-2026", "Official regulator final order"],
+  ["S37", "Consolidated Edison, Inc.", "Con Edison ownership source used in project crosswalk", RETRIEVED_DATE, SOURCE_URLS.S37, "Corporate report", "Domestic parent evidence for Consolidated Edison Company of New York", "Official company source"],
 ];
 
 const ownershipRows = [
@@ -74,6 +94,8 @@ const ownershipRows = [
   [19497, "United Illuminating Co", 2016, 2024, "MTC", "Iberdrola group through Avangrid", "Spain / multinational", "S12; S13", "Project assigns the completed December 2015 ownership change from calendar 2016"],
   [54913, "NSTAR Electric Company", 2013, 2024, "DOM", "Eversource Energy", "United States", "S14", "DOM throughout the pilot"],
   [11804, "Massachusetts Electric Company", 2013, 2024, "MTC", "National Grid plc", "United Kingdom / multinational", "S22", "Official DPU order identifies National Grid plc, incorporated in England and Wales, as the ultimate parent"],
+  [4226, "Consolidated Edison Co-NY Inc", 2013, 2024, "DOM", "Consolidated Edison, Inc.", "United States", "S37", "DOM throughout the pilot"],
+  [13511, "New York State Elec & Gas Corp", 2013, 2024, "MTC", "Iberdrola group through Avangrid", "Spain / multinational", "S13", "MTC throughout the pilot"],
 ];
 
 const uiActualRoe = new Map([
@@ -356,11 +378,153 @@ function mecoRow(year) {
   };
 }
 
+function conedRow(year) {
+  let baseRoe;
+  let docket;
+  let sourceIds;
+  let sourceStatus;
+  let annualizationNote;
+
+  if (year === 2013) {
+    baseRoe = 0.1015;
+    docket = "09-E-0428";
+    sourceIds = "S28";
+    sourceStatus = "Reported carried-in rate";
+    annualizationNote = "The 2014 order identifies 10.15% as the previously allowed electric ROE; it remained the year-end rate before the new plan began in 2014.";
+  } else if (year <= 2015) {
+    baseRoe = 0.0920;
+    docket = "13-E-0030";
+    sourceIds = "S28";
+    sourceStatus = year === 2014 ? "Reported final decision" : "Reported and carried forward";
+    annualizationNote = year === 2014
+      ? "The two-year electric rate plan began 2014-01-01 with a 9.20% ROE."
+      : "9.20% remained in force for the second year of the electric rate plan.";
+  } else if (year === 2016) {
+    baseRoe = 0.0900;
+    docket = "15-E-0050 / 13-E-0030";
+    sourceIds = "S29";
+    sourceStatus = "Reported rate-plan extension";
+    annualizationNote = "The extension order set a 9.00% ROE for calendar-year 2016.";
+  } else if (year <= 2019) {
+    baseRoe = 0.0900;
+    docket = "16-E-0060";
+    sourceIds = "S30";
+    sourceStatus = year === 2017 ? "Reported final decision" : "Reported and carried forward";
+    annualizationNote = year === 2017
+      ? "The three-year electric rate plan began 2017-01-01 with a 9.00% ROE."
+      : "9.00% carried forward under the 2017-2019 electric rate plan.";
+  } else if (year <= 2022) {
+    baseRoe = 0.0880;
+    docket = "19-E-0065";
+    sourceIds = "S31";
+    sourceStatus = year === 2020 ? "Reported final decision" : "Reported and carried forward";
+    annualizationNote = year === 2020
+      ? "The three-year electric rate plan began 2020-01-01 with an 8.80% ROE."
+      : "8.80% carried forward under the 2020-2022 electric rate plan.";
+  } else {
+    baseRoe = 0.0925;
+    docket = "22-E-0064";
+    sourceIds = "S32";
+    sourceStatus = year === 2023 ? "Reported final decision" : "Reported and carried forward";
+    annualizationNote = year === 2023
+      ? "The 2023-2025 electric rate plan uses a 9.25% ROE; tariffs implementing the order took effect in August 2023."
+      : "9.25% carried forward under the 2023-2025 electric rate plan.";
+  }
+
+  return {
+    utilityId: 4226,
+    utilityName: "Consolidated Edison Co-NY Inc",
+    displayName: "Con Edison (CECONY)",
+    state: "NY",
+    year,
+    ownership: "DOM",
+    baseRoe,
+    adjustmentBps: null,
+    actualRoe: null,
+    equityRatio: null,
+    rateBase: null,
+    revenueRequirement: null,
+    revenueChange: null,
+    docket,
+    sourceIds,
+    actualSourceIds: null,
+    annualizationNote,
+    sourceStatus,
+    ownershipSourceIds: "S37",
+  };
+}
+
+function nysegRow(year) {
+  let baseRoe;
+  let docket;
+  let sourceIds;
+  let sourceStatus;
+  let annualizationNote;
+
+  if (year <= 2015) {
+    baseRoe = 0.1000;
+    docket = "09-E-0715";
+    sourceIds = "S33";
+    sourceStatus = year === 2013 ? "Reported carried-in rate" : "Reported and carried forward";
+    annualizationNote = year === 2013
+      ? "The 2010 rate order set a 10.00% ROE; the rate plan ran through 2013 and its provisions remained in effect until rates were reset."
+      : "10.00% carried forward after the 2010 rate plan until the 2016 rate decision.";
+  } else if (year <= 2019) {
+    baseRoe = 0.0900;
+    docket = "15-E-0283";
+    sourceIds = "S34";
+    sourceStatus = year === 2016 ? "Reported final decision" : "Reported and carried forward";
+    annualizationNote = year === 2016
+      ? "The order set a 9.00% ROE and tariffs took effect 2016-07-01."
+      : "9.00% carried forward from the 2016 rate plan until rates were reset in 2020.";
+  } else if (year <= 2022) {
+    baseRoe = 0.0880;
+    docket = "19-E-0378";
+    sourceIds = "S35";
+    sourceStatus = year === 2020 ? "Reported final decision" : "Reported and carried forward";
+    annualizationNote = year === 2020
+      ? "The rate plan uses an 8.80% ROE; tariffs implementing the order took effect 2020-12-01."
+      : "8.80% carried forward under the 2020-2022 rate plan.";
+  } else {
+    baseRoe = 0.0920;
+    docket = "22-E-0317";
+    sourceIds = "S36";
+    sourceStatus = year === 2023 ? "Reported final decision" : "Reported and carried forward";
+    annualizationNote = year === 2023
+      ? "The rate plan uses a 9.20% ROE; tariffs implementing the order took effect 2023-11-01."
+      : "9.20% carried forward under the 2023-2026 rate plan.";
+  }
+
+  return {
+    utilityId: 13511,
+    utilityName: "New York State Elec & Gas Corp",
+    displayName: "NYSEG",
+    state: "NY",
+    year,
+    ownership: "MTC",
+    baseRoe,
+    adjustmentBps: null,
+    actualRoe: null,
+    equityRatio: null,
+    rateBase: null,
+    revenueRequirement: null,
+    revenueChange: null,
+    docket,
+    sourceIds,
+    actualSourceIds: null,
+    annualizationNote,
+    sourceStatus,
+    ownershipSourceIds: "S13",
+  };
+}
+
 const annual = [];
 for (let year = 2013; year <= 2024; year += 1) annual.push(clpRow(year));
 for (let year = 2013; year <= 2024; year += 1) annual.push(uiRow(year));
 for (let year = 2013; year <= 2024; year += 1) annual.push(nstarRow(year));
 for (let year = 2013; year <= 2024; year += 1) annual.push(mecoRow(year));
+for (let year = 2013; year <= 2024; year += 1) annual.push(conedRow(year));
+for (let year = 2013; year <= 2024; year += 1) annual.push(nysegRow(year));
 
 const events = [
   ["E01", 4176, "Eversource Connecticut (CL&P)", null, "In force entering 2013", "Carried-in rate", "09-12-05", 0.0940, null, 0.0940, null, null, null, null, "Yes", "S01", "Beginning value for the pilot; earlier decision details are not reconstructed here."],
@@ -378,6 +542,16 @@ const events = [
   ["E13", 11804, "Massachusetts Electric (National Grid)", "2016-09-30", "2016-10-01", "Rate decision", "D.P.U. 15-155", 0.0990, null, 0.0990, 0.51, null, null, 101.0, "Yes", "S23; S22", "National Grid's SEC-filed results report the approved ROE, equity ratio, and annual revenue increase."],
   ["E14", 11804, "Massachusetts Electric (National Grid)", "2019-09-30", "2019-10-01", "Rate decision", "D.P.U. 18-150", 0.0960, null, 0.0960, 0.535, null, null, 42.0, "Yes", "S24", "SEC-filed results report the approved capital parameters and initial annual revenue increase."],
   ["E15", 11804, "Massachusetts Electric (National Grid)", "2024-09-30", "November 2024 bills", "Rate decision", "D.P.U. 23-150", 0.0935, null, 0.0935, 0.5283, null, null, null, "Yes", "S25; S26", "Official DPU sources support the final capital parameters and customer-bill timing."],
+  ["E16", 4226, "Con Edison (CECONY)", null, "In force entering 2013", "Carried-in rate", "09-E-0428", 0.1015, null, 0.1015, null, null, null, null, "Yes", "S28", "The 2014 order identifies 10.15% as the prior allowed electric ROE."],
+  ["E17", 4226, "Con Edison (CECONY)", "2014-02-21", "2014-01-01", "Rate decision", "13-E-0030", 0.0920, null, 0.0920, null, null, null, null, "Yes", "S28", "The two-year electric rate plan used a 9.20% ROE for 2014-2015."],
+  ["E18", 4226, "Con Edison (CECONY)", "2015-06-17", "2016-01-01", "Rate-plan extension", "15-E-0050 / 13-E-0030", 0.0900, null, 0.0900, null, null, null, null, "Yes", "S29", "The extension order set a 9.00% ROE for calendar-year 2016."],
+  ["E19", 4226, "Con Edison (CECONY)", "2017-01-25", "2017-01-01", "Rate decision", "16-E-0060", 0.0900, null, 0.0900, null, null, null, null, "Yes", "S30", "The three-year electric rate plan used a 9.00% ROE for 2017-2019."],
+  ["E20", 4226, "Con Edison (CECONY)", "2020-01-16", "2020-01-01", "Rate decision", "19-E-0065", 0.0880, null, 0.0880, null, null, null, null, "Yes", "S31", "The three-year electric rate plan used an 8.80% ROE for 2020-2022."],
+  ["E21", 4226, "Con Edison (CECONY)", "2023-07-20", "2023 year-end", "Rate decision", "22-E-0064", 0.0925, null, 0.0925, null, null, null, null, "Yes", "S32", "The 2023-2025 electric rate plan uses a 9.25% ROE."],
+  ["E22", 13511, "NYSEG", "2010-09-21", "In force entering 2013", "Carried-in rate", "09-E-0715", 0.1000, null, 0.1000, null, null, null, null, "Yes", "S33", "The 2010 rate order set a 10.00% ROE; its provisions remained until rates were reset."],
+  ["E23", 13511, "NYSEG", "2016-06-15", "2016-07-01", "Rate decision", "15-E-0283", 0.0900, null, 0.0900, null, null, null, null, "Yes", "S34", "The rate plan used a 9.00% ROE; tariffs took effect July 2016."],
+  ["E24", 13511, "NYSEG", "2020-11-19", "2020-12-01", "Rate decision", "19-E-0378", 0.0880, null, 0.0880, null, null, null, null, "Yes", "S35", "The 2020-2022 rate plan used an 8.80% ROE."],
+  ["E25", 13511, "NYSEG", "2023-10-12", "2023-11-01", "Rate decision", "22-E-0317", 0.0920, null, 0.0920, null, null, null, null, "Yes", "S36", "The 2023-2026 rate plan uses a 9.20% ROE."],
 ];
 
 const annualHeaders = [
@@ -473,24 +647,24 @@ async function buildWorkbook() {
   }
 
   styleTitle(readme, "A1:F1", "Matched-state authorized-ROE pilot, 2013-2024");
-  styleSubtitle(readme, "A2:F2", "Two domestic/multinational utility pairs under the same state regulator in Connecticut and Massachusetts. This is a source audit and descriptive check, not a causal test.");
+  styleSubtitle(readme, "A2:F2", "Three domestic/multinational utility pairs under the same state regulator in Connecticut, Massachusetts, and New York. This is a source audit and descriptive check, not a causal test.");
   readme.getRange("A4:B4").values = [["Pilot scope", "What is settled"]];
   styleHeader(readme.getRange("A4:B4"));
   readme.getRange("A5:B9").values = [
-    ["Utilities", "Connecticut: CL&P and UI. Massachusetts: NSTAR and Massachusetts Electric. Each state has one 2024 DOM utility and one MTC utility."],
-    ["Years", "2013-2024; authorized values are assigned by the rate in force at year-end"],
-    ["Regulators", "Connecticut PURA and Massachusetts DPU"],
+    ["Utilities", "Connecticut: CL&P and UI. Massachusetts: NSTAR and Massachusetts Electric. New York: Con Edison and NYSEG. Each state has one 2024 DOM utility and one MTC utility."],
+    ["Years", "2013-2024; authorized values are year-end snapshots, while EIA prices used on the website are full-year averages"],
+    ["Regulators", "Connecticut PURA, Massachusetts DPU, and New York PSC"],
     ["Source rule", "Official regulator, state advocate, SEC, and utility filings; blanks remain blank when a defensible figure was not found"],
-    ["Current use", "Compare price and authorized-ROE histories within each state while keeping every value source-auditable"],
+    ["Current use", "Use full-year price and year-end authorized ROE as a descriptive direction check within each state; do not treat them as perfectly time-aligned or causal"],
   ];
   readme.getRange("A11:B11").values = [["Term", "Plain-language meaning"]];
   styleHeader(readme.getRange("A11:B11"));
   readme.getRange("A12:B18").values = [
     ["Base authorized ROE", "The regulator-approved return percentage on the shareholder-funded part of rate base before a separately stated performance penalty."],
-    ["Effective authorized ROE", "Base authorized ROE after an adjustment that is actually in force. A future-proceeding order is not treated as immediately effective."],
+    ["Effective authorized ROE (year-end)", "Base authorized ROE after an adjustment that is actually in force at calendar year-end. A future-proceeding order is not treated as immediately effective."],
     ["Actual earned ROE", "What the utility reported earning. In this pilot it is available only for UI in 2017-2021 from an OCC filing."],
     ["Rate base", "The regulator-approved value of utility assets used to provide regulated service, net of specified adjustments."],
-    ["Authorized equity return", "A transparent derived component: approved rate base × approved equity ratio × effective authorized ROE. It is not a customer price or total profit."],
+    ["Authorized common-equity return component", "A transparent derived component: approved rate base × approved equity ratio × effective authorized ROE. It is not shareholder compensation, dividends, a customer price, or total profit."],
     ["Revenue requirement", "The annual regulated distribution revenue the decision allows the utility to collect, where the source reports it."],
     ["Blank cell", "Not found, not reported for that rate year, or not applicable. Blank never means zero."],
   ];
@@ -498,11 +672,11 @@ async function buildWorkbook() {
   styleHeader(readme.getRange("A20:B20"));
   readme.getRange("A21:B23").values = [
     ["The annual series keeps base ROE, penalties, and actual earned ROE separate.", "It does not establish that ROE caused a price difference."],
-    ["UI's 2023 final decision used 9.10% base ROE and 47 bp of adjustments, producing 8.63% effective ROE.", "Authorized ROE is one distribution-cost input; it is not a complete customer-bill explanation."],
-    ["The 2021 Isaias penalties are retained as future-order events and not silently subtracted from 2021 observations.", "Four utilities are still not representative of all MTC or DOM utilities."],
+    ["In 2024 the MTC utility had the lower ROE in all three states, but its price was higher in Connecticut and Massachusetts and lower in New York.", "Authorized ROE is one distribution-cost input; it is not a complete customer-bill explanation."],
+    ["The 2021 Isaias penalties remain future-order events and are not silently subtracted from 2021 observations.", "Six utilities are still not representative of all MTC or DOM utilities."],
   ];
   readme.getRange("A25:F25").merge();
-  readme.getRange("A25:F25").values = [["Next: use these two matched-state comparisons to decide whether another pair adds enough value before collecting a wider ROE panel."]];
+  readme.getRange("A25:F25").values = [["Next: present the three matched-state comparisons as a sourced preliminary finding before deciding whether ROE belongs in a wider panel model."]];
   readme.getRange("A25:F25").format = {
     fill: "#FFF4D6",
     font: { bold: true, color: "#5B4600" },
@@ -555,7 +729,7 @@ async function buildWorkbook() {
   annualSheet.freezePanes.freezeColumns(3);
   setColumnWidths(annualSheet, [
     ["A:A", 12], ["B:C", 28], ["D:D", 7], ["E:F", 10], ["G:J", 15], ["K:K", 14],
-    ["L:L", 14], ["M:Q", 18], ["R:R", 12], ["S:U", 17], ["V:V", 58], ["W:W", 18],
+    ["L:L", 14], ["M:Q", 18], ["R:R", 24], ["S:U", 17], ["V:V", 58], ["W:W", 18],
   ]);
 
   const eventHeaders = [

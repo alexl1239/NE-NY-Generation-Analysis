@@ -14,3 +14,13 @@ E12,11804,Massachusetts Electric (National Grid),,In force entering 2013,Carried
 E13,11804,Massachusetts Electric (National Grid),2016-09-30,2016-10-01,Rate decision,D.P.U. 15-155,0.099,,0.099,0.51,,,101,Yes,S23; S22,"National Grid's SEC-filed results report the approved ROE, equity ratio, and annual revenue increase."
 E14,11804,Massachusetts Electric (National Grid),2019-09-30,2019-10-01,Rate decision,D.P.U. 18-150,0.096,,0.096,0.535,,,42,Yes,S24,SEC-filed results report the approved capital parameters and initial annual revenue increase.
 E15,11804,Massachusetts Electric (National Grid),2024-09-30,November 2024 bills,Rate decision,D.P.U. 23-150,0.0935,,0.0935,0.5283,,,,Yes,S25; S26,Official DPU sources support the final capital parameters and customer-bill timing.
+E16,4226,Con Edison (CECONY),,In force entering 2013,Carried-in rate,09-E-0428,0.1015,,0.1015,,,,,Yes,S28,The 2014 order identifies 10.15% as the prior allowed electric ROE.
+E17,4226,Con Edison (CECONY),2014-02-21,2014-01-01,Rate decision,13-E-0030,0.092,,0.092,,,,,Yes,S28,The two-year electric rate plan used a 9.20% ROE for 2014-2015.
+E18,4226,Con Edison (CECONY),2015-06-17,2016-01-01,Rate-plan extension,15-E-0050 / 13-E-0030,0.09,,0.09,,,,,Yes,S29,The extension order set a 9.00% ROE for calendar-year 2016.
+E19,4226,Con Edison (CECONY),2017-01-25,2017-01-01,Rate decision,16-E-0060,0.09,,0.09,,,,,Yes,S30,The three-year electric rate plan used a 9.00% ROE for 2017-2019.
+E20,4226,Con Edison (CECONY),2020-01-16,2020-01-01,Rate decision,19-E-0065,0.088,,0.088,,,,,Yes,S31,The three-year electric rate plan used an 8.80% ROE for 2020-2022.
+E21,4226,Con Edison (CECONY),2023-07-20,2023 year-end,Rate decision,22-E-0064,0.0925,,0.0925,,,,,Yes,S32,The 2023-2025 electric rate plan uses a 9.25% ROE.
+E22,13511,NYSEG,2010-09-21,In force entering 2013,Carried-in rate,09-E-0715,0.1,,0.1,,,,,Yes,S33,The 2010 rate order set a 10.00% ROE; its provisions remained until rates were reset.
+E23,13511,NYSEG,2016-06-15,2016-07-01,Rate decision,15-E-0283,0.09,,0.09,,,,,Yes,S34,The rate plan used a 9.00% ROE; tariffs took effect July 2016.
+E24,13511,NYSEG,2020-11-19,2020-12-01,Rate decision,19-E-0378,0.088,,0.088,,,,,Yes,S35,The 2020-2022 rate plan used an 8.80% ROE.
+E25,13511,NYSEG,2023-10-12,2023-11-01,Rate decision,22-E-0317,0.092,,0.092,,,,,Yes,S36,The 2023-2026 rate plan uses a 9.20% ROE.

@@ -140,17 +140,16 @@
     </section>
 
     <section id="roe-case-study">
-      <h2>Matched-state check: prices and authorized return</h2>
+      <h2>Matched-state check: prices and year-end authorized ROE</h2>
       <p>
-        Investor-owned utilities receive an authorized return for shareholders;
-        local non-shareholder utilities do not have that same shareholder-return
-        requirement. That return applies to the distribution business, while a
-        bundled price also includes electricity supply. This section compares one
-        DOM and one MTC utility under the same regulator in Connecticut, then repeats
-        the check in Massachusetts. Matching within a state keeps the regulator and
-        much of the market setting more similar. It is still descriptive, not causal.
-        These four utilities are enough for a focused preliminary check, but not for
-        an ownership-wide estimate.
+        Investor-owned utilities can earn a regulator-authorized return on the
+        shareholder-funded part of approved rate base. Local non-shareholder utilities
+        do not have this shareholder ROE, although they still have financing costs;
+        cooperatives may return margins through
+        <a href="https://www.irs.gov/pub/irs-wd/0838008.pdf" target="_blank" rel="noopener">capital credits</a>.
+        This section compares one DOM and one MTC utility under the same regulator in
+        Connecticut, Massachusetts, and New York. Matching within a state makes the
+        comparison more useful, but it remains descriptive rather than causal.
       </p>
       <div class="panel-controls ct-case-study-controls">
         <label for="ct-case-customer-class">
@@ -165,19 +164,21 @@
       <p id="ct-case-study-status" class="chart-status" hidden></p>
       <div id="ct-case-study-charts" class="ct-case-study-grid" aria-live="polite"></div>
       <p class="table-note">
-        Each utility stays separate. Its price uses the left axis and authorized ROE
-        uses the right axis; both scales are held fixed across all four charts. ROE
-        is a step line because it changes when a new decision takes effect. The two
-        axes help compare timing, not the size of the two measures. An orange-outlined
-        price point still marks bundled coverage below 50%.
+        Each utility stays separate. Its full-year average price uses the left axis
+        and year-end authorized ROE uses the right axis; both scales are held fixed
+        across all six charts. ROE is a step line because it changes when a new
+        decision takes effect. The two axes support a descriptive comparison of
+        direction, not a claim that the measures are perfectly time-aligned or causal.
+        An orange-outlined price point still marks bundled coverage below 50%.
       </p>
       <p id="ct-case-study-finding" class="result-note"></p>
       <p class="table-note">
-        Prices come from EIA. ROE comes from PURA and Massachusetts DPU decisions,
+        Prices come from EIA. ROE comes from PURA, Massachusetts DPU, and New York PSC decisions,
         with SEC or official company filings used where they provide the clearest
-        stable record. The chart uses the authorized rate in force at year-end.
-        Hover, tap, or focus a point to open the source used for that year.
-        <a href="data/roe_case_study.csv">Download the four-utility data</a>
+        stable record. Each price is EIA's average for the full calendar year; each
+        ROE is the authorized rate in force at that year's end. Hover, tap, or focus
+        a point to open the source used for that year.
+        <a href="data/roe_case_study.csv">Download the six-utility data</a>
         ·
         <a href="data/roe_source_register.csv">View the source register</a>
       </p>
@@ -253,12 +254,13 @@
         <li>
           <strong>Authorized return on equity:</strong> the matched-state pilot uses
           the ROE approved by Connecticut PURA or Massachusetts DPU for the
-          shareholder-funded portion of rate base.
-          Base ROE, effective ROE after an in-force penalty, and actual earned ROE
-          remain separate in the downloadable data. The chart shows effective
-          authorized ROE. Any dollar return component is calculated only when the
-          decision reports rate base and the approved equity ratio; it is not a
-          customer price or total company profit.
+          shareholder-funded portion of rate base. Base ROE, effective ROE after an
+          in-force adjustment, and actual earned ROE remain separate in the
+          downloadable data. The chart shows effective authorized ROE in force at
+          year-end. The derived dollar value is an authorized common-equity return
+          component calculated only when the decision reports rate base and the
+          approved equity ratio. It is not shareholder compensation, dividends, a
+          customer price, or total company profit.
         </li>
         <li>
           <strong>Regional generation:</strong> annual EIA-923 net generation at
@@ -351,7 +353,7 @@
   <script src="data/ownership_price_summary.js"></script>
   <script src="data/reliability_panel.js?v=20260810a"></script>
   <script src="data/iso_fuel_mix.js"></script>
-  <script src="data/roe_case_study.js?v=20260810a"></script>
-  <script src="panel.js?v=20260810i"></script>
+  <script src="data/roe_case_study.js?v=20260820b"></script>
+  <script src="panel.js?v=20260820j"></script>
 </body>
 </html>

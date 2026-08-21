@@ -4,3 +4,5 @@ utility_id_eia,utility_name,start_year,end_year,ownership,ultimate_parent_or_own
 19497,United Illuminating Co,2016,2024,MTC,Iberdrola group through Avangrid,Spain / multinational,S12; S13,Project assigns the completed December 2015 ownership change from calendar 2016
 54913,NSTAR Electric Company,2013,2024,DOM,Eversource Energy,United States,S14,DOM throughout the pilot
 11804,Massachusetts Electric Company,2013,2024,MTC,National Grid plc,United Kingdom / multinational,S22,"Official DPU order identifies National Grid plc, incorporated in England and Wales, as the ultimate parent"
+4226,Consolidated Edison Co-NY Inc,2013,2024,DOM,"Consolidated Edison, Inc.",United States,S37,DOM throughout the pilot
+13511,New York State Elec & Gas Corp,2013,2024,MTC,Iberdrola group through Avangrid,Spain / multinational,S13,MTC throughout the pilot

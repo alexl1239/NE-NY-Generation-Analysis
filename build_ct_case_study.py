@@ -14,7 +14,7 @@ ROE_PATH = PROJECT_ROOT / "data" / "processed" / "roe_annual_pilot_2013_2024.csv
 SOURCE_PATH = PROJECT_ROOT / "data" / "processed" / "roe_source_register.csv"
 SITE_DATA_DIR = PROJECT_ROOT / "site" / "data"
 
-UTILITY_IDS = {4176, 19497, 54913, 11804}
+UTILITY_IDS = {4176, 19497, 54913, 11804, 4226, 13511}
 OUTPUT_FIELDS = [
     "panel_id",
     "utility_id_eia",
@@ -105,8 +105,8 @@ def build_rows() -> list[dict[str, object]]:
         row for row in read_csv(ROE_PATH)
         if int(row["utility_id_eia"]) in UTILITY_IDS
     ]
-    assert len(prices) == 48
-    assert len(roe_rows) == 48
+    assert len(prices) == 72
+    assert len(roe_rows) == 72
 
     output = []
     for roe in roe_rows:
@@ -176,7 +176,7 @@ def write_outputs(rows: list[dict[str, object]]) -> None:
     SITE_DATA_DIR.mkdir(parents=True, exist_ok=True)
     csv_path = SITE_DATA_DIR / "roe_case_study.csv"
     with csv_path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=OUTPUT_FIELDS)
+        writer = csv.DictWriter(handle, fieldnames=OUTPUT_FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -191,7 +191,7 @@ def write_outputs(rows: list[dict[str, object]]) -> None:
     source_rows = read_csv(SOURCE_PATH)
     source_output = SITE_DATA_DIR / "roe_source_register.csv"
     with source_output.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=source_rows[0].keys())
+        writer = csv.DictWriter(handle, fieldnames=source_rows[0].keys(), lineterminator="\n")
         writer.writeheader()
         writer.writerows(source_rows)
 

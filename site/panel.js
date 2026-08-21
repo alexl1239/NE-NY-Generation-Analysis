@@ -9,18 +9,22 @@ const CUSTOMER_CLASS_LABELS = {
   commercial: "Commercial",
   industrial: "Industrial",
 };
-const CT_CASE_STUDY_UTILITY_IDS = [4176, 19497, 54913, 11804];
+const CT_CASE_STUDY_UTILITY_IDS = [4176, 19497, 54913, 11804, 4226, 13511];
 const CT_CASE_STUDY_NAMES = {
   4176: "Eversource Connecticut (CL&P)",
   19497: "United Illuminating",
   54913: "NSTAR Electric (Eversource)",
   11804: "Massachusetts Electric (National Grid)",
+  4226: "Con Edison (CECONY)",
+  13511: "NYSEG",
 };
 const ROE_SHORT_NAMES = {
   4176: "CL&P",
   19497: "United Illuminating",
   54913: "NSTAR",
   11804: "Massachusetts Electric",
+  4226: "Con Edison",
+  13511: "NYSEG",
 };
 const ROE_STATE_PAIRS = [
   {
@@ -36,6 +40,13 @@ const ROE_STATE_PAIRS = [
     regulator: "Massachusetts DPU",
     domId: 54913,
     mtcId: 11804,
+  },
+  {
+    state: "New York",
+    abbreviation: "NY",
+    regulator: "New York PSC",
+    domId: 4226,
+    mtcId: 13511,
   },
 ];
 const CT_ROE_MINIMUM = 0.08;
@@ -1570,7 +1581,7 @@ function ctAuthorizedRoeDetail(record) {
   const adjustment = isNumber(record.performance_adjustment_bps)
     ? ` · ${formatSignedBasisPoints(record.performance_adjustment_bps)} adjustment`
     : "";
-  return `${record.year} · effective ROE ${formatRoe(
+  return `${record.year} · year-end effective ROE ${formatRoe(
     record.effective_authorized_roe
   )}\nBase ${formatRoe(record.base_authorized_roe)}${adjustment}`;
 }
@@ -1612,7 +1623,7 @@ function buildCtDualAxisChart(records, customerClass, priceMaximum) {
   const legend = createElement("div", "ct-dual-chart__legend");
   legend.append(
     createElement("span", "ct-dual-chart__legend-item ct-dual-chart__legend-item--price", "Price · left axis"),
-    createElement("span", "ct-dual-chart__legend-item ct-dual-chart__legend-item--roe", "Authorized ROE · right axis")
+    createElement("span", "ct-dual-chart__legend-item ct-dual-chart__legend-item--roe", "Year-end authorized ROE · right axis")
   );
   block.appendChild(legend);
 
@@ -1620,7 +1631,7 @@ function buildCtDualAxisChart(records, customerClass, priceMaximum) {
     class: "ct-dual-chart",
     viewBox: `0 0 ${width} ${height}`,
     role: "img",
-    "aria-label": `${CT_CASE_STUDY_NAMES[records[0].utility_id_eia]} ${customerClass} price and authorized return on equity, 2013 to 2024`,
+    "aria-label": `${CT_CASE_STUDY_NAMES[records[0].utility_id_eia]} ${customerClass} full-year average price and year-end authorized return on equity, 2013 to 2024`,
   });
 
   const leftAxisTitle = svgElement("text", {
@@ -1637,7 +1648,7 @@ function buildCtDualAxisChart(records, customerClass, priceMaximum) {
     y: 11,
     "text-anchor": "end",
   });
-  rightAxisTitle.textContent = "Authorized ROE";
+  rightAxisTitle.textContent = "Year-end ROE";
   svg.appendChild(rightAxisTitle);
 
   for (const tick of [0, priceMaximum / 2, priceMaximum]) {
@@ -1732,7 +1743,7 @@ function buildCtDualAxisChart(records, customerClass, priceMaximum) {
       createElement(
         "span",
         "ct-dual-chart__detail-main",
-        `${record.year} · Price ${isNumber(price) ? formatPrice(price) : "not reported"} · ROE ${formatRoe(
+        `${record.year} · Full-year price ${isNumber(price) ? formatPrice(price) : "not reported"} · Year-end ROE ${formatRoe(
           record.effective_authorized_roe
         )}`
       ),
@@ -1795,7 +1806,7 @@ function buildCtDualAxisChart(records, customerClass, priceMaximum) {
         "data-year": record.year,
         tabindex: "0",
         role: "img",
-        "aria-label": `${record.year} authorized ROE ${formatRoe(record.effective_authorized_roe)}`,
+        "aria-label": `${record.year} year-end authorized ROE ${formatRoe(record.effective_authorized_roe)}`,
       });
       const update = () => showDetail(record);
       point.addEventListener("pointerenter", update);
@@ -1846,7 +1857,7 @@ function buildCtCaseStudyCard(records, customerClass, priceMaximum) {
   const latestSummary = createElement("p", "ct-case-study-card__latest");
   latestSummary.append(
     createElement("strong", "", formatPrice(latest[priceKey])),
-    document.createTextNode(` ${customerClass} · ROE ${formatRoe(latest.effective_authorized_roe)}`)
+    document.createTextNode(` ${customerClass} · year-end ROE ${formatRoe(latest.effective_authorized_roe)}`)
   );
   header.append(titleBlock, latestSummary);
   card.appendChild(header);
@@ -2139,6 +2150,7 @@ function ctCaseStudyFinding(records, customerClass) {
   const pairs = [
     { state: "Connecticut", domId: 4176, mtcId: 19497, domName: "CL&P", mtcName: "UI" },
     { state: "Massachusetts", domId: 54913, mtcId: 11804, domName: "NSTAR", mtcName: "Massachusetts Electric" },
+    { state: "New York", domId: 4226, mtcId: 13511, domName: "Con Edison", mtcName: "NYSEG" },
   ];
   const comparisons = pairs.map((pair) => {
     const dom = latest.find((record) => record.utility_id_eia === pair.domId);
@@ -2151,23 +2163,24 @@ function ctCaseStudyFinding(records, customerClass) {
       roeDifference,
       text: `${pair.state}: ${pair.mtcName} (MTC) was ${Math.abs(priceDifference).toFixed(
         2
-      )}¢/kWh ${priceDifference >= 0 ? "higher" : "lower"} than ${pair.domName} (DOM), while its authorized ROE was ${Math.abs(
+      )}¢/kWh ${priceDifference >= 0 ? "higher" : "lower"} than ${pair.domName} (DOM), while its year-end authorized ROE was ${Math.abs(
         roeDifference
       ).toFixed(2)} percentage points ${roeDifference >= 0 ? "higher" : "lower"}.`,
     };
   });
-  const sameAcrossStates =
-    Math.sign(comparisons[0].priceDifference) === Math.sign(comparisons[1].priceDifference) &&
-    Math.sign(comparisons[0].roeDifference) === Math.sign(comparisons[1].roeDifference);
-  const priceAndRoeMoveTogether = comparisons.every(
-    (comparison) => Math.sign(comparison.priceDifference) === Math.sign(comparison.roeDifference)
-  );
-  const takeaway = sameAcrossStates
-    ? priceAndRoeMoveTogether
-      ? `In both states, the price and ROE differences point in the same direction for ${customerLabel} customers.`
-      : `In both states, the MTC utility's price and ROE differences point in opposite directions for ${customerLabel} customers. That does not fit a simple higher-ROE, higher-price story.`
-    : `The ${customerLabel} price comparison points in different directions across the two states, even though the MTC utility has the lower authorized ROE in both.`;
-  return `2024 matched-state check. ${comparisons.map((comparison) => comparison.text).join(" ")} ${takeaway} This is a useful check on a simple ROE explanation, but two pairs cannot establish causation.`;
+  const lowerRoeStates = comparisons
+    .filter((comparison) => comparison.roeDifference < 0)
+    .map((comparison) => comparison.state);
+  const higherPriceStates = comparisons
+    .filter((comparison) => comparison.priceDifference > 0)
+    .map((comparison) => comparison.state);
+  const lowerPriceStates = comparisons
+    .filter((comparison) => comparison.priceDifference < 0)
+    .map((comparison) => comparison.state);
+  const takeaway = lowerRoeStates.length === comparisons.length && higherPriceStates.length && lowerPriceStates.length
+    ? `The MTC utility has the lower year-end ROE in all three states, but its ${customerLabel} price is higher in ${higherPriceStates.join(" and ")} and lower in ${lowerPriceStates.join(" and ")}. That does not fit a simple higher-ROE, higher-price story.`
+    : `The three state comparisons do not show one consistent relationship between year-end authorized ROE and ${customerLabel} price.`;
+  return `2024 matched-state snapshot. ${comparisons.map((comparison) => comparison.text).join(" ")} ${takeaway} Prices are full-year averages and ROE is measured at year-end. This is a useful check on a simple ROE explanation, but three pairs cannot establish causation.`;
 }
 
 function setupCtCaseStudy(records) {
@@ -2175,7 +2188,7 @@ function setupCtCaseStudy(records) {
   const charts = document.getElementById("ct-case-study-charts");
   const finding = document.getElementById("ct-case-study-finding");
   const customerClassSelect = document.getElementById("ct-case-customer-class");
-  if (!Array.isArray(records) || records.length !== 48) {
+  if (!Array.isArray(records) || records.length !== 72) {
     status.hidden = false;
     status.textContent = "The matched-state rate-case data did not load.";
     return;
