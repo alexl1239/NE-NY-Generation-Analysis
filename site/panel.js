@@ -1370,6 +1370,265 @@ function setupOwnershipComparison(summaryRecords, panelRecords) {
   render();
 }
 
+function formatSignedCents(value, digits = 2) {
+  const number = Number(value);
+  const sign = number > 0 ? "+" : number < 0 ? "−" : "";
+  return `${sign}${Math.abs(number).toFixed(digits)}¢/kWh`;
+}
+
+function setupComparisonTabs() {
+  const observedTab = document.getElementById("observed-comparison-tab");
+  const adjustedTab = document.getElementById("adjusted-comparison-tab");
+  const observedPanel = document.getElementById("observed-comparison-panel");
+  const adjustedPanel = document.getElementById("adjusted-comparison-panel");
+  const tabs = [observedTab, adjustedTab];
+
+  const activate = (tab) => {
+    const showAdjusted = tab === adjustedTab;
+    observedPanel.hidden = showAdjusted;
+    adjustedPanel.hidden = !showAdjusted;
+    for (const item of tabs) {
+      const selected = item === tab;
+      item.classList.toggle("is-active", selected);
+      item.setAttribute("aria-selected", String(selected));
+      item.tabIndex = selected ? 0 : -1;
+    }
+  };
+
+  observedTab.addEventListener("click", () => activate(observedTab));
+  adjustedTab.addEventListener("click", () => activate(adjustedTab));
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("keydown", (event) => {
+      if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+      event.preventDefault();
+      const direction = event.key === "ArrowRight" ? 1 : -1;
+      const next = tabs[(index + direction + tabs.length) % tabs.length];
+      activate(next);
+      next.focus();
+    });
+  });
+  activate(observedTab);
+}
+
+function ownershipModelDomain(models) {
+  const effects = models.flatMap((model) => model.ownership_results || []);
+  const lowest = Math.min(...effects.map((effect) => effect.confidence_95_low));
+  const highest = Math.max(...effects.map((effect) => effect.confidence_95_high));
+  return {
+    minimum: Math.min(-5, Math.floor((lowest - 1) / 5) * 5),
+    maximum: Math.max(5, Math.ceil((highest + 1) / 5) * 5),
+  };
+}
+
+function buildOwnershipPriceModelChart(model, domain) {
+  const width = 760;
+  const height = 235;
+  const margin = { top: 38, right: 68, bottom: 50, left: 92 };
+  const plotWidth = width - margin.left - margin.right;
+  const axisY = height - margin.bottom;
+  const x = (value) =>
+    margin.left +
+    ((value - domain.minimum) / (domain.maximum - domain.minimum)) * plotWidth;
+  const svg = svgElement("svg", {
+    class: "ownership-price-model-svg",
+    viewBox: `0 0 ${width} ${height}`,
+    role: "img",
+    "aria-label": `${CUSTOMER_CLASS_LABELS[model.customer_class]} adjusted price differences from DOM. ${model.ownership_results
+      .map(
+        (effect) =>
+          `${effect.ownership} ${formatSignedCents(effect.estimate_cents_kwh)} with a 95 percent range from ${formatSignedCents(effect.confidence_95_low)} to ${formatSignedCents(effect.confidence_95_high)}`
+      )
+      .join(". ")}`,
+  });
+
+  for (let tick = domain.minimum; tick <= domain.maximum; tick += 5) {
+    const tickX = x(tick);
+    svg.appendChild(
+      svgElement("line", {
+        class:
+          tick === 0
+            ? "ownership-price-model-svg__zero"
+            : "ownership-price-model-svg__gridline",
+        x1: tickX,
+        x2: tickX,
+        y1: margin.top - 8,
+        y2: axisY,
+      })
+    );
+    const label = svgElement("text", {
+      class: "ownership-price-model-svg__axis-label",
+      x: tickX,
+      y: height - 21,
+      "text-anchor": "middle",
+    });
+    label.textContent = tick === 0 ? "0 (same as DOM)" : `${tick}¢`;
+    svg.appendChild(label);
+  }
+
+  model.ownership_results.forEach((effect, index) => {
+    const y = 78 + index * 67;
+    const ownership = effect.ownership.toLowerCase();
+    const rowLabel = svgElement("text", {
+      class: "ownership-price-model-svg__row-label",
+      x: margin.left - 16,
+      y: y + 5,
+      "text-anchor": "end",
+    });
+    rowLabel.textContent = effect.ownership;
+    svg.appendChild(rowLabel);
+
+    const lowX = x(effect.confidence_95_low);
+    const highX = x(effect.confidence_95_high);
+    svg.appendChild(
+      svgElement("line", {
+        class: `ownership-price-model-svg__interval ownership-price-model-svg__interval--${ownership}`,
+        x1: lowX,
+        x2: highX,
+        y1: y,
+        y2: y,
+      })
+    );
+    for (const capX of [lowX, highX]) {
+      svg.appendChild(
+        svgElement("line", {
+          class: `ownership-price-model-svg__cap ownership-price-model-svg__cap--${ownership}`,
+          x1: capX,
+          x2: capX,
+          y1: y - 7,
+          y2: y + 7,
+        })
+      );
+    }
+    const point = svgElement("circle", {
+      class: `ownership-price-model-svg__point ownership-fill--${ownership}`,
+      cx: x(effect.estimate_cents_kwh),
+      cy: y,
+      r: 7,
+    });
+    const title = svgElement("title");
+    title.textContent = `${effect.ownership}: ${formatSignedCents(
+      effect.estimate_cents_kwh
+    )}; 95% range ${formatSignedCents(effect.confidence_95_low)} to ${formatSignedCents(
+      effect.confidence_95_high
+    )}`;
+    point.appendChild(title);
+    svg.appendChild(point);
+
+    const estimateLabel = svgElement("text", {
+      class: "ownership-price-model-svg__estimate",
+      x: width - 4,
+      y: y + 5,
+      "text-anchor": "end",
+    });
+    estimateLabel.textContent = formatSignedCents(effect.estimate_cents_kwh);
+    svg.appendChild(estimateLabel);
+  });
+  return svg;
+}
+
+function ownershipPriceModelFinding(model) {
+  const effects = Object.fromEntries(
+    model.ownership_results.map((effect) => [effect.ownership, effect])
+  );
+  const mtc = effects.MTC;
+  const coop = effects.COOP;
+  const customer = CUSTOMER_CLASS_LABELS[model.customer_class].toLowerCase();
+  const mtcAmount = Math.abs(mtc.estimate_cents_kwh).toFixed(2);
+  const coopAmount = Math.abs(coop.estimate_cents_kwh).toFixed(2);
+  if (!mtc.confidence_interval_excludes_zero) {
+    return `For ${customer} customers, MTC prices are estimated ${mtcAmount}¢/kWh lower than DOM prices, but the uncertainty line crosses zero, so that difference is uncertain. COOP prices are estimated ${coopAmount}¢ lower, and that range stays below zero. This does not prove ownership caused the price differences.`;
+  }
+  return `For ${customer} customers, prices are estimated ${mtcAmount}¢/kWh lower at MTC utilities and ${coopAmount}¢ lower at COOP utilities than at DOM utilities, after accounting for state and year. Both uncertainty ranges stay below zero. This does not prove ownership caused the price differences.`;
+}
+
+function renderOwnershipPriceModelTable(model) {
+  const tableBody = document.getElementById("ownership-price-model-table");
+  tableBody.replaceChildren();
+  for (const effect of model.ownership_results) {
+    const row = document.createElement("tr");
+    const ownershipCell = document.createElement("td");
+    ownershipCell.append(
+      createElement("i", `ownership-swatch ownership-swatch--${effect.ownership.toLowerCase()}`),
+      createElement("strong", "", effect.ownership)
+    );
+    const estimateCell = createElement(
+      "td",
+      "numeric-cell",
+      formatSignedCents(effect.estimate_cents_kwh)
+    );
+    const rangeCell = createElement(
+      "td",
+      "numeric-cell",
+      `${formatSignedCents(effect.confidence_95_low)} to ${formatSignedCents(
+        effect.confidence_95_high
+      )}`
+    );
+    const readingCell = createElement(
+      "td",
+      "",
+      effect.confidence_interval_excludes_zero
+        ? "Range stays below zero"
+        : "Range crosses zero; uncertain"
+    );
+    row.append(ownershipCell, estimateCell, rangeCell, readingCell);
+    tableBody.appendChild(row);
+  }
+}
+
+function setupOwnershipPriceModel(results) {
+  setupComparisonTabs();
+  const status = document.getElementById("ownership-price-model-status");
+  if (!results || !Array.isArray(results.models) || results.models.length !== 6) {
+    status.hidden = false;
+    status.textContent = "The adjusted ownership-price results did not load.";
+    return;
+  }
+  const primaryModels = results.models.filter(
+    (model) => model.coverage_rule === "all_published"
+  );
+  if (primaryModels.length !== 3) {
+    status.hidden = false;
+    status.textContent = "The three adjusted customer-price results are incomplete.";
+    return;
+  }
+
+  const domain = ownershipModelDomain(primaryModels);
+  const customerClassSelect = document.getElementById("model-customer-class");
+  const observedCustomerClassSelect = document.getElementById(
+    "comparison-customer-class"
+  );
+  const chart = document.getElementById("ownership-price-model-chart");
+  const finding = document.getElementById("ownership-price-model-finding");
+  const title = document.getElementById("ownership-price-model-title");
+  const method = document.getElementById("ownership-price-model-method");
+
+  const render = () => {
+    const model = primaryModels.find(
+      (candidate) => candidate.customer_class === customerClassSelect.value
+    );
+    title.textContent = `Adjusted ${model.customer_class} price difference from DOM`;
+    chart.replaceChildren(buildOwnershipPriceModelChart(model, domain));
+    finding.textContent = ownershipPriceModelFinding(model);
+    renderOwnershipPriceModelTable(model);
+    method.textContent = `${model.observation_count} utility-year prices from ${model.utility_cluster_count} utilities, 2013–2024. Prices are inflation-adjusted to 2024 cents. Technically, this is an unweighted OLS model with ownership, state, and year indicators; 95% ranges use standard errors clustered by utility. DOM is the reference group.`;
+  };
+
+  customerClassSelect.addEventListener("change", () => {
+    if (observedCustomerClassSelect.value !== customerClassSelect.value) {
+      observedCustomerClassSelect.value = customerClassSelect.value;
+      observedCustomerClassSelect.dispatchEvent(new Event("change"));
+    }
+    render();
+  });
+  observedCustomerClassSelect.addEventListener("change", () => {
+    if (customerClassSelect.value !== observedCustomerClassSelect.value) {
+      customerClassSelect.value = observedCustomerClassSelect.value;
+      render();
+    }
+  });
+  render();
+}
+
 function formatTWh(valueMwh) {
   return `${(Number(valueMwh) / 1_000_000).toFixed(1)} TWh`;
 }
@@ -2470,6 +2729,8 @@ function main() {
   const reliabilityRecords = window.NE_NY_RELIABILITY_PANEL;
   const isoFuelMixRecords = window.NE_NY_ISO_FUEL_MIX;
   const ctRoeCaseStudyRecords = window.NE_NY_ROE_CASE_STUDY;
+  const ownershipPriceModelResults =
+    window.NE_NY_OWNERSHIP_PRICE_MODEL_RESULTS;
   setupCtCaseStudy(ctRoeCaseStudyRecords);
   setupIsoFuelMix(isoFuelMixRecords);
   const status = document.getElementById("matrix-status");
@@ -2492,6 +2753,7 @@ function main() {
     return;
   }
   setupOwnershipComparison(ownershipSummaryRecords, records);
+  setupOwnershipPriceModel(ownershipPriceModelResults);
   const metricSelect = document.getElementById("panel-metric");
   const customerClassControl = document.getElementById("customer-class-control");
   const customerClassSelect = document.getElementById("customer-class");

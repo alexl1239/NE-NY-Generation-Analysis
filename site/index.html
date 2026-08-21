@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Preliminary comparison of published electricity prices, reliability, and ownership for 30 selected utilities in New York and New England, 2013–2024.">
   <title>Utility ownership, prices, and reliability</title>
-  <link rel="stylesheet" href="styles.css?v=20260820c">
+  <link rel="stylesheet" href="styles.css?v=20260820d">
 </head>
 <body>
   <header class="research-header">
@@ -33,14 +33,11 @@
     <section id="ownership-comparison">
       <h2>Selected-sample outcomes by ownership</h2>
       <p>
-        These charts summarize only the 30 utilities shown in the panels below: ten
-        selected utilities in each 2024 ownership group. They do not represent every
-        MTC, DOM, or COOP utility in New York and New England. Each line is a simple
-        annual median; no utility is given extra weight. Price views also show the
-        observed minimum-to-maximum range. Utilities are assigned to the ownership
-        type they had in each year, so an earlier annual count can differ after an
-        ownership change. This is descriptive, not evidence that ownership caused an
-        outcome.
+        The default view shows the published data for the 30 selected utilities. The
+        They do not represent every utility in New York and New England.
+        The adjusted view asks a narrower statistical question: after accounting for
+        state and year, how different are MTC and COOP prices from DOM prices? Neither
+        view proves that ownership caused a difference.
       </p>
       <div class="ownership-key ownership-key--intro" aria-label="Ownership categories in this comparison">
         <span><i class="ownership-swatch ownership-swatch--mtc"></i><strong>MTC</strong> Foreign or multinational parent</span>
@@ -51,7 +48,20 @@
         SOE remains part of the project’s four-category definition, but no SOE utility
         is represented in this selected comparison.
       </p>
-      <div class="panel-controls comparison-controls">
+      <div class="analysis-tabs" role="tablist" aria-label="Ownership comparison view">
+        <button id="observed-comparison-tab" class="analysis-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="observed-comparison-panel">
+          Observed data
+        </button>
+        <button id="adjusted-comparison-tab" class="analysis-tab" type="button" role="tab" aria-selected="false" aria-controls="adjusted-comparison-panel">
+          Adjusted comparison
+        </button>
+      </div>
+      <div id="observed-comparison-panel" role="tabpanel" aria-labelledby="observed-comparison-tab">
+        <p class="plain-note comparison-view-note">
+          Each line is a simple annual median; the shaded area is the observed range.
+          Every utility counts once.
+        </p>
+        <div class="panel-controls comparison-controls">
         <label for="comparison-measure">
           Measure
           <select id="comparison-measure">
@@ -90,28 +100,78 @@
             <option value="with-major-events">Include major events</option>
           </select>
         </label>
-      </div>
-      <div class="comparison-legend" aria-label="Ownership comparison legend">
+        </div>
+        <div class="comparison-legend" aria-label="Ownership comparison legend">
         <span><i class="comparison-legend__line"></i> Median</span>
         <span id="comparison-range-legend"><i class="comparison-legend__range"></i> Minimum–maximum range</span>
         <span id="comparison-coverage-legend"><i class="comparison-legend__flag"></i> At least one included price covers under 50% of customers</span>
+        </div>
+        <p id="ownership-comparison-status" class="chart-status" hidden></p>
+        <div id="ownership-comparison-charts" class="ownership-comparison-charts" aria-live="polite"></div>
+        <p id="ownership-comparison-finding" class="result-note"></p>
+        <p class="table-note">
+          Price views default to the published nominal values. The optional 2024-cent
+          view applies the same annual CPI-U factor to every utility and does not change
+          the ranking within a year. An orange outline marks a price median containing
+          at least one observation that covers fewer than half of customers. Prices come from
+          <a href="https://www.eia.gov/electricity/sales_revenue_price/" target="_blank" rel="noopener">EIA Tables 6–8</a>;
+          <a href="https://docs.catalyst.coop/pudl/en/stable/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL customer counts</a>
+          support the coverage check. Inflation factors use the
+          <a href="https://www.bls.gov/pir/spm/spm_chart_2025data.htm" target="_blank" rel="noopener">BLS annual CPI-U</a>.
+          Reliability medians use every available, non-withheld EIA/PUDL value under the
+          selected major-event treatment; the point detail states the number of utilities.
+          Individual utility histories below remain unchanged.
+        </p>
       </div>
-      <p id="ownership-comparison-status" class="chart-status" hidden></p>
-      <div id="ownership-comparison-charts" class="ownership-comparison-charts" aria-live="polite"></div>
-      <p id="ownership-comparison-finding" class="result-note"></p>
-      <p class="table-note">
-        Price views default to the published nominal values. The optional 2024-cent
-        view applies the same annual CPI-U factor to every utility and does not change
-        the ranking within a year. An orange outline marks a price median containing
-        at least one observation that covers fewer than half of customers. Prices come from
-        <a href="https://www.eia.gov/electricity/sales_revenue_price/" target="_blank" rel="noopener">EIA Tables 6–8</a>;
-        <a href="https://docs.catalyst.coop/pudl/en/stable/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL customer counts</a>
-        support the coverage check. Inflation factors use the
-        <a href="https://www.bls.gov/pir/spm/spm_chart_2025data.htm" target="_blank" rel="noopener">BLS annual CPI-U</a>.
-        Reliability medians use every available, non-withheld EIA/PUDL value under the
-        selected major-event treatment; the point detail states the number of utilities.
-        Individual utility histories below remain unchanged.
-      </p>
+      <div id="adjusted-comparison-panel" role="tabpanel" aria-labelledby="adjusted-comparison-tab" hidden>
+        <p class="plain-note comparison-view-note">
+          This model compares utilities after separating out common state and year
+          differences. DOM is the reference group, so zero means “no estimated
+          difference from DOM.”
+        </p>
+        <div class="panel-controls comparison-controls">
+          <label for="model-customer-class">
+            Customer type
+            <select id="model-customer-class">
+              <option value="residential">Residential</option>
+              <option value="commercial">Commercial</option>
+              <option value="industrial">Industrial</option>
+            </select>
+          </label>
+        </div>
+        <p id="ownership-price-model-status" class="chart-status" hidden></p>
+        <div class="ownership-price-model-card">
+          <h3 id="ownership-price-model-title">Adjusted residential price difference from DOM</h3>
+          <p class="ownership-price-model-guide">
+            The dot is the model estimate. The line is its 95% uncertainty range. A
+            line crossing zero means the difference is uncertain. Amounts are in
+            inflation-adjusted 2024 cents per kWh.
+          </p>
+          <div id="ownership-price-model-chart" class="ownership-price-model-chart" aria-live="polite"></div>
+          <p id="ownership-price-model-finding" class="result-note"></p>
+        </div>
+        <details class="model-details">
+          <summary>Show exact results and method</summary>
+          <div class="table-wrap model-table-wrap">
+            <table class="ownership-table model-table">
+              <thead>
+                <tr>
+                  <th scope="col">Compared with DOM</th>
+                  <th scope="col">Estimated difference</th>
+                  <th scope="col">95% range</th>
+                  <th scope="col">Plain reading</th>
+                </tr>
+              </thead>
+              <tbody id="ownership-price-model-table"></tbody>
+            </table>
+          </div>
+          <p id="ownership-price-model-method" class="table-note"></p>
+          <p class="table-note">
+            The majority-coverage check keeps the same lower-price direction for all
+            three customer types. <a href="data/ownership_price_model_results.json">Download the model results (JSON)</a>.
+          </p>
+        </details>
+      </div>
     </section>
 
     <section id="utility-panels">
@@ -286,6 +346,13 @@
           a different number. These results do not describe every utility in the region.
         </li>
         <li>
+          <strong>Adjusted ownership-price comparison:</strong> separate unweighted
+          models for residential, commercial, and industrial prices use constant 2024
+          cents and include ownership, state, and year indicators. DOM is the reference
+          group. The 95% uncertainty ranges account for repeated observations of the
+          same utility. These are preliminary associations, not causal estimates.
+        </li>
+        <li>
           <strong>Authorized return on equity:</strong> the matched-state pilot uses
           the ROE approved by Connecticut PURA or Massachusetts DPU for the
           shareholder-funded portion of rate base. Base ROE, effective ROE after an
@@ -388,6 +455,7 @@
   <script src="data/reliability_panel.js?v=20260810a"></script>
   <script src="data/iso_fuel_mix.js"></script>
   <script src="data/roe_case_study.js?v=20260820b"></script>
-  <script src="panel.js?v=20260820k"></script>
+  <script src="data/ownership_price_model_results.js?v=20260820a"></script>
+  <script src="panel.js?v=20260820l"></script>
 </body>
 </html>

@@ -1,0 +1,206 @@
+{
+  "title": "Ownership and inflation-adjusted utility price",
+  "source_data": "data/processed/utility_price_panel_2013_2024.csv",
+  "price_source": "EIA Electric Sales, Revenue, and Average Price",
+  "cpi_source": "https://www.bls.gov/pir/spm/spm_chart_2025data.htm",
+  "cpi_u_annual_2013_100": {
+    "2013": 100.0,
+    "2014": 101.622,
+    "2015": 101.743,
+    "2016": 103.027,
+    "2017": 105.221,
+    "2018": 107.791,
+    "2019": 109.745,
+    "2020": 111.098,
+    "2021": 116.318,
+    "2022": 125.626,
+    "2023": 130.797,
+    "2024": 134.655
+  },
+  "inflation_formula": "published price multiplied by CPI-U(2024) divided by CPI-U(year)",
+  "outcome": "EIA bundled average price in constant 2024 cents per kWh",
+  "model": "Unweighted OLS with ownership, state, and year indicators",
+  "reference_ownership": "DOM",
+  "uncertainty": "95% CR1 confidence intervals clustered by utility, using a t critical value with clusters minus one degrees of freedom",
+  "interpretation_limit": "Associational, not causal",
+  "coverage_rules": {
+    "all_published": "Every nonmissing EIA-published price",
+    "majority_coverage": "Published prices covering at least 50% of bundled plus delivery-only customers in the same customer class"
+  },
+  "models": [
+    {
+      "customer_class": "residential",
+      "coverage_rule": "all_published",
+      "observation_count": 347,
+      "utility_cluster_count": 30,
+      "parameter_count": 20,
+      "design_rank": 20,
+      "r_squared": 0.4257750786738873,
+      "ownership_results": [
+        {
+          "ownership": "MTC",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -7.070180311646315,
+          "standard_error": 3.047539584430038,
+          "confidence_95_low": -13.303099695910163,
+          "confidence_95_high": -0.8372609273824674,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "ownership": "COOP",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -12.04544151821412,
+          "standard_error": 3.029901043015027,
+          "confidence_95_low": -18.242286028419745,
+          "confidence_95_high": -5.848597008008497,
+          "confidence_interval_excludes_zero": true
+        }
+      ]
+    },
+    {
+      "customer_class": "residential",
+      "coverage_rule": "majority_coverage",
+      "observation_count": 336,
+      "utility_cluster_count": 30,
+      "parameter_count": 20,
+      "design_rank": 20,
+      "r_squared": 0.4145216273261252,
+      "ownership_results": [
+        {
+          "ownership": "MTC",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -7.247881331067379,
+          "standard_error": 3.106349215597734,
+          "confidence_95_low": -13.601079937284332,
+          "confidence_95_high": -0.8946827248504254,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "ownership": "COOP",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -11.708634196773254,
+          "standard_error": 3.214117717234268,
+          "confidence_95_low": -18.282244175592297,
+          "confidence_95_high": -5.135024217954212,
+          "confidence_interval_excludes_zero": true
+        }
+      ]
+    },
+    {
+      "customer_class": "commercial",
+      "coverage_rule": "all_published",
+      "observation_count": 347,
+      "utility_cluster_count": 30,
+      "parameter_count": 20,
+      "design_rank": 20,
+      "r_squared": 0.44686521980480387,
+      "ownership_results": [
+        {
+          "ownership": "MTC",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -6.010783548926616,
+          "standard_error": 1.9139503681802321,
+          "confidence_95_low": -9.925252260439873,
+          "confidence_95_high": -2.09631483741336,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "ownership": "COOP",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -7.720615635274645,
+          "standard_error": 2.0784618343436243,
+          "confidence_95_low": -11.971548132729255,
+          "confidence_95_high": -3.4696831378200343,
+          "confidence_interval_excludes_zero": true
+        }
+      ]
+    },
+    {
+      "customer_class": "commercial",
+      "coverage_rule": "majority_coverage",
+      "observation_count": 312,
+      "utility_cluster_count": 30,
+      "parameter_count": 20,
+      "design_rank": 20,
+      "r_squared": 0.43973664016455627,
+      "ownership_results": [
+        {
+          "ownership": "MTC",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -6.15085791917054,
+          "standard_error": 2.134651725595373,
+          "confidence_95_low": -10.516711667909965,
+          "confidence_95_high": -1.7850041704311153,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "ownership": "COOP",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -7.571218892757821,
+          "standard_error": 2.3029039882025932,
+          "confidence_95_low": -12.28118721654941,
+          "confidence_95_high": -2.8612505689662306,
+          "confidence_interval_excludes_zero": true
+        }
+      ]
+    },
+    {
+      "customer_class": "industrial",
+      "coverage_rule": "all_published",
+      "observation_count": 324,
+      "utility_cluster_count": 29,
+      "parameter_count": 20,
+      "design_rank": 20,
+      "r_squared": 0.4664693489926388,
+      "ownership_results": [
+        {
+          "ownership": "MTC",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -2.615589177173812,
+          "standard_error": 2.21982123176194,
+          "confidence_95_low": -7.162686527063592,
+          "confidence_95_high": 1.9315081727159682,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "ownership": "COOP",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -6.110892738508842,
+          "standard_error": 1.8914503461503072,
+          "confidence_95_low": -9.985352867715555,
+          "confidence_95_high": -2.23643260930213,
+          "confidence_interval_excludes_zero": true
+        }
+      ]
+    },
+    {
+      "customer_class": "industrial",
+      "coverage_rule": "majority_coverage",
+      "observation_count": 196,
+      "utility_cluster_count": 23,
+      "parameter_count": 20,
+      "design_rank": 20,
+      "r_squared": 0.520546406718758,
+      "ownership_results": [
+        {
+          "ownership": "MTC",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -4.636013833736972,
+          "standard_error": 1.9921425862882434,
+          "confidence_95_low": -8.76746455559033,
+          "confidence_95_high": -0.5045631118836145,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "ownership": "COOP",
+          "reference_ownership": "DOM",
+          "estimate_cents_kwh": -6.838423923571266,
+          "standard_error": 2.0271028890121903,
+          "confidence_95_low": -11.042377873315644,
+          "confidence_95_high": -2.6344699738268886,
+          "confidence_interval_excludes_zero": true
+        }
+      ]
+    }
+  ]
+}

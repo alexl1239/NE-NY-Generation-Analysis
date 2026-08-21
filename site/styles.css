@@ -394,6 +394,41 @@ main {
   margin-bottom: 0.9rem;
 }
 
+.analysis-tabs {
+  display: inline-flex;
+  margin-top: 1rem;
+  padding: 0.2rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.analysis-tab {
+  padding: 0.55rem 0.85rem;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.analysis-tab.is-active {
+  background: var(--gridline);
+  color: var(--ink-primary);
+}
+
+.analysis-tab:focus-visible {
+  outline: 2px solid var(--ownership-mtc);
+  outline-offset: 2px;
+}
+
+.comparison-view-note {
+  margin: 1rem 0 0;
+}
+
 .comparison-legend {
   display: flex;
   flex-wrap: wrap;
@@ -957,6 +992,117 @@ main {
   font-variant-numeric: tabular-nums;
   line-height: 1.4 !important;
   white-space: pre-line;
+}
+
+.ownership-price-model-card {
+  max-width: 920px;
+  margin-top: 0.5rem;
+  padding: 1.1rem 1.2rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.ownership-price-model-card h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.ownership-price-model-guide {
+  margin: 0.35rem 0 0 !important;
+  color: var(--ink-muted) !important;
+  font-size: 0.8rem;
+}
+
+.ownership-price-model-chart {
+  max-width: 820px;
+  margin-top: 0.4rem;
+}
+
+.ownership-price-model-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ownership-price-model-svg__gridline {
+  stroke: var(--gridline);
+  stroke-width: 1;
+}
+
+.ownership-price-model-svg__zero {
+  stroke: var(--ink-secondary);
+  stroke-width: 1.5;
+}
+
+.ownership-price-model-svg__axis-label,
+.ownership-price-model-svg__row-label,
+.ownership-price-model-svg__estimate {
+  fill: var(--ink-secondary);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 12px;
+}
+
+.ownership-price-model-svg__row-label {
+  fill: var(--ink-primary);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.ownership-price-model-svg__estimate {
+  fill: var(--ink-primary);
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+}
+
+.ownership-price-model-svg__interval,
+.ownership-price-model-svg__cap {
+  stroke-width: 3;
+}
+
+.ownership-price-model-svg__interval--mtc,
+.ownership-price-model-svg__cap--mtc {
+  stroke: var(--ownership-mtc);
+}
+
+.ownership-price-model-svg__interval--coop,
+.ownership-price-model-svg__cap--coop {
+  stroke: var(--ownership-coop);
+}
+
+.ownership-price-model-svg__point {
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+
+.model-details {
+  max-width: 920px;
+  margin-top: 1rem;
+  color: var(--ink-secondary);
+}
+
+.model-details summary {
+  width: fit-content;
+  color: var(--ink-primary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.model-table-wrap {
+  max-width: 920px;
+}
+
+.model-table td:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.model-table .numeric-cell {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .ownership-key {
@@ -1686,6 +1832,28 @@ main {
 
   .ownership-comparison-card__description {
     min-height: 0;
+  }
+
+  .analysis-tabs {
+    display: flex;
+    width: 100%;
+  }
+
+  .analysis-tab {
+    flex: 1;
+  }
+
+  .ownership-price-model-card {
+    padding: 0.9rem 0.7rem 1rem;
+  }
+
+  .ownership-price-model-svg__axis-label,
+  .ownership-price-model-svg__estimate {
+    font-size: 11px;
+  }
+
+  .model-table {
+    min-width: 670px;
   }
 
   .ownership-row__header,

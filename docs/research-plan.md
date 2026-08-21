@@ -268,13 +268,14 @@ The user may collect these documents manually using the provenance template abov
 
 ### Phase 5: Preliminary panel models
 
-Models will be built only after the descriptive panel has been checked. The first
-models should be conventional and easy to explain:
+The first descriptive panel has been checked. The first ownership-price model is now
+implemented and documented in `docs/statistical-models.md`. It is deliberately
+conventional and easy to explain:
 
-- Ownership-price associations with year controls
-- State-year controls if there is adequate ownership variation within states
+- Ownership-price associations with separate state and year controls
 - Standard errors clustered by utility
-- Customer-weighted primary estimates and unweighted sensitivity results
+- Unweighted primary estimates, so every usable utility-year counts once
+- A separate majority-coverage sensitivity check, without adding model weights
 - Separate models for residential, commercial, and industrial prices
 
 Because ownership is generally stable over time, a utility fixed-effects model cannot
@@ -386,15 +387,10 @@ The following are not required for the first website result:
 
 ## 10. Immediate next milestone
 
-Use the current website discussion to settle two choices before modeling:
-
-1. Decide whether the Connecticut and Massachusetts matched-state ROE checks are
-   enough for the preliminary presentation or whether one more state pair is worth
-   collecting.
-2. Review where the ownership price ranking changes between all published prices and
-   the majority-coverage sensitivity view, especially for industrial customers.
-3. Only then prepare the first regression specification, keeping both the selected-
-   sample price result and the small ROE comparison separate from causal language.
+The immediate milestone is to present and review the first ownership-price model with
+faculty. Keep the selected-sample price result and the small ROE comparison separate
+from causal language. Expand the model only if the faculty discussion identifies a
+specific missing explanation worth testing.
 
 Reliability remains available as a descriptive outcome. The flagged Eversource
 observations have been reviewed and the affected measures withheld. IEEE and
