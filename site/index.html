@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Preliminary comparison of published electricity prices, reliability, and ownership for 30 selected utilities in New York and New England, 2013–2024.">
   <title>Utility ownership, prices, and reliability</title>
-  <link rel="stylesheet" href="styles.css?v=20260820e">
+  <link rel="stylesheet" href="styles.css?v=20260821a">
 </head>
 <body>
   <header class="research-header">
@@ -160,9 +160,24 @@
               replace the balanced 30-utility overview.
             </p>
           </article>
-          <article class="focused-model-check">
+          <article class="focused-model-check focused-model-check--reliability">
             <h3>Adjusted reliability check</h3>
             <p id="reliability-model-finding" class="result-note"></p>
+            <label class="reliability-model-control" for="reliability-model-metric">
+              Reliability measure
+              <select id="reliability-model-metric">
+                <option value="saidi">SAIDI — outage minutes</option>
+                <option value="saifi">SAIFI — outage frequency</option>
+                <option value="caidi">CAIDI — restoration time</option>
+              </select>
+            </label>
+            <h4 id="reliability-model-title">Routine SAIDI difference from DOM</h4>
+            <p class="reliability-model-guide">
+              The dot is the estimate and the line is its 95% uncertainty range.
+              Higher values mean worse reliability; a line crossing zero is uncertain.
+            </p>
+            <div id="reliability-model-chart" class="reliability-model-chart" aria-live="polite"></div>
+            <p id="reliability-model-detail" class="result-note"></p>
             <p class="table-note">
               Uses the already reviewed 30-utility reliability panel. Reliability is
               treated as a separate service-quality outcome, not a cause of prices.
@@ -492,6 +507,6 @@
   <script src="data/ownership_price_model_results.js?v=20260820a"></script>
   <script src="data/expanded_price_model_results.js?v=20260821a"></script>
   <script src="data/ownership_reliability_model_results.js?v=20260821a"></script>
-  <script src="panel.js?v=20260821a"></script>
+  <script src="panel.js?v=20260821b"></script>
 </body>
 </html>

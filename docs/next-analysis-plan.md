@@ -58,5 +58,6 @@ These are associations, not proof that ownership causes the differences.
 ## Presentation
 
 The website keeps the raw 30-utility findings as the default. The adjusted-price tab
-shows the existing 30-utility model, one short expanded-sample note, and one short
-reliability note. Exact machine-readable results remain available for audit.
+shows the existing 30-utility model, one short expanded-sample note, and one compact
+SAIDI/SAIFI/CAIDI reliability-model chart. Exact machine-readable results remain
+available for audit.

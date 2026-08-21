@@ -1078,6 +1078,7 @@ main {
 .focused-model-checks {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
   gap: 1rem;
   max-width: 920px;
   margin-top: 1rem;
@@ -1101,6 +1102,99 @@ main {
 
 .focused-model-check .table-note {
   margin-bottom: 0;
+}
+
+.focused-model-check--reliability {
+  min-width: 0;
+}
+
+.reliability-model-control {
+  display: grid;
+  gap: 0.3rem;
+  max-width: 15rem;
+  margin-top: 0.8rem;
+  color: var(--ink-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.reliability-model-control select {
+  width: 100%;
+}
+
+.focused-model-check #reliability-model-title {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+}
+
+.reliability-model-guide {
+  margin: 0.3rem 0 0 !important;
+  color: var(--ink-muted) !important;
+  font-size: 0.75rem;
+  line-height: 1.45 !important;
+}
+
+.reliability-model-chart {
+  margin-top: 0.35rem;
+}
+
+.reliability-model-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.reliability-model-svg__gridline {
+  stroke: var(--gridline);
+  stroke-width: 1;
+}
+
+.reliability-model-svg__zero {
+  stroke: var(--ink-secondary);
+  stroke-width: 1.5;
+}
+
+.reliability-model-svg__axis-label,
+.reliability-model-svg__row-label,
+.reliability-model-svg__estimate,
+.reliability-model-svg__unit {
+  fill: var(--ink-secondary);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 11px;
+}
+
+.reliability-model-svg__row-label,
+.reliability-model-svg__estimate {
+  fill: var(--ink-primary);
+  font-weight: 700;
+}
+
+.reliability-model-svg__interval,
+.reliability-model-svg__cap {
+  stroke-width: 3;
+}
+
+.reliability-model-svg__interval--mtc,
+.reliability-model-svg__cap--mtc {
+  stroke: var(--ownership-mtc);
+}
+
+.reliability-model-svg__interval--coop,
+.reliability-model-svg__cap--coop {
+  stroke: var(--ownership-coop);
+}
+
+.reliability-model-svg__point {
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+
+.reliability-model-svg__point--mtc {
+  fill: var(--ownership-mtc);
+}
+
+.reliability-model-svg__point--coop {
+  fill: var(--ownership-coop);
 }
 
 .model-details {

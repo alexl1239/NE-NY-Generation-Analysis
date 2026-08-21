@@ -190,6 +190,29 @@ const RELIABILITY_SCOPE_LABELS = {
   "without-major-events": "excluding major events",
   "with-major-events": "including major events",
 };
+const RELIABILITY_MODEL_DISPLAY = {
+  saidi: {
+    minimum: -50,
+    maximum: 150,
+    step: 50,
+    digits: 0,
+    unit: "minutes per customer",
+  },
+  saifi: {
+    minimum: -0.5,
+    maximum: 1.5,
+    step: 0.5,
+    digits: 2,
+    unit: "outages per customer",
+  },
+  caidi: {
+    minimum: -40,
+    maximum: 40,
+    step: 20,
+    digits: 0,
+    unit: "minutes per outage",
+  },
+};
 const ISO_REGIONS = ["NYISO", "ISO-NE"];
 const ISO_FUEL_ORDER = [
   "Coal",
@@ -1589,6 +1612,197 @@ function reliabilityModelFinding(results) {
   return "After accounting for state, year, and reporting method, none of the routine SAIDI, SAIFI, or CAIDI ownership differences are clear. Results also move when storms or reporting samples change, so reliability does not provide a stable explanation for the price differences.";
 }
 
+function formatReliabilityModelValue(value, config) {
+  const number = Number(value);
+  const sign = number > 0 ? "+" : number < 0 ? "−" : "";
+  return `${sign}${Math.abs(number).toFixed(config.digits)}`;
+}
+
+function reliabilityEffectPhrase(effect, config) {
+  const amount = Math.abs(effect.estimate).toFixed(config.digits);
+  if (effect.estimate === 0) return `${effect.ownership} the same as DOM`;
+  const direction = effect.estimate > 0 ? "more" : "fewer";
+  return `${effect.ownership} ${amount} ${direction} ${config.unit}`;
+}
+
+function reliabilityMetricFinding(model) {
+  const config = RELIABILITY_MODEL_DISPLAY[model.metric];
+  const phrases = model.ownership_results.map((effect) =>
+    reliabilityEffectPhrase(effect, config)
+  );
+  const uncertain = model.ownership_results.every(
+    (effect) => !effect.confidence_interval_excludes_zero
+  );
+  const reading = uncertain
+    ? "Both lines cross zero, so neither difference is clear."
+    : "At least one line stays on one side of zero, but the result should be read with the sensitivity checks.";
+  return `Compared with DOM, the model estimates ${phrases.join(
+    "; "
+  )}. ${reading}`;
+}
+
+function buildReliabilityModelChart(model) {
+  const config = RELIABILITY_MODEL_DISPLAY[model.metric];
+  const width = 500;
+  const height = 225;
+  const margin = { top: 30, right: 72, bottom: 57, left: 66 };
+  const plotWidth = width - margin.left - margin.right;
+  const axisY = height - margin.bottom;
+  const x = (value) =>
+    margin.left +
+    ((value - config.minimum) / (config.maximum - config.minimum)) * plotWidth;
+  const svg = svgElement("svg", {
+    class: "reliability-model-svg",
+    viewBox: `0 0 ${width} ${height}`,
+    role: "img",
+    "aria-label": `Adjusted routine ${model.metric_label} differences from DOM. ${model.ownership_results
+      .map(
+        (effect) =>
+          `${effect.ownership} ${formatReliabilityModelValue(
+            effect.estimate,
+            config
+          )}, with a 95 percent range from ${formatReliabilityModelValue(
+            effect.confidence_95_low,
+            config
+          )} to ${formatReliabilityModelValue(
+            effect.confidence_95_high,
+            config
+          )}`
+      )
+      .join(". ")}`,
+  });
+
+  for (
+    let tick = config.minimum;
+    tick <= config.maximum + config.step / 10;
+    tick += config.step
+  ) {
+    const tickX = x(tick);
+    svg.appendChild(
+      svgElement("line", {
+        class:
+          Math.abs(tick) < 1e-9
+            ? "reliability-model-svg__zero"
+            : "reliability-model-svg__gridline",
+        x1: tickX,
+        x2: tickX,
+        y1: margin.top,
+        y2: axisY,
+      })
+    );
+    const label = svgElement("text", {
+      class: "reliability-model-svg__axis-label",
+      x: tickX,
+      y: height - 33,
+      "text-anchor": "middle",
+    });
+    label.textContent = formatReliabilityModelValue(tick, config);
+    svg.appendChild(label);
+  }
+
+  model.ownership_results.forEach((effect, index) => {
+    const y = 70 + index * 63;
+    const ownership = effect.ownership.toLowerCase();
+    const rowLabel = svgElement("text", {
+      class: "reliability-model-svg__row-label",
+      x: margin.left - 12,
+      y: y + 5,
+      "text-anchor": "end",
+    });
+    rowLabel.textContent = effect.ownership;
+    svg.appendChild(rowLabel);
+
+    const lowX = x(effect.confidence_95_low);
+    const highX = x(effect.confidence_95_high);
+    svg.appendChild(
+      svgElement("line", {
+        class: `reliability-model-svg__interval reliability-model-svg__interval--${ownership}`,
+        x1: lowX,
+        x2: highX,
+        y1: y,
+        y2: y,
+      })
+    );
+    for (const capX of [lowX, highX]) {
+      svg.appendChild(
+        svgElement("line", {
+          class: `reliability-model-svg__cap reliability-model-svg__cap--${ownership}`,
+          x1: capX,
+          x2: capX,
+          y1: y - 6,
+          y2: y + 6,
+        })
+      );
+    }
+    const point = svgElement("circle", {
+      class: `reliability-model-svg__point reliability-model-svg__point--${ownership}`,
+      cx: x(effect.estimate),
+      cy: y,
+      r: 6,
+    });
+    const pointTitle = svgElement("title");
+    pointTitle.textContent = `${effect.ownership}: ${formatReliabilityModelValue(
+      effect.estimate,
+      config
+    )} ${config.unit}`;
+    point.appendChild(pointTitle);
+    svg.appendChild(point);
+
+    const estimate = svgElement("text", {
+      class: "reliability-model-svg__estimate",
+      x: width - 3,
+      y: y + 5,
+      "text-anchor": "end",
+    });
+    estimate.textContent = formatReliabilityModelValue(effect.estimate, config);
+    svg.appendChild(estimate);
+  });
+
+  const unitLabel = svgElement("text", {
+    class: "reliability-model-svg__unit",
+    x: margin.left + plotWidth / 2,
+    y: height - 8,
+    "text-anchor": "middle",
+  });
+  unitLabel.textContent = `${config.unit} · 0 = same as DOM`;
+  svg.appendChild(unitLabel);
+  return svg;
+}
+
+function setupReliabilityModel(results) {
+  const finding = document.getElementById("reliability-model-finding");
+  const select = document.getElementById("reliability-model-metric");
+  const title = document.getElementById("reliability-model-title");
+  const chart = document.getElementById("reliability-model-chart");
+  const detail = document.getElementById("reliability-model-detail");
+  const primaryModels = Array.isArray(results?.models)
+    ? results.models.filter(
+        (model) =>
+          model.event_scope === "without_major_events" &&
+          model.reporting_sample === "all_methods"
+      )
+    : [];
+
+  finding.textContent = reliabilityModelFinding(results);
+  if (primaryModels.length !== 3) {
+    select.disabled = true;
+    title.hidden = true;
+    detail.textContent = "The three reliability measures did not load.";
+    return;
+  }
+
+  const render = () => {
+    const model = primaryModels.find(
+      (candidate) => candidate.metric === select.value
+    );
+    title.textContent = `Routine ${model.metric_label} difference from DOM`;
+    chart.replaceChildren(buildReliabilityModelChart(model));
+    detail.textContent = reliabilityMetricFinding(model);
+  };
+  select.addEventListener("change", render);
+  render();
+}
+
 function renderOwnershipPriceModelTable(model) {
   const tableBody = document.getElementById("ownership-price-model-table");
   tableBody.replaceChildren();
@@ -1623,11 +1837,7 @@ function renderOwnershipPriceModelTable(model) {
   }
 }
 
-function setupOwnershipPriceModel(
-  results,
-  expandedResults,
-  reliabilityResults
-) {
+function setupOwnershipPriceModel(results, expandedResults) {
   setupComparisonTabs();
   const status = document.getElementById("ownership-price-model-status");
   if (!results || !Array.isArray(results.models) || results.models.length !== 6) {
@@ -1656,16 +1866,11 @@ function setupOwnershipPriceModel(
   const expandedFinding = document.getElementById(
     "expanded-price-check-finding"
   );
-  const reliabilityFinding = document.getElementById(
-    "reliability-model-finding"
-  );
   const expandedModels = Array.isArray(expandedResults?.models)
     ? expandedResults.models.filter(
         (model) => model.coverage_rule === "all_published"
       )
     : [];
-
-  reliabilityFinding.textContent = reliabilityModelFinding(reliabilityResults);
 
   const render = () => {
     const model = primaryModels.find(
@@ -2830,9 +3035,9 @@ function main() {
   setupOwnershipComparison(ownershipSummaryRecords, records);
   setupOwnershipPriceModel(
     ownershipPriceModelResults,
-    expandedPriceModelResults,
-    ownershipReliabilityModelResults
+    expandedPriceModelResults
   );
+  setupReliabilityModel(ownershipReliabilityModelResults);
   const metricSelect = document.getElementById("panel-metric");
   const customerClassControl = document.getElementById("customer-class-control");
   const customerClassSelect = document.getElementById("customer-class");

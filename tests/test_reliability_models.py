@@ -84,10 +84,20 @@ class ReliabilityModelTests(unittest.TestCase):
     def test_website_keeps_reliability_separate_from_price_causation(self) -> None:
         html = (PROJECT_ROOT / "site" / "index.html").read_text()
         javascript = (PROJECT_ROOT / "site" / "panel.js").read_text()
+        styles = (PROJECT_ROOT / "site" / "styles.css").read_text()
         self.assertIn('id="reliability-model-finding"', html)
+        self.assertIn('id="reliability-model-metric"', html)
+        self.assertIn('id="reliability-model-chart"', html)
+        self.assertIn('id="reliability-model-detail"', html)
+        for metric in ("saidi", "saifi", "caidi"):
+            self.assertIn(f'value="{metric}"', html)
+        self.assertIn("Higher values mean worse reliability", html)
         self.assertIn("separate service-quality outcome, not a cause of prices", html)
         self.assertIn("data/ownership_reliability_model_results.js", html)
         self.assertIn("reliabilityModelFinding", javascript)
+        self.assertIn("buildReliabilityModelChart", javascript)
+        self.assertIn("setupReliabilityModel", javascript)
+        self.assertIn(".reliability-model-svg", styles)
         self.assertIn(
             "window.NE_NY_OWNERSHIP_RELIABILITY_MODEL_RESULTS", javascript
         )
