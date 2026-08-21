@@ -1541,6 +1541,54 @@ function ownershipPriceModelFinding(model) {
   return `For ${customer} customers, prices are estimated ${mtcAmount}¢/kWh lower at MTC utilities and ${coopAmount}¢ lower at COOP utilities than at DOM utilities, after accounting for state and year. Both uncertainty ranges stay below zero. This does not prove ownership caused the price differences.`;
 }
 
+function expandedPriceModelFinding(model) {
+  const effects = Object.fromEntries(
+    model.ownership_results.map((effect) => [effect.ownership, effect])
+  );
+  const mtc = effects.MTC;
+  const coop = effects.COOP;
+  const customer = CUSTOMER_CLASS_LABELS[model.customer_class].toLowerCase();
+  const mtcAmount = Math.abs(mtc.estimate_cents_kwh).toFixed(2);
+  const coopAmount = Math.abs(coop.estimate_cents_kwh).toFixed(2);
+  const rangeDescription = (effect) =>
+    effect.confidence_interval_excludes_zero
+      ? "stays below zero"
+      : "crosses zero, so that comparison is uncertain";
+  return `With 42 utilities, ${customer} prices are estimated ${mtcAmount}¢/kWh lower at MTC utilities and ${coopAmount}¢ lower at COOP utilities than at DOM utilities. The MTC range ${rangeDescription(
+    mtc
+  )}; the COOP range ${rangeDescription(coop)}. The direction is the same as in the main sample.`;
+}
+
+function reliabilityModelFinding(results) {
+  if (!results || !Array.isArray(results.models)) {
+    return "The adjusted reliability check did not load.";
+  }
+  const primaryModels = results.models.filter(
+    (model) =>
+      model.event_scope === "without_major_events" &&
+      model.reporting_sample === "all_methods"
+  );
+  const expectedMetrics = new Set(["saidi", "saifi", "caidi"]);
+  const complete =
+    primaryModels.length === 3 &&
+    primaryModels.every(
+      (model) =>
+        expectedMetrics.has(model.metric) &&
+        model.ownership_results?.length === 2
+    );
+  if (!complete) return "The adjusted reliability check is incomplete.";
+  const clearEffects = primaryModels.flatMap(
+    (model) =>
+      model.ownership_results.filter(
+        (effect) => effect.confidence_interval_excludes_zero
+      )
+  );
+  if (clearEffects.length > 0) {
+    return "Some adjusted routine-reliability differences remain, but they are not consistent across the reliability measures or sensitivity checks. Reliability does not provide a stable explanation for the price differences.";
+  }
+  return "After accounting for state, year, and reporting method, none of the routine SAIDI, SAIFI, or CAIDI ownership differences are clear. Results also move when storms or reporting samples change, so reliability does not provide a stable explanation for the price differences.";
+}
+
 function renderOwnershipPriceModelTable(model) {
   const tableBody = document.getElementById("ownership-price-model-table");
   tableBody.replaceChildren();
@@ -1575,7 +1623,11 @@ function renderOwnershipPriceModelTable(model) {
   }
 }
 
-function setupOwnershipPriceModel(results) {
+function setupOwnershipPriceModel(
+  results,
+  expandedResults,
+  reliabilityResults
+) {
   setupComparisonTabs();
   const status = document.getElementById("ownership-price-model-status");
   if (!results || !Array.isArray(results.models) || results.models.length !== 6) {
@@ -1601,6 +1653,19 @@ function setupOwnershipPriceModel(results) {
   const finding = document.getElementById("ownership-price-model-finding");
   const title = document.getElementById("ownership-price-model-title");
   const method = document.getElementById("ownership-price-model-method");
+  const expandedFinding = document.getElementById(
+    "expanded-price-check-finding"
+  );
+  const reliabilityFinding = document.getElementById(
+    "reliability-model-finding"
+  );
+  const expandedModels = Array.isArray(expandedResults?.models)
+    ? expandedResults.models.filter(
+        (model) => model.coverage_rule === "all_published"
+      )
+    : [];
+
+  reliabilityFinding.textContent = reliabilityModelFinding(reliabilityResults);
 
   const render = () => {
     const model = primaryModels.find(
@@ -1609,6 +1674,12 @@ function setupOwnershipPriceModel(results) {
     title.textContent = `Adjusted ${model.customer_class} price difference from DOM`;
     chart.replaceChildren(buildOwnershipPriceModelChart(model, domain));
     finding.textContent = ownershipPriceModelFinding(model);
+    const expandedModel = expandedModels.find(
+      (candidate) => candidate.customer_class === customerClassSelect.value
+    );
+    expandedFinding.textContent = expandedModel
+      ? expandedPriceModelFinding(expandedModel)
+      : "The expanded-sample check did not load.";
     renderOwnershipPriceModelTable(model);
     method.textContent = `${model.observation_count} utility-year prices from ${model.utility_cluster_count} utilities, 2013–2024. Prices are inflation-adjusted to 2024 cents. Technically, this is an unweighted OLS model with ownership, state, and year indicators; 95% ranges use standard errors clustered by utility. DOM is the reference group.`;
   };
@@ -2731,6 +2802,10 @@ function main() {
   const ctRoeCaseStudyRecords = window.NE_NY_ROE_CASE_STUDY;
   const ownershipPriceModelResults =
     window.NE_NY_OWNERSHIP_PRICE_MODEL_RESULTS;
+  const expandedPriceModelResults =
+    window.NE_NY_EXPANDED_PRICE_MODEL_RESULTS;
+  const ownershipReliabilityModelResults =
+    window.NE_NY_OWNERSHIP_RELIABILITY_MODEL_RESULTS;
   setupCtCaseStudy(ctRoeCaseStudyRecords);
   setupIsoFuelMix(isoFuelMixRecords);
   const status = document.getElementById("matrix-status");
@@ -2753,7 +2828,11 @@ function main() {
     return;
   }
   setupOwnershipComparison(ownershipSummaryRecords, records);
-  setupOwnershipPriceModel(ownershipPriceModelResults);
+  setupOwnershipPriceModel(
+    ownershipPriceModelResults,
+    expandedPriceModelResults,
+    ownershipReliabilityModelResults
+  );
   const metricSelect = document.getElementById("panel-metric");
   const customerClassControl = document.getElementById("customer-class-control");
   const customerClassSelect = document.getElementById("customer-class");

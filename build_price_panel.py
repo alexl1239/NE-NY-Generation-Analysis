@@ -23,7 +23,6 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
-import duckdb
 import pandas as pd
 
 
@@ -271,6 +270,12 @@ def load_customer_coverage(candidates: list[dict[str, str]]) -> pd.DataFrame:
     if COVERAGE_CACHE_FILE.exists():
         coverage = pd.read_csv(COVERAGE_CACHE_FILE)
     else:
+        try:
+            import duckdb
+        except ImportError as error:
+            raise RuntimeError(
+                "DuckDB is required once to create the PUDL customer-count cache"
+            ) from error
         utility_ids = ", ".join(candidate["utility_id_eia"] for candidate in candidates)
         customer_classes = ", ".join(f"'{sector}'" for sector in SECTORS)
         query = f"""

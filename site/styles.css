@@ -1075,6 +1075,34 @@ main {
   stroke-width: 2;
 }
 
+.focused-model-checks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 920px;
+  margin-top: 1rem;
+}
+
+.focused-model-check {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.focused-model-check h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.focused-model-check .result-note {
+  margin-top: 0.6rem;
+}
+
+.focused-model-check .table-note {
+  margin-bottom: 0;
+}
+
 .model-details {
   max-width: 920px;
   margin-top: 1rem;
@@ -1845,6 +1873,10 @@ main {
 
   .ownership-price-model-card {
     padding: 0.9rem 0.7rem 1rem;
+  }
+
+  .focused-model-checks {
+    grid-template-columns: 1fr;
   }
 
   .ownership-price-model-svg__axis-label,

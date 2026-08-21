@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Preliminary comparison of published electricity prices, reliability, and ownership for 30 selected utilities in New York and New England, 2013–2024.">
   <title>Utility ownership, prices, and reliability</title>
-  <link rel="stylesheet" href="styles.css?v=20260820d">
+  <link rel="stylesheet" href="styles.css?v=20260820e">
 </head>
 <body>
   <header class="research-header">
@@ -33,7 +33,7 @@
     <section id="ownership-comparison">
       <h2>Selected-sample outcomes by ownership</h2>
       <p>
-        The default view shows the published data for the 30 selected utilities. The
+        The default view shows the published data for the 30 selected utilities.
         They do not represent every utility in New York and New England.
         The adjusted view asks a narrower statistical question: after accounting for
         state and year, how different are MTC and COOP prices from DOM prices? Neither
@@ -150,6 +150,25 @@
           <div id="ownership-price-model-chart" class="ownership-price-model-chart" aria-live="polite"></div>
           <p id="ownership-price-model-finding" class="result-note"></p>
         </div>
+        <div class="focused-model-checks">
+          <article class="focused-model-check">
+            <h3>Expanded-sample check</h3>
+            <p id="expanded-price-check-finding" class="result-note"></p>
+            <p class="table-note">
+              Same unweighted price model, using 42 regional utilities with at least
+              10,000 residential customers. This tests the finding; it does not
+              replace the balanced 30-utility overview.
+            </p>
+          </article>
+          <article class="focused-model-check">
+            <h3>Adjusted reliability check</h3>
+            <p id="reliability-model-finding" class="result-note"></p>
+            <p class="table-note">
+              Uses the already reviewed 30-utility reliability panel. Reliability is
+              treated as a separate service-quality outcome, not a cause of prices.
+            </p>
+          </article>
+        </div>
         <details class="model-details">
           <summary>Show exact results and method</summary>
           <div class="table-wrap model-table-wrap">
@@ -168,7 +187,9 @@
           <p id="ownership-price-model-method" class="table-note"></p>
           <p class="table-note">
             The majority-coverage check keeps the same lower-price direction for all
-            three customer types. <a href="data/ownership_price_model_results.json">Download the model results (JSON)</a>.
+            three customer types. <a href="data/ownership_price_model_results.json">Download the main price results</a>
+            · <a href="data/expanded_price_model_results.json">expanded-sample results</a>
+            · <a href="data/ownership_reliability_model_results.json">reliability results</a>.
           </p>
         </details>
       </div>
@@ -353,6 +374,12 @@
           same utility. These are preliminary associations, not causal estimates.
         </li>
         <li>
+          <strong>Expanded price check:</strong> the same model is repeated for 42
+          regional utilities reporting at least 10,000 residential customers in 2024.
+          This threshold was chosen before running the expanded model. The result is a
+          robustness check and does not replace the balanced 30-utility overview.
+        </li>
+        <li>
           <strong>Authorized return on equity:</strong> the matched-state pilot uses
           the ROE approved by Connecticut PURA or Massachusetts DPU for the
           shareholder-funded portion of rate base. Base ROE, effective ROE after an
@@ -391,6 +418,13 @@
           <a href="https://catalystcoop-pudl.readthedocs.io/en/stable/data_sources/eia861.html" target="_blank" rel="noopener">PUDL’s yearly reliability table</a>.
           PUDL derives CAIDI as SAIDI divided by SAIFI from those reported values.
           The default view excludes major events; the alternate view includes them.
+        </li>
+        <li>
+          <strong>Adjusted reliability check:</strong> separate unweighted SAIDI,
+          SAIFI, and CAIDI models include ownership, state, year, and reporting-method
+          indicators, with uncertainty clustered by utility. The primary version
+          excludes major events. Reliability remains a separate service-quality
+          outcome and is not used as proof of what causes prices.
         </li>
         <li>
           <strong>Reliability limits:</strong> Peabody and Fishers Island have no
@@ -456,6 +490,8 @@
   <script src="data/iso_fuel_mix.js"></script>
   <script src="data/roe_case_study.js?v=20260820b"></script>
   <script src="data/ownership_price_model_results.js?v=20260820a"></script>
-  <script src="panel.js?v=20260820l"></script>
+  <script src="data/expanded_price_model_results.js?v=20260821a"></script>
+  <script src="data/ownership_reliability_model_results.js?v=20260821a"></script>
+  <script src="panel.js?v=20260821a"></script>
 </body>
 </html>
