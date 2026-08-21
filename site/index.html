@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Preliminary comparison of published electricity prices, reliability, and ownership for 30 selected utilities in New York and New England, 2013–2024.">
   <title>Utility ownership, prices, and reliability</title>
-  <link rel="stylesheet" href="styles.css?v=20260810b">
+  <link rel="stylesheet" href="styles.css?v=20260820c">
 </head>
 <body>
   <header class="research-header">
@@ -31,15 +31,16 @@
 
   <main class="research-main research-main--wide">
     <section id="ownership-comparison">
-      <h2>Selected-sample prices by ownership</h2>
+      <h2>Selected-sample outcomes by ownership</h2>
       <p>
         These charts summarize only the 30 utilities shown in the panels below: ten
         selected utilities in each 2024 ownership group. They do not represent every
-        MTC, DOM, or COOP utility in New York and New England. The line is the
-        selected-sample median and the shaded area is its observed minimum-to-maximum
-        range. Utilities are assigned to the ownership type they had in each year, so
-        an earlier annual count can differ after an ownership change. This is a
-        descriptive comparison, not evidence that ownership caused the price differences.
+        MTC, DOM, or COOP utility in New York and New England. Each line is a simple
+        annual median; no utility is given extra weight. Price views also show the
+        observed minimum-to-maximum range. Utilities are assigned to the ownership
+        type they had in each year, so an earlier annual count can differ after an
+        ownership change. This is descriptive, not evidence that ownership caused an
+        outcome.
       </p>
       <div class="ownership-key ownership-key--intro" aria-label="Ownership categories in this comparison">
         <span><i class="ownership-swatch ownership-swatch--mtc"></i><strong>MTC</strong> Foreign or multinational parent</span>
@@ -51,7 +52,16 @@
         is represented in this selected comparison.
       </p>
       <div class="panel-controls comparison-controls">
-        <label for="comparison-customer-class">
+        <label for="comparison-measure">
+          Measure
+          <select id="comparison-measure">
+            <option value="price">Bundled average price</option>
+            <option value="saidi">SAIDI — outage minutes</option>
+            <option value="saifi">SAIFI — outage frequency</option>
+            <option value="caidi">CAIDI — restoration time</option>
+          </select>
+        </label>
+        <label id="comparison-customer-class-control" for="comparison-customer-class">
           Customer type
           <select id="comparison-customer-class">
             <option value="residential">Residential</option>
@@ -59,31 +69,48 @@
             <option value="industrial">Industrial</option>
           </select>
         </label>
-        <label for="comparison-coverage-rule">
+        <label id="comparison-coverage-rule-control" for="comparison-coverage-rule">
           Prices included
           <select id="comparison-coverage-rule">
             <option value="all_published">All EIA-published prices</option>
             <option value="majority_coverage">Only prices covering at least 50% of customers</option>
           </select>
         </label>
+        <label id="comparison-price-basis-control" for="comparison-price-basis">
+          Price basis
+          <select id="comparison-price-basis">
+            <option value="nominal">Published cents</option>
+            <option value="real_2024">Inflation-adjusted 2024 cents</option>
+          </select>
+        </label>
+        <label id="comparison-reliability-scope-control" for="comparison-reliability-scope" hidden>
+          Reliability treatment
+          <select id="comparison-reliability-scope">
+            <option value="without-major-events">Exclude major events</option>
+            <option value="with-major-events">Include major events</option>
+          </select>
+        </label>
       </div>
       <div class="comparison-legend" aria-label="Ownership comparison legend">
         <span><i class="comparison-legend__line"></i> Median</span>
-        <span><i class="comparison-legend__range"></i> Minimum–maximum range</span>
-        <span><i class="comparison-legend__flag"></i> At least one included price covers under 50% of customers</span>
+        <span id="comparison-range-legend"><i class="comparison-legend__range"></i> Minimum–maximum range</span>
+        <span id="comparison-coverage-legend"><i class="comparison-legend__flag"></i> At least one included price covers under 50% of customers</span>
       </div>
       <p id="ownership-comparison-status" class="chart-status" hidden></p>
       <div id="ownership-comparison-charts" class="ownership-comparison-charts" aria-live="polite"></div>
       <p id="ownership-comparison-finding" class="result-note"></p>
       <p class="table-note">
-        The default keeps every EIA-published bundled price. An orange-outlined point
-        means at least one utility in that annual median reports a bundled price
-        covering fewer than half of its customers in the selected class. The
-        alternative view excludes those observations; it does not alter any price.
-        Prices come from
+        Price views default to the published nominal values. The optional 2024-cent
+        view applies the same annual CPI-U factor to every utility and does not change
+        the ranking within a year. An orange outline marks a price median containing
+        at least one observation that covers fewer than half of customers. Prices come from
         <a href="https://www.eia.gov/electricity/sales_revenue_price/" target="_blank" rel="noopener">EIA Tables 6–8</a>;
         <a href="https://docs.catalyst.coop/pudl/en/stable/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL customer counts</a>
-        are used only for the coverage check.
+        support the coverage check. Inflation factors use the
+        <a href="https://www.bls.gov/pir/spm/spm_chart_2025data.htm" target="_blank" rel="noopener">BLS annual CPI-U</a>.
+        Reliability medians use every available, non-withheld EIA/PUDL value under the
+        selected major-event treatment; the point detail states the number of utilities.
+        Individual utility histories below remain unchanged.
       </p>
     </section>
 
@@ -223,6 +250,13 @@
           service. The project does not recalculate these prices.
         </li>
         <li>
+          <strong>Inflation view:</strong> the overview can convert nominal prices to
+          constant 2024 cents by multiplying each year by the ratio of the 2024 annual
+          CPI-U to that year’s annual CPI-U. This follows
+          <a href="https://www.bls.gov/cpi/factsheets/purchasing-power-constant-dollars.htm" target="_blank" rel="noopener">BLS constant-dollar guidance</a>
+          and does not overwrite the published EIA values.
+        </li>
+        <li>
           <strong>Coverage:</strong> bundled service for the selected customer type.
           In states with retail choice, this can represent only the utility’s
           full-service customers, not everyone connected to its distribution system
@@ -246,10 +280,10 @@
         <li>
           <strong>Ownership summary:</strong> the annual line is the unweighted median
           of the 30 panel utilities, selected as ten utilities in each 2024 ownership
-          group. The shaded area is their observed minimum-to-maximum range. Utilities
-          are grouped by their ownership code in that year, so an earlier group can
-          contain a different number. These results do not describe every utility in
-          the region.
+          group. Price views add the observed minimum-to-maximum range; reliability
+          views keep only the median line and report the usable count. Utilities are
+          grouped by their ownership code in that year, so an earlier group can contain
+          a different number. These results do not describe every utility in the region.
         </li>
         <li>
           <strong>Authorized return on equity:</strong> the matched-state pilot uses
@@ -296,10 +330,10 @@
           populated reliability rows in this period; Taunton is blank in 2013–2015;
           the current FirstEnergy entity is blank before 2024; and Central Hudson is
           blank in 2014. Some reported rows also omit individual measures. Six
-          utilities change reporting methods during the panel, so reliability
-          ownership-row medians are not shown. EIA allows either IEEE or another
-          utility-defined method; Non-IEEE values are kept for within-utility
-          description but are not treated as directly comparable to IEEE values.
+          utilities change reporting methods during the panel. The overview therefore
+          labels its annual unweighted medians as descriptive and shows the number of
+          usable utilities. EIA allows either IEEE or another utility-defined method;
+          apparent differences can partly reflect those measurement choices.
         </li>
         <li>
           <strong>Source check:</strong> for the selected utility rows, 2,841 fields
@@ -354,6 +388,6 @@
   <script src="data/reliability_panel.js?v=20260810a"></script>
   <script src="data/iso_fuel_mix.js"></script>
   <script src="data/roe_case_study.js?v=20260820b"></script>
-  <script src="panel.js?v=20260820j"></script>
+  <script src="panel.js?v=20260820k"></script>
 </body>
 </html>

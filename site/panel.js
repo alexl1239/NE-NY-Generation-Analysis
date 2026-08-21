@@ -9,6 +9,26 @@ const CUSTOMER_CLASS_LABELS = {
   commercial: "Commercial",
   industrial: "Industrial",
 };
+// BLS annual CPI-U, all items, U.S. city average, rebased to 2013 = 100.
+// Constant-2024 prices use published price × CPI(2024) / CPI(year).
+const CPI_U_ANNUAL_2013_100 = {
+  2013: 100.0,
+  2014: 101.622,
+  2015: 101.743,
+  2016: 103.027,
+  2017: 105.221,
+  2018: 107.791,
+  2019: 109.745,
+  2020: 111.098,
+  2021: 116.318,
+  2022: 125.626,
+  2023: 130.797,
+  2024: 134.655,
+};
+const PRICE_BASIS_LABELS = {
+  nominal: "published cents",
+  real_2024: "inflation-adjusted 2024 cents",
+};
 const CT_CASE_STUDY_UTILITY_IDS = [4176, 19497, 54913, 11804, 4226, 13511];
 const CT_CASE_STUDY_NAMES = {
   4176: "Eversource Connecticut (CL&P)",
@@ -217,6 +237,11 @@ function svgElement(tag, attributes = {}) {
 
 function formatPrice(value) {
   return `${Number(value).toFixed(2)}¢/kWh`;
+}
+
+function priceForBasis(value, year, priceBasis) {
+  if (!isNumber(value) || priceBasis === "nominal") return value;
+  return value * (CPI_U_ANNUAL_2013_100[2024] / CPI_U_ANNUAL_2013_100[year]);
 }
 
 function formatInteger(value) {
@@ -836,7 +861,7 @@ function metricFinding(records, metric) {
         .filter((record) => record.reliability?.standard_changed_during_panel)
         .map((record) => record.panel_id)
     ).size;
-    return `${available} of ${records.length} utility-years have this value.${exclusionNote} ${scopeNote} Lines stop at missing or withheld years. ${changedMethods} utilities change reporting method during 2013–2024, so these panels are descriptive and the ownership rows do not calculate reliability medians.`;
+    return `${available} of ${records.length} utility-years have this value.${exclusionNote} ${scopeNote} Lines stop at missing or withheld years. ${changedMethods} utilities change reporting method during 2013–2024. The ownership overview reports simple annual medians with sample counts, while these panels preserve each utility separately.`;
   }
 
   const latest = records
@@ -855,7 +880,7 @@ function metricFinding(records, metric) {
   )} at ${SHORT_NAMES[highest.panel_id]}. This is a coverage warning, not an adjustment to the published price.`;
 }
 
-function comparisonDetailText(record, coverageRule) {
+function priceComparisonDetailText(record, coverageRule, priceBasis) {
   const count = Number(record.included_utility_count);
   if (!count) {
     return `${record.year} · No selected utilities meet the 50% coverage rule`;
@@ -871,17 +896,34 @@ function comparisonDetailText(record, coverageRule) {
         } ${customerClass} customers`
       : "";
   return `${record.year} · median ${formatPrice(
-    record.median_price_cents_kwh
-  )}\nrange ${formatPrice(record.minimum_price_cents_kwh)}–${formatPrice(
-    record.maximum_price_cents_kwh
-  )} · ${count} utilit${count === 1 ? "y" : "ies"}${minorityNote}`;
+    record.median_value
+  )} · ${PRICE_BASIS_LABELS[priceBasis]}\nrange ${formatPrice(
+    record.minimum_value
+  )}–${formatPrice(record.maximum_value)} · ${count} utilit${
+    count === 1 ? "y" : "ies"
+  }${minorityNote}`;
+}
+
+function reliabilityComparisonDetailText(record, metric) {
+  const count = Number(record.included_utility_count);
+  const available = Number(record.available_utility_count);
+  if (!count) {
+    return `${record.year} · No usable values reported`;
+  }
+  const methodNote =
+    record.reporting_method_count > 1
+      ? "mixed IEEE/Non-IEEE methods"
+      : `${formatReportingStandard(record.reporting_standard)} method`;
+  return `${record.year} · median ${metric.formatValue(
+    record.median_value
+  )}\n${count} of ${available} utilities · ${methodNote}`;
 }
 
 function validComparisonSegments(records) {
   const segments = [];
   let current = [];
   for (const record of records) {
-    if (isNumber(record.median_price_cents_kwh)) {
+    if (isNumber(record.median_value)) {
       current.push(record);
     } else if (current.length) {
       segments.push(current);
@@ -892,7 +934,63 @@ function validComparisonSegments(records) {
   return segments;
 }
 
-function buildOwnershipComparisonCard(records, ownership, coverageRule) {
+function priceSummaryForBasis(records, priceBasis) {
+  return records.map((record) => ({
+    ...record,
+    median_value: priceForBasis(
+      record.median_price_cents_kwh,
+      record.year,
+      priceBasis
+    ),
+    minimum_value: priceForBasis(
+      record.minimum_price_cents_kwh,
+      record.year,
+      priceBasis
+    ),
+    maximum_value: priceForBasis(
+      record.maximum_price_cents_kwh,
+      record.year,
+      priceBasis
+    ),
+    available_utility_count: record.published_price_count,
+  }));
+}
+
+function reliabilitySummaryRecords(records, metric) {
+  const summary = [];
+  for (let year = 2013; year <= 2024; year += 1) {
+    for (const ownership of OWNERSHIP_ORDER) {
+      const groupRecords = records.filter(
+        (record) => record.year === year && record.ownership === ownership
+      );
+      const usable = groupRecords.filter((record) =>
+        isNumber(metric.valueFor(record))
+      );
+      const values = usable.map(metric.valueFor);
+      const standards = [
+        ...new Set(
+          usable
+            .map((record) => record.reliability?.reporting_standard)
+            .filter(Boolean)
+        ),
+      ];
+      summary.push({
+        year,
+        ownership,
+        median_value: values.length ? median(values) : null,
+        minimum_value: values.length ? Math.min(...values) : null,
+        maximum_value: values.length ? Math.max(...values) : null,
+        included_utility_count: values.length,
+        available_utility_count: groupRecords.length,
+        reporting_method_count: standards.length,
+        reporting_standard: standards.length === 1 ? standards[0] : null,
+      });
+    }
+  }
+  return summary;
+}
+
+function buildOwnershipComparisonCard(records, ownership, config) {
   const width = 340;
   const height = 222;
   const margin = { top: 10, right: 12, bottom: 28, left: 38 };
@@ -900,11 +998,10 @@ function buildOwnershipComparisonCard(records, ownership, coverageRule) {
   const plotHeight = height - margin.top - margin.bottom;
   const minimumYear = 2013;
   const maximumYear = 2024;
-  const maximumPrice = 45;
   const x = (year) =>
     margin.left + ((year - minimumYear) / (maximumYear - minimumYear)) * plotWidth;
   const y = (value) =>
-    margin.top + plotHeight - (Number(value) / maximumPrice) * plotHeight;
+    margin.top + plotHeight - (Number(value) / config.maximum) * plotHeight;
 
   const card = createElement(
     "article",
@@ -931,10 +1028,10 @@ function buildOwnershipComparisonCard(records, ownership, coverageRule) {
     class: "ownership-comparison-chart",
     viewBox: `0 0 ${width} ${height}`,
     role: "img",
-    "aria-label": `${ownership} selected-sample annual median bundled price and observed range, 2013 to 2024`,
+    "aria-label": `${ownership} selected-sample ${config.ariaLabel}, 2013 to 2024`,
   });
 
-  for (const tick of [0, 15, 30, 45]) {
+  for (const tick of config.ticks) {
     const tickY = y(tick);
     svg.appendChild(
       svgElement("line", {
@@ -951,7 +1048,7 @@ function buildOwnershipComparisonCard(records, ownership, coverageRule) {
       y: tickY + 3,
       "text-anchor": "end",
     });
-    label.textContent = `${tick}¢`;
+    label.textContent = config.formatAxis(tick);
     svg.appendChild(label);
   }
 
@@ -968,11 +1065,11 @@ function buildOwnershipComparisonCard(records, ownership, coverageRule) {
 
   const segments = validComparisonSegments(records);
   for (const segment of segments) {
-    if (segment.length > 1) {
+    if (config.showRange && segment.length > 1) {
       const upper = segment.map(
         (record, index) =>
           `${index === 0 ? "M" : "L"} ${x(record.year).toFixed(2)} ${y(
-            record.maximum_price_cents_kwh
+            record.maximum_value
           ).toFixed(2)}`
       );
       const lower = [...segment]
@@ -980,7 +1077,7 @@ function buildOwnershipComparisonCard(records, ownership, coverageRule) {
         .map(
           (record) =>
             `L ${x(record.year).toFixed(2)} ${y(
-              record.minimum_price_cents_kwh
+              record.minimum_value
             ).toFixed(2)}`
         );
       svg.appendChild(
@@ -994,7 +1091,7 @@ function buildOwnershipComparisonCard(records, ownership, coverageRule) {
       .map(
         (record, index) =>
           `${index === 0 ? "M" : "L"} ${x(record.year).toFixed(2)} ${y(
-            record.median_price_cents_kwh
+            record.median_value
           ).toFixed(2)}`
       )
       .join(" ");
@@ -1010,28 +1107,27 @@ function buildOwnershipComparisonCard(records, ownership, coverageRule) {
   const detail = createElement(
     "p",
     "ownership-comparison-card__detail",
-    comparisonDetailText(latestRecord, coverageRule)
+    config.detailFor(latestRecord)
   );
   for (const record of records) {
-    if (!isNumber(record.median_price_cents_kwh)) continue;
-    const flagged =
-      coverageRule === "all_published" && Number(record.minority_coverage_count) > 0;
+    if (!isNumber(record.median_value)) continue;
+    const flagged = config.flagged(record);
     const point = svgElement("circle", {
       class: `ownership-comparison-chart__point ownership-fill--${ownership.toLowerCase()}${
         flagged ? " ownership-comparison-chart__point--flagged" : ""
       }`,
       cx: x(record.year),
-      cy: y(record.median_price_cents_kwh),
+      cy: y(record.median_value),
       r: 4.5,
       tabindex: "0",
       role: "img",
-      "aria-label": comparisonDetailText(record, coverageRule),
+      "aria-label": config.detailFor(record),
     });
     const pointTitle = svgElement("title");
-    pointTitle.textContent = comparisonDetailText(record, coverageRule);
+    pointTitle.textContent = config.detailFor(record);
     point.appendChild(pointTitle);
     const showDetail = () => {
-      detail.textContent = comparisonDetailText(record, coverageRule);
+      detail.textContent = config.detailFor(record);
     };
     point.addEventListener("mouseenter", showDetail);
     point.addEventListener("focus", showDetail);
@@ -1042,14 +1138,12 @@ function buildOwnershipComparisonCard(records, ownership, coverageRule) {
   return card;
 }
 
-function ownershipComparisonFinding(records, customerClass, coverageRule) {
+function priceComparisonFinding(records, customerClass, coverageRule, priceBasis) {
   const latest = records
     .filter((record) => record.year === 2024 && Number(record.included_utility_count) > 0)
-    .sort((a, b) => b.median_price_cents_kwh - a.median_price_cents_kwh);
+    .sort((a, b) => b.median_value - a.median_value);
   const ranking = latest
-    .map(
-      (record) => `${record.ownership} ${formatPrice(record.median_price_cents_kwh)}`
-    )
+    .map((record) => `${record.ownership} ${formatPrice(record.median_value)}`)
     .join(", then ");
   const leaderCounts = new Map();
   for (let year = 2013; year <= 2024; year += 1) {
@@ -1058,7 +1152,7 @@ function ownershipComparisonFinding(records, customerClass, coverageRule) {
     );
     if (!yearRecords.length) continue;
     const leader = [...yearRecords].sort(
-      (a, b) => b.median_price_cents_kwh - a.median_price_cents_kwh
+      (a, b) => b.median_value - a.median_value
     )[0].ownership;
     leaderCounts.set(leader, (leaderCounts.get(leader) || 0) + 1);
   }
@@ -1094,47 +1188,164 @@ function ownershipComparisonFinding(records, customerClass, coverageRule) {
         .map((record) => `${record.ownership} ${record.year}`)
         .join(", ")} is blank because no selected utility meets the rule.`
     : "";
-  return `${leaderText}. The selected-sample 2024 ranking is ${ranking}. ${sampleNote}${emptyNote} This is descriptive, not causal.`;
+  const basisNote =
+    priceBasis === "real_2024"
+      ? "Prices are expressed in 2024 cents; the inflation adjustment changes comparisons over time, not rankings within the same year."
+      : "Prices are the nominal values published for each year.";
+  return `${leaderText}. The selected-sample 2024 ranking is ${ranking}. ${sampleNote}${emptyNote} ${basisNote} This is descriptive, not causal.`;
 }
 
-function setupOwnershipComparison(summaryRecords) {
+function reliabilityComparisonFinding(records, metric, panelRecords) {
+  const latest = records
+    .filter((record) => record.year === 2024 && record.included_utility_count > 0)
+    .sort((a, b) => a.median_value - b.median_value);
+  const ranking = latest
+    .map(
+      (record) =>
+        `${record.ownership} ${metric.formatValue(record.median_value)} (${record.included_utility_count}/${record.available_utility_count})`
+    )
+    .join(", then ");
+  const highestCounts = new Map();
+  for (let year = 2013; year <= 2024; year += 1) {
+    const yearRecords = records.filter(
+      (record) => record.year === year && record.included_utility_count > 0
+    );
+    if (yearRecords.length !== OWNERSHIP_ORDER.length) continue;
+    const highest = [...yearRecords].sort(
+      (a, b) => b.median_value - a.median_value
+    )[0].ownership;
+    highestCounts.set(highest, (highestCounts.get(highest) || 0) + 1);
+  }
+  const [mostOftenHighest, highestYears] = [...highestCounts.entries()].sort(
+    (a, b) => b[1] - a[1]
+  )[0];
+  const changedMethods = new Set(
+    panelRecords
+      .filter((record) => record.reliability?.standard_changed_during_panel)
+      .map((record) => record.panel_id)
+  ).size;
+  return `Lower is better. The 2024 median ranking is ${ranking}. ${mostOftenHighest} has the highest annual group median in ${highestYears} of 12 years. Values are ${RELIABILITY_SCOPE_LABELS[metric.reliabilityScope]}. ${changedMethods} utilities change reporting method, so this is a clear descriptive pattern, not proof that ownership caused the difference.`;
+}
+
+function setupOwnershipComparison(summaryRecords, panelRecords) {
   const status = document.getElementById("ownership-comparison-status");
   if (!Array.isArray(summaryRecords) || summaryRecords.length !== 216) {
     status.hidden = false;
     status.textContent = "The ownership price summary did not load.";
     return;
   }
+  if (!Array.isArray(panelRecords) || panelRecords.length !== EXPECTED_PANEL_ROWS) {
+    status.hidden = false;
+    status.textContent = "The ownership reliability summary did not load.";
+    return;
+  }
+  const measureSelect = document.getElementById("comparison-measure");
+  const customerClassControl = document.getElementById(
+    "comparison-customer-class-control"
+  );
   const customerClassSelect = document.getElementById("comparison-customer-class");
+  const coverageRuleControl = document.getElementById(
+    "comparison-coverage-rule-control"
+  );
   const coverageRuleSelect = document.getElementById("comparison-coverage-rule");
+  const priceBasisControl = document.getElementById("comparison-price-basis-control");
+  const priceBasisSelect = document.getElementById("comparison-price-basis");
+  const reliabilityScopeControl = document.getElementById(
+    "comparison-reliability-scope-control"
+  );
+  const reliabilityScopeSelect = document.getElementById(
+    "comparison-reliability-scope"
+  );
+  const rangeLegend = document.getElementById("comparison-range-legend");
+  const coverageLegend = document.getElementById("comparison-coverage-legend");
   const charts = document.getElementById("ownership-comparison-charts");
   const finding = document.getElementById("ownership-comparison-finding");
 
   const render = () => {
-    const customerClass = customerClassSelect.value;
-    const coverageRule = coverageRuleSelect.value;
-    const selected = summaryRecords
-      .filter(
-        (record) =>
-          record.customer_class === customerClass &&
-          record.coverage_rule === coverageRule
-      )
-      .sort((a, b) => a.year - b.year);
+    const isPrice = measureSelect.value === "price";
+    customerClassControl.hidden = !isPrice;
+    coverageRuleControl.hidden = !isPrice;
+    priceBasisControl.hidden = !isPrice;
+    reliabilityScopeControl.hidden = isPrice;
+    rangeLegend.hidden = !isPrice;
+    coverageLegend.hidden = !isPrice;
+
+    let selected;
+    let config;
+    if (isPrice) {
+      const customerClass = customerClassSelect.value;
+      const coverageRule = coverageRuleSelect.value;
+      const priceBasis = priceBasisSelect.value;
+      selected = priceSummaryForBasis(
+        summaryRecords
+          .filter(
+            (record) =>
+              record.customer_class === customerClass &&
+              record.coverage_rule === coverageRule
+          )
+          .sort((a, b) => a.year - b.year),
+        priceBasis
+      );
+      const maximum = niceMaximum(
+        Math.max(...selected.map((record) => record.maximum_value).filter(isNumber))
+      );
+      config = {
+        maximum,
+        ticks: [0, maximum / 2, maximum],
+        formatAxis: (value) => `${formatReliabilityAxis(value)}¢`,
+        ariaLabel: `annual median bundled ${customerClass} price and observed range`,
+        showRange: true,
+        flagged: (record) =>
+          coverageRule === "all_published" &&
+          Number(record.minority_coverage_count) > 0,
+        detailFor: (record) =>
+          priceComparisonDetailText(record, coverageRule, priceBasis),
+      };
+      finding.textContent = priceComparisonFinding(
+        selected,
+        customerClass,
+        coverageRule,
+        priceBasis
+      );
+    } else {
+      const metric = resolveMetric(
+        METRICS[measureSelect.value],
+        panelRecords,
+        reliabilityScopeSelect.value,
+        "residential"
+      );
+      selected = reliabilitySummaryRecords(panelRecords, metric);
+      const maximum = niceMaximum(
+        Math.max(...selected.map((record) => record.median_value).filter(isNumber))
+      );
+      config = {
+        maximum,
+        ticks: [0, maximum / 2, maximum],
+        formatAxis: formatReliabilityAxis,
+        ariaLabel: `annual median ${metric.label.toLowerCase()}`,
+        showRange: false,
+        flagged: () => false,
+        detailFor: (record) => reliabilityComparisonDetailText(record, metric),
+      };
+      finding.textContent = reliabilityComparisonFinding(
+        selected,
+        metric,
+        panelRecords
+      );
+    }
+
     charts.replaceChildren();
     for (const ownership of OWNERSHIP_ORDER) {
       charts.appendChild(
         buildOwnershipComparisonCard(
           selected.filter((record) => record.ownership === ownership),
           ownership,
-          coverageRule
+          config
         )
       );
     }
-    finding.textContent = ownershipComparisonFinding(
-      selected,
-      customerClass,
-      coverageRule
-    );
   };
+  measureSelect.addEventListener("change", render);
   customerClassSelect.addEventListener("change", () => {
     const utilityCustomerClass = document.getElementById("customer-class");
     if (utilityCustomerClass.value !== customerClassSelect.value) {
@@ -1154,6 +1365,8 @@ function setupOwnershipComparison(summaryRecords) {
     render();
   });
   coverageRuleSelect.addEventListener("change", render);
+  priceBasisSelect.addEventListener("change", render);
+  reliabilityScopeSelect.addEventListener("change", render);
   render();
 }
 
@@ -2258,7 +2471,6 @@ function main() {
   const isoFuelMixRecords = window.NE_NY_ISO_FUEL_MIX;
   const ctRoeCaseStudyRecords = window.NE_NY_ROE_CASE_STUDY;
   setupCtCaseStudy(ctRoeCaseStudyRecords);
-  setupOwnershipComparison(ownershipSummaryRecords);
   setupIsoFuelMix(isoFuelMixRecords);
   const status = document.getElementById("matrix-status");
   if (!Array.isArray(priceRecords) || priceRecords.length !== EXPECTED_PANEL_ROWS) {
@@ -2279,6 +2491,7 @@ function main() {
     status.textContent = "The price and reliability panel rows could not be matched.";
     return;
   }
+  setupOwnershipComparison(ownershipSummaryRecords, records);
   const metricSelect = document.getElementById("panel-metric");
   const customerClassControl = document.getElementById("customer-class-control");
   const customerClassSelect = document.getElementById("customer-class");

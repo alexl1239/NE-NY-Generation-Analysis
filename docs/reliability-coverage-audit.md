@@ -112,9 +112,10 @@ The reporting method is not constant for the whole sample:
 This does not prove that the values are wrong. EIA permits utilities to use a method
 other than IEEE, so `other_standard` is a definition/comparability limit rather than
 an error flag. Every populated non-IEEE row in this project matches the official EIA
-workbook. The website retains those values for within-utility description, labels the
-method, and does not calculate ownership-level reliability medians. Apparent changes
-around a method transition can partly reflect a change in measurement rules.
+workbook. The website retains those values for within-utility description and labels
+the method. Its ownership overview now reports simple annual unweighted medians with
+the usable-utility count, explicitly as a descriptive summary. Apparent changes around
+a method transition can partly reflect a change in measurement rules.
 
 ## Independent regulator cross-checks
 
@@ -165,6 +166,7 @@ The website now includes SAIDI, SAIFI, and CAIDI in the existing utility panels.
 defaults to excluding major events and allows the viewer to switch to including
 major events. Missing or source-conflicted values remain blank, lines break at gaps,
 reporting standards appear in point details, and ownership-row reliability medians
-are withheld because the selected utilities use mixed reporting methods. Each panel
-states when a source-conflicted value was withheld. No published EIA value is
-overwritten or silently recoded.
+remain separate from the individual utility rows. The overview can show annual
+unweighted ownership medians, with sample counts and a mixed-method warning. Each
+panel states when a source-conflicted value was withheld. No published EIA value is
+overwritten, weighted, or silently recoded.

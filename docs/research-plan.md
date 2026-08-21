@@ -213,8 +213,9 @@ coverage remains a separate data-quality metric beside price.
    **Sensitivity implemented:** the ownership comparison can switch between all
    published prices and a project-defined majority-coverage sample requiring at least
    50%. This is not presented as an EIA quality standard.
-5. Add nominal-versus-inflation-adjusted presentation only if it materially improves
-   interpretation.
+5. **Complete in the website overview:** allow price medians to switch between the
+   published nominal cents and constant 2024 cents using the annual CPI-U. This does
+   not alter the underlying EIA values or the within-year ownership ranking.
 
 ### Phase 3: Reliability
 
@@ -238,6 +239,8 @@ reporting methods during the panel. These exceptions are preserved in
 `docs/reliability-coverage-audit.md`. SAIDI, SAIFI, and CAIDI are now available in the
 website utility panels. The default excludes major events, the alternate view
 includes them, missing years remain blank, and reporting-method changes are marked.
+The ownership overview adds simple annual unweighted medians with usable-utility
+counts; these are labeled descriptive because reporting methods can differ.
 All 2,841 comparable fields in the 2013–2024 official EIA workbooks match the PUDL
 extract. Targeted regulator checks found source conflicts for NSTAR in 2017 and
 2023. The raw EIA/PUDL values remain in the audit, but the affected measures are
@@ -252,13 +255,11 @@ Add candidate explanations separately rather than all at once:
    annual NYIS and ISNE balancing-authority assignments. Imports and
    utility-specific purchases are explicitly excluded from the interpretation.
 2. Utility size and customer composition from existing government data
-3. Authorized return on equity for investor-owned utilities. **Four-utility pilot
+3. Authorized return on equity for investor-owned utilities. **Six-utility pilot
    complete:** the 2013-2024 source-audited table now includes a `DOM`/`MTC` pair
-   under the same regulator in Connecticut (CL&P and UI) and Massachusetts (NSTAR
-   and Massachusetts Electric). Base ROE, in-force penalties, future-order
+   under the same regulator in Connecticut (CL&P and UI), Massachusetts (NSTAR and
+   Massachusetts Electric), and New York (Con Edison and NYSEG). Base ROE, in-force
    penalties, actual earned ROE, and decision-year dollar inputs remain separate.
-   Review these two matched-state comparisons before deciding whether a New York or
-   New Hampshire pair would materially improve the analysis.
 4. Utility-owned generation assets when ownership and annual coverage are reliable
 
 Authorized ROE will come from regulator decisions, rate cases, or utility filings.
