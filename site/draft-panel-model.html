@@ -3,116 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Preliminary panel-model demonstration testing how ownership, ISO market, and routine reliability relate to inflation-adjusted electricity prices in a selected New York and New England utility sample.">
-  <title>Draft panel model | Utility ownership research</title>
-  <link rel="stylesheet" href="styles.css?v=20260827a">
+  <meta name="description" content="Preliminary panel regressions of utility ownership, bundled electricity prices, and reported reliability in New York and New England, 2013–2024.">
+  <title>Panel regression results | Utility ownership research</title>
+  <link rel="stylesheet" href="styles.css?v=20260828a">
 </head>
 <body>
   <header class="research-header draft-model-header">
-    <nav class="research-nav draft-model-nav" aria-label="Draft model navigation">
-      <a href="index.html">&larr; Back to observed findings</a>
-      <a href="#price-model">Price model</a>
-      <a href="#reliability-outcome">Reliability outcome</a>
-      <a href="#decision-checks">Open decisions</a>
-      <a href="#draft-methods">Methods</a>
+    <nav class="research-nav draft-model-nav" aria-label="Panel regression navigation">
+      <a href="index.html">&larr; Observed-data overview</a>
+      <a href="#specification">Specification</a>
+      <a href="#price-results">Price results</a>
+      <a href="#reliability-results">Reliability results</a>
+      <a href="#analysis-data">Analysis table</a>
     </nav>
-    <p class="draft-eyebrow">Preliminary model demonstration</p>
-    <h1>Does reliability help explain the ownership-price difference?</h1>
+    <h1>Panel regression results</h1>
     <p>
-      This draft follows the professors’ proposed panel approach using the data
-      already reviewed. It compares the same utility-year observations three ways:
-      without a reliability measure, with routine SAIDI, and with routine CAIDI.
+      Preliminary pooled panel regressions using repeated utility-year observations
+      from 2013–2024. The estimates are associations, not causal effects.
     </p>
-    <div class="draft-warning" role="note">
-      <strong>Draft—not final and not causal.</strong>
-      These models describe relationships in a selected sample. They do not prove
-      that ownership or reliability causes prices.
-    </div>
   </header>
 
   <main class="research-main research-main--wide draft-model-main">
-    <section class="draft-question" aria-labelledby="draft-question-title">
-      <h2 id="draft-question-title">The idea in plain language</h2>
-      <div class="draft-question-grid">
-        <article>
-          <span>1</span>
-          <h3>Start with price</h3>
-          <p>Estimate how MTC and COOP prices differ from DOM prices.</p>
-        </article>
-        <article>
-          <span>2</span>
-          <h3>Add reliability</h3>
-          <p>Add SAIDI or CAIDI separately while keeping the same observations.</p>
-        </article>
-        <article>
-          <span>3</span>
-          <h3>Watch what changes</h3>
-          <p>If the ownership estimate shrinks, reliability may explain part of the gap.</p>
-        </article>
-      </div>
+    <section id="specification" aria-labelledby="specification-title">
+      <h2 id="specification-title">Specification</h2>
+      <p class="draft-equation">
+        Price<sub>it</sub> = ownership<sub>it</sub> + market + year + reporting method
+        [+ SAIDI or CAIDI] + error<sub>it</sub>
+      </p>
+      <ul class="draft-method-list">
+        <li>Separate models for residential, commercial, and industrial bundled average prices.</li>
+        <li>Prices are inflation-adjusted to constant 2024 cents per kWh.</li>
+        <li>DOM is the ownership reference group; NYISO is the market reference group.</li>
+        <li>Routine SAIDI and routine CAIDI are added separately.</li>
+        <li>Each utility-year counts once. Standard errors are clustered by utility.</li>
+        <li>No customer weighting or automatic outlier deletion is used.</li>
+      </ul>
     </section>
 
-    <section id="price-model" aria-labelledby="price-model-title">
-      <div class="draft-section-heading">
-        <div>
-          <p class="draft-eyebrow">Main draft analysis</p>
-          <h2 id="price-model-title">Ownership and inflation-adjusted price</h2>
-        </div>
-        <label class="draft-select" for="draft-customer-class">
-          Customer type
-          <select id="draft-customer-class">
-            <option value="residential">Residential</option>
-            <option value="commercial">Commercial</option>
-            <option value="industrial">Industrial</option>
-          </select>
-        </label>
-      </div>
-
-      <div class="draft-finding-card" aria-live="polite">
-        <p class="draft-finding-label">What this draft finds</p>
-        <h3 id="draft-price-finding-title">Loading the residential result…</h3>
-        <p id="draft-price-finding"></p>
-      </div>
-
-      <div class="draft-stat-grid" aria-label="Selected model summary">
-        <article>
-          <span id="draft-observation-count">—</span>
-          <p>usable utility-years</p>
-        </article>
-        <article>
-          <span id="draft-utility-count">—</span>
-          <p>utilities represented</p>
-        </article>
-        <article>
-          <span id="draft-baseline-r2">—</span>
-          <p>baseline R²</p>
-        </article>
-      </div>
-      <p id="draft-sample-note" class="table-note"></p>
-
-      <div class="draft-chart-card">
-        <div class="draft-chart-heading">
-          <div>
-            <h3>Estimated price difference from DOM</h3>
-            <p>Dots are estimates; lines are 95% uncertainty ranges.</p>
-          </div>
-          <div class="draft-chart-legend" aria-label="Coefficient chart legend">
-            <span><i class="draft-legend-line"></i>95% range</span>
-            <span><i class="draft-legend-dot"></i>Estimate</span>
-          </div>
-        </div>
-        <div id="draft-ownership-chart" class="draft-ownership-chart" aria-live="polite"></div>
-        <p class="table-note">
-          Negative numbers mean a lower modeled price than DOM. A range crossing zero
-          means the difference is uncertain at the 5% threshold.
-        </p>
-      </div>
-
+    <section id="price-results" aria-labelledby="price-results-title">
+      <h2 id="price-results-title">Price results</h2>
+      <p id="draft-price-summary"></p>
       <div class="table-wrap draft-results-table-wrap">
         <table class="ownership-table draft-results-table">
           <thead>
             <tr>
-              <th scope="col">Model version</th>
+              <th scope="col">Customer class</th>
+              <th scope="col">Specification</th>
+              <th scope="col">N</th>
+              <th scope="col">Utilities</th>
               <th scope="col">MTC vs DOM</th>
               <th scope="col">COOP vs DOM</th>
               <th scope="col">ISO-NE vs NYISO</th>
@@ -124,132 +62,102 @@
         </table>
       </div>
       <p class="table-note">
-        Estimates are in 2024 cents per kWh. The reliability term is per 100 SAIDI
-        minutes or 10 CAIDI minutes. Each estimate includes its p-value in parentheses.
+        Price coefficients are in 2024 cents per kWh. Each coefficient cell reports
+        the estimate, 95% confidence interval, and p-value. The reliability coefficient
+        is per 100 SAIDI minutes or 10 CAIDI minutes.
       </p>
     </section>
 
-    <section id="reliability-outcome" aria-labelledby="reliability-outcome-title">
-      <div class="draft-section-heading">
-        <div>
-          <p class="draft-eyebrow">Secondary question</p>
-          <h2 id="reliability-outcome-title">Does reported reliability differ by ownership?</h2>
-        </div>
-        <label class="draft-select" for="draft-reliability-metric">
-          Reliability measure
-          <select id="draft-reliability-metric">
-            <option value="saidi">SAIDI — outage minutes</option>
-            <option value="caidi">CAIDI — restoration time</option>
-          </select>
-        </label>
+    <section id="sensitivity-results" aria-labelledby="sensitivity-results-title">
+      <h2 id="sensitivity-results-title">Price sensitivity checks</h2>
+      <div class="table-wrap draft-results-table-wrap">
+        <table class="ownership-table draft-results-table">
+          <thead>
+            <tr>
+              <th scope="col">Customer class</th>
+              <th scope="col">Sample</th>
+              <th scope="col">Geographic control</th>
+              <th scope="col">N</th>
+              <th scope="col">Utilities</th>
+              <th scope="col">MTC vs DOM</th>
+              <th scope="col">COOP vs DOM</th>
+              <th scope="col">R²</th>
+            </tr>
+          </thead>
+          <tbody id="draft-sensitivity-results-table"></tbody>
+        </table>
       </div>
-      <p id="draft-reliability-finding" class="draft-secondary-finding" aria-live="polite"></p>
-      <div id="draft-reliability-cards" class="draft-reliability-cards"></div>
-      <p class="table-note">
-        Higher SAIDI or CAIDI means worse reported reliability. These are routine
-        measures excluding major event days and remain utility-reported outcomes.
+      <p id="draft-sensitivity-summary" class="table-note"></p>
+    </section>
+
+    <section id="reliability-results" aria-labelledby="reliability-results-title">
+      <h2 id="reliability-results-title">Reliability as the outcome</h2>
+      <p>
+        These regressions use routine SAIDI or CAIDI as the dependent variable and
+        test whether reported reliability differs by ownership. Higher values indicate
+        worse reported reliability.
+      </p>
+      <div class="table-wrap draft-results-table-wrap">
+        <table class="ownership-table draft-results-table">
+          <thead>
+            <tr>
+              <th scope="col">Outcome</th>
+              <th scope="col">Geographic control</th>
+              <th scope="col">N</th>
+              <th scope="col">Utilities</th>
+              <th scope="col">MTC vs DOM</th>
+              <th scope="col">COOP vs DOM</th>
+              <th scope="col">R²</th>
+            </tr>
+          </thead>
+          <tbody id="draft-reliability-results-table"></tbody>
+        </table>
+      </div>
+      <p id="draft-reliability-summary" class="table-note"></p>
+    </section>
+
+    <section id="interpretation" aria-labelledby="interpretation-title">
+      <h2 id="interpretation-title">Interpretation and limits</h2>
+      <p>
+        Across customer classes, the estimated MTC and COOP price coefficients remain
+        below DOM after adding routine SAIDI or CAIDI. The reliability terms do not
+        explain much of the ownership-price difference in these specifications.
+      </p>
+      <p>
+        These are pooled panel regressions, not utility fixed-effects estimates.
+        Ownership, regulation, geography, infrastructure, and customer composition may
+        be related to one another, so the coefficients should not be interpreted as
+        causal. Only two utilities change ownership in the current period, which limits
+        a within-utility causal design.
+      </p>
+      <p>
+        The price outcome is EIA bundled average revenue per kWh. Delivery-only prices
+        or revenues are not included in these models. ROI/ROE is also not included.
       </p>
     </section>
 
-    <section id="decision-checks" aria-labelledby="decision-checks-title">
-      <p class="draft-eyebrow">What the draft helps decide</p>
-      <h2 id="decision-checks-title">Results under other reasonable choices</h2>
-      <div class="draft-decision-grid">
-        <article>
-          <h3>ISO or state controls?</h3>
-          <p id="draft-state-check"></p>
-        </article>
-        <article>
-          <h3>Is the price result limited to 30 selected utilities?</h3>
-          <p id="draft-expanded-check"></p>
-        </article>
-        <article>
-          <h3>Does reliability explain the price gap?</h3>
-          <p id="draft-reliability-price-check"></p>
-        </article>
-      </div>
-      <p class="plain-note">
-        The largest unresolved measurement question is still whether bundled average
-        price or a separately collected distribution tariff should be the final price
-        outcome. This draft cannot answer that conceptual choice.
+    <section id="analysis-data" aria-labelledby="analysis-data-title">
+      <h2 id="analysis-data-title">Model input table</h2>
+      <p>
+        One row is one selected utility in one year. The table includes all 360 rows
+        used to construct the matched model samples, including rows excluded from a
+        specific price model because a required value is missing.
       </p>
-    </section>
-
-    <section class="draft-meaning" aria-labelledby="draft-meaning-title">
-      <p class="draft-eyebrow">Reading the output</p>
-      <h2 id="draft-meaning-title">Three statistical terms, simply explained</h2>
-      <dl class="draft-definition-grid">
-        <div>
-          <dt>Coefficient</dt>
-          <dd>The estimated difference connected to one variable after the other listed variables are included.</dd>
-        </div>
-        <div>
-          <dt>p-value</dt>
-          <dd>A measure of uncertainty. This page calls an estimate “clear” only when p is below 0.05.</dd>
-        </div>
-        <div>
-          <dt>R²</dt>
-          <dd>The share of price variation tracked by the whole model. It is not one variable’s individual contribution.</dd>
-        </div>
-      </dl>
-    </section>
-
-    <section id="draft-methods" aria-labelledby="draft-methods-title">
-      <p class="draft-eyebrow">Methods and limits</p>
-      <h2 id="draft-methods-title">What was included</h2>
-      <div class="draft-method-grid">
-        <article>
-          <h3>Primary sample</h3>
-          <p>
-            The selected 30-utility panel covers 2013–2024. The three price versions
-            use the same complete rows with price, SAIDI, CAIDI, and a known reporting
-            method. The displayed utility count is therefore lower than 30.
-          </p>
-        </article>
-        <article>
-          <h3>Controls</h3>
-          <p>
-            Ownership, ISO market, year, and reliability reporting method are included.
-            DOM, NYISO, IEEE reporting, and 2013 are the reference categories.
-          </p>
-        </article>
-        <article>
-          <h3>Uncertainty</h3>
-          <p>
-            Every utility-year counts once. Standard errors are clustered by utility
-            because repeated years for one utility are related. No customer weighting
-            or automatic outlier deletion is used.
-          </p>
-        </article>
-        <article>
-          <h3>Why no ROI/ROE?</h3>
-          <p>
-            Audited coverage is still limited, and a cooperative has no directly
-            comparable authorized shareholder return. ROE remains separate visual
-            evidence rather than a panel-model variable.
-          </p>
-        </article>
-      </div>
-
-      <div class="draft-limit-box">
-        <h3>What this does not prove</h3>
-        <p>
-          Ownership, reliability, market, regulation, geography, infrastructure, and
-          customer mix can affect one another. These regressions organize the observed
-          relationships; they do not isolate a causal ownership effect. A causal study
-          would require a separate acquisition-based design with more ownership changes.
-        </p>
-      </div>
-
-      <p class="table-note draft-downloads">
-        Audit the draft:
-        <a href="data/draft_panel_model_results.json">download exact model results</a>
-        · <a href="data/draft_panel_model_analysis.csv">download the analysis table</a>
-        · <a href="https://github.com/alexl1239/NE-NY-Generation-Analysis/blob/main/docs/draft-panel-model-implementation-plan.md" target="_blank" rel="noopener">read the staged plan</a>.
-        Price data are from EIA Electric Sales, Revenue, and Average Price; reliability
-        data are utility-reported EIA-861 records standardized by PUDL; inflation uses
-        annual BLS CPI-U.
+      <p class="draft-downloads">
+        <a href="data/draft_panel_model_analysis.csv">Download CSV</a>
+        · <a href="data/draft_panel_model_results.json">Download exact regression output</a>
       </p>
+      <label class="draft-data-filter" for="draft-data-search">
+        Filter table
+        <input id="draft-data-search" type="search" placeholder="Utility, state, year, ownership…">
+      </label>
+      <p id="draft-data-status" class="table-note" aria-live="polite">Loading analysis table…</p>
+      <div class="table-wrap draft-data-table-wrap">
+        <table class="ownership-table draft-data-table">
+          <thead id="draft-data-head"></thead>
+          <tbody id="draft-data-body"></tbody>
+        </table>
+      </div>
     </section>
   </main>
 
@@ -257,7 +165,7 @@
     <p><a href="index.html">Return to the observed-data overview</a></p>
   </footer>
 
-  <script src="data/draft_panel_model_results.js?v=20260827a"></script>
-  <script src="draft-panel-model.js?v=20260827a"></script>
+  <script src="data/draft_panel_model_results.js?v=20260828a"></script>
+  <script src="draft-panel-model.js?v=20260828a"></script>
 </body>
 </html>

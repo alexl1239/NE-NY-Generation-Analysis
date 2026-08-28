@@ -758,6 +758,131 @@ main {
   }
 }
 
+/* Compact panel-regression page. */
+
+.draft-model-header {
+  padding-top: 1.75rem;
+}
+
+.draft-model-nav {
+  margin-bottom: 1.5rem;
+}
+
+.draft-model-main section {
+  padding-block: 1.75rem;
+}
+
+.draft-model-main h2 {
+  font-size: 1.25rem;
+}
+
+.draft-equation {
+  max-width: none;
+  margin: 1rem 0;
+  padding: 0.75rem 0;
+  border-block: 1px solid var(--border);
+  color: var(--ink-primary) !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+}
+
+.draft-method-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--ink-secondary);
+  line-height: 1.6;
+}
+
+.draft-results-table-wrap {
+  margin-top: 1rem;
+}
+
+.draft-results-table {
+  min-width: 1050px;
+  font-size: 0.78rem;
+}
+
+.draft-results-table th,
+.draft-results-table td {
+  vertical-align: top;
+}
+
+.draft-results-table th:first-child {
+  min-width: 7rem;
+}
+
+.draft-table-estimate,
+.draft-table-detail {
+  display: block;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.draft-table-estimate {
+  color: var(--ink-primary);
+  font-weight: 700;
+}
+
+.draft-table-detail {
+  margin-top: 0.15rem;
+  color: var(--ink-muted);
+  font-size: 0.7rem;
+}
+
+.draft-downloads {
+  margin: 0.75rem 0 1rem !important;
+}
+
+.draft-data-filter {
+  display: grid;
+  max-width: 32rem;
+  gap: 0.35rem;
+  color: var(--ink-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.draft-data-filter input {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--ink-primary);
+  font: inherit;
+  font-weight: 400;
+}
+
+.draft-data-table-wrap {
+  margin-top: 0.75rem;
+}
+
+.draft-data-table {
+  width: max-content;
+  min-width: 100%;
+  font-size: 0.7rem;
+}
+
+.draft-data-table th,
+.draft-data-table td {
+  max-width: 18rem;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.draft-data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--surface);
+}
+
+@media (max-width: 760px) {
+  .draft-model-main section {
+    padding-block: 1.35rem;
+  }
+}
+
 /* Current research overview and context above the preserved earlier analysis. */
 
 .research-header,

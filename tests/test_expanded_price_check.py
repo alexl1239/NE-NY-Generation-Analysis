@@ -123,10 +123,10 @@ class ExpandedPriceCheckTests(unittest.TestCase):
     def test_website_presents_expansion_as_a_check_not_a_replacement(self) -> None:
         html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
         javascript = (PROJECT_ROOT / "site" / "draft-panel-model.js").read_text()
-        self.assertIn('id="draft-expanded-check"', html)
-        self.assertIn("Is the price result limited to 30 selected utilities?", html)
+        self.assertIn('id="sensitivity-results"', html)
+        self.assertIn("Price sensitivity checks", html)
         self.assertIn("expanded_price_models", javascript)
-        self.assertIn("cannot test reliability", javascript)
+        self.assertIn("Expanded price-only sample", javascript)
 
 
 if __name__ == "__main__":

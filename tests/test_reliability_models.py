@@ -84,17 +84,12 @@ class ReliabilityModelTests(unittest.TestCase):
     def test_draft_page_keeps_reliability_separate_from_price_causation(self) -> None:
         html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
         javascript = (PROJECT_ROOT / "site" / "draft-panel-model.js").read_text()
-        styles = (PROJECT_ROOT / "site" / "styles.css").read_text()
-        self.assertIn('id="draft-reliability-finding"', html)
-        self.assertIn('id="draft-reliability-metric"', html)
-        self.assertIn('id="draft-reliability-cards"', html)
-        for metric in ("saidi", "caidi"):
-            self.assertIn(f'value="{metric}"', html)
-        self.assertIn("Higher SAIDI or CAIDI means worse reported reliability", html)
-        self.assertIn("Draft—not final and not causal", html)
-        self.assertIn("renderReliability", javascript)
+        self.assertIn('id="draft-reliability-results-table"', html)
+        self.assertIn("Higher values indicate", html)
+        self.assertIn("not causal effects", html)
+        self.assertIn("renderReliabilityResults", javascript)
         self.assertIn("state_control_reliability_outcome_models", javascript)
-        self.assertIn(".draft-reliability-card", styles)
+        self.assertNotIn('id="draft-reliability-cards"', html)
 
 
 if __name__ == "__main__":
