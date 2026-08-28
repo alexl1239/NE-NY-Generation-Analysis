@@ -101,15 +101,16 @@ class PriceModelTests(unittest.TestCase):
         self.assertTrue(js_text.endswith(";"))
         self.assertEqual(json.loads(js_text[len(prefix) : -1]), processed)
 
-    def test_website_exposes_the_adjusted_view_without_replacing_observed_data(self) -> None:
+    def test_website_keeps_observed_data_and_links_the_new_draft_page(self) -> None:
         html = (PROJECT_ROOT / "site" / "index.html").read_text()
-        javascript = (PROJECT_ROOT / "site" / "panel.js").read_text()
-        self.assertIn('id="observed-comparison-tab"', html)
-        self.assertIn('aria-selected="true"', html)
-        self.assertIn('id="adjusted-comparison-tab"', html)
-        self.assertIn('id="adjusted-comparison-panel"', html)
-        self.assertIn("data/ownership_price_model_results.js", html)
-        self.assertIn("setupOwnershipPriceModel", javascript)
+        draft_html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
+        draft_javascript = (PROJECT_ROOT / "site" / "draft-panel-model.js").read_text()
+        self.assertIn('id="observed-comparison-panel"', html)
+        self.assertIn('href="draft-panel-model.html"', html)
+        self.assertNotIn('id="adjusted-comparison-panel"', html)
+        self.assertIn("data/draft_panel_model_results.js", draft_html)
+        self.assertIn("renderPriceFinding", draft_javascript)
+        self.assertIn("renderOwnershipChart", draft_javascript)
 
 
 if __name__ == "__main__":

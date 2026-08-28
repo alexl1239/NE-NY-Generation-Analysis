@@ -286,7 +286,7 @@ class TestPricePanelWebsite(unittest.TestCase):
         self.assertIn("Each line is a simple", html)
         self.assertIn("annual median", html)
         self.assertIn("Selected-sample outcomes by ownership", html)
-        self.assertIn("They do not represent every", html)
+        self.assertIn("not represent every utility", html)
         self.assertIn("selected as ten utilities in each 2024 ownership", html)
         self.assertNotIn("Where fuel mix fits", html)
 

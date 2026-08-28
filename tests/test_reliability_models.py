@@ -81,26 +81,20 @@ class ReliabilityModelTests(unittest.TestCase):
         self.assertTrue(text.startswith(prefix))
         self.assertEqual(json.loads(text[len(prefix) : -1]), processed)
 
-    def test_website_keeps_reliability_separate_from_price_causation(self) -> None:
-        html = (PROJECT_ROOT / "site" / "index.html").read_text()
-        javascript = (PROJECT_ROOT / "site" / "panel.js").read_text()
+    def test_draft_page_keeps_reliability_separate_from_price_causation(self) -> None:
+        html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
+        javascript = (PROJECT_ROOT / "site" / "draft-panel-model.js").read_text()
         styles = (PROJECT_ROOT / "site" / "styles.css").read_text()
-        self.assertIn('id="reliability-model-finding"', html)
-        self.assertIn('id="reliability-model-metric"', html)
-        self.assertIn('id="reliability-model-chart"', html)
-        self.assertIn('id="reliability-model-detail"', html)
-        for metric in ("saidi", "saifi", "caidi"):
+        self.assertIn('id="draft-reliability-finding"', html)
+        self.assertIn('id="draft-reliability-metric"', html)
+        self.assertIn('id="draft-reliability-cards"', html)
+        for metric in ("saidi", "caidi"):
             self.assertIn(f'value="{metric}"', html)
-        self.assertIn("Higher values mean worse reliability", html)
-        self.assertIn("separate service-quality outcome, not a cause of prices", html)
-        self.assertIn("data/ownership_reliability_model_results.js", html)
-        self.assertIn("reliabilityModelFinding", javascript)
-        self.assertIn("buildReliabilityModelChart", javascript)
-        self.assertIn("setupReliabilityModel", javascript)
-        self.assertIn(".reliability-model-svg", styles)
-        self.assertIn(
-            "window.NE_NY_OWNERSHIP_RELIABILITY_MODEL_RESULTS", javascript
-        )
+        self.assertIn("Higher SAIDI or CAIDI means worse reported reliability", html)
+        self.assertIn("Draft—not final and not causal", html)
+        self.assertIn("renderReliability", javascript)
+        self.assertIn("state_control_reliability_outcome_models", javascript)
+        self.assertIn(".draft-reliability-card", styles)
 
 
 if __name__ == "__main__":

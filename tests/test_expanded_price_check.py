@@ -121,14 +121,12 @@ class ExpandedPriceCheckTests(unittest.TestCase):
         self.assertEqual(json.loads(text[len(prefix) : -1]), processed)
 
     def test_website_presents_expansion_as_a_check_not_a_replacement(self) -> None:
-        html = (PROJECT_ROOT / "site" / "index.html").read_text()
-        javascript = (PROJECT_ROOT / "site" / "panel.js").read_text()
-        self.assertIn('id="expanded-price-check-finding"', html)
-        self.assertIn("using 42 regional utilities", html)
-        self.assertIn("does not replace the balanced 30-utility overview", html)
-        self.assertIn("data/expanded_price_model_results.js", html)
-        self.assertIn("expandedPriceModelFinding", javascript)
-        self.assertIn("window.NE_NY_EXPANDED_PRICE_MODEL_RESULTS", javascript)
+        html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
+        javascript = (PROJECT_ROOT / "site" / "draft-panel-model.js").read_text()
+        self.assertIn('id="draft-expanded-check"', html)
+        self.assertIn("Is the price result limited to 30 selected utilities?", html)
+        self.assertIn("expanded_price_models", javascript)
+        self.assertIn("cannot test reliability", javascript)
 
 
 if __name__ == "__main__":

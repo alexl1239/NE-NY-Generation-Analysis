@@ -3005,12 +3005,6 @@ function main() {
   const reliabilityRecords = window.NE_NY_RELIABILITY_PANEL;
   const isoFuelMixRecords = window.NE_NY_ISO_FUEL_MIX;
   const ctRoeCaseStudyRecords = window.NE_NY_ROE_CASE_STUDY;
-  const ownershipPriceModelResults =
-    window.NE_NY_OWNERSHIP_PRICE_MODEL_RESULTS;
-  const expandedPriceModelResults =
-    window.NE_NY_EXPANDED_PRICE_MODEL_RESULTS;
-  const ownershipReliabilityModelResults =
-    window.NE_NY_OWNERSHIP_RELIABILITY_MODEL_RESULTS;
   setupCtCaseStudy(ctRoeCaseStudyRecords);
   setupIsoFuelMix(isoFuelMixRecords);
   const status = document.getElementById("matrix-status");
@@ -3033,11 +3027,6 @@ function main() {
     return;
   }
   setupOwnershipComparison(ownershipSummaryRecords, records);
-  setupOwnershipPriceModel(
-    ownershipPriceModelResults,
-    expandedPriceModelResults
-  );
-  setupReliabilityModel(ownershipReliabilityModelResults);
   const metricSelect = document.getElementById("panel-metric");
   const customerClassControl = document.getElementById("customer-class-control");
   const customerClassSelect = document.getElementById("customer-class");

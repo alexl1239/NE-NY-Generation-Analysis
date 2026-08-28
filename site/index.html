@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Preliminary comparison of published electricity prices, reliability, and ownership for 30 selected utilities in New York and New England, 2013–2024.">
   <title>Utility ownership, prices, and reliability</title>
-  <link rel="stylesheet" href="styles.css?v=20260821a">
+  <link rel="stylesheet" href="styles.css?v=20260827a">
 </head>
 <body>
   <header class="research-header">
@@ -25,6 +25,7 @@
       <a href="#roe-case-study">Matched-state ROE check</a>
       <a href="#regional-fuel-mix">Regional mix</a>
       <a href="#methods">Methods and sources</a>
+      <a href="draft-panel-model.html">Draft panel model</a>
       <a href="previous-findings.html">Earlier analysis</a>
     </nav>
   </header>
@@ -33,11 +34,12 @@
     <section id="ownership-comparison">
       <h2>Selected-sample outcomes by ownership</h2>
       <p>
-        The default view shows the published data for the 30 selected utilities.
-        They do not represent every utility in New York and New England.
-        The adjusted view asks a narrower statistical question: after accounting for
-        state and year, how different are MTC and COOP prices from DOM prices? Neither
-        view proves that ownership caused a difference.
+        This overview shows the published data for the 30 selected utilities. They do
+        not represent every utility in New York and New England. A separate
+        <a href="draft-panel-model.html">draft panel-model page</a> tests whether the
+        observed ownership-price differences change when market, year, and routine
+        reliability are considered. Neither analysis proves that ownership caused a
+        difference.
       </p>
       <div class="ownership-key ownership-key--intro" aria-label="Ownership categories in this comparison">
         <span><i class="ownership-swatch ownership-swatch--mtc"></i><strong>MTC</strong> Foreign or multinational parent</span>
@@ -48,15 +50,7 @@
         SOE remains part of the project’s four-category definition, but no SOE utility
         is represented in this selected comparison.
       </p>
-      <div class="analysis-tabs" role="tablist" aria-label="Ownership comparison view">
-        <button id="observed-comparison-tab" class="analysis-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="observed-comparison-panel">
-          Observed data
-        </button>
-        <button id="adjusted-comparison-tab" class="analysis-tab" type="button" role="tab" aria-selected="false" aria-controls="adjusted-comparison-panel">
-          Adjusted comparison
-        </button>
-      </div>
-      <div id="observed-comparison-panel" role="tabpanel" aria-labelledby="observed-comparison-tab">
+      <div id="observed-comparison-panel">
         <p class="plain-note comparison-view-note">
           Each line is a simple annual median; the shaded area is the observed range.
           Every utility counts once.
@@ -123,91 +117,17 @@
           Individual utility histories below remain unchanged.
         </p>
       </div>
-      <div id="adjusted-comparison-panel" role="tabpanel" aria-labelledby="adjusted-comparison-tab" hidden>
-        <p class="plain-note comparison-view-note">
-          This model compares utilities after separating out common state and year
-          differences. DOM is the reference group, so zero means “no estimated
-          difference from DOM.”
-        </p>
-        <div class="panel-controls comparison-controls">
-          <label for="model-customer-class">
-            Customer type
-            <select id="model-customer-class">
-              <option value="residential">Residential</option>
-              <option value="commercial">Commercial</option>
-              <option value="industrial">Industrial</option>
-            </select>
-          </label>
-        </div>
-        <p id="ownership-price-model-status" class="chart-status" hidden></p>
-        <div class="ownership-price-model-card">
-          <h3 id="ownership-price-model-title">Adjusted residential price difference from DOM</h3>
-          <p class="ownership-price-model-guide">
-            The dot is the model estimate. The line is its 95% uncertainty range. A
-            line crossing zero means the difference is uncertain. Amounts are in
-            inflation-adjusted 2024 cents per kWh.
+      <aside class="draft-model-link-card">
+        <div>
+          <p class="draft-eyebrow">New preliminary analysis</p>
+          <h3>See the professor-directed panel-model draft</h3>
+          <p>
+            Compare the baseline ownership-price result with versions that add
+            routine SAIDI or CAIDI, using the same utility-year observations.
           </p>
-          <div id="ownership-price-model-chart" class="ownership-price-model-chart" aria-live="polite"></div>
-          <p id="ownership-price-model-finding" class="result-note"></p>
         </div>
-        <div class="focused-model-checks">
-          <article class="focused-model-check">
-            <h3>Expanded-sample check</h3>
-            <p id="expanded-price-check-finding" class="result-note"></p>
-            <p class="table-note">
-              Same unweighted price model, using 42 regional utilities with at least
-              10,000 residential customers. This tests the finding; it does not
-              replace the balanced 30-utility overview.
-            </p>
-          </article>
-          <article class="focused-model-check focused-model-check--reliability">
-            <h3>Adjusted reliability check</h3>
-            <p id="reliability-model-finding" class="result-note"></p>
-            <label class="reliability-model-control" for="reliability-model-metric">
-              Reliability measure
-              <select id="reliability-model-metric">
-                <option value="saidi">SAIDI — outage minutes</option>
-                <option value="saifi">SAIFI — outage frequency</option>
-                <option value="caidi">CAIDI — restoration time</option>
-              </select>
-            </label>
-            <h4 id="reliability-model-title">Routine SAIDI difference from DOM</h4>
-            <p class="reliability-model-guide">
-              The dot is the estimate and the line is its 95% uncertainty range.
-              Higher values mean worse reliability; a line crossing zero is uncertain.
-            </p>
-            <div id="reliability-model-chart" class="reliability-model-chart" aria-live="polite"></div>
-            <p id="reliability-model-detail" class="result-note"></p>
-            <p class="table-note">
-              Uses the already reviewed 30-utility reliability panel. Reliability is
-              treated as a separate service-quality outcome, not a cause of prices.
-            </p>
-          </article>
-        </div>
-        <details class="model-details">
-          <summary>Show exact results and method</summary>
-          <div class="table-wrap model-table-wrap">
-            <table class="ownership-table model-table">
-              <thead>
-                <tr>
-                  <th scope="col">Compared with DOM</th>
-                  <th scope="col">Estimated difference</th>
-                  <th scope="col">95% range</th>
-                  <th scope="col">Plain reading</th>
-                </tr>
-              </thead>
-              <tbody id="ownership-price-model-table"></tbody>
-            </table>
-          </div>
-          <p id="ownership-price-model-method" class="table-note"></p>
-          <p class="table-note">
-            The majority-coverage check keeps the same lower-price direction for all
-            three customer types. <a href="data/ownership_price_model_results.json">Download the main price results</a>
-            · <a href="data/expanded_price_model_results.json">expanded-sample results</a>
-            · <a href="data/ownership_reliability_model_results.json">reliability results</a>.
-          </p>
-        </details>
-      </div>
+        <a href="draft-panel-model.html">Open the draft model &rarr;</a>
+      </aside>
     </section>
 
     <section id="utility-panels">
@@ -382,17 +302,20 @@
           a different number. These results do not describe every utility in the region.
         </li>
         <li>
-          <strong>Adjusted ownership-price comparison:</strong> separate unweighted
-          models for residential, commercial, and industrial prices use constant 2024
-          cents and include ownership, state, and year indicators. DOM is the reference
-          group. The 95% uncertainty ranges account for repeated observations of the
-          same utility. These are preliminary associations, not causal estimates.
+          <strong>Draft panel price models:</strong> the separate
+          <a href="draft-panel-model.html">draft page</a> compares residential,
+          commercial, and industrial prices on the same complete-case rows. The
+          baseline includes ownership, ISO market, year, and reliability-reporting
+          method; routine SAIDI and CAIDI are then added separately. Prices are in
+          constant 2024 cents, DOM is the reference group, and uncertainty is clustered
+          by utility. These are preliminary associations, not causal estimates.
         </li>
         <li>
-          <strong>Expanded price check:</strong> the same model is repeated for 42
-          regional utilities reporting at least 10,000 residential customers in 2024.
-          This threshold was chosen before running the expanded model. The result is a
-          robustness check and does not replace the balanced 30-utility overview.
+          <strong>Expanded price check:</strong> the draft also reports a price-only
+          ISO-and-year baseline for 42 regional utilities reporting at least 10,000
+          residential customers in 2024. This threshold was chosen before running the
+          model. The expansion cannot test reliability until those additional utility
+          records are audited.
         </li>
         <li>
           <strong>Authorized return on equity:</strong> the matched-state pilot uses
@@ -435,11 +358,11 @@
           The default view excludes major events; the alternate view includes them.
         </li>
         <li>
-          <strong>Adjusted reliability check:</strong> separate unweighted SAIDI,
-          SAIFI, and CAIDI models include ownership, state, year, and reporting-method
-          indicators, with uncertainty clustered by utility. The primary version
-          excludes major events. Reliability remains a separate service-quality
-          outcome and is not used as proof of what causes prices.
+          <strong>Draft reliability outcomes:</strong> routine SAIDI and CAIDI are also
+          modeled separately as outcomes using ownership, ISO market, year, and
+          reporting-method indicators. A compact sensitivity check replaces ISO with
+          state indicators. Reliability remains a separate service-quality outcome and
+          is not used as proof of what causes prices.
         </li>
         <li>
           <strong>Reliability limits:</strong> Peabody and Fishers Island have no
@@ -504,9 +427,6 @@
   <script src="data/reliability_panel.js?v=20260810a"></script>
   <script src="data/iso_fuel_mix.js"></script>
   <script src="data/roe_case_study.js?v=20260820b"></script>
-  <script src="data/ownership_price_model_results.js?v=20260820a"></script>
-  <script src="data/expanded_price_model_results.js?v=20260821a"></script>
-  <script src="data/ownership_reliability_model_results.js?v=20260821a"></script>
-  <script src="panel.js?v=20260821b"></script>
+  <script src="panel.js?v=20260827a"></script>
 </body>
 </html>

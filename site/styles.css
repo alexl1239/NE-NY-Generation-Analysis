@@ -238,6 +238,526 @@ main {
   color: var(--ink-secondary);
 }
 
+/* Professor-facing draft panel model. */
+
+.draft-model-header {
+  padding-top: 2.25rem;
+}
+
+.draft-model-nav {
+  margin: 0 0 2.25rem;
+}
+
+.draft-eyebrow {
+  margin: 0 0 0.5rem !important;
+  color: var(--ownership-mtc) !important;
+  font-size: 0.76rem !important;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.draft-warning {
+  max-width: 720px;
+  margin-top: 1.5rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--ownership-dom) 45%, var(--border));
+  border-left: 4px solid var(--ownership-dom);
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--ownership-dom) 7%, var(--surface));
+  color: var(--ink-secondary);
+  line-height: 1.55;
+}
+
+.draft-warning strong {
+  color: var(--ink-primary);
+}
+
+.draft-model-main section {
+  padding-block: 2.75rem;
+}
+
+.draft-question-grid,
+.draft-stat-grid,
+.draft-decision-grid,
+.draft-definition-grid,
+.draft-method-grid,
+.draft-reliability-cards {
+  display: grid;
+  gap: 1rem;
+}
+
+.draft-question-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 1.25rem;
+}
+
+.draft-question-grid article,
+.draft-decision-grid article,
+.draft-method-grid article,
+.draft-reliability-card {
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.draft-question-grid article > span {
+  display: grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--gridline);
+  color: var(--ink-primary);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.draft-question-grid h3,
+.draft-decision-grid h3,
+.draft-method-grid h3,
+.draft-reliability-card h3 {
+  margin: 0.85rem 0 0;
+  font-size: 1rem;
+}
+
+.draft-question-grid p,
+.draft-decision-grid p,
+.draft-method-grid p,
+.draft-reliability-card p {
+  margin-top: 0.45rem;
+  font-size: 0.9rem;
+}
+
+.draft-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.draft-section-heading h2 {
+  margin-bottom: 0;
+}
+
+.draft-select {
+  display: grid;
+  flex: 0 0 auto;
+  gap: 0.35rem;
+  color: var(--ink-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.draft-select select {
+  min-width: 13.5rem;
+  padding: 0.55rem 2rem 0.55rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--ink-primary);
+  font: inherit;
+  font-weight: 500;
+}
+
+.draft-finding-card {
+  margin-top: 1.4rem;
+  padding: 1.35rem 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--ownership-mtc) 35%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ownership-mtc) 6%, var(--surface));
+}
+
+.draft-finding-label {
+  margin: 0 !important;
+  color: var(--ownership-mtc) !important;
+  font-size: 0.76rem !important;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.draft-finding-card h3 {
+  margin: 0.45rem 0 0;
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  line-height: 1.3;
+}
+
+.draft-finding-card p:last-child {
+  max-width: 980px;
+  margin-top: 0.65rem;
+}
+
+.draft-stat-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 760px;
+  margin-top: 1rem;
+}
+
+.draft-stat-grid article {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+}
+
+.draft-stat-grid span {
+  display: block;
+  color: var(--ink-primary);
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.draft-stat-grid p {
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+}
+
+.draft-chart-card {
+  margin-top: 1.5rem;
+  padding: 1.35rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.draft-chart-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.draft-chart-heading h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.draft-chart-heading p {
+  margin: 0.25rem 0 0;
+  font-size: 0.82rem;
+}
+
+.draft-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  color: var(--ink-muted);
+  font-size: 0.76rem;
+}
+
+.draft-chart-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.draft-legend-line {
+  width: 1.5rem;
+  border-top: 3px solid var(--ink-secondary);
+}
+
+.draft-legend-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 999px;
+  background: var(--ink-secondary);
+}
+
+.draft-ownership-chart {
+  margin-top: 1.3rem;
+}
+
+.draft-axis-labels {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr 4.5rem;
+  margin: 0 0 0.45rem;
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.draft-axis-labels div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.draft-coef-group + .draft-coef-group {
+  margin-top: 1.4rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.draft-coef-group h4 {
+  margin: 0 0 0.65rem;
+  font-size: 0.88rem;
+}
+
+.draft-coef-row {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(12rem, 1fr) 4.5rem;
+  align-items: center;
+  min-height: 2.15rem;
+  gap: 0.75rem;
+}
+
+.draft-coef-model {
+  color: var(--ink-secondary);
+  font-size: 0.78rem;
+}
+
+.draft-coef-track {
+  position: relative;
+  height: 1.25rem;
+  border-bottom: 1px solid var(--gridline);
+}
+
+.draft-coef-zero {
+  position: absolute;
+  top: 0;
+  bottom: -1px;
+  width: 1px;
+  background: var(--ink-muted);
+}
+
+.draft-coef-interval {
+  position: absolute;
+  top: 0.56rem;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--ownership-mtc);
+}
+
+.draft-coef-point {
+  position: absolute;
+  top: 0.29rem;
+  width: 0.72rem;
+  height: 0.72rem;
+  margin-left: -0.36rem;
+  border: 2px solid var(--surface);
+  border-radius: 999px;
+  background: var(--ownership-mtc);
+  box-shadow: 0 0 0 1px var(--ownership-mtc);
+}
+
+.draft-coef-row--coop .draft-coef-interval,
+.draft-coef-row--coop .draft-coef-point {
+  background: var(--ownership-coop);
+}
+
+.draft-coef-row--coop .draft-coef-point {
+  box-shadow: 0 0 0 1px var(--ownership-coop);
+}
+
+.draft-coef-value,
+.draft-table-estimate,
+.draft-table-p {
+  font-variant-numeric: tabular-nums;
+}
+
+.draft-coef-value {
+  text-align: right;
+  color: var(--ink-primary);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.draft-results-table-wrap {
+  margin-top: 1.25rem;
+}
+
+.draft-results-table th:first-child {
+  min-width: 9.5rem;
+}
+
+.draft-results-table td {
+  white-space: nowrap;
+}
+
+.draft-table-estimate,
+.draft-table-p {
+  display: block;
+}
+
+.draft-table-estimate {
+  color: var(--ink-primary);
+  font-weight: 750;
+}
+
+.draft-table-p {
+  margin-top: 0.15rem;
+  color: var(--ink-muted);
+  font-size: 0.76rem;
+}
+
+.draft-secondary-finding {
+  max-width: 920px;
+  margin-top: 1.25rem !important;
+  padding-left: 1rem;
+  border-left: 3px solid var(--ownership-mtc);
+  color: var(--ink-primary) !important;
+  font-size: 1rem;
+}
+
+.draft-reliability-cards {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 860px;
+  margin-top: 1.25rem;
+}
+
+.draft-reliability-card {
+  border-top: 4px solid var(--ownership-mtc);
+}
+
+.draft-reliability-card--coop {
+  border-top-color: var(--ownership-coop);
+}
+
+.draft-reliability-card h3 {
+  margin-top: 0;
+}
+
+.draft-reliability-card strong {
+  display: block;
+  margin-top: 0.55rem;
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.draft-reliability-card span {
+  display: block;
+  margin-top: 0.6rem;
+  color: var(--ink-muted);
+  font-size: 0.78rem;
+}
+
+.draft-decision-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 1.25rem;
+}
+
+.draft-decision-grid h3,
+.draft-method-grid h3 {
+  margin-top: 0;
+}
+
+.draft-definition-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 1.25rem;
+}
+
+.draft-definition-grid > div {
+  padding-top: 0.8rem;
+  border-top: 3px solid var(--gridline);
+}
+
+.draft-definition-grid dt {
+  font-weight: 800;
+}
+
+.draft-definition-grid dd {
+  margin: 0.45rem 0 0;
+  color: var(--ink-secondary);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.draft-method-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.25rem;
+}
+
+.draft-limit-box {
+  margin-top: 1.25rem;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid color-mix(in srgb, var(--ownership-dom) 40%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ownership-dom) 6%, var(--surface));
+}
+
+.draft-limit-box h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.draft-limit-box p {
+  margin-top: 0.5rem;
+}
+
+.draft-downloads {
+  margin-top: 1.35rem !important;
+}
+
+.draft-model-link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid color-mix(in srgb, var(--ownership-mtc) 35%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ownership-mtc) 6%, var(--surface));
+}
+
+.draft-model-link-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.draft-model-link-card p:not(.draft-eyebrow) {
+  margin-top: 0.35rem;
+  font-size: 0.88rem;
+}
+
+.draft-model-link-card > a {
+  flex: 0 0 auto;
+  padding: 0.65rem 0.85rem;
+  border-radius: 5px;
+  background: var(--ink-primary);
+  color: var(--page);
+  text-decoration: none;
+}
+
+@media (max-width: 760px) {
+  .draft-question-grid,
+  .draft-decision-grid,
+  .draft-definition-grid,
+  .draft-method-grid,
+  .draft-stat-grid,
+  .draft-reliability-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .draft-section-heading,
+  .draft-chart-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .draft-select select {
+    width: 100%;
+  }
+
+  .draft-axis-labels,
+  .draft-coef-row {
+    grid-template-columns: 6.8rem minmax(8rem, 1fr) 3.8rem;
+    gap: 0.45rem;
+  }
+
+  .draft-chart-card {
+    padding-inline: 1rem;
+  }
+
+  .draft-model-link-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
 /* Current research overview and context above the preserved earlier analysis. */
 
 .research-header,
