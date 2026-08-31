@@ -33,6 +33,10 @@
       <span class="draft-table-detail">[${signed(row.confidence_95_low)}, ${signed(row.confidence_95_high)}] · ${pValue(row.p_value)}</span>`;
   }
 
+  function estimateCell(row) {
+    return `<span class="draft-table-estimate">${signed(row.estimate)}¢</span>`;
+  }
+
   function modelFor(source, customerClass, specification = "baseline") {
     return source.find((model) => (
       model.customer_class === customerClass
@@ -71,8 +75,8 @@
   }
 
   function renderSaidiComparison() {
-    const body = document.getElementById("saidi-comparison-table");
-    const rows = [];
+    const groups = document.getElementById("saidi-comparison-groups");
+    const sections = [];
     const saidiTerms = [];
     let largestChange = 0;
 
@@ -92,6 +96,7 @@
         coefficient: coefficient(withSaidi, "routine_saidi_per_100_minutes"),
       });
 
+      const rows = [];
       for (const ownership of ["MTC", "COOP"]) {
         const withoutRow = coefficient(baseline, `ownership_${ownership}`);
         const withRow = coefficient(withSaidi, `ownership_${ownership}`);
@@ -99,17 +104,32 @@
         largestChange = Math.max(largestChange, Math.abs(change));
         rows.push(`
           <tr>
-            <th scope="row">${classLabel[customerClass]}</th>
-            <td>${ownership} vs DOM</td>
-            <td class="numeric-cell">${baseline.observation_count}</td>
-            <td class="numeric-cell">${baseline.utility_cluster_count}</td>
-            <td>${coefficientCell(withoutRow)}</td>
-            <td>${coefficientCell(withRow)}</td>
+            <th scope="row">${ownership}</th>
+            <td>${estimateCell(withoutRow)}</td>
+            <td>${estimateCell(withRow)}</td>
             <td class="numeric-cell draft-change-cell">${signed(change)}¢</td>
           </tr>`);
       }
+      sections.push(`
+        <section class="draft-saidi-group" aria-labelledby="saidi-${customerClass}-title">
+          <header class="draft-saidi-group__header">
+            <h3 id="saidi-${customerClass}-title">${classLabel[customerClass]}</h3>
+            <p>${baseline.observation_count} observations · ${baseline.utility_cluster_count} utilities</p>
+          </header>
+          <table class="ownership-table draft-compact-table">
+            <thead>
+              <tr>
+                <th scope="col">Ownership</th>
+                <th scope="col">Without SAIDI</th>
+                <th scope="col">With SAIDI</th>
+                <th scope="col">Change</th>
+              </tr>
+            </thead>
+            <tbody>${rows.join("")}</tbody>
+          </table>
+        </section>`);
     }
-    body.innerHTML = rows.join("");
+    groups.innerHTML = sections.join("");
 
     const saidiSummary = saidiTerms.map(({ customerClass, coefficient: row }) => (
       `${classLabel[customerClass]} ${signed(row.estimate)}¢ per 100 minutes (${pValue(row.p_value)})`

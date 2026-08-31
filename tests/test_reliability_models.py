@@ -84,7 +84,7 @@ class ReliabilityModelTests(unittest.TestCase):
     def test_price_page_limits_reliability_to_an_exploratory_saidi_check(self) -> None:
         html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
         javascript = (PROJECT_ROOT / "site" / "draft-panel-model.js").read_text()
-        self.assertIn('id="saidi-comparison-table"', html)
+        self.assertIn('id="saidi-comparison-groups"', html)
         self.assertIn("Exploratory SAIDI check", html)
         self.assertIn("not causal effects", html)
         self.assertIn("renderSaidiComparison", javascript)

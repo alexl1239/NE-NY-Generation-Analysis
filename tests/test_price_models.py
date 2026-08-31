@@ -110,7 +110,7 @@ class PriceModelTests(unittest.TestCase):
         self.assertNotIn('id="adjusted-comparison-panel"', html)
         self.assertIn("data/draft_panel_model_results.js", draft_html)
         self.assertIn('id="main-price-results-table"', draft_html)
-        self.assertIn('id="saidi-comparison-table"', draft_html)
+        self.assertIn('id="saidi-comparison-groups"', draft_html)
         self.assertIn("renderMainPriceResults", draft_javascript)
         self.assertNotIn("renderOwnershipChart", draft_javascript)
 

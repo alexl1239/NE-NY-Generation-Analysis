@@ -806,8 +806,54 @@ main {
   min-width: 760px;
 }
 
-.draft-results-table--saidi {
-  min-width: 980px;
+.draft-saidi-groups {
+  display: grid;
+  gap: 1.4rem;
+  margin-top: 1.25rem;
+}
+
+.draft-saidi-group {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.draft-saidi-group__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.55rem;
+}
+
+.draft-saidi-group__header h3,
+.draft-saidi-group__header p {
+  margin: 0;
+}
+
+.draft-saidi-group__header h3 {
+  font-size: 1rem;
+}
+
+.draft-saidi-group__header p {
+  color: var(--ink-muted);
+  font-size: 0.76rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.draft-compact-table {
+  width: 100%;
+  table-layout: fixed;
+  font-size: 0.78rem;
+}
+
+.draft-compact-table th,
+.draft-compact-table td {
+  padding: 0.65rem 0.55rem;
+  vertical-align: middle;
+}
+
+.draft-compact-table th:first-child {
+  width: 22%;
 }
 
 .draft-results-table th,
@@ -903,6 +949,23 @@ main {
 @media (max-width: 760px) {
   .draft-model-main section {
     padding-block: 1.35rem;
+  }
+
+  .draft-saidi-group__header {
+    display: block;
+  }
+
+  .draft-saidi-group__header p {
+    margin-top: 0.2rem;
+  }
+
+  .draft-compact-table {
+    font-size: 0.72rem;
+  }
+
+  .draft-compact-table th,
+  .draft-compact-table td {
+    padding: 0.55rem 0.3rem;
   }
 }
 

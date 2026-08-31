@@ -71,26 +71,12 @@
     <section id="saidi-check" aria-labelledby="saidi-check-title">
       <h2 id="saidi-check-title">Exploratory SAIDI check</h2>
       <p>
-        The two columns below use exactly the same utility-years. The second model adds
-        routine SAIDI, measured as outage minutes per customer excluding major-event
-        days. Both versions also account for reliability-reporting method.
+        All ownership estimates are relative to DOM. The two columns use exactly the
+        same utility-years. The second model adds routine SAIDI, measured as outage
+        minutes per customer excluding major-event days. Both versions also account
+        for reliability-reporting method.
       </p>
-      <div class="table-wrap draft-results-table-wrap">
-        <table class="ownership-table draft-results-table draft-results-table--saidi">
-          <thead>
-            <tr>
-              <th scope="col">Customer class</th>
-              <th scope="col">Comparison</th>
-              <th scope="col">N</th>
-              <th scope="col">Utilities</th>
-              <th scope="col">Without SAIDI</th>
-              <th scope="col">With SAIDI</th>
-              <th scope="col">Change</th>
-            </tr>
-          </thead>
-          <tbody id="saidi-comparison-table"></tbody>
-        </table>
-      </div>
+      <div id="saidi-comparison-groups" class="draft-saidi-groups"></div>
       <p class="table-note">
         This matched sample is smaller than the main price sample because reviewed
         SAIDI is unavailable for some utilities and years. It is a sensitivity check,
@@ -150,6 +136,6 @@
   </footer>
 
   <script src="data/draft_panel_model_results.js?v=20260831b"></script>
-  <script src="draft-panel-model.js?v=20260831b"></script>
+  <script src="draft-panel-model.js?v=20260831c"></script>
 </body>
 </html>
