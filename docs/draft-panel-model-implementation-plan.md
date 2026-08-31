@@ -1,5 +1,12 @@
 # Draft panel model: staged implementation plan
 
+> **Superseded on August 31, 2026.** The public results page now focuses only on
+> price. Its headline models use the 42-utility regional sample with ownership,
+> state, and year. A smaller matched-sample check compares the same rows without and
+> with routine SAIDI. CAIDI price models and reliability-outcome regressions are no
+> longer displayed on that page. The material below preserves the earlier plan for
+> project history.
+
 ## Purpose
 
 Build a small, clearly labeled draft that demonstrates the panel-model approach

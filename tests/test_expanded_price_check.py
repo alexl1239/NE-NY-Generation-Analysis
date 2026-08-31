@@ -131,13 +131,13 @@ class ExpandedPriceCheckTests(unittest.TestCase):
             expanded.SITE_PANEL_OUTPUT.read_text(),
         )
 
-    def test_website_presents_expansion_as_a_check_not_a_replacement(self) -> None:
+    def test_website_uses_the_expanded_sample_for_the_main_price_model(self) -> None:
         html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
         javascript = (PROJECT_ROOT / "site" / "draft-panel-model.js").read_text()
-        self.assertIn('id="sensitivity-results"', html)
-        self.assertIn("Price sensitivity checks", html)
-        self.assertIn("expanded_price_models", javascript)
-        self.assertIn("Expanded price-only sample", javascript)
+        self.assertIn("42-utility regional", html)
+        self.assertIn('id="main-price-results-table"', html)
+        self.assertIn("main_price_models", javascript)
+        self.assertNotIn("Expanded price-only sample", javascript)
 
 
 if __name__ == "__main__":

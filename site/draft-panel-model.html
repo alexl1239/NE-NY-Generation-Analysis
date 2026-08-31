@@ -3,155 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Preliminary panel regressions of utility ownership, bundled electricity prices, and reported reliability in New York and New England, 2013–2024.">
-  <title>Panel regression results | Utility ownership research</title>
-  <link rel="stylesheet" href="styles.css?v=20260828a">
+  <meta name="description" content="Panel estimates of utility ownership and bundled electricity prices in New York and New England, 2013–2024, with an exploratory SAIDI comparison.">
+  <title>Price panel model | Utility ownership research</title>
+  <link rel="stylesheet" href="styles.css?v=20260831b">
 </head>
 <body>
   <header class="research-header draft-model-header">
-    <nav class="research-nav draft-model-nav" aria-label="Panel regression navigation">
+    <nav class="research-nav draft-model-nav" aria-label="Price model navigation">
       <a href="index.html">&larr; Observed-data overview</a>
-      <a href="#specification">Specification</a>
       <a href="#price-results">Price results</a>
-      <a href="#reliability-results">Reliability results</a>
-      <a href="#analysis-data">Analysis table</a>
+      <a href="#saidi-check">SAIDI check</a>
+      <a href="#analysis-data">Model data</a>
     </nav>
-    <h1>Panel regression results</h1>
+    <h1>Ownership and bundled electricity prices</h1>
     <p>
-      Preliminary pooled panel regressions using repeated utility-year observations
-      from 2013–2024. The estimates are associations, not causal effects.
+      Do bundled prices differ by ownership type after accounting for state and year
+      differences, and does adding routine SAIDI materially change the estimates?
     </p>
   </header>
 
   <main class="research-main research-main--wide draft-model-main">
     <section id="specification" aria-labelledby="specification-title">
-      <h2 id="specification-title">Specification</h2>
-      <p class="draft-equation">
-        Price<sub>it</sub> = ownership<sub>it</sub> + market + year + reporting method
-        [+ SAIDI or CAIDI] + error<sub>it</sub>
+      <h2 id="specification-title">Panel model</h2>
+      <p>
+        A panel follows the same utilities over multiple years. Each observation here
+        is one utility in one year. The model compares ownership groups while allowing
+        states and years to have different general price levels.
       </p>
-      <ul class="draft-method-list">
-        <li>Separate models for residential, commercial, and industrial bundled average prices.</li>
-        <li>Prices are inflation-adjusted to constant 2024 cents per kWh.</li>
-        <li>DOM is the ownership reference group; NYISO is the market reference group.</li>
-        <li>Routine SAIDI and routine CAIDI are added separately.</li>
-        <li>Each utility-year counts once. Standard errors are clustered by utility.</li>
-        <li>No customer weighting or automatic outlier deletion is used.</li>
-      </ul>
+      <p class="draft-equation">
+        Price<sub>it</sub> = ownership<sub>it</sub> + state<sub>i</sub> + year<sub>t</sub> + error<sub>it</sub>
+      </p>
+      <p class="table-note">
+        This is a pooled panel model, not a utility fixed-effects model. The estimates
+        are adjusted associations, not causal effects.
+      </p>
     </section>
 
     <section id="price-results" aria-labelledby="price-results-title">
-      <h2 id="price-results-title">Price results</h2>
-      <p id="draft-price-summary"></p>
+      <h2 id="price-results-title">Main price results</h2>
+      <p>
+        The headline models use every available price in the 42-utility regional
+        sample. Negative estimates mean the ownership group has a lower adjusted price
+        than DOM, the reference group.
+      </p>
       <div class="table-wrap draft-results-table-wrap">
-        <table class="ownership-table draft-results-table">
+        <table class="ownership-table draft-results-table draft-results-table--main">
           <thead>
             <tr>
               <th scope="col">Customer class</th>
-              <th scope="col">Specification</th>
               <th scope="col">N</th>
               <th scope="col">Utilities</th>
               <th scope="col">MTC vs DOM</th>
               <th scope="col">COOP vs DOM</th>
-              <th scope="col">ISO-NE vs NYISO</th>
-              <th scope="col">Reliability term</th>
               <th scope="col">R²</th>
             </tr>
           </thead>
-          <tbody id="draft-price-results-table"></tbody>
+          <tbody id="main-price-results-table"></tbody>
         </table>
       </div>
       <p class="table-note">
-        Price coefficients are in 2024 cents per kWh. Each coefficient cell reports
-        the estimate, 95% confidence interval, and p-value. The reliability coefficient
-        is per 100 SAIDI minutes or 10 CAIDI minutes.
+        Estimates are in inflation-adjusted 2024 cents per kWh. Brackets show 95%
+        confidence intervals; p-values use standard errors clustered by utility.
       </p>
+      <p id="main-price-finding" class="draft-result-summary"></p>
     </section>
 
-    <section id="sensitivity-results" aria-labelledby="sensitivity-results-title">
-      <h2 id="sensitivity-results-title">Price sensitivity checks</h2>
+    <section id="saidi-check" aria-labelledby="saidi-check-title">
+      <h2 id="saidi-check-title">Exploratory SAIDI check</h2>
+      <p>
+        The two columns below use exactly the same utility-years. The second model adds
+        routine SAIDI, measured as outage minutes per customer excluding major-event
+        days. Both versions also account for reliability-reporting method.
+      </p>
       <div class="table-wrap draft-results-table-wrap">
-        <table class="ownership-table draft-results-table">
+        <table class="ownership-table draft-results-table draft-results-table--saidi">
           <thead>
             <tr>
               <th scope="col">Customer class</th>
-              <th scope="col">Sample</th>
-              <th scope="col">Geographic control</th>
+              <th scope="col">Comparison</th>
               <th scope="col">N</th>
               <th scope="col">Utilities</th>
-              <th scope="col">MTC vs DOM</th>
-              <th scope="col">COOP vs DOM</th>
-              <th scope="col">R²</th>
+              <th scope="col">Without SAIDI</th>
+              <th scope="col">With SAIDI</th>
+              <th scope="col">Change</th>
             </tr>
           </thead>
-          <tbody id="draft-sensitivity-results-table"></tbody>
+          <tbody id="saidi-comparison-table"></tbody>
         </table>
       </div>
-      <p id="draft-sensitivity-summary" class="table-note"></p>
-    </section>
-
-    <section id="reliability-results" aria-labelledby="reliability-results-title">
-      <h2 id="reliability-results-title">Reliability as the outcome</h2>
-      <p>
-        These regressions use routine SAIDI or CAIDI as the dependent variable and
-        test whether reported reliability differs by ownership. Higher values indicate
-        worse reported reliability.
+      <p class="table-note">
+        This matched sample is smaller than the main price sample because reviewed
+        SAIDI is unavailable for some utilities and years. It is a sensitivity check,
+        not the headline model.
       </p>
-      <div class="table-wrap draft-results-table-wrap">
-        <table class="ownership-table draft-results-table">
-          <thead>
-            <tr>
-              <th scope="col">Outcome</th>
-              <th scope="col">Geographic control</th>
-              <th scope="col">N</th>
-              <th scope="col">Utilities</th>
-              <th scope="col">MTC vs DOM</th>
-              <th scope="col">COOP vs DOM</th>
-              <th scope="col">R²</th>
-            </tr>
-          </thead>
-          <tbody id="draft-reliability-results-table"></tbody>
-        </table>
-      </div>
-      <p id="draft-reliability-summary" class="table-note"></p>
+      <p id="saidi-comparison-finding" class="draft-result-summary"></p>
     </section>
 
     <section id="interpretation" aria-labelledby="interpretation-title">
-      <h2 id="interpretation-title">Interpretation and limits</h2>
+      <h2 id="interpretation-title">Interpretation</h2>
       <p>
-        Across customer classes, the estimated MTC and COOP price coefficients remain
-        below DOM after adding routine SAIDI or CAIDI. The reliability terms do not
-        explain much of the ownership-price difference in these specifications.
-      </p>
-      <p>
-        These are pooled panel regressions, not utility fixed-effects estimates.
-        Ownership, regulation, geography, infrastructure, and customer composition may
-        be related to one another, so the coefficients should not be interpreted as
-        causal. Only two utilities change ownership in the current period, which limits
-        a within-utility causal design.
-      </p>
-      <p>
-        The price outcome is EIA bundled average revenue per kWh. Delivery-only prices
-        or revenues are not included in these models. ROI/ROE is also not included.
+        These models test whether the observed ownership-price differences remain
+        after broad state and year differences are considered. They do not identify
+        why the differences exist. SAIDI is shown only to test whether adding it
+        materially changes the ownership estimates.
       </p>
     </section>
 
+    <section id="methods" aria-labelledby="methods-title">
+      <h2 id="methods-title">Methods</h2>
+      <ul class="draft-method-list">
+        <li>Separate residential, commercial, and industrial models.</li>
+        <li>EIA bundled average revenue per kWh, adjusted to constant 2024 cents.</li>
+        <li>DOM is the ownership reference group; state and year indicators are included.</li>
+        <li>Each usable utility-year counts once; there is no customer weighting.</li>
+        <li>Accurate unusual values are retained; there is no automatic outlier deletion.</li>
+        <li>Uncertainty is clustered by utility.</li>
+      </ul>
+    </section>
+
     <section id="analysis-data" aria-labelledby="analysis-data-title">
-      <h2 id="analysis-data-title">Model input table</h2>
+      <h2 id="analysis-data-title">Model data</h2>
       <p>
-        One row is one selected utility in one year. The table includes all 360 rows
-        used to construct the matched model samples, including rows excluded from a
-        specific price model because a required value is missing.
+        The table contains all 504 utility-years in the regional price panel. Blank
+        values remain blank and are excluded only from models requiring that value.
       </p>
       <p class="draft-downloads">
-        <a href="data/draft_panel_model_analysis.csv">Download CSV</a>
+        <a href="data/draft_panel_model_analysis.csv">Download model data</a>
         · <a href="data/draft_panel_model_results.json">Download exact regression output</a>
       </p>
       <label class="draft-data-filter" for="draft-data-search">
         Filter table
         <input id="draft-data-search" type="search" placeholder="Utility, state, year, ownership…">
       </label>
-      <p id="draft-data-status" class="table-note" aria-live="polite">Loading analysis table…</p>
+      <p id="draft-data-status" class="table-note" aria-live="polite">Loading model data…</p>
       <div class="table-wrap draft-data-table-wrap">
         <table class="ownership-table draft-data-table">
           <thead id="draft-data-head"></thead>
@@ -165,7 +149,7 @@
     <p><a href="index.html">Return to the observed-data overview</a></p>
   </footer>
 
-  <script src="data/draft_panel_model_results.js?v=20260828a"></script>
-  <script src="draft-panel-model.js?v=20260828a"></script>
+  <script src="data/draft_panel_model_results.js?v=20260831b"></script>
+  <script src="draft-panel-model.js?v=20260831b"></script>
 </body>
 </html>

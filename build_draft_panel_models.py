@@ -1,17 +1,16 @@
-"""Build the professor-facing draft panel models and analysis table.
+"""Build the focused ownership-price panel models and analysis table.
 
-This is deliberately a decision aid, not a causal model. The primary price
-specifications use the same complete-case rows so that changes in the ownership
-coefficients are not caused by changing samples:
+The headline models use the 42-utility regional price sample:
 
-    real price = ownership + ISO + year + reporting-method indicator
+    real price = ownership + state + year
+
+The exploratory SAIDI check uses the same matched rows in both specifications:
+
+    real price = ownership + state + year + reporting method
     real price = baseline terms + routine SAIDI
-    real price = baseline terms + routine CAIDI
 
 Prices are modeled separately for residential, commercial, and industrial
-customers. State-control versions and the existing 42-utility price-only sample are
-stored as compact decision checks. Routine SAIDI and CAIDI are also modeled as
-separate outcomes, following the professors' proposed dependent variables.
+customers. The estimates are associations, not causal effects.
 
 Run: python3 build_draft_panel_models.py
 """
@@ -35,7 +34,6 @@ from build_price_models import (
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-PRICE_INPUT = PROJECT_ROOT / "data" / "processed" / "utility_price_panel_2013_2024.csv"
 EXPANDED_PRICE_INPUT = (
     PROJECT_ROOT
     / "data"
@@ -62,9 +60,7 @@ SITE_RESULTS_JS_OUTPUT = (
 )
 
 SAIDI_FIELD = "saidi_wo_major_event_days_minutes"
-CAIDI_FIELD = "caidi_wo_major_event_days_minutes"
 SAIDI_ANALYSIS_FIELD = "routine_saidi_minutes"
-CAIDI_ANALYSIS_FIELD = "routine_caidi_minutes"
 REPORTING_TERM = "reporting_other_standard"
 
 TERM_LABELS = {
@@ -74,7 +70,6 @@ TERM_LABELS = {
     "iso_ISONE": "ISO-NE compared with NYISO",
     REPORTING_TERM: "Other reporting method compared with IEEE",
     "routine_saidi_per_100_minutes": "100 additional routine SAIDI minutes",
-    "routine_caidi_per_10_minutes": "10 additional routine CAIDI minutes",
 }
 
 
@@ -193,10 +188,10 @@ def add_real_prices(frame: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_analysis_table() -> pd.DataFrame:
-    price = pd.read_csv(PRICE_INPUT)
+    price = pd.read_csv(EXPANDED_PRICE_INPUT)
     reliability = pd.read_csv(RELIABILITY_INPUT)
-    if len(price) != 360 or price["panel_id"].nunique() != 30:
-        raise ValueError("Expected the reviewed 30-utility, 360-row price panel")
+    if len(price) != 504 or price["panel_id"].nunique() != 42:
+        raise ValueError("Expected the regional 42-utility, 504-row price panel")
     if len(reliability) != 360 or reliability["panel_id"].nunique() != 30:
         raise ValueError("Expected the reviewed 30-utility, 360-row reliability audit")
 
@@ -204,11 +199,6 @@ def build_analysis_table() -> pd.DataFrame:
         reliability[SAIDI_FIELD].notna()
         & ~reliability.apply(field_is_excluded, axis=1, field=SAIDI_FIELD)
     )
-    reliability[CAIDI_ANALYSIS_FIELD] = reliability[CAIDI_FIELD].where(
-        reliability[CAIDI_FIELD].notna()
-        & ~reliability.apply(field_is_excluded, axis=1, field=CAIDI_FIELD)
-    )
-
     reliability_columns = [
         "panel_id",
         "year",
@@ -217,7 +207,6 @@ def build_analysis_table() -> pd.DataFrame:
         "reliability_row_status",
         "reliability_customers",
         SAIDI_ANALYSIS_FIELD,
-        CAIDI_ANALYSIS_FIELD,
         "source_file_url",
     ]
     if "source_file_url" not in reliability.columns:
@@ -231,14 +220,11 @@ def build_analysis_table() -> pd.DataFrame:
         how="left",
         validate="one_to_one",
     )
-    if analysis["reporting_standard"].isna().all():
+    if analysis["reporting_standard"].notna().sum() == 0:
         raise ValueError("Price and reliability panels did not match")
     analysis["iso_market"] = analysis["state"].map(iso_market)
     analysis["routine_saidi_per_100_minutes"] = (
         analysis[SAIDI_ANALYSIS_FIELD] / 100.0
-    )
-    analysis["routine_caidi_per_10_minutes"] = (
-        analysis[CAIDI_ANALYSIS_FIELD] / 10.0
     )
     analysis[REPORTING_TERM] = (
         analysis["reporting_standard"] == "other_standard"
@@ -247,12 +233,14 @@ def build_analysis_table() -> pd.DataFrame:
 
     for customer_class in CUSTOMER_CLASSES:
         real_price = f"real_{customer_class}_price_2024_cents_kwh"
-        analysis[f"included_{customer_class}_common_sample"] = (
+        analysis[f"included_{customer_class}_main_sample"] = analysis[
+            real_price
+        ].notna()
+        analysis[f"included_{customer_class}_saidi_sample"] = (
             analysis[
                 [
                     real_price,
                     SAIDI_ANALYSIS_FIELD,
-                    CAIDI_ANALYSIS_FIELD,
                     "reporting_standard",
                 ]
             ]
@@ -269,14 +257,13 @@ def build_analysis_table() -> pd.DataFrame:
         "year",
         "ownership",
         "ownership_2024",
+        "residential_customers_2024",
         "reporting_standard",
         REPORTING_TERM,
         "reliability_row_status",
         "reliability_customers",
         SAIDI_ANALYSIS_FIELD,
         "routine_saidi_per_100_minutes",
-        CAIDI_ANALYSIS_FIELD,
-        "routine_caidi_per_10_minutes",
     ]
     for customer_class in CUSTOMER_CLASSES:
         selected_columns.extend(
@@ -284,7 +271,8 @@ def build_analysis_table() -> pd.DataFrame:
                 f"{customer_class}_average_price_cents_kwh",
                 f"real_{customer_class}_price_2024_cents_kwh",
                 f"bundled_{customer_class}_customer_share_pct",
-                f"included_{customer_class}_common_sample",
+                f"included_{customer_class}_main_sample",
+                f"included_{customer_class}_saidi_sample",
             ]
         )
     selected_columns.extend(
@@ -443,54 +431,21 @@ def fit_model(
     }
 
 
-def price_models(analysis: pd.DataFrame) -> list[dict[str, object]]:
+def matched_saidi_models(analysis: pd.DataFrame) -> list[dict[str, object]]:
     models = []
     specifications = (
         ("baseline", None),
         ("saidi", "routine_saidi_per_100_minutes"),
-        ("caidi", "routine_caidi_per_10_minutes"),
     )
     for customer_class in CUSTOMER_CLASSES:
-        sample_flag = f"included_{customer_class}_common_sample"
+        sample_flag = f"included_{customer_class}_saidi_sample"
         frame = analysis.loc[analysis[sample_flag]].copy()
         outcome = f"real_{customer_class}_price_2024_cents_kwh"
         for specification, reliability_predictor in specifications:
             models.append(
                 fit_model(
                     frame,
-                    model_id=f"{customer_class}_iso_{specification}",
-                    outcome_column=outcome,
-                    outcome_label=(
-                        f"Inflation-adjusted {customer_class} bundled average price"
-                    ),
-                    outcome_unit="2024 cents per kWh",
-                    customer_class=customer_class,
-                    specification=specification,
-                    geo_control="iso",
-                    reliability_predictor=reliability_predictor,
-                    include_reporting_method=True,
-                )
-            )
-    return models
-
-
-def state_sensitivity_models(analysis: pd.DataFrame) -> list[dict[str, object]]:
-    models = []
-    specifications = (
-        ("baseline", None),
-        ("saidi", "routine_saidi_per_100_minutes"),
-        ("caidi", "routine_caidi_per_10_minutes"),
-    )
-    for customer_class in CUSTOMER_CLASSES:
-        frame = analysis.loc[
-            analysis[f"included_{customer_class}_common_sample"]
-        ].copy()
-        outcome = f"real_{customer_class}_price_2024_cents_kwh"
-        for specification, reliability_predictor in specifications:
-            models.append(
-                fit_model(
-                    frame,
-                    model_id=f"{customer_class}_state_{specification}",
+                    model_id=f"matched_{customer_class}_state_{specification}",
                     outcome_column=outcome,
                     outcome_label=(
                         f"Inflation-adjusted {customer_class} bundled average price"
@@ -506,57 +461,17 @@ def state_sensitivity_models(analysis: pd.DataFrame) -> list[dict[str, object]]:
     return models
 
 
-def reliability_outcome_models(
-    analysis: pd.DataFrame,
-    geo_control: str = "iso",
-) -> list[dict[str, object]]:
-    configs = (
-        (
-            "saidi",
-            SAIDI_ANALYSIS_FIELD,
-            "Routine SAIDI",
-            "minutes per customer",
-        ),
-        (
-            "caidi",
-            CAIDI_ANALYSIS_FIELD,
-            "Routine CAIDI",
-            "minutes per interruption",
-        ),
-    )
+def main_price_models(analysis: pd.DataFrame) -> list[dict[str, object]]:
     models = []
-    for metric, outcome, label, unit in configs:
+    for customer_class in CUSTOMER_CLASSES:
+        outcome = f"real_{customer_class}_price_2024_cents_kwh"
         frame = analysis.loc[
-            analysis[outcome].notna() & analysis["reporting_standard"].notna()
+            analysis[f"included_{customer_class}_main_sample"]
         ].copy()
         models.append(
             fit_model(
                 frame,
-                model_id=f"reliability_outcome_{geo_control}_{metric}",
-                outcome_column=outcome,
-                outcome_label=label,
-                outcome_unit=unit,
-                customer_class=None,
-                specification=metric,
-                geo_control=geo_control,
-                reliability_predictor=None,
-                include_reporting_method=True,
-            )
-        )
-    return models
-
-
-def expanded_price_models() -> list[dict[str, object]]:
-    expanded = add_real_prices(pd.read_csv(EXPANDED_PRICE_INPUT))
-    expanded["iso_market"] = expanded["state"].map(iso_market)
-    models = []
-    for customer_class in CUSTOMER_CLASSES:
-        outcome = f"real_{customer_class}_price_2024_cents_kwh"
-        frame = expanded.loc[expanded[outcome].notna()].copy()
-        models.append(
-            fit_model(
-                frame,
-                model_id=f"expanded_{customer_class}_iso_baseline",
+                model_id=f"main_{customer_class}_state_baseline",
                 outcome_column=outcome,
                 outcome_label=(
                     f"Inflation-adjusted {customer_class} bundled average price"
@@ -564,7 +479,7 @@ def expanded_price_models() -> list[dict[str, object]]:
                 outcome_unit="2024 cents per kWh",
                 customer_class=customer_class,
                 specification="baseline",
-                geo_control="iso",
+                geo_control="state",
                 reliability_predictor=None,
                 include_reporting_method=False,
             )
@@ -583,13 +498,20 @@ def build_diagnostics(
     analysis: pd.DataFrame,
     models: list[dict[str, object]],
 ) -> dict[str, object]:
-    common_samples = {}
-    correlations = {}
+    main_samples = {}
+    matched_samples = {}
     for customer_class in CUSTOMER_CLASSES:
-        frame = analysis.loc[
-            analysis[f"included_{customer_class}_common_sample"]
+        main_frame = analysis.loc[
+            analysis[f"included_{customer_class}_main_sample"]
         ]
-        common_samples[customer_class] = {
+        frame = analysis.loc[
+            analysis[f"included_{customer_class}_saidi_sample"]
+        ]
+        main_samples[customer_class] = {
+            "observation_count": int(len(main_frame)),
+            "utility_count": int(main_frame["panel_id"].nunique()),
+        }
+        matched_samples[customer_class] = {
             "observation_count": int(len(frame)),
             "utility_count": int(frame["panel_id"].nunique()),
             "ownership_utility_counts": {
@@ -600,9 +522,6 @@ def build_diagnostics(
                 .items()
             },
         }
-        correlations[customer_class] = float(
-            frame[[SAIDI_ANALYSIS_FIELD, CAIDI_ANALYSIS_FIELD]].corr().iloc[0, 1]
-        )
 
     coefficient_changes = {}
     for customer_class in CUSTOMER_CLASSES:
@@ -620,20 +539,14 @@ def build_diagnostics(
                 "saidi_estimate": float(
                     coefficient(class_models["saidi"], term)["estimate"]
                 ),
-                "caidi_estimate": float(
-                    coefficient(class_models["caidi"], term)["estimate"]
-                ),
                 "saidi_change_from_baseline": float(
                     coefficient(class_models["saidi"], term)["estimate"] - baseline
-                ),
-                "caidi_change_from_baseline": float(
-                    coefficient(class_models["caidi"], term)["estimate"] - baseline
                 ),
             }
 
     return {
-        "selected_panel_rows": int(len(analysis)),
-        "selected_panel_utilities": int(analysis["panel_id"].nunique()),
+        "regional_price_panel_rows": int(len(analysis)),
+        "regional_price_panel_utilities": int(analysis["panel_id"].nunique()),
         "selected_panel_years": [
             int(analysis["year"].min()),
             int(analysis["year"].max()),
@@ -645,8 +558,8 @@ def build_diagnostics(
             .sort_index()
             .items()
         },
-        "common_samples": common_samples,
-        "routine_saidi_caidi_correlation": correlations,
+        "main_samples": main_samples,
+        "matched_saidi_samples": matched_samples,
         "ownership_coefficient_changes": coefficient_changes,
     }
 
@@ -654,40 +567,35 @@ def build_diagnostics(
 def build_results(analysis: pd.DataFrame | None = None) -> dict[str, object]:
     if analysis is None:
         analysis = build_analysis_table()
-    primary_models = price_models(analysis)
-    state_models = state_sensitivity_models(analysis)
-    reliability_models = reliability_outcome_models(analysis, "iso")
-    reliability_state_models = reliability_outcome_models(analysis, "state")
-    expanded_models = expanded_price_models()
+    main_models = main_price_models(analysis)
+    saidi_models = matched_saidi_models(analysis)
     return {
-        "title": "Draft panel model: ownership, reliability, and price",
-        "status": "Preliminary decision aid; not final and not causal",
+        "title": "Ownership and bundled electricity prices",
+        "status": "Panel associations; not causal effects",
         "years": "2013-2024",
-        "selected_utility_count": 30,
-        "primary_sample_rule": (
-            "Same complete-case utility-years with a published customer-class price, "
-            "usable routine SAIDI, usable routine CAIDI, and a known reliability "
-            "reporting method"
+        "regional_price_utility_count": 42,
+        "main_sample_rule": (
+            "Every available customer-class price in the 42-utility regional panel"
+        ),
+        "saidi_sample_rule": (
+            "The same utility-years with a published customer-class price, usable "
+            "routine SAIDI, and a known reliability reporting method in both models"
         ),
         "reference_categories": {
             "ownership": "DOM",
-            "iso_market": "NYISO",
             "reporting_method": "ieee_standard",
             "year": 2013,
         },
         "price_outcome": "EIA bundled average price in constant 2024 cents per kWh",
-        "reliability_definitions": {
-            "saidi": "Routine outage minutes per customer, excluding major event days",
-            "caidi": "Routine minutes per interruption, excluding major event days",
-        },
-        "primary_price_models": (
-            "Unweighted pooled panel OLS with ownership, ISO, year, and reliability-"
-            "reporting-method indicators; SAIDI and CAIDI enter separately"
+        "saidi_definition": (
+            "Routine outage minutes per customer, excluding major event days"
         ),
-        "state_sensitivity": "State indicators replace the ISO indicator",
-        "expanded_price_check": (
-            "Price-only baseline using the existing 42-utility sample selected with "
-            "at least 10,000 residential customers in 2024"
+        "main_price_model": (
+            "Unweighted pooled panel OLS with ownership, state, and year indicators"
+        ),
+        "saidi_comparison_model": (
+            "The matched baseline adds reliability-reporting-method indicators; "
+            "the second version adds routine SAIDI"
         ),
         "uncertainty": (
             "CR1 standard errors clustered by utility; two-sided Student-t p-values "
@@ -698,29 +606,17 @@ def build_results(analysis: pd.DataFrame | None = None) -> dict[str, object]:
             "No automatic deletion; only source-audited exclusions are applied"
         ),
         "interpretation_limit": (
-            "Associational, not causal. Reliability and ownership may both reflect "
-            "regulation, geography, infrastructure, customer mix, and other omitted "
-            "factors."
-        ),
-        "roi_roe_note": (
-            "ROI/ROE is not included because audited coverage is limited and "
-            "cooperatives do not have a directly comparable authorized shareholder "
-            "return."
+            "Associational, not causal. SAIDI is an exploratory addition and is not "
+            "treated as an external cause of price."
         ),
         "source_data": [
-            str(PRICE_INPUT.relative_to(PROJECT_ROOT)),
-            str(RELIABILITY_INPUT.relative_to(PROJECT_ROOT)),
             str(EXPANDED_PRICE_INPUT.relative_to(PROJECT_ROOT)),
+            str(RELIABILITY_INPUT.relative_to(PROJECT_ROOT)),
         ],
         "cpi_u_annual_2013_100": CPI_U_ANNUAL_2013_100,
-        "diagnostics": build_diagnostics(analysis, primary_models),
-        "price_models": primary_models,
-        "reliability_outcome_models": reliability_models,
-        "decision_checks": {
-            "state_control_models": state_models,
-            "state_control_reliability_outcome_models": reliability_state_models,
-            "expanded_price_models": expanded_models,
-        },
+        "diagnostics": build_diagnostics(analysis, saidi_models),
+        "main_price_models": main_models,
+        "saidi_comparison_models": saidi_models,
     }
 
 

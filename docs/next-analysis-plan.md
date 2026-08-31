@@ -58,7 +58,7 @@ These are associations, not proof that ownership causes the differences.
 
 ## Presentation
 
-The website uses the 42-utility sample for the raw ownership-price EDA. Reliability
-and individual utility histories stay on the reviewed 30-utility sample. The panel
-regression page identifies which sample is used for each model, and exact
-machine-readable results remain available for audit.
+The website uses the 42-utility sample for the raw ownership-price EDA and the main
+price panel model. Reliability and individual utility histories stay on the reviewed
+30-utility sample. The price-model page adds one matched-sample comparison without
+and with routine SAIDI; exact machine-readable results remain available for audit.

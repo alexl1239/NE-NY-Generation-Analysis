@@ -81,14 +81,15 @@ class ReliabilityModelTests(unittest.TestCase):
         self.assertTrue(text.startswith(prefix))
         self.assertEqual(json.loads(text[len(prefix) : -1]), processed)
 
-    def test_draft_page_keeps_reliability_separate_from_price_causation(self) -> None:
+    def test_price_page_limits_reliability_to_an_exploratory_saidi_check(self) -> None:
         html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
         javascript = (PROJECT_ROOT / "site" / "draft-panel-model.js").read_text()
-        self.assertIn('id="draft-reliability-results-table"', html)
-        self.assertIn("Higher values indicate", html)
+        self.assertIn('id="saidi-comparison-table"', html)
+        self.assertIn("Exploratory SAIDI check", html)
         self.assertIn("not causal effects", html)
-        self.assertIn("renderReliabilityResults", javascript)
-        self.assertIn("state_control_reliability_outcome_models", javascript)
+        self.assertIn("renderSaidiComparison", javascript)
+        self.assertNotIn("renderReliabilityResults", javascript)
+        self.assertNotIn("reliability_outcome_models", javascript)
         self.assertNotIn('id="draft-reliability-cards"', html)
 
 
