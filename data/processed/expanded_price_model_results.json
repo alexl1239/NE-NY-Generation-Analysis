@@ -1,6 +1,6 @@
 {
   "title": "Expanded-sample ownership and inflation-adjusted utility price check",
-  "purpose": "Robustness check; does not replace the balanced 30-utility overview",
+  "purpose": "Regional price sample used by the ownership-price EDA and as a price-model expansion beyond the reviewed 30-utility reliability panel",
   "sampling_rule": "At least 10,000 residential customers in the 2024 regional EIA/PUDL roster",
   "candidate_count": 42,
   "ownership_counts_2024": {

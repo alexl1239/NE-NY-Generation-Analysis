@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Preliminary comparison of published electricity prices, reliability, and ownership for 30 selected utilities in New York and New England, 2013–2024.">
+  <meta name="description" content="Preliminary comparison of published electricity prices for 42 regional utilities and reviewed reliability data for 30 selected utilities in New York and New England, 2013–2024.">
   <title>Utility ownership, prices, and reliability</title>
   <link rel="stylesheet" href="styles.css?v=20260827a">
 </head>
@@ -12,8 +12,9 @@
     <h1>Utility ownership, electricity prices, and reliability</h1>
     <p>
       Do electricity prices differ across utility ownership types? This site compares
-      published electricity prices for 30 selected utilities in
-      New York and New England from 2013–2024. The utilities are grouped as
+      published electricity prices for 42 regional utilities in
+      New York and New England from 2013–2024. Reliability and individual utility
+      histories use the reviewed 30-utility panel. Utilities are grouped as
       foreign-owned investor utilities (MTC), U.S.-owned investor utilities (DOM),
       and local non-shareholder utilities (COOP). The results are preliminary and
       descriptive: they show where prices differ and add reliability, regional fuel
@@ -32,10 +33,13 @@
 
   <main class="research-main research-main--wide">
     <section id="ownership-comparison">
-      <h2>Selected-sample outcomes by ownership</h2>
+      <h2>Regional prices and selected reliability outcomes by ownership</h2>
       <p>
-        This overview shows the published data for the 30 selected utilities. They do
-        not represent every utility in New York and New England. A separate
+        Price views use 42 regional utilities reporting at least 10,000 residential
+        customers in the existing 2024 roster; all 42 also reported at least 10,000
+        total residential distribution customers in 2013. Reliability views use the
+        source-audited 30-utility panel. These samples do not represent every utility
+        in New York and New England. A separate
         <a href="draft-panel-model.html">preliminary panel regression page</a> tests whether the
         observed ownership-price differences change when market, year, and routine
         reliability are considered. Neither analysis proves that ownership caused a
@@ -53,7 +57,8 @@
       <div id="observed-comparison-panel">
         <p class="plain-note comparison-view-note">
           Each line is a simple annual median; the shaded area is the observed range.
-          Every utility counts once.
+          Every utility counts once. Price: 42-utility regional sample. Reliability:
+          reviewed 30-utility sample.
         </p>
         <div class="panel-controls comparison-controls">
         <label for="comparison-measure">
@@ -110,7 +115,8 @@
           at least one observation that covers fewer than half of customers. Prices come from
           <a href="https://www.eia.gov/electricity/sales_revenue_price/" target="_blank" rel="noopener">EIA Tables 6–8</a>;
           <a href="https://docs.catalyst.coop/pudl/en/stable/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL customer counts</a>
-          support the coverage check. Inflation factors use the
+          support the coverage check. The 42-utility price sample has 1,477 populated
+          customer-class price rows across 2013–2024. Inflation factors use the
           <a href="https://www.bls.gov/pir/spm/spm_chart_2025data.htm" target="_blank" rel="noopener">BLS annual CPI-U</a>.
           Reliability medians use every available, non-withheld EIA/PUDL value under the
           selected major-event treatment; the point detail states the number of utilities.
@@ -271,7 +277,7 @@
           <strong>Coverage check:</strong> total customers in each customer type are
           the sum of bundled and delivery-only customers reported in
           <a href="https://docs.catalyst.coop/pudl/en/stable/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL’s EIA-861 yearly sales table</a>.
-          The displayed share is bundled customers divided by that total. The 1,018
+          The displayed share is bundled customers divided by that total. The 1,477
           populated EIA price-table rows reconcile exactly with PUDL’s bundled
           counts. Missing published prices remain blank.
         </li>
@@ -283,10 +289,11 @@
           quality standard.
         </li>
         <li>
-          <strong>Ownership summary:</strong> the annual line is the unweighted median
-          of the 30 panel utilities, selected as ten utilities in each 2024 ownership
-          group. Price views add the observed minimum-to-maximum range; reliability
-          views keep only the median line and report the usable count. Utilities are
+          <strong>Ownership summary:</strong> price lines are unweighted medians of the
+          42-utility regional sample: 11 MTC, 8 DOM, and 23 COOP utilities by 2024
+          ownership. Reliability lines use the reviewed 30-utility panel and report
+          the usable count. Price views add the observed minimum-to-maximum range.
+          Utilities are
           grouped by their ownership code in that year, so an earlier group can contain
           a different number. These results do not describe every utility in the region.
         </li>
@@ -300,11 +307,11 @@
           by utility. These are preliminary associations, not causal estimates.
         </li>
         <li>
-          <strong>Expanded price check:</strong> the draft also reports a price-only
-          ISO-and-year baseline for 42 regional utilities reporting at least 10,000
-          residential customers in 2024. This threshold was chosen before running the
-          model. The expansion cannot test reliability until those additional utility
-          records are audited.
+          <strong>Regional price sample:</strong> the 42 utilities report at least
+          10,000 residential customers in the existing 2024 roster, and the baseline
+          check confirms that every one also had at least 10,000 total residential
+          distribution customers in 2013. The additional reliability records have not
+          yet been source-audited, so reliability remains on the 30-utility panel.
         </li>
         <li>
           <strong>Authorized return on equity:</strong> the matched-state pilot uses
@@ -326,11 +333,12 @@
           and utility-specific power contracts are not represented.
         </li>
         <li>
-          <strong>Sample:</strong> the ten largest qualifying utilities in each 2024
-          ownership group, ranked by residential customers in the regional PUDL
-          roster. This gives 30 utilities and 360 possible utility-years from 2013
-          through 2024. It is a deliberately large-utility sample, not a random or
-          fully representative sample of every utility in the region.
+          <strong>Reviewed reliability and utility-history sample:</strong> the ten
+          largest qualifying utilities in each 2024 ownership group, ranked by
+          residential customers in the regional PUDL roster. This gives 30 utilities
+          and 360 possible utility-years from 2013 through 2024. It is a deliberately
+          large-utility sample, not a random or fully representative sample of every
+          utility in the region.
         </li>
         <li>
           <strong>Panel coverage:</strong> residential and commercial prices are
@@ -381,7 +389,9 @@
         </li>
       </ul>
       <p>
-        <a href="data/utility_price_panel.csv">Download the price panel data (CSV)</a>
+        <a href="data/utility_price_panel_expanded.csv">Download the 42-utility price panel (CSV)</a>
+        ·
+        <a href="data/utility_price_panel.csv">Download the 30-utility history panel (CSV)</a>
         ·
         <a href="data/ownership_price_summary.csv">Download the ownership summary (CSV)</a>
         ·
@@ -412,10 +422,10 @@
   </footer>
 
   <script src="data/utility_price_panel.js?v=20260810a"></script>
-  <script src="data/ownership_price_summary.js"></script>
+  <script src="data/ownership_price_summary.js?v=20260831a"></script>
   <script src="data/reliability_panel.js?v=20260810a"></script>
   <script src="data/iso_fuel_mix.js"></script>
   <script src="data/roe_case_study.js?v=20260820b"></script>
-  <script src="panel.js?v=20260827a"></script>
+  <script src="panel.js?v=20260831a"></script>
 </body>
 </html>

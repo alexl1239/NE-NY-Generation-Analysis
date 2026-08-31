@@ -3,7 +3,8 @@
 **Status:** Working plan for the preliminary findings website  
 **Geographic scope:** New York and New England  
 **Initial analysis:** Published bundled residential, commercial, and industrial average prices plus reliability  
-**Current panel:** 30 selected utilities, 2013–2024
+**Current samples:** 42 utilities for regional price EDA; 30 reviewed utilities for
+reliability and individual histories, 2013–2024
 
 ## 1. Purpose
 

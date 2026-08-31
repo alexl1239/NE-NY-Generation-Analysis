@@ -80,6 +80,13 @@ class ExpandedPriceCheckTests(unittest.TestCase):
         )
         self.assertEqual(coop_labels, {"Cooperative", "Municipal"})
 
+    def test_all_current_candidates_also_meet_the_baseline_customer_floor(self) -> None:
+        baseline = self.panel.loc[self.panel["year"] == 2013]
+        self.assertEqual(len(baseline), 42)
+        self.assertTrue(
+            (baseline["total_distribution_residential_customers"] >= 10_000).all()
+        )
+
     def test_primary_results_match_reviewed_values(self) -> None:
         for customer_class, expected_effects in EXPECTED_PRIMARY.items():
             model = self.models[(customer_class, "all_published")]
@@ -119,6 +126,10 @@ class ExpandedPriceCheckTests(unittest.TestCase):
         prefix = "window.NE_NY_EXPANDED_PRICE_MODEL_RESULTS = "
         self.assertTrue(text.startswith(prefix))
         self.assertEqual(json.loads(text[len(prefix) : -1]), processed)
+        self.assertEqual(
+            expanded.PANEL_OUTPUT.read_text(),
+            expanded.SITE_PANEL_OUTPUT.read_text(),
+        )
 
     def test_website_presents_expansion_as_a_check_not_a_replacement(self) -> None:
         html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()

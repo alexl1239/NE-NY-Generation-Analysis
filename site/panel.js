@@ -1051,7 +1051,7 @@ function buildOwnershipComparisonCard(records, ownership, config) {
     class: "ownership-comparison-chart",
     viewBox: `0 0 ${width} ${height}`,
     role: "img",
-    "aria-label": `${ownership} selected-sample ${config.ariaLabel}, 2013 to 2024`,
+    "aria-label": `${ownership} ${config.sampleLabel} ${config.ariaLabel}, 2013 to 2024`,
   });
 
   for (const tick of config.ticks) {
@@ -1215,7 +1215,7 @@ function priceComparisonFinding(records, customerClass, coverageRule, priceBasis
     priceBasis === "real_2024"
       ? "Prices are expressed in 2024 cents; the inflation adjustment changes comparisons over time, not rankings within the same year."
       : "Prices are the nominal values published for each year.";
-  return `${leaderText}. The selected-sample 2024 ranking is ${ranking}. ${sampleNote}${emptyNote} ${basisNote} This is descriptive, not causal.`;
+  return `${leaderText}. The regional price sample's 2024 ranking is ${ranking}. ${sampleNote}${emptyNote} ${basisNote} This is descriptive, not causal.`;
 }
 
 function reliabilityComparisonFinding(records, metric, panelRecords) {
@@ -1316,6 +1316,7 @@ function setupOwnershipComparison(summaryRecords, panelRecords) {
         maximum,
         ticks: [0, maximum / 2, maximum],
         formatAxis: (value) => `${formatReliabilityAxis(value)}¢`,
+        sampleLabel: "regional price sample",
         ariaLabel: `annual median bundled ${customerClass} price and observed range`,
         showRange: true,
         flagged: (record) =>
@@ -1345,6 +1346,7 @@ function setupOwnershipComparison(summaryRecords, panelRecords) {
         maximum,
         ticks: [0, maximum / 2, maximum],
         formatAxis: formatReliabilityAxis,
+        sampleLabel: "reviewed sample",
         ariaLabel: `annual median ${metric.label.toLowerCase()}`,
         showRange: false,
         flagged: () => false,

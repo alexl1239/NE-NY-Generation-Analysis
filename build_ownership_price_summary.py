@@ -1,7 +1,7 @@
 """Build annual ownership-level price summaries for the findings website.
 
 The input prices are the EIA-published bundled-service prices in the processed
-utility panel. This script calculates only unweighted medians and observed
+42-utility regional price panel. This script calculates only unweighted medians and observed
 minimum-to-maximum ranges. It produces both an all-published-prices view and a
 transparent sensitivity view requiring at least 50% bundled-customer coverage.
 
@@ -12,16 +12,23 @@ from __future__ import annotations
 
 import csv
 import json
+import shutil
 import statistics
 from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).parent
-INPUT_FILE = PROJECT_ROOT / "data" / "processed" / "utility_price_panel_2013_2024.csv"
+INPUT_FILE = (
+    PROJECT_ROOT
+    / "data"
+    / "processed"
+    / "utility_price_panel_expanded_2013_2024.csv"
+)
 OUTPUT_FILE = PROJECT_ROOT / "data" / "processed" / "ownership_price_summary_2013_2024.csv"
 SITE_CSV_OUTPUT = PROJECT_ROOT / "site" / "data" / "ownership_price_summary.csv"
 SITE_JSON_OUTPUT = PROJECT_ROOT / "site" / "data" / "ownership_price_summary.json"
 SITE_JS_OUTPUT = PROJECT_ROOT / "site" / "data" / "ownership_price_summary.js"
+SITE_PANEL_OUTPUT = PROJECT_ROOT / "site" / "data" / "utility_price_panel_expanded.csv"
 
 CUSTOMER_CLASSES = ("residential", "commercial", "industrial")
 OWNERSHIP_TYPES = ("MTC", "DOM", "COOP")
@@ -57,7 +64,7 @@ def optional_float(value: str) -> float | None:
 def load_panel() -> list[dict[str, str]]:
     with INPUT_FILE.open(newline="") as source:
         rows = list(csv.DictReader(source))
-    expected = 30 * len(tuple(YEARS))
+    expected = 42 * len(tuple(YEARS))
     if len(rows) != expected:
         raise ValueError(f"Expected {expected} utility-year rows; found {len(rows)}")
     return rows
@@ -118,7 +125,9 @@ def summary_row(
             "in that year. Minority coverage means less than 50% of customers "
             "in the same class are bundled."
         ),
-        "source_data": "data/processed/utility_price_panel_2013_2024.csv",
+        "source_data": (
+            "data/processed/utility_price_panel_expanded_2013_2024.csv"
+        ),
     }
 
 
@@ -138,10 +147,16 @@ def build_summary() -> list[dict[str, object]]:
 
 
 def write_outputs(records: list[dict[str, object]]) -> None:
+    SITE_PANEL_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(INPUT_FILE, SITE_PANEL_OUTPUT)
     for output in (OUTPUT_FILE, SITE_CSV_OUTPUT):
         output.parent.mkdir(parents=True, exist_ok=True)
         with output.open("w", newline="") as target:
-            writer = csv.DictWriter(target, fieldnames=OUTPUT_FIELDS)
+            writer = csv.DictWriter(
+                target,
+                fieldnames=OUTPUT_FIELDS,
+                lineterminator="\n",
+            )
             writer.writeheader()
             writer.writerows(records)
 

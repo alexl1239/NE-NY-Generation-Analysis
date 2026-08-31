@@ -5,12 +5,12 @@
 Test whether the current price finding is reasonably dependable and add a small
 reliability comparison without turning the project into a major new study.
 
-The balanced 30-utility overview remains the main presentation and the website
-default.
+The 42-utility regional panel is the main ownership-price EDA. The reviewed
+30-utility panel remains the source for reliability and individual utility histories.
 
 ## The two additions
 
-### 1. Expanded price check
+### 1. Regional price sample
 
 Repeat the existing price model for regional utilities with at least **10,000
 residential customers in 2024**. The threshold was selected before running this
@@ -20,7 +20,8 @@ The model remains simple and unweighted. It compares MTC and COOP with DOM after
 accounting for state and year. It uses published EIA bundled-service prices adjusted
 to 2024 cents. Missing prices stay missing and accurate unusual values are retained.
 
-This is a robustness check. It does not replace the main 30-utility sample.
+This is the main descriptive price sample. The same model remains a simple
+association check, not a causal estimate.
 
 ### 2. Reliability check
 
@@ -57,7 +58,7 @@ These are associations, not proof that ownership causes the differences.
 
 ## Presentation
 
-The website keeps the raw 30-utility findings as the default. The adjusted-price tab
-shows the existing 30-utility model, one short expanded-sample note, and one compact
-SAIDI/SAIFI/CAIDI reliability-model chart. Exact machine-readable results remain
-available for audit.
+The website uses the 42-utility sample for the raw ownership-price EDA. Reliability
+and individual utility histories stay on the reviewed 30-utility sample. The panel
+regression page identifies which sample is used for each model, and exact
+machine-readable results remain available for audit.

@@ -6,7 +6,12 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-PANEL_FILE = PROJECT_ROOT / "data" / "processed" / "utility_price_panel_2013_2024.csv"
+PANEL_FILE = (
+    PROJECT_ROOT
+    / "data"
+    / "processed"
+    / "utility_price_panel_expanded_2013_2024.csv"
+)
 SUMMARY_FILE = PROJECT_ROOT / "data" / "processed" / "ownership_price_summary_2013_2024.csv"
 SITE_CSV = PROJECT_ROOT / "site" / "data" / "ownership_price_summary.csv"
 SITE_JSON = PROJECT_ROOT / "site" / "data" / "ownership_price_summary.json"
@@ -84,19 +89,19 @@ class TestOwnershipPriceSummary(unittest.TestCase):
     def test_ownership_is_assigned_in_each_year_not_fixed_at_2024(self):
         self.assertEqual(
             int(self.by_key[("residential", "all_published", 2013, "MTC")]["included_utility_count"]),
-            9,
+            10,
         )
         self.assertEqual(
             int(self.by_key[("residential", "all_published", 2017, "MTC")]["included_utility_count"]),
-            11,
+            12,
         )
         self.assertEqual(
             int(self.by_key[("residential", "all_published", 2017, "DOM")]["included_utility_count"]),
-            8,
+            7,
         )
 
     def test_known_2024_selected_sample_medians(self):
-        expected = {"MTC": 23.150955, "DOM": 28.3850455, "COOP": 17.5244515}
+        expected = {"MTC": 23.434731, "DOM": 28.3850455, "COOP": 16.164584}
         for ownership, value in expected.items():
             row = self.by_key[("residential", "all_published", 2024, ownership)]
             self.assertAlmostEqual(float(row["median_price_cents_kwh"]), value, places=6)
@@ -117,6 +122,12 @@ class TestOwnershipPriceSummary(unittest.TestCase):
         self.assertTrue(bundle.endswith(";\n"))
         self.assertEqual(records, json.loads(bundle[len(prefix) : -2]))
         self.assertEqual(len(records), 216)
+
+    def test_summary_identifies_the_expanded_source_panel(self):
+        self.assertEqual(
+            {row["source_data"] for row in self.summary},
+            {"data/processed/utility_price_panel_expanded_2013_2024.csv"},
+        )
 
 
 if __name__ == "__main__":

@@ -285,9 +285,10 @@ class TestPricePanelWebsite(unittest.TestCase):
         self.assertIn("reliabilitySummaryRecords", script)
         self.assertIn("Each line is a simple", html)
         self.assertIn("annual median", html)
-        self.assertIn("Selected-sample outcomes by ownership", html)
+        self.assertIn("Regional prices and selected reliability outcomes by ownership", html)
         self.assertIn("not represent every utility", html)
-        self.assertIn("selected as ten utilities in each 2024 ownership", html)
+        self.assertIn("42-utility regional sample", html)
+        self.assertIn("reviewed 30-utility sample", html)
         self.assertNotIn("Where fuel mix fits", html)
 
     def test_source_conflicted_reliability_values_are_withheld(self):

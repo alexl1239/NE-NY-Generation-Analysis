@@ -1,9 +1,10 @@
-"""Build the focused 10,000-customer expanded price robustness check.
+"""Build the focused 10,000-customer regional price sample.
 
-The balanced 30-utility panel remains the presentation sample. This script applies a
-pre-declared 2024 size threshold to the regional EIA/PUDL roster, copies the same
-published EIA Tables 6-8 prices, and reruns the existing unweighted ownership-price
-model. It does not create new individual-utility website panels.
+This script applies a pre-declared 2024 size threshold to the regional EIA/PUDL
+roster, copies the same published EIA Tables 6-8 prices, and reruns the existing
+unweighted ownership-price model. The resulting 42-utility panel powers the regional
+price EDA. The reviewed 30-utility panel remains the source for reliability measures
+and individual-utility website histories.
 
 Run with the project Python environment that includes DuckDB when the local expanded
 coverage cache has not yet been created:
@@ -48,6 +49,7 @@ RESULT_OUTPUT = (
 )
 SITE_RESULT_JSON = PROJECT_ROOT / "site" / "data" / "expanded_price_model_results.json"
 SITE_RESULT_JS = PROJECT_ROOT / "site" / "data" / "expanded_price_model_results.js"
+SITE_PANEL_OUTPUT = PROJECT_ROOT / "site" / "data" / "utility_price_panel_expanded.csv"
 
 MINIMUM_RESIDENTIAL_CUSTOMERS_2024 = 10_000
 EXPECTED_OWNERSHIP_COUNTS = {"MTC": 11, "DOM": 8, "COOP": 23}
@@ -402,7 +404,10 @@ def build_results(panel: pd.DataFrame) -> dict[str, object]:
         models.append(fit_model(panel, customer_class, "majority_coverage"))
     return {
         "title": "Expanded-sample ownership and inflation-adjusted utility price check",
-        "purpose": "Robustness check; does not replace the balanced 30-utility overview",
+        "purpose": (
+            "Regional price sample used by the ownership-price EDA and as a "
+            "price-model expansion beyond the reviewed 30-utility reliability panel"
+        ),
         "sampling_rule": "At least 10,000 residential customers in the 2024 regional EIA/PUDL roster",
         "candidate_count": 42,
         "ownership_counts_2024": EXPECTED_OWNERSHIP_COUNTS,
@@ -424,6 +429,7 @@ def write_outputs(
     pd.DataFrame(candidates)[CANDIDATE_FIELDS].to_csv(CANDIDATES_OUTPUT, index=False)
     panel = pd.DataFrame(records)
     panel.to_csv(PANEL_OUTPUT, index=False)
+    panel.to_csv(SITE_PANEL_OUTPUT, index=False)
     results = build_results(panel)
     payload = json.dumps(results, indent=2, allow_nan=False) + "\n"
     RESULT_OUTPUT.write_text(payload)
