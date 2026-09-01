@@ -226,6 +226,40 @@ class TestUtilityPricePanel(unittest.TestCase):
 
 
 class TestPricePanelWebsite(unittest.TestCase):
+    def test_navigation_separates_primary_pages_from_overview_sections(self):
+        overview = (PROJECT_ROOT / "site" / "index.html").read_text()
+        price = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
+        reliability = (
+            PROJECT_ROOT / "site" / "reliability-panel-model.html"
+        ).read_text()
+
+        primary = overview.split(
+            '<nav class="research-nav" aria-label="Primary navigation">',
+            1,
+        )[1].split("</nav>", 1)[0]
+        self.assertEqual(primary.count("<a "), 4)
+        self.assertIn(">Overview</a>", primary)
+        self.assertIn(">Price model</a>", primary)
+        self.assertIn(">Reliability model</a>", primary)
+        self.assertIn(">Methods &amp; data</a>", primary)
+        self.assertNotIn("Utility histories", primary)
+        self.assertNotIn("ROE", primary)
+        self.assertNotIn("Regional mix", primary)
+        self.assertNotIn("Earlier analysis", primary)
+        self.assertIn('class="overview-section-nav"', overview)
+
+        price_nav = price.split(
+            '<nav class="research-nav draft-model-nav"',
+            1,
+        )[1].split("</nav>", 1)[0]
+        reliability_nav = reliability.split(
+            '<nav class="research-nav draft-model-nav"',
+            1,
+        )[1].split("</nav>", 1)[0]
+        self.assertEqual(price_nav.count("<a "), 3)
+        self.assertEqual(reliability_nav.count("<a "), 3)
+        self.assertIn("Earlier analysis archive", overview)
+
     def test_primary_visual_is_three_groups_of_two_by_five(self):
         html = (PROJECT_ROOT / "site" / "index.html").read_text()
         script = (PROJECT_ROOT / "site" / "panel.js").read_text()

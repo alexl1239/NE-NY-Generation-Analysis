@@ -1164,6 +1164,24 @@ main {
   text-underline-offset: 0.2em;
 }
 
+.overview-section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1rem;
+  margin-top: 1rem;
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+}
+
+.overview-section-nav span {
+  font-weight: 700;
+}
+
+.overview-section-nav a {
+  color: var(--ink-secondary);
+  text-underline-offset: 0.2em;
+}
+
 .research-main {
   padding: 0 0 3rem;
 }
