@@ -28,9 +28,15 @@
   }
 
   function coefficientCell(row) {
+    const uncertain = !row.confidence_interval_excludes_zero;
     return `
       <span class="draft-table-estimate">${signed(row.estimate)}¢</span>
-      <span class="draft-table-detail">[${signed(row.confidence_95_low)}, ${signed(row.confidence_95_high)}] · ${pValue(row.p_value)}</span>`;
+      <span class="draft-table-detail">[${signed(row.confidence_95_low)}, ${signed(row.confidence_95_high)}] · ${pValue(row.p_value)}</span>
+      ${uncertain ? '<span class="draft-table-interpretation">Inconclusive: CI includes 0</span>' : ''}`;
+  }
+
+  function coefficientCellClass(row) {
+    return row.confidence_interval_excludes_zero ? "" : ' class="draft-model-result--uncertain"';
   }
 
   function estimateCell(row) {
@@ -53,8 +59,8 @@
           <th scope="row">${classLabel[customerClass]}</th>
           <td class="numeric-cell">${model.observation_count}</td>
           <td class="numeric-cell">${model.utility_cluster_count}</td>
-          <td>${coefficientCell(coefficient(model, "ownership_MTC"))}</td>
-          <td>${coefficientCell(coefficient(model, "ownership_COOP"))}</td>
+          <td${coefficientCellClass(coefficient(model, "ownership_MTC"))}>${coefficientCell(coefficient(model, "ownership_MTC"))}</td>
+          <td${coefficientCellClass(coefficient(model, "ownership_COOP"))}>${coefficientCell(coefficient(model, "ownership_COOP"))}</td>
           <td class="numeric-cell">${(model.r_squared * 100).toFixed(1)}%</td>
         </tr>`;
     }).join("");
@@ -66,7 +72,7 @@
       (model) => coefficient(model, "ownership_COOP").confidence_interval_excludes_zero,
     );
     const mtcText = mtcClear.length
-      ? `MTC estimates are below DOM in all three models, but the 95% confidence interval excludes zero only for ${mtcClear.join(" and ")}.`
+      ? `MTC estimates are below DOM in all three models, but only the ${mtcClear.join(" and ")} comparison has a 95% confidence interval that excludes zero; the others are inconclusive.`
       : "The MTC confidence intervals include zero in all three models.";
     const coopText = coopClear
       ? "COOP estimates are below DOM and their 95% confidence intervals exclude zero in all three customer classes."
@@ -135,7 +141,7 @@
       `${classLabel[customerClass]} ${signed(row.estimate)}¢ per 100 minutes (${pValue(row.p_value)})`
     )).join("; ");
     document.getElementById("saidi-comparison-finding").textContent =
-      `Adding SAIDI changes an ownership estimate by at most ${largestChange.toFixed(2)}¢/kWh in this matched sample. SAIDI estimates: ${saidiSummary}.`;
+      `Adding SAIDI changes an ownership estimate by at most ${largestChange.toFixed(2)}¢/kWh in this matched sample. None of the SAIDI coefficients is distinguishable from zero: ${saidiSummary}.`;
   }
 
   const visibleColumns = [

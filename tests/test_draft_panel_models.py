@@ -165,6 +165,8 @@ class DraftPanelModelTests(unittest.TestCase):
         self.assertIn("renderMainPriceResults", javascript)
         self.assertIn("renderSaidiComparison", javascript)
         self.assertIn("draft-saidi-group", javascript)
+        self.assertIn("Inconclusive: CI includes 0", javascript)
+        self.assertIn("None of the SAIDI coefficients is distinguishable from zero", javascript)
         self.assertNotIn("The idea in plain language", page)
         self.assertNotIn("professor", page.lower())
         self.assertNotIn("<svg", page)

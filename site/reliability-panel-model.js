@@ -27,11 +27,11 @@
     const model = results.primary_model;
     const body = document.getElementById("reliability-results-table");
     body.innerHTML = model.ownership_results.map((row) => `
-      <tr>
+      <tr class="${row.confidence_interval_excludes_zero ? "" : "draft-model-row--uncertain"}">
         <th scope="row">${ownershipLabel[row.ownership]}</th>
         <td class="numeric-cell" data-label="Difference from DOM"><span class="draft-table-estimate">${signed(row.estimate)} minutes</span></td>
         <td class="numeric-cell" data-label="95% confidence interval">${signed(row.confidence_95_low)} to ${signed(row.confidence_95_high)}</td>
-        <td class="numeric-cell" data-label="p-value">${pValue(row.p_value)}</td>
+        <td class="numeric-cell" data-label="p-value">${pValue(row.p_value)}${row.confidence_interval_excludes_zero ? "" : '<span class="draft-table-interpretation">Inconclusive: CI includes 0</span>'}</td>
       </tr>`).join("");
 
     document.getElementById("reliability-model-summary").textContent =

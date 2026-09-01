@@ -39,6 +39,8 @@
   --ownership-coop: #2f7a3d;
   --metric-price: #246f9e;
   --metric-roe: #7655a3;
+  --uncertain-ink: #7a4a09;
+  --uncertain-bg: #fff8e8;
 
   --iso-coal: #5f6368;
   --iso-oil: #94623b;
@@ -86,6 +88,8 @@
     --metric-price: #69b4e3;
     --metric-roe: #b797e3;
     --ownership-coop: #67b874;
+    --uncertain-ink: #e6b75f;
+    --uncertain-bg: #282218;
 
     --iso-coal: #92979c;
     --iso-oil: #c18a61;
@@ -881,6 +885,20 @@ main {
   margin-top: 0.15rem;
   color: var(--ink-muted);
   font-size: 0.7rem;
+}
+
+.draft-model-result--uncertain,
+.draft-model-row--uncertain td {
+  background: var(--uncertain-bg);
+}
+
+.draft-table-interpretation {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--uncertain-ink);
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .draft-change-cell {

@@ -138,6 +138,7 @@ class ReliabilityModelTests(unittest.TestCase):
         self.assertIn("renderTrend", javascript)
         self.assertIn("renderResults", javascript)
         self.assertIn("renderAnalysisData", javascript)
+        self.assertIn("Inconclusive: CI includes 0", javascript)
         self.assertNotIn("professor", page.lower())
 
     def test_price_page_limits_reliability_to_an_exploratory_saidi_check(self) -> None:
