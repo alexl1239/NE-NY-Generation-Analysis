@@ -21,6 +21,7 @@ from build_price_models import (
     T_CRITICAL_95,
     cluster_robust_covariance,
 )
+from build_draft_panel_models import student_t_two_sided_p_value
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -38,6 +39,21 @@ SITE_JSON_OUTPUT = (
 )
 SITE_JS_OUTPUT = (
     PROJECT_ROOT / "site" / "data" / "ownership_reliability_model_results.js"
+)
+FOCUSED_PROCESSED_OUTPUT = (
+    PROJECT_ROOT / "data" / "processed" / "reliability_panel_model_results.json"
+)
+FOCUSED_SITE_JSON_OUTPUT = (
+    PROJECT_ROOT / "site" / "data" / "reliability_panel_model_results.json"
+)
+FOCUSED_SITE_JS_OUTPUT = (
+    PROJECT_ROOT / "site" / "data" / "reliability_panel_model_results.js"
+)
+ANALYSIS_PROCESSED_OUTPUT = (
+    PROJECT_ROOT / "data" / "processed" / "reliability_panel_model_analysis.csv"
+)
+ANALYSIS_SITE_OUTPUT = (
+    PROJECT_ROOT / "site" / "data" / "reliability_panel_model_analysis.csv"
 )
 
 METRICS = {
@@ -147,6 +163,7 @@ def fit_model(
         index = names.index(f"ownership_{ownership}")
         estimate = float(coefficients[index])
         standard_error = float(standard_errors[index])
+        t_statistic = estimate / standard_error
         confidence_low = estimate - critical_value * standard_error
         confidence_high = estimate + critical_value * standard_error
         ownership_results.append(
@@ -156,6 +173,11 @@ def fit_model(
                 "estimate": estimate,
                 "unit": config["unit"],
                 "standard_error": standard_error,
+                "t_statistic": t_statistic,
+                "p_value": student_t_two_sided_p_value(
+                    t_statistic,
+                    degrees_of_freedom,
+                ),
                 "confidence_95_low": confidence_low,
                 "confidence_95_high": confidence_high,
                 "confidence_interval_excludes_zero": bool(
@@ -181,6 +203,103 @@ def fit_model(
         "design_rank": rank,
         "r_squared": float(1 - residual_sum_squares / total_sum_squares),
         "ownership_results": ownership_results,
+    }
+
+
+def build_analysis_table(audit: pd.DataFrame) -> pd.DataFrame:
+    """Return the complete reviewed panel with the primary-model sample marked."""
+
+    field = str(METRICS["saidi"]["without_major_events"])
+    included = audit[field].notna() & ~audit.apply(
+        field_is_excluded,
+        axis=1,
+        field=field,
+    )
+    analysis = audit.copy()
+    analysis["routine_saidi_minutes"] = analysis[field].where(included)
+    analysis["included_primary_model"] = included
+    columns = [
+        "panel_id",
+        "utility_id_eia",
+        "display_name",
+        "state",
+        "year",
+        "ownership",
+        "reporting_standard",
+        "reliability_customers",
+        "routine_saidi_minutes",
+        "included_primary_model",
+        "reliability_row_status",
+        "analysis_excluded_fields",
+        "eia_source_file_url",
+    ]
+    return analysis[columns].sort_values(["display_name", "year"]).reset_index(drop=True)
+
+
+def build_focused_results(
+    audit: pd.DataFrame,
+    comprehensive_results: dict[str, object],
+) -> dict[str, object]:
+    """Return the single SAIDI specification shown on the research site."""
+
+    primary_model = next(
+        model
+        for model in comprehensive_results["models"]
+        if model["metric"] == "saidi"
+        and model["event_scope"] == "without_major_events"
+        and model["reporting_sample"] == "all_methods"
+    )
+    field = str(METRICS["saidi"]["without_major_events"])
+    frame = model_frame(audit, field, "all_methods")
+
+    annual_medians = []
+    for (year, ownership), group in frame.groupby(["year", "ownership"], sort=True):
+        annual_medians.append(
+            {
+                "year": int(year),
+                "ownership": str(ownership),
+                "median_saidi_minutes": float(group[field].median()),
+                "observation_count": int(len(group)),
+            }
+        )
+
+    ownership_sample = []
+    for ownership, group in frame.groupby("ownership", sort=True):
+        ownership_sample.append(
+            {
+                "ownership": str(ownership),
+                "observation_count": int(len(group)),
+                "utility_count": int(group["panel_id"].nunique()),
+            }
+        )
+
+    return {
+        "title": "Ownership and routine outage duration",
+        "status": "Descriptive panel association; not a causal effect",
+        "years": "2013-2024",
+        "outcome": "SAIDI minutes per customer, excluding major-event days",
+        "reference_ownership": "DOM",
+        "model": (
+            "Unweighted OLS with ownership, state, year, and reliability-reporting-"
+            "method indicators"
+        ),
+        "uncertainty": (
+            "CR1 standard errors clustered by utility; two-sided Student-t p-values "
+            "and 95% intervals use clusters minus one degrees of freedom"
+        ),
+        "sample": {
+            "reviewed_utility_years": int(len(audit)),
+            "included_utility_years": int(len(frame)),
+            "included_utilities": int(frame["panel_id"].nunique()),
+            "ownership_membership": ownership_sample,
+        },
+        "primary_model": primary_model,
+        "annual_medians": annual_medians,
+        "interpretation_limit": (
+            "Associational, not causal. Major-event days are excluded, but weather, "
+            "geography, vegetation, infrastructure, and reporting definitions remain "
+            "possible explanations."
+        ),
     }
 
 
@@ -215,7 +334,9 @@ def build_results() -> dict[str, object]:
     }
 
 
-def write_results(results: dict[str, object]) -> None:
+def write_results(results: dict[str, object], audit: pd.DataFrame | None = None) -> None:
+    if audit is None:
+        audit = pd.read_csv(INPUT)
     payload = json.dumps(results, indent=2, allow_nan=False) + "\n"
     for output in (PROCESSED_OUTPUT, SITE_JSON_OUTPUT):
         output.parent.mkdir(parents=True, exist_ok=True)
@@ -226,6 +347,21 @@ def write_results(results: dict[str, object]) -> None:
         + ";\n"
     )
 
+    focused_results = build_focused_results(audit, results)
+    focused_payload = json.dumps(focused_results, indent=2, allow_nan=False) + "\n"
+    for output in (FOCUSED_PROCESSED_OUTPUT, FOCUSED_SITE_JSON_OUTPUT):
+        output.write_text(focused_payload)
+    FOCUSED_SITE_JS_OUTPUT.write_text(
+        "window.NE_NY_RELIABILITY_PANEL_MODEL_RESULTS = "
+        + json.dumps(focused_results, separators=(",", ":"), allow_nan=False)
+        + ";\n"
+    )
+
+    analysis = build_analysis_table(audit)
+    analysis.to_csv(ANALYSIS_PROCESSED_OUTPUT, index=False)
+    analysis.to_csv(ANALYSIS_SITE_OUTPUT, index=False)
+
 
 if __name__ == "__main__":
-    write_results(build_results())
+    source_audit = pd.read_csv(INPUT)
+    write_results(build_results(), source_audit)

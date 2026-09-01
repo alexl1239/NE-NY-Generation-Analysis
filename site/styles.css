@@ -969,6 +969,156 @@ main {
   }
 }
 
+/* Focused reliability panel page. */
+
+.reliability-trend-card {
+  max-width: 900px;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.reliability-trend-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  color: var(--ink-secondary);
+  font-size: 0.78rem;
+}
+
+.reliability-trend-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.reliability-trend-key {
+  width: 1.5rem;
+  border-top: 3px solid var(--ownership-mtc);
+}
+
+.reliability-trend-key--dom {
+  border-color: var(--ownership-dom);
+}
+
+.reliability-trend-key--coop {
+  border-color: var(--ownership-coop);
+}
+
+.reliability-trend-chart {
+  margin-top: 0.75rem;
+  overflow-x: auto;
+}
+
+.reliability-trend-svg {
+  display: block;
+  width: 100%;
+  min-width: 560px;
+  height: auto;
+}
+
+.reliability-trend-gridline {
+  stroke: var(--gridline);
+  stroke-width: 1;
+}
+
+.reliability-trend-axis-label,
+.reliability-trend-axis-title {
+  fill: var(--ink-muted);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 11px;
+}
+
+.reliability-trend-line {
+  fill: none;
+  stroke: var(--ownership-mtc);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.5;
+}
+
+.reliability-trend-line--dom {
+  stroke: var(--ownership-dom);
+}
+
+.reliability-trend-line--coop {
+  stroke: var(--ownership-coop);
+}
+
+.reliability-trend-point {
+  fill: var(--ownership-mtc);
+  stroke: var(--surface);
+  stroke-width: 1.5;
+}
+
+.reliability-trend-point--dom {
+  fill: var(--ownership-dom);
+}
+
+.reliability-trend-point--coop {
+  fill: var(--ownership-coop);
+}
+
+.reliability-results-table-wrap {
+  max-width: 900px;
+}
+
+.reliability-results-table {
+  min-width: 640px;
+}
+
+@media (max-width: 600px) {
+  .reliability-results-table-wrap {
+    overflow: visible;
+  }
+
+  .reliability-results-table {
+    min-width: 0;
+    background: transparent;
+  }
+
+  .reliability-results-table thead {
+    display: none;
+  }
+
+  .reliability-results-table tbody,
+  .reliability-results-table tr,
+  .reliability-results-table th,
+  .reliability-results-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .reliability-results-table tr {
+    margin-top: 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .reliability-results-table th,
+  .reliability-results-table td {
+    border: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .reliability-results-table td {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .reliability-results-table td::before {
+    content: attr(data-label);
+    color: var(--ink-muted);
+    font-weight: 600;
+  }
+
+  .reliability-results-table td:last-child {
+    border-bottom: 0;
+  }
+}
+
 /* Current research overview and context above the preserved earlier analysis. */
 
 .research-header,

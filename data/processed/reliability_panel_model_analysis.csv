@@ -1,0 +1,361 @@
+panel_id,utility_id_eia,display_name,state,year,ownership,reporting_standard,reliability_customers,routine_saidi_minutes,included_primary_model,reliability_row_status,analysis_excluded_fields,eia_source_file_url
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2013,COOP,other_standard,20458.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2014,COOP,other_standard,20538.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2015,COOP,other_standard,20592.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2016,COOP,other_standard,20728.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2017,COOP,other_standard,21069.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2018,COOP,other_standard,21285.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2019,COOP,other_standard,21266.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2020,COOP,other_standard,21451.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2021,COOP,other_standard,21492.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2022,COOP,other_standard,21560.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2023,COOP,other_standard,21640.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2024,COOP,other_standard,21843.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2013,MTC,ieee_standard,299591.0,141.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2014,MTC,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2015,MTC,ieee_standard,300647.0,173.14,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2016,MTC,other_standard,302432.0,185.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2017,MTC,other_standard,302187.0,155.88,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2018,MTC,other_standard,304381.0,182.7,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2019,MTC,other_standard,307024.0,178.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2020,MTC,other_standard,309262.0,183.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2021,MTC,other_standard,311785.0,227.3,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2022,MTC,other_standard,313732.0,172.2,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2023,MTC,other_standard,315627.0,150.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2024,MTC,ieee_standard,321537.0,167.2,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2013,MTC,ieee_standard,611967.0,218.4,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2014,MTC,ieee_standard,614277.0,197.4,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2015,MTC,ieee_standard,616979.0,171.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2016,MTC,ieee_standard,621927.0,198.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2017,MTC,ieee_standard,631274.0,202.2,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2018,MTC,ieee_standard,635107.0,235.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2019,MTC,ieee_standard,642816.0,189.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2020,MTC,ieee_standard,651000.0,220.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2021,MTC,ieee_standard,655791.0,219.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2022,MTC,ieee_standard,664869.0,172.49,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2023,MTC,ieee_standard,671618.0,190.3,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+MTC_ME_CMP,3266,Central Maine Power,ME,2024,MTC,ieee_standard,679726.0,215.4,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2013,COOP,ieee_standard,25699.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2014,COOP,ieee_standard,25750.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2015,COOP,ieee_standard,26013.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2016,COOP,ieee_standard,26308.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2017,COOP,ieee_standard,26375.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2018,COOP,ieee_standard,26219.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2019,COOP,ieee_standard,25914.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2020,COOP,ieee_standard,25982.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2021,COOP,ieee_standard,26019.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2022,COOP,ieee_standard,26019.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2023,COOP,ieee_standard,26032.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2024,COOP,ieee_standard,26049.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2013,DOM,other_standard,3362187.0,19.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2014,DOM,other_standard,3362187.0,19.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2015,DOM,other_standard,3385176.0,20.7,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2016,DOM,other_standard,3410172.0,18.824,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2017,DOM,other_standard,3434897.0,18.35,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2018,DOM,other_standard,3464959.0,19.827,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2019,DOM,other_standard,3504987.0,28.91,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2020,DOM,other_standard,3535450.0,21.51,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2021,DOM,other_standard,3498725.0,19.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2022,DOM,other_standard,3563455.0,18.18,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2023,DOM,other_standard,3626606.0,14.768,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2024,DOM,other_standard,3686348.0,14.951,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2013,DOM,ieee_standard,1217400.0,98.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2014,DOM,ieee_standard,1248364.0,93.67,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2015,DOM,ieee_standard,1254049.0,78.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2016,DOM,ieee_standard,1260086.0,103.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2017,DOM,ieee_standard,1265772.0,78.2,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2018,DOM,ieee_standard,1271056.0,81.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2019,DOM,ieee_standard,1275462.0,66.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2020,DOM,ieee_standard,1281157.0,69.68,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2021,DOM,ieee_standard,1286768.0,75.996,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2022,DOM,ieee_standard,1293731.0,73.4,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2023,DOM,ieee_standard,1307124.0,75.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2024,DOM,ieee_standard,1326461.0,76.9,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2013,COOP,other_standard,16776.0,21.76,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2014,COOP,other_standard,16802.0,79.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2015,COOP,other_standard,16719.0,37.16,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2016,COOP,other_standard,17152.0,22.292,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2017,COOP,ieee_standard,17152.0,29.68,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2018,COOP,ieee_standard,17578.0,21.474,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2019,COOP,ieee_standard,17623.0,21.703,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2020,COOP,ieee_standard,17666.0,17.69,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2021,COOP,ieee_standard,17658.0,17.986,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2022,COOP,ieee_standard,17666.0,17.69,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2023,COOP,ieee_standard,17895.0,14.799,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2024,COOP,ieee_standard,17955.0,20.211,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2013,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2014,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2015,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2016,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2017,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2018,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2019,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2020,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2021,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2022,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2023,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+DOM_NY_FIRSTENERGY,66101,FirstEnergy Pennsylvania Electric,NY,2024,DOM,ieee_standard,2076402.0,220.51,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2013,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2014,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2015,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2016,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2017,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2018,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2019,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2020,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2021,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2022,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2023,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+DOM_NY_FISHERS,6369,Fishers Island Electric,NY,2024,DOM,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2013,DOM,ieee_standard,29232.0,111.82,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2014,DOM,ieee_standard,29323.0,91.92,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2015,DOM,ieee_standard,29412.0,55.18,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2016,DOM,ieee_standard,29535.0,88.23,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2017,DOM,ieee_standard,29699.0,74.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2018,DOM,ieee_standard,29876.0,107.965,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2019,DOM,ieee_standard,30006.0,83.56,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2020,DOM,ieee_standard,30158.0,64.904,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2021,DOM,ieee_standard,30484.0,77.1,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2022,DOM,ieee_standard,30495.0,71.44,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2023,DOM,ieee_standard,30743.0,90.365,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2024,DOM,ieee_standard,30873.0,64.6,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2013,MTC,other_standard,258916.0,259.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2014,MTC,other_standard,258932.0,217.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2015,MTC,other_standard,260631.0,207.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2016,MTC,other_standard,262316.0,285.22,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2017,MTC,other_standard,263895.0,256.06,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2018,MTC,other_standard,264748.0,245.15,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2019,MTC,other_standard,266370.0,168.61,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2020,MTC,other_standard,267566.0,270.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2021,MTC,other_standard,270676.0,269.4,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2022,MTC,other_standard,271699.0,280.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2023,MTC,other_standard,273284.0,223.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+MTC_VT_GMP,7601,Green Mountain Power,VT,2024,MTC,other_standard,275233.0,281.4,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2013,MTC,ieee_standard,41853.0,177.469,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2014,MTC,ieee_standard,41483.0,217.04,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2015,MTC,ieee_standard,42911.0,75.366,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2016,MTC,ieee_standard,43400.0,138.87,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2017,MTC,ieee_standard,43894.0,157.09,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2018,MTC,ieee_standard,44284.0,158.07,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2019,MTC,ieee_standard,44784.0,115.689,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2020,MTC,ieee_standard,45192.0,100.87,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2021,MTC,ieee_standard,45468.0,108.73,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2022,MTC,ieee_standard,45697.0,84.29,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2023,MTC,ieee_standard,45637.0,153.78,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2024,MTC,ieee_standard,45565.0,92.693,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2013,MTC,ieee_standard,1273512.0,91.63,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2014,MTC,ieee_standard,1273077.0,96.83,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2015,MTC,other_standard,1274295.0,82.37,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2016,MTC,other_standard,1287453.0,145.69,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2017,MTC,other_standard,1294401.0,118.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2018,MTC,other_standard,1301417.0,122.338,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2019,MTC,other_standard,1313908.0,134.19,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2020,MTC,other_standard,1317045.0,301.293,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2021,MTC,ieee_standard,1320238.0,97.56,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2022,MTC,ieee_standard,1326212.0,106.43,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2023,MTC,ieee_standard,1331051.0,94.92,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2024,MTC,ieee_standard,1345044.0,90.72,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2013,DOM,ieee_standard,1161574.0,82.1,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2014,DOM,ieee_standard,1163241.0,66.95,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2015,DOM,ieee_standard,1169412.0,75.2,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2016,DOM,ieee_standard,1395146.0,98.1,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2017,DOM,ieee_standard,1197922.0,74.3,True,reported,saifi_wo_major_event_days_customers|caidi_wo_major_event_days_minutes,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2018,DOM,ieee_standard,1430397.0,85.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2019,DOM,ieee_standard,1434715.0,70.3,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2020,DOM,ieee_standard,1446211.0,64.96,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2021,DOM,ieee_standard,1450541.0,75.837,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2022,DOM,ieee_standard,1471114.0,68.5,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2023,DOM,ieee_standard,1307124.0,,False,reported,saidi_w_major_event_days_minutes|saidi_wo_major_event_days_minutes|saidi_w_major_event_days_minus_loss_of_service_minutes|saifi_w_major_event_days_customers|saifi_wo_major_event_days_customers|saifi_w_major_event_days_minus_loss_of_service_customers|caidi_w_major_event_days_minutes|caidi_wo_major_event_days_minutes|caidi_w_major_event_days_minus_loss_of_service_minutes|reliability_customers,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2024,DOM,ieee_standard,1462127.0,66.1,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2013,MTC,other_standard,859531.0,121.2,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2014,MTC,other_standard,861671.0,120.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2015,MTC,ieee_standard,877062.0,149.4,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2016,MTC,ieee_standard,878777.0,218.4,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2017,MTC,other_standard,884136.0,145.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2018,MTC,other_standard,891168.0,155.4,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2019,MTC,other_standard,895050.0,156.2,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2020,MTC,other_standard,899315.0,163.94,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2021,MTC,other_standard,907375.0,176.4,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2022,MTC,other_standard,905435.0,162.93,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2023,MTC,other_standard,911323.0,151.28,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+MTC_NY_NYSEG,13511,NYSEG,NY,2024,MTC,other_standard,910487.0,147.6,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2013,COOP,other_standard,79269.0,360.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2014,COOP,other_standard,79673.0,452.4,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2015,COOP,other_standard,80141.0,400.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2016,COOP,other_standard,80253.0,187.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2017,COOP,other_standard,80984.0,395.21,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2018,COOP,other_standard,81389.0,389.438,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2019,COOP,other_standard,81880.0,319.942,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2020,COOP,other_standard,82436.0,304.178,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2021,COOP,other_standard,83126.0,356.683,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2022,COOP,other_standard,83822.0,341.18,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2023,COOP,other_standard,84468.0,405.62,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2024,COOP,other_standard,85138.0,514.88,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2013,MTC,ieee_standard,1605502.0,117.92,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2014,MTC,ieee_standard,1604865.0,116.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2015,MTC,ieee_standard,1605794.0,124.42,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2016,MTC,ieee_standard,1614518.0,129.86,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2017,MTC,ieee_standard,1630708.0,134.23,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2018,MTC,ieee_standard,1643827.0,147.039,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2019,MTC,ieee_standard,1653855.0,135.57,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2020,MTC,ieee_standard,1663243.0,144.54,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2021,MTC,ieee_standard,1674003.0,133.66,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2022,MTC,ieee_standard,1678861.0,152.66,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2023,MTC,ieee_standard,1679983.0,132.43,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2024,MTC,ieee_standard,1690739.0,140.65,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2013,COOP,ieee_standard,20900.0,42.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2014,COOP,ieee_standard,20005.0,38.486,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2015,COOP,ieee_standard,20049.0,27.123,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2016,COOP,ieee_standard,20046.0,56.343,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2017,COOP,ieee_standard,20175.0,48.52,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2018,COOP,ieee_standard,20298.0,84.48,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2019,COOP,ieee_standard,20456.0,94.71,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2020,COOP,ieee_standard,20564.0,132.19,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2021,COOP,ieee_standard,20642.0,113.441,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2022,COOP,ieee_standard,20747.0,120.49,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2023,COOP,ieee_standard,20808.0,153.15,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2024,COOP,ieee_standard,20898.0,287.98,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2013,DOM,other_standard,220471.0,86.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2014,DOM,other_standard,221300.0,103.01,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2015,DOM,other_standard,221203.0,148.05,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2016,DOM,other_standard,222510.0,107.58,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2017,DOM,other_standard,224402.0,92.282,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2018,DOM,other_standard,227222.0,120.33,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2019,DOM,other_standard,229181.0,113.98,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2020,DOM,other_standard,231512.0,96.196,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2021,DOM,other_standard,233903.0,107.45,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2022,DOM,other_standard,235320.0,98.127,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2023,DOM,other_standard,237592.0,110.21,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2024,DOM,other_standard,240260.0,106.6,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2013,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2014,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2015,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2016,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2017,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2018,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2019,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2020,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2021,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2022,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2023,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2024,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2013,DOM,ieee_standard,501415.0,137.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2014,DOM,ieee_standard,504039.0,122.84,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2015,DOM,ieee_standard,510645.0,106.1,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2016,DOM,ieee_standard,521908.0,139.97,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2017,DOM,ieee_standard,525219.0,118.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2018,DOM,ieee_standard,528668.0,119.9,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2019,DOM,ieee_standard,531399.0,82.63,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2020,DOM,ieee_standard,535095.0,95.77,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2021,DOM,ieee_standard,539189.0,96.781,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2022,DOM,ieee_standard,543167.0,78.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2023,DOM,ieee_standard,546919.0,83.7,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2024,DOM,ieee_standard,551456.0,81.5,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2013,COOP,ieee_standard,29500.0,11.84,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2014,COOP,ieee_standard,29767.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2015,COOP,ieee_standard,29787.0,20.37,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2016,COOP,ieee_standard,29785.0,22.7,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2017,COOP,ieee_standard,29715.0,13.52,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2018,COOP,ieee_standard,29760.0,19.309,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2019,COOP,ieee_standard,30111.0,16.399,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2020,COOP,ieee_standard,30111.0,18.929,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2021,COOP,ieee_standard,30504.0,13.925,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2022,COOP,ieee_standard,30504.0,14.34,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2023,COOP,ieee_standard,30504.0,26.13,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2024,COOP,ieee_standard,32638.0,23.24,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2013,MTC,ieee_standard,485428.0,57.28,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2014,MTC,ieee_standard,484151.0,54.21,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2015,MTC,ieee_standard,482984.0,64.29,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2016,MTC,ieee_standard,488080.0,69.13,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2017,MTC,ieee_standard,488080.0,59.1,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2018,MTC,ieee_standard,492421.0,65.11,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2019,MTC,ieee_standard,496959.0,68.2,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2020,MTC,ieee_standard,498159.0,69.108,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2021,MTC,ieee_standard,499886.0,68.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2022,DOM,ieee_standard,500974.0,63.2,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2023,DOM,ieee_standard,503487.0,52.23,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2024,DOM,ieee_standard,509231.0,60.79,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2013,MTC,other_standard,365870.0,81.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2014,MTC,other_standard,369072.0,79.2,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2015,MTC,other_standard,371431.0,82.2,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2016,MTC,other_standard,371886.0,61.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2017,MTC,other_standard,374586.0,62.4,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2018,MTC,other_standard,377943.0,80.4,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2019,MTC,other_standard,379141.0,79.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2020,MTC,other_standard,338655.0,93.46,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2021,MTC,other_standard,384785.0,121.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2022,MTC,other_standard,384274.0,81.29,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2023,MTC,other_standard,385815.0,72.73,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2024,MTC,other_standard,384882.0,81.0,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2013,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2014,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2015,COOP,,,,False,not_reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2016,COOP,ieee_standard,29112.0,26.585,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2017,COOP,ieee_standard,38000.0,67.088,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2018,COOP,ieee_standard,38000.0,81.228,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2019,COOP,ieee_standard,38000.0,68.489,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2020,COOP,ieee_standard,38800.0,84.159,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2021,COOP,ieee_standard,39087.0,342.696,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2022,COOP,ieee_standard,39168.0,102.369,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2023,COOP,ieee_standard,40152.0,87.463,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2024,COOP,ieee_standard,39242.0,192.98,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+MTC_CT_UI,19497,United Illuminating,CT,2013,DOM,ieee_standard,317544.0,57.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+MTC_CT_UI,19497,United Illuminating,CT,2014,DOM,other_standard,318490.0,62.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+MTC_CT_UI,19497,United Illuminating,CT,2015,DOM,other_standard,318285.0,43.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+MTC_CT_UI,19497,United Illuminating,CT,2016,MTC,other_standard,330968.0,51.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+MTC_CT_UI,19497,United Illuminating,CT,2017,MTC,other_standard,332396.0,33.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+MTC_CT_UI,19497,United Illuminating,CT,2018,MTC,other_standard,333861.0,59.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+MTC_CT_UI,19497,United Illuminating,CT,2019,MTC,other_standard,335245.0,38.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+MTC_CT_UI,19497,United Illuminating,CT,2020,MTC,other_standard,337632.0,46.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+MTC_CT_UI,19497,United Illuminating,CT,2021,MTC,other_standard,340562.0,40.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+MTC_CT_UI,19497,United Illuminating,CT,2022,MTC,other_standard,342845.0,39.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+MTC_CT_UI,19497,United Illuminating,CT,2023,MTC,other_standard,343248.0,43.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+MTC_CT_UI,19497,United Illuminating,CT,2024,MTC,ieee_standard,345159.0,49.2,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2013,DOM,other_standard,75492.0,119.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2014,DOM,ieee_standard,75803.0,184.35,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2015,DOM,ieee_standard,76076.0,112.73,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2016,DOM,ieee_standard,76614.0,101.5,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2017,DOM,ieee_standard,77306.0,112.68,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2018,DOM,ieee_standard,77595.0,115.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2019,DOM,ieee_standard,77959.0,82.53,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2020,DOM,ieee_standard,78697.0,120.04,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2021,DOM,ieee_standard,78935.0,102.75,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2022,DOM,ieee_standard,79123.0,70.79,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2023,DOM,ieee_standard,79306.0,90.94,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2024,DOM,ieee_standard,79654.0,97.66,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2013,COOP,ieee_standard,37983.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2014,COOP,ieee_standard,38281.0,,False,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2015,COOP,ieee_standard,38329.0,210.52,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2016,COOP,ieee_standard,38424.0,217.59,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2017,COOP,ieee_standard,38372.0,200.78,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2018,COOP,ieee_standard,38982.0,357.66,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2019,COOP,ieee_standard,39179.0,170.42,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2020,COOP,ieee_standard,39539.0,158.43,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2021,COOP,ieee_standard,39961.0,215.29,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2022,COOP,ieee_standard,40253.0,178.5,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2023,COOP,ieee_standard,40245.0,204.33,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2024,COOP,ieee_standard,40741.0,231.8,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2013,MTC,ieee_standard,120089.0,401.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2014,MTC,ieee_standard,156265.0,354.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2015,MTC,ieee_standard,157752.0,280.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2016,MTC,ieee_standard,162613.0,493.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2017,MTC,ieee_standard,167017.0,368.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2018,MTC,ieee_standard,170465.0,397.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2019,MTC,ieee_standard,173791.0,302.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2020,MTC,ieee_standard,176818.0,319.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2021,MTC,ieee_standard,179223.0,218.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2022,MTC,ieee_standard,181068.0,326.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2023,MTC,ieee_standard,164775.0,303.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+MTC_ME_VERSANT,1179,Versant Power,ME,2024,MTC,ieee_standard,165401.0,478.0,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2013,COOP,other_standard,24738.0,29.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2014,COOP,other_standard,24624.0,12.6,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2015,COOP,other_standard,24738.0,9.2,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2016,COOP,other_standard,24777.0,52.5,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2017,COOP,other_standard,24906.0,22.03,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2018,COOP,other_standard,25018.0,29.54,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2019,COOP,other_standard,25205.0,24.223,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612019.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2020,COOP,other_standard,23325.0,19.534,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612020.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2021,COOP,other_standard,25429.0,31.68,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612021.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2022,COOP,other_standard,25219.0,32.55,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612022.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2023,COOP,other_standard,25048.0,45.19,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612023.zip
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2024,COOP,other_standard,25100.0,37.15,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip

@@ -24,7 +24,10 @@ EXPECTED_PRIMARY_COUNTS = {
 class ReliabilityModelTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
+        cls.audit = reliability.pd.read_csv(reliability.INPUT)
         cls.results = reliability.build_results()
+        cls.focused = reliability.build_focused_results(cls.audit, cls.results)
+        cls.analysis = reliability.build_analysis_table(cls.audit)
         cls.models = {
             (model["metric"], model["event_scope"], model["reporting_sample"]): model
             for model in cls.results["models"]
@@ -54,6 +57,13 @@ class ReliabilityModelTests(unittest.TestCase):
                 )
             )
 
+    def test_primary_saidi_p_values_are_exact_and_uncertain(self) -> None:
+        model = self.models[("saidi", "without_major_events", "all_methods")]
+        rows = {row["ownership"]: row for row in model["ownership_results"]}
+        self.assertAlmostEqual(rows["MTC"]["p_value"], 0.1086391215, places=9)
+        self.assertAlmostEqual(rows["COOP"]["p_value"], 0.3511323374, places=9)
+        self.assertTrue(all(0 <= row["p_value"] <= 1 for row in rows.values()))
+
     def test_sensitivity_results_are_not_misrepresented_as_stable(self) -> None:
         primary_significance = []
         sensitivity_significance = []
@@ -80,6 +90,55 @@ class ReliabilityModelTests(unittest.TestCase):
         prefix = "window.NE_NY_OWNERSHIP_RELIABILITY_MODEL_RESULTS = "
         self.assertTrue(text.startswith(prefix))
         self.assertEqual(json.loads(text[len(prefix) : -1]), processed)
+
+        focused_processed = json.loads(reliability.FOCUSED_PROCESSED_OUTPUT.read_text())
+        focused_site = json.loads(reliability.FOCUSED_SITE_JSON_OUTPUT.read_text())
+        self.assertEqual(focused_processed, focused_site)
+        self.assertEqual(focused_processed, self.focused)
+        focused_text = reliability.FOCUSED_SITE_JS_OUTPUT.read_text().strip()
+        focused_prefix = "window.NE_NY_RELIABILITY_PANEL_MODEL_RESULTS = "
+        self.assertTrue(focused_text.startswith(focused_prefix))
+        self.assertEqual(
+            json.loads(focused_text[len(focused_prefix) : -1]),
+            focused_processed,
+        )
+        self.assertEqual(
+            reliability.ANALYSIS_PROCESSED_OUTPUT.read_text(),
+            reliability.ANALYSIS_SITE_OUTPUT.read_text(),
+        )
+
+    def test_focused_page_uses_one_saidi_model_and_complete_audit_table(self) -> None:
+        self.assertEqual(self.focused["primary_model"]["metric"], "saidi")
+        self.assertEqual(
+            (
+                self.focused["sample"]["included_utility_years"],
+                self.focused["sample"]["included_utilities"],
+            ),
+            (293, 26),
+        )
+        self.assertEqual(len(self.analysis), 360)
+        self.assertEqual(int(self.analysis["included_primary_model"].sum()), 293)
+        self.assertEqual(self.analysis["panel_id"].nunique(), 30)
+
+        overview = (PROJECT_ROOT / "site" / "index.html").read_text()
+        price_page = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
+        page = (PROJECT_ROOT / "site" / "reliability-panel-model.html").read_text()
+        javascript = (
+            PROJECT_ROOT / "site" / "reliability-panel-model.js"
+        ).read_text()
+        self.assertIn('href="reliability-panel-model.html"', overview)
+        self.assertIn('href="reliability-panel-model.html"', price_page)
+        self.assertIn("Ownership and routine outage duration", page)
+        self.assertIn('id="reliability-results-table"', page)
+        self.assertIn('id="reliability-trend-chart"', page)
+        self.assertIn('id="reliability-data-body"', page)
+        self.assertIn("Weather is not included", page)
+        self.assertNotIn("SAIFI", page)
+        self.assertNotIn("CAIDI", page)
+        self.assertIn("renderTrend", javascript)
+        self.assertIn("renderResults", javascript)
+        self.assertIn("renderAnalysisData", javascript)
+        self.assertNotIn("professor", page.lower())
 
     def test_price_page_limits_reliability_to_an_exploratory_saidi_check(self) -> None:
         html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()

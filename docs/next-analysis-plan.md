@@ -25,9 +25,11 @@ association check, not a causal estimate.
 
 ### 2. Reliability check
 
-Use the already reviewed 30-utility panel to compare routine SAIDI, SAIFI, and CAIDI
-between the ownership groups. Run separate unweighted models that account for state,
-year, and the utility's EIA reporting method. Use DOM as the reference group.
+Use the already reviewed 30-utility panel to compare routine SAIDI between the
+ownership groups. The focused unweighted model accounts for state, year, and the
+utility's EIA reporting method. DOM is the reference group. Major-event days are
+excluded. SAIFI, CAIDI, major-event, and reporting-sample variants remain internal
+sensitivity checks rather than additional headline models.
 
 Reliability is a separate service-quality outcome. This check does not assume that
 reliability causes prices or that prices cause reliability.
@@ -39,8 +41,8 @@ reliability causes prices or that prices cause reliability.
   customers.
 - The MTC commercial difference remains clear. Its residential and industrial
   uncertainty ranges cross zero, so those two comparisons remain uncertain.
-- In the primary reliability models, none of the MTC or COOP differences from DOM is
-  clear for routine SAIDI, SAIFI, or CAIDI.
+- In the primary SAIDI model, neither the MTC nor COOP difference from DOM is clear;
+  both 95% confidence intervals include zero and are wide.
 - Reliability results move when storms or reporting samples change. The project
   therefore does not have a stable reliability tradeoff that explains the price
   differences.
@@ -61,4 +63,5 @@ These are associations, not proof that ownership causes the differences.
 The website uses the 42-utility sample for the raw ownership-price EDA and the main
 price panel model. Reliability and individual utility histories stay on the reviewed
 30-utility sample. The price-model page adds one matched-sample comparison without
-and with routine SAIDI; exact machine-readable results remain available for audit.
+and with routine SAIDI. A separate reliability-model page reports one primary SAIDI
+specification and its inspectable 360-row source panel.

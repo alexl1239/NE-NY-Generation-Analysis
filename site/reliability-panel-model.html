@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Panel comparison of utility ownership and routine SAIDI in New York and New England, 2013–2024.">
+  <title>Reliability panel model | Utility ownership research</title>
+  <link rel="stylesheet" href="styles.css?v=20260831c">
+</head>
+<body>
+  <header class="research-header draft-model-header">
+    <nav class="research-nav draft-model-nav" aria-label="Reliability model navigation">
+      <a href="index.html">&larr; Observed-data overview</a>
+      <a href="draft-panel-model.html">Price model</a>
+      <a href="#reliability-results">Results</a>
+      <a href="#analysis-data">Model data</a>
+    </nav>
+    <h1>Ownership and routine outage duration</h1>
+    <p>
+      Do utility ownership groups differ in SAIDI after accounting for state, year,
+      and reliability-reporting method?
+    </p>
+  </header>
+
+  <main class="research-main research-main--wide draft-model-main">
+    <section id="observed-saidi" aria-labelledby="observed-saidi-title">
+      <h2 id="observed-saidi-title">Observed SAIDI</h2>
+      <p>
+        Annual medians use the reviewed reliability sample. Each available
+        utility-year counts once, and major-event days are excluded.
+      </p>
+      <div class="reliability-trend-card">
+        <div class="reliability-trend-legend" aria-label="Ownership groups">
+          <span><i class="reliability-trend-key reliability-trend-key--mtc"></i>MTC</span>
+          <span><i class="reliability-trend-key reliability-trend-key--dom"></i>DOM</span>
+          <span><i class="reliability-trend-key reliability-trend-key--coop"></i>COOP</span>
+        </div>
+        <div id="reliability-trend-chart" class="reliability-trend-chart"></div>
+      </div>
+    </section>
+
+    <section id="reliability-results" aria-labelledby="reliability-results-title">
+      <h2 id="reliability-results-title">Adjusted ownership comparison</h2>
+      <p>
+        DOM is the reference group. Positive estimates indicate more annual outage
+        minutes than DOM after the model adjustments.
+      </p>
+      <p class="draft-equation">
+        SAIDI<sub>it</sub> = ownership<sub>it</sub> + state<sub>i</sub> + year<sub>t</sub> + reporting method<sub>it</sub> + error<sub>it</sub>
+      </p>
+      <div class="table-wrap draft-results-table-wrap reliability-results-table-wrap">
+        <table class="ownership-table draft-results-table reliability-results-table">
+          <thead>
+            <tr>
+              <th scope="col">Ownership</th>
+              <th scope="col">Difference from DOM</th>
+              <th scope="col">95% confidence interval</th>
+              <th scope="col">p-value</th>
+            </tr>
+          </thead>
+          <tbody id="reliability-results-table"></tbody>
+        </table>
+      </div>
+      <p id="reliability-model-summary" class="table-note"></p>
+      <p id="reliability-finding" class="draft-result-summary"></p>
+    </section>
+
+    <section id="methods" aria-labelledby="reliability-methods-title">
+      <h2 id="reliability-methods-title">Methods and limits</h2>
+      <ul class="draft-method-list">
+        <li>Outcome: utility-reported SAIDI excluding major-event days.</li>
+        <li>Ownership, state, year, and reporting-method indicators are included.</li>
+        <li>Each usable utility-year counts once; there is no customer weighting.</li>
+        <li>Uncertainty is clustered by utility.</li>
+        <li>Only source-audited exclusions are applied; high values are not automatically removed.</li>
+        <li>
+          Weather is not included. The estimates are descriptive associations, not
+          causal effects of ownership.
+        </li>
+      </ul>
+      <p class="table-note">
+        Excluding major-event days reduces the effect of exceptional storms, but
+        ordinary weather, geography, vegetation, infrastructure, and reporting
+        definitions can still affect SAIDI.
+      </p>
+    </section>
+
+    <section id="analysis-data" aria-labelledby="reliability-data-title">
+      <h2 id="reliability-data-title">Model data</h2>
+      <p>
+        The table contains all 360 reviewed utility-years. Missing or source-withheld
+        SAIDI remains blank and is not used in the model.
+      </p>
+      <p class="draft-downloads">
+        <a href="data/reliability_panel_model_analysis.csv">Download model data</a>
+        · <a href="data/reliability_panel_model_results.json">Download exact regression output</a>
+      </p>
+      <label class="draft-data-filter" for="reliability-data-search">
+        Filter table
+        <input id="reliability-data-search" type="search" placeholder="Utility, state, year, ownership…">
+      </label>
+      <p id="reliability-data-status" class="table-note" aria-live="polite">Loading model data…</p>
+      <div class="table-wrap draft-data-table-wrap">
+        <table class="ownership-table draft-data-table">
+          <thead id="reliability-data-head"></thead>
+          <tbody id="reliability-data-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer research-footer">
+    <p><a href="index.html">Return to the observed-data overview</a></p>
+  </footer>
+
+  <script src="data/reliability_panel_model_results.js?v=20260831a"></script>
+  <script src="reliability-panel-model.js?v=20260831a"></script>
+</body>
+</html>
