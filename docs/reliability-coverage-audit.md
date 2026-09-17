@@ -41,7 +41,7 @@ compared 2,841 available standard, customer-count, SAIDI, SAIFI, and CAIDI field
 All 2,841 matched the official EIA workbook values. All 39 missing utility-years are
 absent from both sources. The result is saved in
 `data/processed/reliability_source_validation_2013_2024.csv` and can be reproduced
-with `validate_reliability_sources.py`.
+with `scripts/validate_reliability_sources.py`.
 
 ## Verified coverage results
 
@@ -151,8 +151,8 @@ mechanical checks. They remain visible.
 
 ## Files
 
-- Build script: `build_reliability_audit.py`
-- Direct-source validation script: `validate_reliability_sources.py`
+- Build script: `scripts/build_reliability_audit.py`
+- Direct-source validation script: `scripts/validate_reliability_sources.py`
 - Processed audit: `data/processed/reliability_coverage_audit_2013_2024.csv`
 - Direct-source validation results:
   `data/processed/reliability_source_validation_2013_2024.csv`

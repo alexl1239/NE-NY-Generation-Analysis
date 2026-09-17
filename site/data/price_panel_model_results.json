@@ -1,0 +1,2477 @@
+{
+  "title": "Ownership and bundled electricity prices",
+  "status": "Panel associations; not causal effects",
+  "years": "2013-2024",
+  "regional_price_utility_count": 42,
+  "main_sample_rule": "Every available customer-class price in the 42-utility regional panel",
+  "saidi_sample_rule": "The same utility-years with a published customer-class price, usable routine SAIDI, and a known reliability reporting method in both models",
+  "reference_categories": {
+    "ownership": "DOM",
+    "reporting_method": "ieee_standard",
+    "year": 2013
+  },
+  "price_outcome": "EIA bundled average price in constant 2024 cents per kWh",
+  "saidi_definition": "Routine outage minutes per customer, excluding major event days",
+  "main_price_model": "Unweighted pooled panel OLS with ownership, state, and year indicators",
+  "saidi_comparison_model": "The matched baseline adds reliability-reporting-method indicators; the second version adds routine SAIDI",
+  "uncertainty": "CR1 standard errors clustered by utility; two-sided Student-t p-values and 95% intervals use clusters minus one degrees of freedom",
+  "weighting": "Each usable utility-year counts once; no customer weighting",
+  "outlier_rule": "No automatic deletion; only source-audited exclusions are applied",
+  "interpretation_limit": "Associational, not causal. SAIDI is an exploratory addition and is not treated as an external cause of price.",
+  "source_data": [
+    "data/processed/utility_price_panel_expanded_2013_2024.csv",
+    "data/processed/reliability_coverage_audit_2013_2024.csv"
+  ],
+  "cpi_u_annual_2013_100": {
+    "2013": 100.0,
+    "2014": 101.622,
+    "2015": 101.743,
+    "2016": 103.027,
+    "2017": 105.221,
+    "2018": 107.791,
+    "2019": 109.745,
+    "2020": 111.098,
+    "2021": 116.318,
+    "2022": 125.626,
+    "2023": 130.797,
+    "2024": 134.655
+  },
+  "diagnostics": {
+    "regional_price_panel_rows": 504,
+    "regional_price_panel_utilities": 42,
+    "selected_panel_years": [
+      2013,
+      2024
+    ],
+    "selected_panel_ownership_counts_2024": {
+      "COOP": 23,
+      "DOM": 8,
+      "MTC": 11
+    },
+    "main_samples": {
+      "residential": {
+        "observation_count": 500,
+        "utility_count": 42
+      },
+      "commercial": {
+        "observation_count": 500,
+        "utility_count": 42
+      },
+      "industrial": {
+        "observation_count": 477,
+        "utility_count": 41
+      }
+    },
+    "matched_saidi_samples": {
+      "residential": {
+        "observation_count": 290,
+        "utility_count": 25,
+        "ownership_utility_counts": {
+          "COOP": 7,
+          "DOM": 9,
+          "MTC": 11
+        }
+      },
+      "commercial": {
+        "observation_count": 290,
+        "utility_count": 25,
+        "ownership_utility_counts": {
+          "COOP": 7,
+          "DOM": 9,
+          "MTC": 11
+        }
+      },
+      "industrial": {
+        "observation_count": 279,
+        "utility_count": 25,
+        "ownership_utility_counts": {
+          "COOP": 7,
+          "DOM": 9,
+          "MTC": 11
+        }
+      }
+    },
+    "ownership_coefficient_changes": {
+      "residential": {
+        "MTC": {
+          "baseline_estimate": -4.700348100040356,
+          "saidi_estimate": -5.327523502155854,
+          "saidi_change_from_baseline": -0.6271754021154976
+        },
+        "COOP": {
+          "baseline_estimate": -9.588962412485822,
+          "saidi_estimate": -10.175707538220081,
+          "saidi_change_from_baseline": -0.5867451257342591
+        }
+      },
+      "commercial": {
+        "MTC": {
+          "baseline_estimate": -4.739792317179601,
+          "saidi_estimate": -5.116891330264362,
+          "saidi_change_from_baseline": -0.3770990130847611
+        },
+        "COOP": {
+          "baseline_estimate": -6.712288857682994,
+          "saidi_estimate": -7.065078535180479,
+          "saidi_change_from_baseline": -0.35278967749748524
+        }
+      },
+      "industrial": {
+        "MTC": {
+          "baseline_estimate": -2.4251830010783593,
+          "saidi_estimate": -2.506418467705185,
+          "saidi_change_from_baseline": -0.08123546662682557
+        },
+        "COOP": {
+          "baseline_estimate": -5.691963695225094,
+          "saidi_estimate": -5.784667872154616,
+          "saidi_change_from_baseline": -0.09270417692952204
+        }
+      }
+    }
+  },
+  "main_price_models": [
+    {
+      "model_id": "main_residential_state_baseline",
+      "customer_class": "residential",
+      "specification": "baseline",
+      "outcome_column": "real_residential_price_2024_cents_kwh",
+      "outcome_label": "Inflation-adjusted residential bundled average price",
+      "outcome_unit": "2024 cents per kWh",
+      "geographic_control": "state",
+      "reliability_predictor": null,
+      "observation_count": 500,
+      "utility_cluster_count": 42,
+      "ownership_observation_counts": {
+        "COOP": 274,
+        "DOM": 89,
+        "MTC": 137
+      },
+      "ownership_utility_counts": {
+        "COOP": 23,
+        "DOM": 9,
+        "MTC": 12
+      },
+      "parameter_count": 20,
+      "design_rank": 20,
+      "cluster_degrees_of_freedom": 41,
+      "r_squared": 0.5700574511955117,
+      "adjusted_r_squared": 0.5530388919720006,
+      "coefficients": [
+        {
+          "term": "intercept",
+          "label": "Intercept",
+          "estimate": 29.678821394241698,
+          "standard_error": 2.433446337474631,
+          "t_statistic": 12.196209522763354,
+          "p_value": 3.1803810836763218e-15,
+          "confidence_95_low": 24.764376744411845,
+          "confidence_95_high": 34.593266044071555,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_MTC",
+          "label": "MTC compared with DOM",
+          "estimate": -4.064686036595721,
+          "standard_error": 2.22124395288267,
+          "t_statistic": -1.8299142835349904,
+          "p_value": 0.07453998870296287,
+          "confidence_95_low": -8.550579270444342,
+          "confidence_95_high": 0.42120719725289835,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "ownership_COOP",
+          "label": "COOP compared with DOM",
+          "estimate": -10.866531748607585,
+          "standard_error": 2.126511987051138,
+          "t_statistic": -5.110026096620479,
+          "p_value": 7.867262917706657e-06,
+          "confidence_95_low": -15.161109893448828,
+          "confidence_95_high": -6.571953603766343,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_MA",
+          "label": "State MA",
+          "estimate": -1.9197760727242739,
+          "standard_error": 1.7083236775909763,
+          "t_statistic": -1.1237777113945298,
+          "p_value": 0.26764429638663934,
+          "confidence_95_low": -5.369805780890031,
+          "confidence_95_high": 1.5302536354414835,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_ME",
+          "label": "State ME",
+          "estimate": -2.98470031921377,
+          "standard_error": 2.337069417948769,
+          "t_statistic": -1.2771123939627873,
+          "p_value": 0.20874792047710933,
+          "confidence_95_low": -7.704507828607444,
+          "confidence_95_high": 1.735107190179904,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NH",
+          "label": "State NH",
+          "estimate": -2.765074327585706,
+          "standard_error": 3.3020327070762114,
+          "t_statistic": -0.8373855054979283,
+          "p_value": 0.40723076951933235,
+          "confidence_95_low": -9.433664762867105,
+          "confidence_95_high": 3.9035161076956926,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NY",
+          "label": "State NY",
+          "estimate": -7.067328413056997,
+          "standard_error": 2.368111716248859,
+          "t_statistic": -2.984372892783876,
+          "p_value": 0.0047725878460897295,
+          "confidence_95_low": -11.849827116601933,
+          "confidence_95_high": -2.284829709512061,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_RI",
+          "label": "State RI",
+          "estimate": -2.646760840603371,
+          "standard_error": 1.891663410629284,
+          "t_statistic": -1.3991711346380036,
+          "p_value": 0.16928188627338447,
+          "confidence_95_low": -6.467052656569045,
+          "confidence_95_high": 1.1735309753623038,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_VT",
+          "label": "State VT",
+          "estimate": -0.09413854228239334,
+          "standard_error": 2.5618464545272492,
+          "t_statistic": -0.036746363981351574,
+          "p_value": 0.9708655752150444,
+          "confidence_95_low": -5.267892492904808,
+          "confidence_95_high": 5.079615408340022,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2014",
+          "label": "Year 2014",
+          "estimate": 1.089558662335655,
+          "standard_error": 0.25205492939322716,
+          "t_statistic": 4.322703249480397,
+          "p_value": 9.590574853773052e-05,
+          "confidence_95_low": 0.5805233981739277,
+          "confidence_95_high": 1.5985939264973823,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2015",
+          "label": "Year 2015",
+          "estimate": 1.741049519565677,
+          "standard_error": 0.45905218313175106,
+          "t_statistic": 3.792705020348382,
+          "p_value": 0.0004819486408062601,
+          "confidence_95_low": 0.8139748145915974,
+          "confidence_95_high": 2.6681242245397567,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2016",
+          "label": "Year 2016",
+          "estimate": 0.8763680861890965,
+          "standard_error": 0.3616749611726046,
+          "t_statistic": 2.4230819942519086,
+          "p_value": 0.01989097638624084,
+          "confidence_95_low": 0.14595067342761348,
+          "confidence_95_high": 1.6067854989505794,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2017",
+          "label": "Year 2017",
+          "estimate": 0.9565768162180291,
+          "standard_error": 0.4560327947060705,
+          "t_statistic": 2.0976053198862097,
+          "p_value": 0.042147465753422535,
+          "confidence_95_low": 0.03559988996453689,
+          "confidence_95_high": 1.8775537424715214,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2018",
+          "label": "Year 2018",
+          "estimate": 1.1498198431160191,
+          "standard_error": 0.5129457595524822,
+          "t_statistic": 2.241601225281939,
+          "p_value": 0.030461991868816356,
+          "confidence_95_low": 0.11390485092363978,
+          "confidence_95_high": 2.1857348353083985,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2019",
+          "label": "Year 2019",
+          "estimate": 0.8949111785919482,
+          "standard_error": 0.5533291708909136,
+          "t_statistic": 1.6173215251801283,
+          "p_value": 0.1134779966643199,
+          "confidence_95_low": -0.2225597685182582,
+          "confidence_95_high": 2.0123821257021546,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2020",
+          "label": "Year 2020",
+          "estimate": 0.49485826272655,
+          "standard_error": 0.5389791577633815,
+          "t_statistic": 0.9181398864848108,
+          "p_value": 0.36391551427665025,
+          "confidence_95_low": -0.5936322445220671,
+          "confidence_95_high": 1.5833487699751672,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2021",
+          "label": "Year 2021",
+          "estimate": 0.13239373821490508,
+          "standard_error": 0.4998546872911274,
+          "t_statistic": 0.26486445277204285,
+          "p_value": 0.7924409607159938,
+          "confidence_95_low": -0.8770832968117056,
+          "confidence_95_high": 1.1418707732415156,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2022",
+          "label": "Year 2022",
+          "estimate": 1.0749668337350506,
+          "standard_error": 0.6662310758444937,
+          "t_statistic": 1.613504492225098,
+          "p_value": 0.11430644202358053,
+          "confidence_95_low": -0.27051413940701385,
+          "confidence_95_high": 2.420447806877115,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2023",
+          "label": "Year 2023",
+          "estimate": 2.667645800619567,
+          "standard_error": 0.9928803935105982,
+          "t_statistic": 2.686774578343098,
+          "p_value": 0.01037279696303339,
+          "confidence_95_low": 0.6624831378287799,
+          "confidence_95_high": 4.6728084634103535,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2024",
+          "label": "Year 2024",
+          "estimate": 1.4232504226579183,
+          "standard_error": 0.7878355607647025,
+          "t_statistic": 1.8065323444862764,
+          "p_value": 0.07817876097181245,
+          "confidence_95_low": -0.16781579356438958,
+          "confidence_95_high": 3.014316638880226,
+          "confidence_interval_excludes_zero": false
+        }
+      ]
+    },
+    {
+      "model_id": "main_commercial_state_baseline",
+      "customer_class": "commercial",
+      "specification": "baseline",
+      "outcome_column": "real_commercial_price_2024_cents_kwh",
+      "outcome_label": "Inflation-adjusted commercial bundled average price",
+      "outcome_unit": "2024 cents per kWh",
+      "geographic_control": "state",
+      "reliability_predictor": null,
+      "observation_count": 500,
+      "utility_cluster_count": 42,
+      "ownership_observation_counts": {
+        "COOP": 274,
+        "DOM": 89,
+        "MTC": 137
+      },
+      "ownership_utility_counts": {
+        "COOP": 23,
+        "DOM": 9,
+        "MTC": 12
+      },
+      "parameter_count": 20,
+      "design_rank": 20,
+      "cluster_degrees_of_freedom": 41,
+      "r_squared": 0.4717688702084587,
+      "adjusted_r_squared": 0.4508597213208769,
+      "coefficients": [
+        {
+          "term": "intercept",
+          "label": "Intercept",
+          "estimate": 24.267310849466558,
+          "standard_error": 1.6907371386127548,
+          "t_statistic": 14.353095046683496,
+          "p_value": 1.3857903556041526e-17,
+          "confidence_95_low": 20.852797877815416,
+          "confidence_95_high": 27.6818238211177,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_MTC",
+          "label": "MTC compared with DOM",
+          "estimate": -4.085609420045051,
+          "standard_error": 1.7076407659543469,
+          "t_statistic": -2.3925461967767747,
+          "p_value": 0.021397377878918683,
+          "confidence_95_low": -7.5342599601612585,
+          "confidence_95_high": -0.6369588799288435,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_COOP",
+          "label": "COOP compared with DOM",
+          "estimate": -7.061788144289029,
+          "standard_error": 1.6349058466044961,
+          "t_statistic": -4.319385216558811,
+          "p_value": 9.690010323569224e-05,
+          "confidence_95_low": -10.36354753264652,
+          "confidence_95_high": -3.7600287559315384,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_MA",
+          "label": "State MA",
+          "estimate": 0.48622779398923827,
+          "standard_error": 1.3882082846849633,
+          "t_statistic": 0.35025564920870766,
+          "p_value": 0.7279399233906958,
+          "confidence_95_low": -2.317315753471717,
+          "confidence_95_high": 3.2897713414501935,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_ME",
+          "label": "State ME",
+          "estimate": -1.9842223732145832,
+          "standard_error": 1.7686987215059826,
+          "t_statistic": -1.1218543605465434,
+          "p_value": 0.2684517877344268,
+          "confidence_95_low": -5.556181957943497,
+          "confidence_95_high": 1.5877372115143302,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NH",
+          "label": "State NH",
+          "estimate": 0.6791264255841711,
+          "standard_error": 2.16188110179001,
+          "t_statistic": 0.3141368066087738,
+          "p_value": 0.7550100392082308,
+          "confidence_95_low": -3.686881096605927,
+          "confidence_95_high": 5.04513394777427,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NY",
+          "label": "State NY",
+          "estimate": -5.060202358270391,
+          "standard_error": 1.7221860912539257,
+          "t_statistic": -2.938243656692206,
+          "p_value": 0.005397398020891363,
+          "confidence_95_low": -8.538227779187435,
+          "confidence_95_high": -1.5821769373533474,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_RI",
+          "label": "State RI",
+          "estimate": -1.6865092997651272,
+          "standard_error": 1.3653082106577696,
+          "t_statistic": -1.2352590327956874,
+          "p_value": 0.2237659267213572,
+          "confidence_95_low": -4.44380520882513,
+          "confidence_95_high": 1.0707866092948752,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_VT",
+          "label": "State VT",
+          "estimate": 0.557412267183001,
+          "standard_error": 1.4469987552028816,
+          "t_statistic": 0.3852195899815042,
+          "p_value": 0.7020660472917204,
+          "confidence_95_low": -2.3648610458981816,
+          "confidence_95_high": 3.4796855802641833,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2014",
+          "label": "Year 2014",
+          "estimate": 0.8206884627618533,
+          "standard_error": 0.2510505501657724,
+          "t_statistic": 3.2690167865393667,
+          "p_value": 0.0021892092435611635,
+          "confidence_95_low": 0.31368158362951915,
+          "confidence_95_high": 1.3276953418941875,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2015",
+          "label": "Year 2015",
+          "estimate": 1.3672093493896058,
+          "standard_error": 0.41217618611184453,
+          "t_statistic": 3.317050803654658,
+          "p_value": 0.001913216052485903,
+          "confidence_95_low": 0.5348026423131053,
+          "confidence_95_high": 2.1996160564661063,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2016",
+          "label": "Year 2016",
+          "estimate": 0.16898588517074836,
+          "standard_error": 0.31501660800766995,
+          "t_statistic": 0.5364348446245537,
+          "p_value": 0.5945569459711757,
+          "confidence_95_low": -0.46720307038166936,
+          "confidence_95_high": 0.805174840723166,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2017",
+          "label": "Year 2017",
+          "estimate": -0.03409761694349772,
+          "standard_error": 0.33285395529171713,
+          "t_statistic": -0.10244017353981619,
+          "p_value": 0.9189066946144809,
+          "confidence_95_low": -0.7063098266672874,
+          "confidence_95_high": 0.6381145927802918,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2018",
+          "label": "Year 2018",
+          "estimate": 0.2851374270644768,
+          "standard_error": 0.44077069680926584,
+          "t_statistic": 0.6469064961182389,
+          "p_value": 0.5212979223938797,
+          "confidence_95_low": -0.6050170667404047,
+          "confidence_95_high": 1.1752919208693582,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2019",
+          "label": "Year 2019",
+          "estimate": -0.14191595868349377,
+          "standard_error": 0.4570618212748025,
+          "t_statistic": -0.3104962000275421,
+          "p_value": 0.7577566301922807,
+          "confidence_95_low": -1.0649710462826296,
+          "confidence_95_high": 0.781139128915642,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2020",
+          "label": "Year 2020",
+          "estimate": -0.6929601519084031,
+          "standard_error": 0.3984376316009613,
+          "t_statistic": -1.739193532307733,
+          "p_value": 0.08950478455865955,
+          "confidence_95_low": -1.4976212848694401,
+          "confidence_95_high": 0.11170098105263382,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2021",
+          "label": "Year 2021",
+          "estimate": -0.9700015384400573,
+          "standard_error": 0.3576063129022457,
+          "t_statistic": -2.712484381407479,
+          "p_value": 0.009716217709194515,
+          "confidence_95_low": -1.6922021492049715,
+          "confidence_95_high": -0.24780092767514317,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2022",
+          "label": "Year 2022",
+          "estimate": 0.27655223480141816,
+          "standard_error": 0.5498639807740081,
+          "t_statistic": 0.5029466276589593,
+          "p_value": 0.6176930011639807,
+          "confidence_95_low": -0.8339206187949029,
+          "confidence_95_high": 1.3870250883977393,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2023",
+          "label": "Year 2023",
+          "estimate": 1.4390842214540032,
+          "standard_error": 0.89254789581248,
+          "t_statistic": 1.612332770270009,
+          "p_value": 0.11456173941975945,
+          "confidence_95_low": -0.3634528486030282,
+          "confidence_95_high": 3.2416212915110343,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2024",
+          "label": "Year 2024",
+          "estimate": 0.2035918786591721,
+          "standard_error": 0.6076100306543919,
+          "t_statistic": 0.33506997644509756,
+          "p_value": 0.7392806530259304,
+          "confidence_95_low": -1.023501490258629,
+          "confidence_95_high": 1.4306852475769734,
+          "confidence_interval_excludes_zero": false
+        }
+      ]
+    },
+    {
+      "model_id": "main_industrial_state_baseline",
+      "customer_class": "industrial",
+      "specification": "baseline",
+      "outcome_column": "real_industrial_price_2024_cents_kwh",
+      "outcome_label": "Inflation-adjusted industrial bundled average price",
+      "outcome_unit": "2024 cents per kWh",
+      "geographic_control": "state",
+      "reliability_predictor": null,
+      "observation_count": 477,
+      "utility_cluster_count": 41,
+      "ownership_observation_counts": {
+        "COOP": 254,
+        "DOM": 88,
+        "MTC": 135
+      },
+      "ownership_utility_counts": {
+        "COOP": 22,
+        "DOM": 9,
+        "MTC": 12
+      },
+      "parameter_count": 20,
+      "design_rank": 20,
+      "cluster_degrees_of_freedom": 40,
+      "r_squared": 0.4603768799949417,
+      "adjusted_r_squared": 0.4379417831019524,
+      "coefficients": [
+        {
+          "term": "intercept",
+          "label": "Intercept",
+          "estimate": 21.206502174128254,
+          "standard_error": 1.729126298042281,
+          "t_statistic": 12.26428757583427,
+          "p_value": 3.926189021985165e-15,
+          "confidence_95_low": 17.71180824131245,
+          "confidence_95_high": 24.701196106944057,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_MTC",
+          "label": "MTC compared with DOM",
+          "estimate": -2.091262942465218,
+          "standard_error": 2.1952254289475572,
+          "t_statistic": -0.9526415441842884,
+          "p_value": 0.3464932042625759,
+          "confidence_95_low": -6.527978176275402,
+          "confidence_95_high": 2.345452291344967,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "ownership_COOP",
+          "label": "COOP compared with DOM",
+          "estimate": -6.64153450031936,
+          "standard_error": 1.7947370698638259,
+          "t_statistic": -3.700561275431437,
+          "p_value": 0.000647462618268323,
+          "confidence_95_low": -10.268832723794393,
+          "confidence_95_high": -3.014236276844328,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_MA",
+          "label": "State MA",
+          "estimate": 1.0874031536911966,
+          "standard_error": 1.4548970336308353,
+          "t_statistic": 0.7474090114662462,
+          "p_value": 0.45918812843784385,
+          "confidence_95_low": -1.8530528685542442,
+          "confidence_95_high": 4.027859175936637,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_ME",
+          "label": "State ME",
+          "estimate": -2.571970353126084,
+          "standard_error": 2.333369424003893,
+          "t_statistic": -1.1022559594154486,
+          "p_value": 0.2769385205213363,
+          "confidence_95_low": -7.287884961744753,
+          "confidence_95_high": 2.143944255492585,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NH",
+          "label": "State NH",
+          "estimate": 1.368335824379035,
+          "standard_error": 2.258892554142422,
+          "t_statistic": 0.6057551616918394,
+          "p_value": 0.5480994207225415,
+          "confidence_95_low": -3.1970554444843615,
+          "confidence_95_high": 5.933727093242432,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NY",
+          "label": "State NY",
+          "estimate": -7.307331683128385,
+          "standard_error": 2.013918688029487,
+          "t_statistic": -3.6284144571289634,
+          "p_value": 0.0007991817081146393,
+          "confidence_95_low": -11.377612395537582,
+          "confidence_95_high": -3.2370509707191895,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_RI",
+          "label": "State RI",
+          "estimate": 2.652518567482564,
+          "standard_error": 1.3925017372825017,
+          "t_statistic": 1.9048583541870572,
+          "p_value": 0.06400636677642729,
+          "confidence_95_low": -0.16183188119566827,
+          "confidence_95_high": 5.466869016160796,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_VT",
+          "label": "State VT",
+          "estimate": -2.904687703079294,
+          "standard_error": 2.122554607073537,
+          "t_statistic": -1.368486677986636,
+          "p_value": 0.17879740616647843,
+          "confidence_95_low": -7.194529755570443,
+          "confidence_95_high": 1.3851543494118546,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2014",
+          "label": "Year 2014",
+          "estimate": 1.3634296316136387,
+          "standard_error": 0.6331430019541104,
+          "t_statistic": 2.1534307848394394,
+          "p_value": 0.037367435834875465,
+          "confidence_95_low": 0.08380013893923488,
+          "confidence_95_high": 2.6430591242880426,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2015",
+          "label": "Year 2015",
+          "estimate": 1.033747089721567,
+          "standard_error": 0.6229255001401596,
+          "t_statistic": 1.6595035674233463,
+          "p_value": 0.10483585948472363,
+          "confidence_95_low": -0.22523206547420616,
+          "confidence_95_high": 2.2927262449173402,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2016",
+          "label": "Year 2016",
+          "estimate": 0.24154493342144928,
+          "standard_error": 0.588882640893269,
+          "t_statistic": 0.41017499353530384,
+          "p_value": 0.6838663060472254,
+          "confidence_95_low": -0.9486310500219146,
+          "confidence_95_high": 1.431720916864813,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2017",
+          "label": "Year 2017",
+          "estimate": -0.019685221119927376,
+          "standard_error": 0.5422819741089702,
+          "t_statistic": -0.036300710810593315,
+          "p_value": 0.9712231418161471,
+          "confidence_95_low": -1.1156777619422145,
+          "confidence_95_high": 1.0763073197023596,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2018",
+          "label": "Year 2018",
+          "estimate": 0.19797564550929964,
+          "standard_error": 0.7863291766270134,
+          "t_statistic": 0.2517719695440059,
+          "p_value": 0.8025064336795988,
+          "confidence_95_low": -1.3912545951421418,
+          "confidence_95_high": 1.787205886160741,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2019",
+          "label": "Year 2019",
+          "estimate": -0.2933314360831243,
+          "standard_error": 0.9000184589900486,
+          "t_statistic": -0.32591713331333755,
+          "p_value": 0.7461860297035685,
+          "confidence_95_low": -2.112336243086437,
+          "confidence_95_high": 1.5256733709201884,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2020",
+          "label": "Year 2020",
+          "estimate": -0.8927844354514042,
+          "standard_error": 0.8850783787910329,
+          "t_statistic": -1.0087066375645706,
+          "p_value": 0.3191785461657507,
+          "confidence_95_low": -2.6815942198664913,
+          "confidence_95_high": 0.8960253489636828,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2021",
+          "label": "Year 2021",
+          "estimate": -0.6204057009624733,
+          "standard_error": 0.7830385978796841,
+          "t_statistic": -0.7923053890860693,
+          "p_value": 0.4328566631911245,
+          "confidence_95_low": -2.202985435172156,
+          "confidence_95_high": 0.9621740332472095,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2022",
+          "label": "Year 2022",
+          "estimate": 0.9912986778553888,
+          "standard_error": 0.8489299338301616,
+          "t_statistic": 1.167703762527132,
+          "p_value": 0.2498397447243631,
+          "confidence_95_low": -0.7244523881604051,
+          "confidence_95_high": 2.707049743871183,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2023",
+          "label": "Year 2023",
+          "estimate": 1.5232643918411102,
+          "standard_error": 1.0378325224328901,
+          "t_statistic": 1.4677362280671926,
+          "p_value": 0.14999571784364363,
+          "confidence_95_low": -0.5742729734349437,
+          "confidence_95_high": 3.620801757117164,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2024",
+          "label": "Year 2024",
+          "estimate": 0.31610422169481334,
+          "standard_error": 0.8150280804422877,
+          "t_statistic": 0.38784457772703296,
+          "p_value": 0.7001874073111876,
+          "confidence_95_low": -1.3311286559850835,
+          "confidence_95_high": 1.9633370993747101,
+          "confidence_interval_excludes_zero": false
+        }
+      ]
+    }
+  ],
+  "saidi_comparison_models": [
+    {
+      "model_id": "matched_residential_state_baseline",
+      "customer_class": "residential",
+      "specification": "baseline",
+      "outcome_column": "real_residential_price_2024_cents_kwh",
+      "outcome_label": "Inflation-adjusted residential bundled average price",
+      "outcome_unit": "2024 cents per kWh",
+      "geographic_control": "state",
+      "reliability_predictor": null,
+      "observation_count": 290,
+      "utility_cluster_count": 25,
+      "ownership_observation_counts": {
+        "COOP": 78,
+        "DOM": 88,
+        "MTC": 124
+      },
+      "ownership_utility_counts": {
+        "COOP": 7,
+        "DOM": 9,
+        "MTC": 11
+      },
+      "parameter_count": 21,
+      "design_rank": 21,
+      "cluster_degrees_of_freedom": 24,
+      "r_squared": 0.5176250493116326,
+      "adjusted_r_squared": 0.481760740710267,
+      "coefficients": [
+        {
+          "term": "intercept",
+          "label": "Intercept",
+          "estimate": 26.77478194952587,
+          "standard_error": 2.5298349866603487,
+          "t_statistic": 10.583608057722149,
+          "p_value": 1.6052151080350046e-10,
+          "confidence_95_low": 21.553458050392564,
+          "confidence_95_high": 31.996105848659177,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_MTC",
+          "label": "MTC compared with DOM",
+          "estimate": -4.700348100040356,
+          "standard_error": 2.211607776916789,
+          "t_statistic": -2.1253081803651144,
+          "p_value": 0.04405130320070458,
+          "confidence_95_low": -9.26488317921114,
+          "confidence_95_high": -0.13581302086957248,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_COOP",
+          "label": "COOP compared with DOM",
+          "estimate": -9.588962412485822,
+          "standard_error": 2.506212924811081,
+          "t_statistic": -3.8260765147113904,
+          "p_value": 0.0008167603337119286,
+          "confidence_95_low": -14.761532761790487,
+          "confidence_95_high": -4.416392063181156,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_MA",
+          "label": "State MA",
+          "estimate": 0.667478898736358,
+          "standard_error": 2.3734416159514673,
+          "t_statistic": 0.28122827806268935,
+          "p_value": 0.7809457372437306,
+          "confidence_95_low": -4.2310648789842595,
+          "confidence_95_high": 5.566022676456976,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_ME",
+          "label": "State ME",
+          "estimate": -1.98233152322861,
+          "standard_error": 2.997974562280855,
+          "t_statistic": -0.6612235968141287,
+          "p_value": 0.514767145667892,
+          "confidence_95_low": -8.169848224345504,
+          "confidence_95_high": 4.205185177888285,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NH",
+          "label": "State NH",
+          "estimate": -1.8368290770656244,
+          "standard_error": 2.9849903278961842,
+          "t_statistic": -0.6153551185407754,
+          "p_value": 0.5441117972622234,
+          "confidence_95_low": -7.997547629820232,
+          "confidence_95_high": 4.323889475688983,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NY",
+          "label": "State NY",
+          "estimate": -7.03698024963407,
+          "standard_error": 3.1025882371038236,
+          "t_statistic": -2.268099957796168,
+          "p_value": 0.0326047760091559,
+          "confidence_95_low": -13.440409009604416,
+          "confidence_95_high": -0.6335514896637244,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_RI",
+          "label": "State RI",
+          "estimate": -0.3085275937712478,
+          "standard_error": 2.55897700752321,
+          "t_statistic": -0.1205667705744126,
+          "p_value": 0.9050378840225498,
+          "confidence_95_low": -5.589997680621394,
+          "confidence_95_high": 4.972942493078898,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_VT",
+          "label": "State VT",
+          "estimate": -0.6168570864894061,
+          "standard_error": 3.9507551013032356,
+          "t_statistic": -0.15613650319300312,
+          "p_value": 0.8772313513616247,
+          "confidence_95_low": -8.770816589314054,
+          "confidence_95_high": 7.537102416335242,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "reporting_other_standard",
+          "label": "Other reporting method compared with IEEE",
+          "estimate": 2.8532847897574545,
+          "standard_error": 1.922976850025176,
+          "t_statistic": 1.4837853038740942,
+          "p_value": 0.15088111589632136,
+          "confidence_95_low": -1.1155452080326564,
+          "confidence_95_high": 6.822114787547566,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2014",
+          "label": "Year 2014",
+          "estimate": 1.4557549452738476,
+          "standard_error": 0.556642592561068,
+          "t_statistic": 2.615241745293036,
+          "p_value": 0.015171969658433404,
+          "confidence_95_low": 0.30690085512965193,
+          "confidence_95_high": 2.6046090354180436,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2015",
+          "label": "Year 2015",
+          "estimate": 2.7190638805547063,
+          "standard_error": 0.6186206254767928,
+          "t_statistic": 4.395365703267697,
+          "p_value": 0.00019327543408307195,
+          "confidence_95_low": 1.4422933902537791,
+          "confidence_95_high": 3.9958343708556336,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2016",
+          "label": "Year 2016",
+          "estimate": 1.4819474558339334,
+          "standard_error": 0.5511813734817474,
+          "t_statistic": 2.6886747759138645,
+          "p_value": 0.012835418950708942,
+          "confidence_95_low": 0.34436477028632817,
+          "confidence_95_high": 2.6195301413815386,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2017",
+          "label": "Year 2017",
+          "estimate": 1.7476063821689107,
+          "standard_error": 0.5394345910387933,
+          "t_statistic": 3.23970025504581,
+          "p_value": 0.0034881851723509057,
+          "confidence_95_low": 0.6342678691585362,
+          "confidence_95_high": 2.8609448951792853,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2018",
+          "label": "Year 2018",
+          "estimate": 2.2192141656626836,
+          "standard_error": 0.6267380274810376,
+          "t_statistic": 3.5408959858109577,
+          "p_value": 0.001664903262675772,
+          "confidence_95_low": 0.9256901774825976,
+          "confidence_95_high": 3.5127381538427693,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2019",
+          "label": "Year 2019",
+          "estimate": 1.7182032432267162,
+          "standard_error": 0.7301282036674943,
+          "t_statistic": 2.3532897847200522,
+          "p_value": 0.02713764339386271,
+          "confidence_95_low": 0.2112923738055783,
+          "confidence_95_high": 3.225114112647854,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2020",
+          "label": "Year 2020",
+          "estimate": 1.262944238339847,
+          "standard_error": 0.7415340974804122,
+          "t_statistic": 1.7031505936558877,
+          "p_value": 0.10145751829695908,
+          "confidence_95_low": -0.2675072439158783,
+          "confidence_95_high": 2.7933957205955724,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2021",
+          "label": "Year 2021",
+          "estimate": 1.0973804675504282,
+          "standard_error": 0.7048457738311935,
+          "t_statistic": 1.556908629224816,
+          "p_value": 0.13258203786367462,
+          "confidence_95_low": -0.3573500202139983,
+          "confidence_95_high": 2.5521109553148547,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2022",
+          "label": "Year 2022",
+          "estimate": 2.7547241626177166,
+          "standard_error": 0.8583582135155238,
+          "t_statistic": 3.2092943473277504,
+          "p_value": 0.0037552000931315344,
+          "confidence_95_low": 0.9831595041012404,
+          "confidence_95_high": 4.526288821134193,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2023",
+          "label": "Year 2023",
+          "estimate": 5.0200638444847225,
+          "standard_error": 1.3355370071115678,
+          "t_statistic": 3.758835448028403,
+          "p_value": 0.0009668950509083514,
+          "confidence_95_low": 2.2636503510441646,
+          "confidence_95_high": 7.7764773379252805,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2024",
+          "label": "Year 2024",
+          "estimate": 3.5351293238632344,
+          "standard_error": 1.029044033083288,
+          "t_statistic": 3.435352822824357,
+          "p_value": 0.002161159191998031,
+          "confidence_95_low": 1.4112863730266691,
+          "confidence_95_high": 5.658972274699799,
+          "confidence_interval_excludes_zero": true
+        }
+      ]
+    },
+    {
+      "model_id": "matched_residential_state_saidi",
+      "customer_class": "residential",
+      "specification": "saidi",
+      "outcome_column": "real_residential_price_2024_cents_kwh",
+      "outcome_label": "Inflation-adjusted residential bundled average price",
+      "outcome_unit": "2024 cents per kWh",
+      "geographic_control": "state",
+      "reliability_predictor": "routine_saidi_per_100_minutes",
+      "observation_count": 290,
+      "utility_cluster_count": 25,
+      "ownership_observation_counts": {
+        "COOP": 78,
+        "DOM": 88,
+        "MTC": 124
+      },
+      "ownership_utility_counts": {
+        "COOP": 7,
+        "DOM": 9,
+        "MTC": 11
+      },
+      "parameter_count": 22,
+      "design_rank": 22,
+      "cluster_degrees_of_freedom": 24,
+      "r_squared": 0.5435453036235585,
+      "adjusted_r_squared": 0.5077783311463,
+      "coefficients": [
+        {
+          "term": "intercept",
+          "label": "Intercept",
+          "estimate": 26.565216679784854,
+          "standard_error": 2.602503447723421,
+          "t_statistic": 10.2075625310019,
+          "p_value": 3.2859491815582543e-10,
+          "confidence_95_low": 21.193912416531933,
+          "confidence_95_high": 31.936520943037774,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_MTC",
+          "label": "MTC compared with DOM",
+          "estimate": -5.327523502155854,
+          "standard_error": 2.2243985403798674,
+          "t_statistic": -2.3950400098923175,
+          "p_value": 0.024777375538328986,
+          "confidence_95_low": -9.918457425247322,
+          "confidence_95_high": -0.7365895790643862,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_COOP",
+          "label": "COOP compared with DOM",
+          "estimate": -10.175707538220081,
+          "standard_error": 2.2347322790186346,
+          "t_statistic": -4.553434715091986,
+          "p_value": 0.00012928138587075294,
+          "confidence_95_low": -14.787969254154362,
+          "confidence_95_high": -5.5634458222858,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_MA",
+          "label": "State MA",
+          "estimate": 0.1345719787946197,
+          "standard_error": 2.3285733921305996,
+          "t_statistic": 0.05779159860256282,
+          "p_value": 0.9543931136732815,
+          "confidence_95_low": -4.671368316650333,
+          "confidence_95_high": 4.940512274239572,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_ME",
+          "label": "State ME",
+          "estimate": -5.038716651814024,
+          "standard_error": 3.956421547197961,
+          "t_statistic": -1.273554041626978,
+          "p_value": 0.21501831245466163,
+          "confidence_95_low": -13.20437112665435,
+          "confidence_95_high": 3.126937823026301,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NH",
+          "label": "State NH",
+          "estimate": -3.7452512798189956,
+          "standard_error": 2.775998578868699,
+          "t_statistic": -1.3491546099224934,
+          "p_value": 0.1898791534494828,
+          "confidence_95_low": -9.474631970747526,
+          "confidence_95_high": 1.9841294111095338,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NY",
+          "label": "State NY",
+          "estimate": -7.404148672077064,
+          "standard_error": 3.1362150635881356,
+          "t_statistic": -2.3608548909927105,
+          "p_value": 0.026695213525281505,
+          "confidence_95_low": -13.876979805601554,
+          "confidence_95_high": -0.931317538552574,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_RI",
+          "label": "State RI",
+          "estimate": -0.4895042543622421,
+          "standard_error": 2.601806275797768,
+          "t_statistic": -0.18814016205420594,
+          "p_value": 0.8523485042501986,
+          "confidence_95_low": -5.859369625174979,
+          "confidence_95_high": 4.880361116450496,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_VT",
+          "label": "State VT",
+          "estimate": -2.8565588502189607,
+          "standard_error": 4.200815685529729,
+          "t_statistic": -0.6800009960110269,
+          "p_value": 0.5030109628673596,
+          "confidence_95_low": -11.526618142768083,
+          "confidence_95_high": 5.813500442330162,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "reporting_other_standard",
+          "label": "Other reporting method compared with IEEE",
+          "estimate": 2.3098919012867385,
+          "standard_error": 1.8853746074269917,
+          "t_statistic": 1.2251633665731259,
+          "p_value": 0.23240213920947528,
+          "confidence_95_low": -1.5813308656072227,
+          "confidence_95_high": 6.2011146681807,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "routine_saidi_per_100_minutes",
+          "label": "100 additional routine SAIDI minutes",
+          "estimate": 1.469881067312379,
+          "standard_error": 0.9366881853792529,
+          "t_statistic": 1.5692319923062157,
+          "p_value": 0.12968557280413562,
+          "confidence_95_low": -0.4633487418036759,
+          "confidence_95_high": 3.4031108764284337,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2014",
+          "label": "Year 2014",
+          "estimate": 1.3422636145674043,
+          "standard_error": 0.5121133760868652,
+          "t_statistic": 2.6210282278190835,
+          "p_value": 0.014974286049760628,
+          "confidence_95_low": 0.28531332977509916,
+          "confidence_95_high": 2.3992138993597094,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2015",
+          "label": "Year 2015",
+          "estimate": 2.8420295462993823,
+          "standard_error": 0.6596024389124393,
+          "t_statistic": 4.30870078495367,
+          "p_value": 0.00024091460848673472,
+          "confidence_95_low": 1.4806767322304377,
+          "confidence_95_high": 4.203382360368327,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2016",
+          "label": "Year 2016",
+          "estimate": 1.40087485524955,
+          "standard_error": 0.582994448990799,
+          "t_statistic": 2.40289570110754,
+          "p_value": 0.024354961455957846,
+          "confidence_95_low": 0.1976331949718888,
+          "confidence_95_high": 2.6041165155272115,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2017",
+          "label": "Year 2017",
+          "estimate": 1.7740020779875874,
+          "standard_error": 0.5606485441097357,
+          "t_statistic": 3.164196351931241,
+          "p_value": 0.004187884174019983,
+          "confidence_95_low": 0.6168801084480477,
+          "confidence_95_high": 2.9311240475271267,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2018",
+          "label": "Year 2018",
+          "estimate": 1.985406811326286,
+          "standard_error": 0.6499019124350964,
+          "t_statistic": 3.0549330188723856,
+          "p_value": 0.005444417454707681,
+          "confidence_95_low": 0.6440749041534028,
+          "confidence_95_high": 3.3267387184991692,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2019",
+          "label": "Year 2019",
+          "estimate": 1.8785021645154312,
+          "standard_error": 0.7832468482905197,
+          "t_statistic": 2.398352663167899,
+          "p_value": 0.02459843261260768,
+          "confidence_95_low": 0.2619597775754756,
+          "confidence_95_high": 3.4950445514553867,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2020",
+          "label": "Year 2020",
+          "estimate": 1.2056266796605122,
+          "standard_error": 0.7577123344471742,
+          "t_statistic": 1.5911403640276434,
+          "p_value": 0.12466533478545261,
+          "confidence_95_low": -0.35821504969267637,
+          "confidence_95_high": 2.769468409013701,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2021",
+          "label": "Year 2021",
+          "estimate": 0.9314960271142899,
+          "standard_error": 0.770230664527516,
+          "t_statistic": 1.2093728152016634,
+          "p_value": 0.23829863459449574,
+          "confidence_95_low": -0.6581822711733859,
+          "confidence_95_high": 2.5211743254019656,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2022",
+          "label": "Year 2022",
+          "estimate": 2.7994152099046024,
+          "standard_error": 0.9113907410672528,
+          "t_statistic": 3.071586185554665,
+          "p_value": 0.005231886798418399,
+          "confidence_95_low": 0.9183967708066403,
+          "confidence_95_high": 4.680433649002564,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2023",
+          "label": "Year 2023",
+          "estimate": 5.009535780470726,
+          "standard_error": 1.3752478534185781,
+          "t_statistic": 3.6426421375740157,
+          "p_value": 0.0012927701042985365,
+          "confidence_95_low": 2.1711631110479757,
+          "confidence_95_high": 7.847908449893476,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2024",
+          "label": "Year 2024",
+          "estimate": 3.128569242806816,
+          "standard_error": 1.20142868674141,
+          "t_statistic": 2.6040407369432117,
+          "p_value": 0.015561586717209893,
+          "confidence_95_low": 0.6489417776699069,
+          "confidence_95_high": 5.608196707943725,
+          "confidence_interval_excludes_zero": true
+        }
+      ]
+    },
+    {
+      "model_id": "matched_commercial_state_baseline",
+      "customer_class": "commercial",
+      "specification": "baseline",
+      "outcome_column": "real_commercial_price_2024_cents_kwh",
+      "outcome_label": "Inflation-adjusted commercial bundled average price",
+      "outcome_unit": "2024 cents per kWh",
+      "geographic_control": "state",
+      "reliability_predictor": null,
+      "observation_count": 290,
+      "utility_cluster_count": 25,
+      "ownership_observation_counts": {
+        "COOP": 78,
+        "DOM": 88,
+        "MTC": 124
+      },
+      "ownership_utility_counts": {
+        "COOP": 7,
+        "DOM": 9,
+        "MTC": 11
+      },
+      "parameter_count": 21,
+      "design_rank": 21,
+      "cluster_degrees_of_freedom": 24,
+      "r_squared": 0.5318662988019252,
+      "adjusted_r_squared": 0.4970608191589456,
+      "coefficients": [
+        {
+          "term": "intercept",
+          "label": "Intercept",
+          "estimate": 22.6289213238386,
+          "standard_error": 1.8120648282611664,
+          "t_statistic": 12.487920393859758,
+          "p_value": 5.452865952138744e-12,
+          "confidence_95_low": 18.88900253685521,
+          "confidence_95_high": 26.368840110821992,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_MTC",
+          "label": "MTC compared with DOM",
+          "estimate": -4.739792317179601,
+          "standard_error": 1.7473488345367172,
+          "t_statistic": -2.7125621533013953,
+          "p_value": 0.012151316546182738,
+          "confidence_95_low": -8.346143829431098,
+          "confidence_95_high": -1.1334408049281048,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_COOP",
+          "label": "COOP compared with DOM",
+          "estimate": -6.712288857682994,
+          "standard_error": 1.9851363277408107,
+          "t_statistic": -3.381273499398367,
+          "p_value": 0.00246857318986443,
+          "confidence_95_low": -10.809409739370926,
+          "confidence_95_high": -2.615167975995062,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_MA",
+          "label": "State MA",
+          "estimate": 1.469099365418913,
+          "standard_error": 2.1466928784439245,
+          "t_statistic": 0.6843547021424977,
+          "p_value": 0.5003068779376971,
+          "confidence_95_low": -2.961457919708625,
+          "confidence_95_high": 5.899656650546451,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_ME",
+          "label": "State ME",
+          "estimate": -1.6095452178606267,
+          "standard_error": 2.1193054559689544,
+          "t_statistic": -0.7594682556624366,
+          "p_value": 0.4549680656264682,
+          "confidence_95_low": -5.9835776291294955,
+          "confidence_95_high": 2.7644871934082427,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NH",
+          "label": "State NH",
+          "estimate": 1.3251654793585532,
+          "standard_error": 2.098046212663637,
+          "t_statistic": 0.6316188229601244,
+          "p_value": 0.5336064960861747,
+          "confidence_95_low": -3.0049900009117154,
+          "confidence_95_high": 5.655320959628821,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NY",
+          "label": "State NY",
+          "estimate": -4.988190849332663,
+          "standard_error": 2.225900226112166,
+          "t_statistic": -2.240976837513157,
+          "p_value": 0.03454548634705961,
+          "confidence_95_low": -9.582224100105337,
+          "confidence_95_high": -0.394157598559989,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_RI",
+          "label": "State RI",
+          "estimate": -0.17943358102179488,
+          "standard_error": 1.8541597653872843,
+          "t_statistic": -0.09677352748743095,
+          "p_value": 0.9237098504847387,
+          "confidence_95_low": -4.006232066644846,
+          "confidence_95_high": 3.6473649046012557,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_VT",
+          "label": "State VT",
+          "estimate": 0.44513868654512534,
+          "standard_error": 2.1671593446572333,
+          "t_statistic": 0.20540191824959245,
+          "p_value": 0.8389903600154209,
+          "confidence_95_low": -4.027659317733594,
+          "confidence_95_high": 4.917936690823845,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "reporting_other_standard",
+          "label": "Other reporting method compared with IEEE",
+          "estimate": 1.648875303692995,
+          "standard_error": 1.4087545894596174,
+          "t_statistic": 1.1704489312971718,
+          "p_value": 0.2533117794121539,
+          "confidence_95_low": -1.25865188473812,
+          "confidence_95_high": 4.556402492124111,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2014",
+          "label": "Year 2014",
+          "estimate": 1.2547847993198145,
+          "standard_error": 0.45261313173422657,
+          "t_statistic": 2.7723119621209342,
+          "p_value": 0.010587520297336605,
+          "confidence_95_low": 0.32063700934667594,
+          "confidence_95_high": 2.188932589292953,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2015",
+          "label": "Year 2015",
+          "estimate": 2.126409624409651,
+          "standard_error": 0.5641504370383524,
+          "t_statistic": 3.7692244564637143,
+          "p_value": 0.0009420401376033696,
+          "confidence_95_low": 0.9620601015566321,
+          "confidence_95_high": 3.2907591472626696,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2016",
+          "label": "Year 2016",
+          "estimate": 0.5304265305571411,
+          "standard_error": 0.5150378604495435,
+          "t_statistic": 1.0298787162834317,
+          "p_value": 0.31333480008489367,
+          "confidence_95_low": -0.5325595945868112,
+          "confidence_95_high": 1.5934126557010933,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2017",
+          "label": "Year 2017",
+          "estimate": 0.32749677868620614,
+          "standard_error": 0.4999603422591717,
+          "t_statistic": 0.655045512622753,
+          "p_value": 0.5186680936227992,
+          "confidence_95_low": -0.704370871742156,
+          "confidence_95_high": 1.3593644291145683,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2018",
+          "label": "Year 2018",
+          "estimate": 0.8375067855492994,
+          "standard_error": 0.6573032628488217,
+          "t_statistic": 1.2741558316924468,
+          "p_value": 0.21480856799192694,
+          "confidence_95_low": -0.519100761341121,
+          "confidence_95_high": 2.1941143324397197,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2019",
+          "label": "Year 2019",
+          "estimate": 0.20331418090057488,
+          "standard_error": 0.70846577439774,
+          "t_statistic": 0.2869781268875131,
+          "p_value": 0.7765921554205524,
+          "confidence_95_low": -1.2588876224131462,
+          "confidence_95_high": 1.6655159842142961,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2020",
+          "label": "Year 2020",
+          "estimate": -0.585142253069983,
+          "standard_error": 0.6831989579531023,
+          "t_statistic": -0.8564741591865099,
+          "p_value": 0.4002066196381211,
+          "confidence_95_low": -1.9951958991904328,
+          "confidence_95_high": 0.8249113930504668,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2021",
+          "label": "Year 2021",
+          "estimate": -0.5740354347068367,
+          "standard_error": 0.5913790424208557,
+          "t_statistic": -0.9706726034067397,
+          "p_value": 0.34139299960074265,
+          "confidence_95_low": -1.7945820489801987,
+          "confidence_95_high": 0.6465111795665252,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2022",
+          "label": "Year 2022",
+          "estimate": 1.480130283642805,
+          "standard_error": 0.7474330935415952,
+          "t_statistic": 1.9802846521411548,
+          "p_value": 0.059246789441363,
+          "confidence_95_low": -0.062496130684599915,
+          "confidence_95_high": 3.02275669797021,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2023",
+          "label": "Year 2023",
+          "estimate": 3.016959846934836,
+          "standard_error": 1.3255353039510018,
+          "t_statistic": 2.276031304441483,
+          "p_value": 0.032056322589438045,
+          "confidence_95_low": 0.28118885864566723,
+          "confidence_95_high": 5.752730835224005,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2024",
+          "label": "Year 2024",
+          "estimate": 1.567834807928499,
+          "standard_error": 0.8631603519071587,
+          "t_statistic": 1.8163888140417448,
+          "p_value": 0.08182282213203702,
+          "confidence_95_low": -0.21364097921233416,
+          "confidence_95_high": 3.349310595069332,
+          "confidence_interval_excludes_zero": false
+        }
+      ]
+    },
+    {
+      "model_id": "matched_commercial_state_saidi",
+      "customer_class": "commercial",
+      "specification": "saidi",
+      "outcome_column": "real_commercial_price_2024_cents_kwh",
+      "outcome_label": "Inflation-adjusted commercial bundled average price",
+      "outcome_unit": "2024 cents per kWh",
+      "geographic_control": "state",
+      "reliability_predictor": "routine_saidi_per_100_minutes",
+      "observation_count": 290,
+      "utility_cluster_count": 25,
+      "ownership_observation_counts": {
+        "COOP": 78,
+        "DOM": 88,
+        "MTC": 124
+      },
+      "ownership_utility_counts": {
+        "COOP": 7,
+        "DOM": 9,
+        "MTC": 11
+      },
+      "parameter_count": 22,
+      "design_rank": 22,
+      "cluster_degrees_of_freedom": 24,
+      "r_squared": 0.5451384482708774,
+      "adjusted_r_squared": 0.5094963117547895,
+      "coefficients": [
+        {
+          "term": "intercept",
+          "label": "Intercept",
+          "estimate": 22.502916929964726,
+          "standard_error": 1.825308795283883,
+          "t_statistic": 12.328279460498047,
+          "p_value": 7.133957027106162e-12,
+          "confidence_95_low": 18.735663932687117,
+          "confidence_95_high": 26.270169927242335,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_MTC",
+          "label": "MTC compared with DOM",
+          "estimate": -5.116891330264362,
+          "standard_error": 1.7674906221660827,
+          "t_statistic": -2.8950033828148665,
+          "p_value": 0.007953004071761577,
+          "confidence_95_low": -8.764813457862319,
+          "confidence_95_high": -1.4689692026664063,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_COOP",
+          "label": "COOP compared with DOM",
+          "estimate": -7.065078535180479,
+          "standard_error": 1.8382092308625195,
+          "t_statistic": -3.8434572172534582,
+          "p_value": 0.0007818456328414127,
+          "confidence_95_low": -10.858956728548403,
+          "confidence_95_high": -3.271200341812556,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_MA",
+          "label": "State MA",
+          "estimate": 1.1486807506291405,
+          "standard_error": 2.0722921629872686,
+          "t_statistic": 0.5543044417893683,
+          "p_value": 0.5844992520902235,
+          "confidence_95_low": -3.12832097226812,
+          "confidence_95_high": 5.425682473526401,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_ME",
+          "label": "State ME",
+          "estimate": -3.447244546802513,
+          "standard_error": 3.0203991601609728,
+          "t_statistic": -1.1413208533069488,
+          "p_value": 0.26499696551462393,
+          "confidence_95_low": -9.681043353059586,
+          "confidence_95_high": 2.786554259454559,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NH",
+          "label": "State NH",
+          "estimate": 0.17769680188830514,
+          "standard_error": 1.9385946939245606,
+          "t_statistic": 0.09166268867092035,
+          "p_value": 0.9277268482520714,
+          "confidence_95_low": -3.823366848307902,
+          "confidence_95_high": 4.1787604520845125,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NY",
+          "label": "State NY",
+          "estimate": -5.208956602058468,
+          "standard_error": 2.2607816407499715,
+          "t_statistic": -2.3040511777734074,
+          "p_value": 0.030185392773824374,
+          "confidence_95_low": -9.874981569620694,
+          "confidence_95_high": -0.5429316344962416,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_RI",
+          "label": "State RI",
+          "estimate": -0.2882486268128789,
+          "standard_error": 1.8634555265350066,
+          "t_statistic": -0.15468500466381477,
+          "p_value": 0.8783631615503382,
+          "confidence_95_low": -4.134232624572952,
+          "confidence_95_high": 3.557735370947195,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_VT",
+          "label": "State VT",
+          "estimate": -0.9015170047619198,
+          "standard_error": 2.452564432764268,
+          "t_statistic": -0.3675813743029072,
+          "p_value": 0.7164071341652251,
+          "confidence_95_low": -5.96336228497966,
+          "confidence_95_high": 4.160328275455821,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "reporting_other_standard",
+          "label": "Other reporting method compared with IEEE",
+          "estimate": 1.3221518364326355,
+          "standard_error": 1.396929870091803,
+          "t_statistic": 0.9464697296119431,
+          "p_value": 0.35334176510666415,
+          "confidence_95_low": -1.5609703255199667,
+          "confidence_95_high": 4.205273998385238,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "routine_saidi_per_100_minutes",
+          "label": "100 additional routine SAIDI minutes",
+          "estimate": 0.8837889655203582,
+          "standard_error": 0.7387348096959963,
+          "t_statistic": 1.1963548406282014,
+          "p_value": 0.24324368759683412,
+          "confidence_95_low": -0.6408850694763989,
+          "confidence_95_high": 2.4084630005171155,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2014",
+          "label": "Year 2014",
+          "estimate": 1.186546362897214,
+          "standard_error": 0.41869074110229426,
+          "t_statistic": 2.833944595415158,
+          "p_value": 0.00917490803683779,
+          "confidence_95_low": 0.3224109610269299,
+          "confidence_95_high": 2.050681764767498,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2015",
+          "label": "Year 2015",
+          "estimate": 2.2003446528549926,
+          "standard_error": 0.5970323325329634,
+          "t_statistic": 3.6854698363149487,
+          "p_value": 0.0011617287907253746,
+          "confidence_95_low": 0.9681302187725418,
+          "confidence_95_high": 3.4325590869374434,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2016",
+          "label": "Year 2016",
+          "estimate": 0.48168036231542677,
+          "standard_error": 0.5490092912693706,
+          "t_statistic": 0.8773628606571087,
+          "p_value": 0.3889880241162631,
+          "confidence_95_low": -0.6514193649261361,
+          "confidence_95_high": 1.6147800895569895,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2017",
+          "label": "Year 2017",
+          "estimate": 0.34336760335396865,
+          "standard_error": 0.521338276842846,
+          "t_statistic": 0.6586272648794491,
+          "p_value": 0.5164045367244748,
+          "confidence_95_low": -0.7326219448837042,
+          "confidence_95_high": 1.4193571515916417,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2018",
+          "label": "Year 2018",
+          "estimate": 0.6969264594159379,
+          "standard_error": 0.6611232874168572,
+          "t_statistic": 1.0541550610612598,
+          "p_value": 0.30230941396565403,
+          "confidence_95_low": -0.6675652323604264,
+          "confidence_95_high": 2.061418151192302,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2019",
+          "label": "Year 2019",
+          "estimate": 0.29969641274932346,
+          "standard_error": 0.7543419041231748,
+          "t_statistic": 0.39729519348084197,
+          "p_value": 0.6946611315780205,
+          "confidence_95_low": -1.2571890888285928,
+          "confidence_95_high": 1.85658191432724,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2020",
+          "label": "Year 2020",
+          "estimate": -0.619605331082129,
+          "standard_error": 0.7239621355351454,
+          "t_statistic": -0.8558532286003094,
+          "p_value": 0.4005432377658128,
+          "confidence_95_low": -2.1137900586509804,
+          "confidence_95_high": 0.8745793964867223,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2021",
+          "label": "Year 2021",
+          "estimate": -0.6737760472429536,
+          "standard_error": 0.6102636971320067,
+          "t_statistic": -1.104073616715904,
+          "p_value": 0.28050823460454644,
+          "confidence_95_low": -1.933298681490005,
+          "confidence_95_high": 0.585746587004098,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2022",
+          "label": "Year 2022",
+          "estimate": 1.507001474331671,
+          "standard_error": 0.8019405136104122,
+          "t_statistic": 1.8791935919872755,
+          "p_value": 0.07241512109034005,
+          "confidence_95_low": -0.14812274976834505,
+          "confidence_95_high": 3.1621256984316872,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2023",
+          "label": "Year 2023",
+          "estimate": 3.010629683895949,
+          "standard_error": 1.3553094096295248,
+          "t_statistic": 2.221359685475,
+          "p_value": 0.03601387072813595,
+          "confidence_95_low": 0.2134079486709819,
+          "confidence_95_high": 5.807851419120916,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "year_2024",
+          "label": "Year 2024",
+          "estimate": 1.3233842047815991,
+          "standard_error": 0.9507055436117705,
+          "t_statistic": 1.3920021963414735,
+          "p_value": 0.17668809873676983,
+          "confidence_95_low": -0.6387760159731906,
+          "confidence_95_high": 3.285544425536389,
+          "confidence_interval_excludes_zero": false
+        }
+      ]
+    },
+    {
+      "model_id": "matched_industrial_state_baseline",
+      "customer_class": "industrial",
+      "specification": "baseline",
+      "outcome_column": "real_industrial_price_2024_cents_kwh",
+      "outcome_label": "Inflation-adjusted industrial bundled average price",
+      "outcome_unit": "2024 cents per kWh",
+      "geographic_control": "state",
+      "reliability_predictor": null,
+      "observation_count": 279,
+      "utility_cluster_count": 25,
+      "ownership_observation_counts": {
+        "COOP": 70,
+        "DOM": 87,
+        "MTC": 122
+      },
+      "ownership_utility_counts": {
+        "COOP": 7,
+        "DOM": 9,
+        "MTC": 11
+      },
+      "parameter_count": 21,
+      "design_rank": 21,
+      "cluster_degrees_of_freedom": 24,
+      "r_squared": 0.47661072967011164,
+      "adjusted_r_squared": 0.43603791801663194,
+      "coefficients": [
+        {
+          "term": "intercept",
+          "label": "Intercept",
+          "estimate": 20.59165332776713,
+          "standard_error": 1.866819173174307,
+          "t_statistic": 11.030341676185722,
+          "p_value": 7.003505020876403e-11,
+          "confidence_95_low": 16.738727103071852,
+          "confidence_95_high": 24.444579552462407,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_MTC",
+          "label": "MTC compared with DOM",
+          "estimate": -2.4251830010783593,
+          "standard_error": 2.3956811905278106,
+          "t_statistic": -1.0123145812002008,
+          "p_value": 0.3214853033036209,
+          "confidence_95_low": -7.369627014527517,
+          "confidence_95_high": 2.519261012370799,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "ownership_COOP",
+          "label": "COOP compared with DOM",
+          "estimate": -5.691963695225094,
+          "standard_error": 2.154594107760072,
+          "t_statistic": -2.6417800339863042,
+          "p_value": 0.014285000200003594,
+          "confidence_95_low": -10.138828319637,
+          "confidence_95_high": -1.2450990708131888,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_MA",
+          "label": "State MA",
+          "estimate": 1.3926333355348641,
+          "standard_error": 1.6576562055116428,
+          "t_statistic": 0.8401219329462961,
+          "p_value": 0.4091317329521744,
+          "confidence_95_low": -2.0286016493644103,
+          "confidence_95_high": 4.813868320434138,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_ME",
+          "label": "State ME",
+          "estimate": -3.5285113737713383,
+          "standard_error": 2.556498508498301,
+          "t_statistic": -1.3802125688874358,
+          "p_value": 0.1802432009638273,
+          "confidence_95_low": -8.804866088962473,
+          "confidence_95_high": 1.7478433414197978,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NH",
+          "label": "State NH",
+          "estimate": 1.3659360889456462,
+          "standard_error": 2.19331267919408,
+          "t_statistic": 0.6227730783225818,
+          "p_value": 0.5393067337967321,
+          "confidence_95_low": -3.1608397563303363,
+          "confidence_95_high": 5.892711934221628,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NY",
+          "label": "State NY",
+          "estimate": -7.740267774113801,
+          "standard_error": 2.3631416585262346,
+          "t_statistic": -3.2754142123417997,
+          "p_value": 0.0031979607704963504,
+          "confidence_95_low": -12.617553480004439,
+          "confidence_95_high": -2.8629820682231637,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_RI",
+          "label": "State RI",
+          "estimate": 3.374502521873381,
+          "standard_error": 1.7183196412360173,
+          "t_statistic": 1.96383864846359,
+          "p_value": 0.06123386068460362,
+          "confidence_95_low": -0.17193566735399424,
+          "confidence_95_high": 6.920940711100757,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_VT",
+          "label": "State VT",
+          "estimate": -4.756992883142779,
+          "standard_error": 2.6861284968783923,
+          "t_statistic": -1.770947625428561,
+          "p_value": 0.08927066848547248,
+          "confidence_95_low": -10.300890801721597,
+          "confidence_95_high": 0.786905035436039,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "reporting_other_standard",
+          "label": "Other reporting method compared with IEEE",
+          "estimate": 1.1816527725935027,
+          "standard_error": 1.6351107137455574,
+          "t_statistic": 0.7226744725356755,
+          "p_value": 0.47686375780313406,
+          "confidence_95_low": -2.1930505943952396,
+          "confidence_95_high": 4.556356139582245,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2014",
+          "label": "Year 2014",
+          "estimate": 1.9214591767053883,
+          "standard_error": 1.230214790911011,
+          "t_statistic": 1.5618891846378224,
+          "p_value": 0.13140506197812674,
+          "confidence_95_low": -0.6175799000410567,
+          "confidence_95_high": 4.460498253451833,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2015",
+          "label": "Year 2015",
+          "estimate": 0.8750506991874903,
+          "standard_error": 0.9017571777193184,
+          "t_statistic": 0.9703839579082999,
+          "p_value": 0.3415338629900686,
+          "confidence_95_low": -0.9860850381502334,
+          "confidence_95_high": 2.736186436525214,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2016",
+          "label": "Year 2016",
+          "estimate": 0.023763111525148192,
+          "standard_error": 0.89687462483806,
+          "t_statistic": 0.026495466442078085,
+          "p_value": 0.9790812317261349,
+          "confidence_95_low": -1.8272955298034992,
+          "confidence_95_high": 1.8748217528537956,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2017",
+          "label": "Year 2017",
+          "estimate": 0.07178463441041295,
+          "standard_error": 0.824325224797182,
+          "t_statistic": 0.08708290399347532,
+          "p_value": 0.9313281184197607,
+          "confidence_95_low": -1.6295393727232663,
+          "confidence_95_high": 1.7731086415440922,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2018",
+          "label": "Year 2018",
+          "estimate": 0.22300876157357388,
+          "standard_error": 1.2666103964709232,
+          "t_statistic": 0.17606737019917817,
+          "p_value": 0.8617182258181042,
+          "confidence_95_low": -2.3911471690923682,
+          "confidence_95_high": 2.8371646922395164,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2019",
+          "label": "Year 2019",
+          "estimate": -0.739554461659008,
+          "standard_error": 1.4323523004521745,
+          "t_statistic": -0.5163216210324376,
+          "p_value": 0.610354685462773,
+          "confidence_95_low": -3.6957849422099507,
+          "confidence_95_high": 2.2166760188919348,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2020",
+          "label": "Year 2020",
+          "estimate": -1.4908471925092863,
+          "standard_error": 1.4473461468205846,
+          "t_statistic": -1.0300557304721205,
+          "p_value": 0.31325340046087813,
+          "confidence_95_low": -4.478023457586144,
+          "confidence_95_high": 1.4963290725675717,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2021",
+          "label": "Year 2021",
+          "estimate": -0.5416612500002519,
+          "standard_error": 1.295160369098115,
+          "t_statistic": -0.4182194444209544,
+          "p_value": 0.6795052279862125,
+          "confidence_95_low": -3.214741440621483,
+          "confidence_95_high": 2.131418940620979,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2022",
+          "label": "Year 2022",
+          "estimate": 2.108144178541672,
+          "standard_error": 1.277892651674564,
+          "t_statistic": 1.6497036552946271,
+          "p_value": 0.11203241793056196,
+          "confidence_95_low": -0.5292971873568089,
+          "confidence_95_high": 4.745585544440153,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2023",
+          "label": "Year 2023",
+          "estimate": 2.106623063440237,
+          "standard_error": 1.4492516430114435,
+          "t_statistic": 1.4535937037565276,
+          "p_value": 0.1590113707527837,
+          "confidence_95_low": -0.8844859533194382,
+          "confidence_95_high": 5.097732080199912,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2024",
+          "label": "Year 2024",
+          "estimate": 1.0030463079869383,
+          "standard_error": 1.2803728518805209,
+          "t_statistic": 0.7834017306081857,
+          "p_value": 0.44105412810556244,
+          "confidence_95_low": -1.639513940636417,
+          "confidence_95_high": 3.6456065566102938,
+          "confidence_interval_excludes_zero": false
+        }
+      ]
+    },
+    {
+      "model_id": "matched_industrial_state_saidi",
+      "customer_class": "industrial",
+      "specification": "saidi",
+      "outcome_column": "real_industrial_price_2024_cents_kwh",
+      "outcome_label": "Inflation-adjusted industrial bundled average price",
+      "outcome_unit": "2024 cents per kWh",
+      "geographic_control": "state",
+      "reliability_predictor": "routine_saidi_per_100_minutes",
+      "observation_count": 279,
+      "utility_cluster_count": 25,
+      "ownership_observation_counts": {
+        "COOP": 70,
+        "DOM": 87,
+        "MTC": 122
+      },
+      "ownership_utility_counts": {
+        "COOP": 7,
+        "DOM": 9,
+        "MTC": 11
+      },
+      "parameter_count": 22,
+      "design_rank": 22,
+      "cluster_degrees_of_freedom": 24,
+      "r_squared": 0.4769446881537459,
+      "adjusted_r_squared": 0.43420475994841,
+      "coefficients": [
+        {
+          "term": "intercept",
+          "label": "Intercept",
+          "estimate": 20.575573916908837,
+          "standard_error": 1.887444844938125,
+          "t_statistic": 10.901284862490037,
+          "p_value": 8.878713224539104e-11,
+          "confidence_95_low": 16.680078388885885,
+          "confidence_95_high": 24.47106944493179,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "ownership_MTC",
+          "label": "MTC compared with DOM",
+          "estimate": -2.506418467705185,
+          "standard_error": 2.2654057711029485,
+          "t_statistic": -1.1063883122734766,
+          "p_value": 0.27952556423636965,
+          "confidence_95_low": -7.18198717327879,
+          "confidence_95_high": 2.16915023786842,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "ownership_COOP",
+          "label": "COOP compared with DOM",
+          "estimate": -5.784667872154616,
+          "standard_error": 2.0833654357428473,
+          "t_statistic": -2.776597793604091,
+          "p_value": 0.010482984556762385,
+          "confidence_95_low": -10.084523711618843,
+          "confidence_95_high": -1.4848120326903889,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_MA",
+          "label": "State MA",
+          "estimate": 1.297623999747638,
+          "standard_error": 1.6757978983135902,
+          "t_statistic": 0.7743320367291778,
+          "p_value": 0.4462961348456773,
+          "confidence_95_low": -2.1610536067838826,
+          "confidence_95_high": 4.756301606279159,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_ME",
+          "label": "State ME",
+          "estimate": -3.923803484925224,
+          "standard_error": 3.637375910909639,
+          "t_statistic": -1.0787456619912443,
+          "p_value": 0.29142404504795494,
+          "confidence_95_low": -11.430979990075716,
+          "confidence_95_high": 3.5833730202252694,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NH",
+          "label": "State NH",
+          "estimate": 1.1255850976845756,
+          "standard_error": 2.4092836785418106,
+          "t_statistic": 0.46718661970342246,
+          "p_value": 0.6445802240594749,
+          "confidence_95_low": -3.846933077174189,
+          "confidence_95_high": 6.098103272543341,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_NY",
+          "label": "State NY",
+          "estimate": -7.792264948639494,
+          "standard_error": 2.4109026558016318,
+          "t_statistic": -3.232094389994583,
+          "p_value": 0.003553203168891891,
+          "confidence_95_low": -12.768124529045828,
+          "confidence_95_high": -2.816405368233162,
+          "confidence_interval_excludes_zero": true
+        },
+        {
+          "term": "state_RI",
+          "label": "State RI",
+          "estimate": 3.3453598416755335,
+          "standard_error": 1.7560541631205477,
+          "t_statistic": 1.9050436552200383,
+          "p_value": 0.06882510364741008,
+          "confidence_95_low": -0.2789585895348021,
+          "confidence_95_high": 6.969678272885869,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "state_VT",
+          "label": "State VT",
+          "estimate": -5.034087757858581,
+          "standard_error": 2.9842886941224793,
+          "t_statistic": -1.6868635289116485,
+          "p_value": 0.10458682008439009,
+          "confidence_95_low": -11.193358209369272,
+          "confidence_95_high": 1.1251826936521105,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "reporting_other_standard",
+          "label": "Other reporting method compared with IEEE",
+          "estimate": 1.1173316178166202,
+          "standard_error": 1.8029398500599259,
+          "t_statistic": 0.619727617523947,
+          "p_value": 0.541276725838542,
+          "confidence_95_low": -2.603754135782211,
+          "confidence_95_high": 4.838417371415451,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "routine_saidi_per_100_minutes",
+          "label": "100 additional routine SAIDI minutes",
+          "estimate": 0.18177508258520247,
+          "standard_error": 0.8655798065107007,
+          "t_statistic": 0.2100038392970011,
+          "p_value": 0.8354372647910397,
+          "confidence_95_low": -1.6046942144924263,
+          "confidence_95_high": 1.9682443796628313,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2014",
+          "label": "Year 2014",
+          "estimate": 1.9025793676324836,
+          "standard_error": 1.202427619081068,
+          "t_statistic": 1.5822818250686,
+          "p_value": 0.12667550958605422,
+          "confidence_95_low": -0.579109792961314,
+          "confidence_95_high": 4.384268528226281,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2015",
+          "label": "Year 2015",
+          "estimate": 0.8952936072001026,
+          "standard_error": 0.9199503728768827,
+          "t_statistic": 0.9731977219600737,
+          "p_value": 0.34016238986224767,
+          "confidence_95_low": -1.003391047430123,
+          "confidence_95_high": 2.793978261830328,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2016",
+          "label": "Year 2016",
+          "estimate": 0.020033264805407267,
+          "standard_error": 0.8953554546494852,
+          "t_statistic": 0.022374649868246922,
+          "p_value": 0.9823340917675109,
+          "confidence_95_low": -1.8278899626902105,
+          "confidence_95_high": 1.8679564923010252,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2017",
+          "label": "Year 2017",
+          "estimate": 0.07427599551654165,
+          "standard_error": 0.8278116356574285,
+          "t_statistic": 0.08972572058322592,
+          "p_value": 0.9292497771506264,
+          "confidence_95_low": -1.6342436115051895,
+          "confidence_95_high": 1.782795602538273,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2018",
+          "label": "Year 2018",
+          "estimate": 0.19241940557733986,
+          "standard_error": 1.2609512708830624,
+          "t_statistic": 0.15259860552944743,
+          "p_value": 0.879990500013077,
+          "confidence_95_low": -2.410056661446942,
+          "confidence_95_high": 2.7948954726016217,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2019",
+          "label": "Year 2019",
+          "estimate": -0.7195957269503225,
+          "standard_error": 1.4479405907731286,
+          "t_statistic": -0.4969787652448461,
+          "p_value": 0.6237261317698208,
+          "confidence_95_low": -3.707998864306392,
+          "confidence_95_high": 2.268807410405747,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2020",
+          "label": "Year 2020",
+          "estimate": -1.4987300383247708,
+          "standard_error": 1.4416785642839711,
+          "t_statistic": -1.0395729502083115,
+          "p_value": 0.3088987117668148,
+          "confidence_95_low": -4.474208985471895,
+          "confidence_95_high": 1.4767489088223533,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2021",
+          "label": "Year 2021",
+          "estimate": -0.5637886746855179,
+          "standard_error": 1.2891852565186188,
+          "t_statistic": -0.4373216896755408,
+          "p_value": 0.6657881203753406,
+          "confidence_95_low": -3.224536836429039,
+          "confidence_95_high": 2.0969594870580033,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2022",
+          "label": "Year 2022",
+          "estimate": 2.1130212525327865,
+          "standard_error": 1.2806797205782698,
+          "t_statistic": 1.6499216928169103,
+          "p_value": 0.1119874657014146,
+          "confidence_95_low": -0.5301723420889841,
+          "confidence_95_high": 4.756214847154557,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2023",
+          "label": "Year 2023",
+          "estimate": 2.104440208934736,
+          "standard_error": 1.4507924357010245,
+          "t_statistic": 1.4505453413932836,
+          "p_value": 0.159851506623229,
+          "confidence_95_low": -0.8898488483161731,
+          "confidence_95_high": 5.098729266185645,
+          "confidence_interval_excludes_zero": false
+        },
+        {
+          "term": "year_2024",
+          "label": "Year 2024",
+          "estimate": 0.9487074366939239,
+          "standard_error": 1.3499383128537428,
+          "t_statistic": 0.7027783622855885,
+          "p_value": 0.4889552309899917,
+          "confidence_95_low": -1.8374288972666033,
+          "confidence_95_high": 3.734843770654451,
+          "confidence_interval_excludes_zero": false
+        }
+      ]
+    }
+  ]
+}

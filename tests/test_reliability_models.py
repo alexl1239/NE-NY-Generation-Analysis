@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(PROJECT_ROOT))
+sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 import build_reliability_models as reliability  # noqa: E402
 
@@ -60,9 +60,19 @@ class ReliabilityModelTests(unittest.TestCase):
     def test_primary_saidi_p_values_are_exact_and_uncertain(self) -> None:
         model = self.models[("saidi", "without_major_events", "all_methods")]
         rows = {row["ownership"]: row for row in model["ownership_results"]}
-        self.assertAlmostEqual(rows["MTC"]["p_value"], 0.1086391215, places=9)
-        self.assertAlmostEqual(rows["COOP"]["p_value"], 0.3511323374, places=9)
+        self.assertAlmostEqual(rows["MTC"]["p_value"], 0.1150294903, places=9)
+        self.assertAlmostEqual(rows["COOP"]["p_value"], 0.3516883644, places=9)
         self.assertTrue(all(0 <= row["p_value"] <= 1 for row in rows.values()))
+
+    def test_overview_reliability_summary_matches_model_output(self) -> None:
+        overview = (PROJECT_ROOT / "site" / "index.html").read_text()
+        rows = self.focused["primary_model"]["ownership_results"]
+        self.assertTrue(
+            all(not row["confidence_interval_excludes_zero"] for row in rows)
+        )
+        self.assertIn("No clear ownership difference in routine SAIDI", overview)
+        self.assertIn("both 95%", overview)
+        self.assertIn("confidence intervals include zero", overview)
 
     def test_sensitivity_results_are_not_misrepresented_as_stable(self) -> None:
         primary_significance = []
@@ -121,7 +131,7 @@ class ReliabilityModelTests(unittest.TestCase):
         self.assertEqual(self.analysis["panel_id"].nunique(), 30)
 
         overview = (PROJECT_ROOT / "site" / "index.html").read_text()
-        price_page = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
+        price_page = (PROJECT_ROOT / "site" / "price-model.html").read_text()
         page = (PROJECT_ROOT / "site" / "reliability-panel-model.html").read_text()
         javascript = (
             PROJECT_ROOT / "site" / "reliability-panel-model.js"
@@ -142,15 +152,15 @@ class ReliabilityModelTests(unittest.TestCase):
         self.assertNotIn("professor", page.lower())
 
     def test_price_page_limits_reliability_to_an_exploratory_saidi_check(self) -> None:
-        html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
-        javascript = (PROJECT_ROOT / "site" / "draft-panel-model.js").read_text()
+        html = (PROJECT_ROOT / "site" / "price-model.html").read_text()
+        javascript = (PROJECT_ROOT / "site" / "price-model.js").read_text()
         self.assertIn('id="saidi-comparison-groups"', html)
         self.assertIn("Exploratory SAIDI check", html)
         self.assertIn("not causal effects", html)
         self.assertIn("renderSaidiComparison", javascript)
         self.assertNotIn("renderReliabilityResults", javascript)
         self.assertNotIn("reliability_outcome_models", javascript)
-        self.assertNotIn('id="draft-reliability-cards"', html)
+        self.assertNotIn('id="model-reliability-cards"', html)
 
 
 if __name__ == "__main__":

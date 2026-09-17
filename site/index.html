@@ -3,141 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Preliminary comparison of published electricity prices for 42 regional utilities and reviewed reliability data for 30 selected utilities in New York and New England, 2013–2024.">
-  <title>Utility ownership, prices, and reliability</title>
-  <link rel="stylesheet" href="styles.css?v=20260901a">
+  <meta name="description" content="Comparison of utility ownership, electricity prices, and routine outage duration for New York and New England utilities, 2013–2024.">
+  <title>Utility ownership and electricity outcomes</title>
+  <link rel="stylesheet" href="styles.css?v=20260916a">
 </head>
 <body>
   <header class="research-header">
-    <h1>Utility ownership, electricity prices, and reliability</h1>
+    <p class="research-kicker">New York and New England · 2013–2024</p>
+    <h1>Does utility ownership relate to electricity prices?</h1>
     <p>
-      Do electricity prices differ across utility ownership types? This site compares
-      published electricity prices for 42 regional utilities in
-      New York and New England from 2013–2024. Reliability and individual utility
-      histories use the reviewed 30-utility panel. Utilities are grouped as
-      foreign-owned investor utilities (MTC), U.S.-owned investor utilities (DOM),
-      and local non-shareholder utilities (COOP). The results are preliminary and
-      descriptive: they show where prices differ and add reliability, regional fuel
-      mix, and matched-state return-on-equity context, but do not yet establish why.
+      This project compares published prices for 42 utilities and reviewed
+      reliability data for 30 utilities. It tests whether differences remain after
+      accounting for state and year. The results show associations, not proof that
+      ownership caused an outcome.
     </p>
     <nav class="research-nav" aria-label="Primary navigation">
       <a href="index.html" aria-current="page">Overview</a>
-      <a href="draft-panel-model.html">Price model</a>
-      <a href="reliability-panel-model.html">Reliability model</a>
-      <a href="#methods">Methods &amp; data</a>
-    </nav>
-    <nav class="overview-section-nav" aria-label="Overview sections">
-      <span>On this page:</span>
-      <a href="#ownership-comparison">Ownership comparison</a>
-      <a href="#utility-panels">Utility histories</a>
-      <a href="#roe-case-study">ROE check</a>
-      <a href="#regional-fuel-mix">Regional mix</a>
+      <a href="price-model.html">Price results</a>
+      <a href="reliability-panel-model.html">Reliability results</a>
+      <a href="#supplementary">Supplementary context</a>
+      <a href="#methods">Data &amp; methods</a>
     </nav>
   </header>
 
   <main class="research-main research-main--wide">
-    <section id="ownership-comparison">
-      <h2>Regional prices and selected reliability outcomes by ownership</h2>
-      <p>
-        Price views use 42 regional utilities reporting at least 10,000 residential
-        customers in the existing 2024 roster; all 42 also reported at least 10,000
-        total residential distribution customers in 2013. Reliability views use the
-        source-audited 30-utility panel. These samples do not represent every utility
-        in New York and New England. A separate
-        <a href="draft-panel-model.html">price panel model</a> tests whether the
-        observed ownership-price differences remain after state and year differences
-        are considered. A separate
-        <a href="reliability-panel-model.html">reliability panel model</a> compares
-        routine SAIDI by ownership. Neither analysis proves that ownership caused a
-        difference.
+    <section class="findings-section" aria-labelledby="findings-title">
+      <h2 id="findings-title">What the analysis shows</h2>
+      <div class="finding-grid">
+        <article class="finding-card">
+          <p class="finding-card__label">Clearest price result</p>
+          <h3>COOP utilities have lower adjusted prices</h3>
+          <p>
+            The estimated differences are 6.64–10.87 cents per kWh below DOM
+            utilities across all three customer classes. Every 95% confidence
+            interval stays below zero.
+          </p>
+        </article>
+        <article class="finding-card">
+          <p class="finding-card__label">Mixed price result</p>
+          <h3>MTC results depend on customer class</h3>
+          <p>
+            Commercial prices are an estimated 4.09 cents per kWh lower than DOM.
+            Residential and industrial estimates also point lower, but their 95%
+            confidence intervals cross zero.
+          </p>
+        </article>
+        <article class="finding-card">
+          <p class="finding-card__label">Reliability result</p>
+          <h3>No clear ownership difference in routine SAIDI</h3>
+          <p>
+            The adjusted MTC and COOP estimates are higher than DOM, but both 95%
+            confidence intervals include zero. This sample does not establish a
+            reliable ownership difference in outage minutes.
+          </p>
+        </article>
+      </div>
+      <p class="scope-note">
+        Bottom line: ownership is associated with price differences in this selected
+        sample, especially for COOP utilities. The design does not identify why those
+        differences exist and should not be read as a causal test.
       </p>
-      <div class="ownership-key ownership-key--intro" aria-label="Ownership categories in this comparison">
+    </section>
+
+    <section id="ownership-comparison">
+      <h2>Observed outcomes by ownership</h2>
+      <p>
+        Explore annual medians before model adjustments. Price views use the
+        42-utility sample; reliability views use the reviewed 30-utility sample.
+        Every utility counts once.
+      </p>
+      <div class="ownership-key ownership-key--intro" aria-label="Ownership categories">
         <span><i class="ownership-swatch ownership-swatch--mtc"></i><strong>MTC</strong> Foreign or multinational parent</span>
-        <span><i class="ownership-swatch ownership-swatch--dom"></i><strong>DOM</strong> US-based investor-owned parent</span>
+        <span><i class="ownership-swatch ownership-swatch--dom"></i><strong>DOM</strong> U.S.-owned investor utility</span>
         <span><i class="ownership-swatch ownership-swatch--coop"></i><strong>COOP</strong> Local non-shareholder ownership</span>
       </div>
-      <p class="table-note ownership-key-note">
-        SOE remains part of the project’s four-category definition, but no SOE utility
-        is represented in this selected comparison.
-      </p>
+      <p class="table-note">SOE means direct state-level public ownership; no selected utility meets that definition.</p>
       <div id="observed-comparison-panel">
-        <p class="plain-note comparison-view-note">
-          Each line is a simple annual median; the shaded area is the observed range.
-          Every utility counts once. Price: 42-utility regional sample. Reliability:
-          reviewed 30-utility sample.
-        </p>
         <div class="panel-controls comparison-controls">
-        <label for="comparison-measure">
-          Measure
-          <select id="comparison-measure">
-            <option value="price">Bundled average price</option>
-            <option value="saidi">SAIDI — outage minutes</option>
-            <option value="saifi">SAIFI — outage frequency</option>
-            <option value="caidi">CAIDI — restoration time</option>
-          </select>
-        </label>
-        <label id="comparison-customer-class-control" for="comparison-customer-class">
-          Customer type
-          <select id="comparison-customer-class">
-            <option value="residential">Residential</option>
-            <option value="commercial">Commercial</option>
-            <option value="industrial">Industrial</option>
-          </select>
-        </label>
-        <label id="comparison-coverage-rule-control" for="comparison-coverage-rule">
-          Prices included
-          <select id="comparison-coverage-rule">
-            <option value="all_published">All EIA-published prices</option>
-            <option value="majority_coverage">Only prices covering at least 50% of customers</option>
-          </select>
-        </label>
-        <label id="comparison-price-basis-control" for="comparison-price-basis">
-          Price basis
-          <select id="comparison-price-basis">
-            <option value="nominal">Published cents</option>
-            <option value="real_2024">Inflation-adjusted 2024 cents</option>
-          </select>
-        </label>
-        <label id="comparison-reliability-scope-control" for="comparison-reliability-scope" hidden>
-          Reliability treatment
-          <select id="comparison-reliability-scope">
-            <option value="without-major-events">Exclude major events</option>
-            <option value="with-major-events">Include major events</option>
-          </select>
-        </label>
+          <label for="comparison-measure">
+            Measure
+            <select id="comparison-measure">
+              <option value="price">Bundled average price</option>
+              <option value="saidi">SAIDI — outage minutes</option>
+              <option value="saifi">SAIFI — outage frequency</option>
+              <option value="caidi">CAIDI — restoration time</option>
+            </select>
+          </label>
+          <label id="comparison-customer-class-control" for="comparison-customer-class">
+            Customer type
+            <select id="comparison-customer-class">
+              <option value="residential">Residential</option>
+              <option value="commercial">Commercial</option>
+              <option value="industrial">Industrial</option>
+            </select>
+          </label>
+          <label id="comparison-coverage-rule-control" for="comparison-coverage-rule">
+            Prices included
+            <select id="comparison-coverage-rule">
+              <option value="all_published">All EIA-published prices</option>
+              <option value="majority_coverage">Only prices covering at least 50% of customers</option>
+            </select>
+          </label>
+          <label id="comparison-price-basis-control" for="comparison-price-basis">
+            Price basis
+            <select id="comparison-price-basis">
+              <option value="nominal">Published cents</option>
+              <option value="real_2024">Inflation-adjusted 2024 cents</option>
+            </select>
+          </label>
+          <label id="comparison-reliability-scope-control" for="comparison-reliability-scope" hidden>
+            Reliability treatment
+            <select id="comparison-reliability-scope">
+              <option value="without-major-events">Exclude major events</option>
+              <option value="with-major-events">Include major events</option>
+            </select>
+          </label>
         </div>
-        <div class="comparison-legend" aria-label="Ownership comparison legend">
-        <span><i class="comparison-legend__line"></i> Median</span>
-        <span id="comparison-range-legend"><i class="comparison-legend__range"></i> Minimum–maximum range</span>
-        <span id="comparison-coverage-legend"><i class="comparison-legend__flag"></i> At least one included price covers under 50% of customers</span>
+        <div class="comparison-legend" aria-label="Chart legend">
+          <span><i class="comparison-legend__line"></i> Median</span>
+          <span id="comparison-range-legend"><i class="comparison-legend__range"></i> Observed range</span>
+          <span id="comparison-coverage-legend"><i class="comparison-legend__flag"></i> At least one included price covers under 50% of customers</span>
         </div>
         <p id="ownership-comparison-status" class="chart-status" hidden></p>
         <div id="ownership-comparison-charts" class="ownership-comparison-charts" aria-live="polite"></div>
         <p id="ownership-comparison-finding" class="result-note"></p>
         <p class="table-note">
-          Price views default to the published nominal values. The optional 2024-cent
-          view applies the same annual CPI-U factor to every utility and does not change
-          the ranking within a year. An orange outline marks a price median containing
-          at least one observation that covers fewer than half of customers. Prices come from
-          <a href="https://www.eia.gov/electricity/sales_revenue_price/" target="_blank" rel="noopener">EIA Tables 6–8</a>;
-          <a href="https://docs.catalyst.coop/pudl/en/stable/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL customer counts</a>
-          support the coverage check. The 42-utility price sample has 1,477 populated
-          customer-class price rows across 2013–2024. Inflation factors use the
-          <a href="https://www.bls.gov/pir/spm/spm_chart_2025data.htm" target="_blank" rel="noopener">BLS annual CPI-U</a>.
-          Reliability medians use every available, non-withheld EIA/PUDL value under the
-          selected major-event treatment; the point detail states the number of utilities.
-          Individual utility histories below remain unchanged.
+          Prices are EIA bundled average prices. The constant-dollar view uses annual
+          CPI-U. Reliability values come from EIA Form 861 after the source audit;
+          chart details show the usable count and any withheld value.
         </p>
       </div>
     </section>
 
     <section id="utility-panels">
-      <h2>Utility histories</h2>
+      <h2>Individual utility histories</h2>
       <p>
-        Each chart follows one operating utility from 2013 through 2024. Utilities
-        stay grouped by their 2024 ownership category so their positions remain
-        consistent across the page. Each group contains its ten largest qualifying
-        utilities by 2024 residential customers, arranged as two rows of five.
+        Use these small charts to check whether the group patterns are broad or driven
+        by a few utilities. The panel contains ten selected utilities in each 2024
+        ownership group, arranged in two rows of five.
       </p>
       <div class="panel-controls panel-controls--metric">
         <label id="customer-class-control" for="customer-class">
@@ -172,262 +175,116 @@
         <div id="utility-matrix" class="utility-matrix" aria-live="polite"></div>
       </div>
       <p class="table-note">
-        Point colors show the ownership code in that year. United Illuminating and
-        Narragansett Electric therefore change color when their parent ownership
-        changes. On reliability views, dotted vertical lines mark changes between
-        IEEE and Non-IEEE reporting methods. On price views, an orange-outlined point
-        means the published price covers less than 50% of customers in that class.
-        Hover, tap, or focus a point for the exact annual value and customer count.
-        Lines stop where EIA/PUDL has no usable value.
+        Point color shows ownership in that year. An orange price point covers less
+        than half of customers in its class. Dotted lines show reliability-reporting
+        method changes. Hover, tap, or focus for the exact value.
       </p>
       <p id="metric-finding" class="result-note"></p>
     </section>
 
-    <section id="roe-case-study">
-      <h2>Matched-state check: prices and year-end authorized ROE</h2>
+    <section id="supplementary">
+      <h2>Supplementary context</h2>
       <p>
-        Investor-owned utilities can earn a regulator-authorized return on the
-        shareholder-funded part of approved rate base. Local non-shareholder utilities
-        do not have this shareholder ROE, although they still have financing costs;
-        cooperatives may return margins through
-        <a href="https://www.irs.gov/pub/irs-wd/0838008.pdf" target="_blank" rel="noopener">capital credits</a>.
-        This section compares one DOM and one MTC utility under the same regulator in
-        Connecticut, Massachusetts, and New York. Matching within a state makes the
-        comparison more useful, but it remains descriptive rather than causal.
+        These two checks may help explain the setting, but neither directly tests the
+        main ownership-price result.
       </p>
-      <div class="panel-controls ct-case-study-controls">
-        <label for="ct-case-customer-class">
-          Customer type
-          <select id="ct-case-customer-class">
-            <option value="residential">Residential</option>
-            <option value="commercial">Commercial</option>
-            <option value="industrial">Industrial</option>
-          </select>
-        </label>
-      </div>
-      <p id="ct-case-study-status" class="chart-status" hidden></p>
-      <div id="ct-case-study-charts" class="ct-case-study-grid" aria-live="polite"></div>
-      <p class="table-note">
-        Each utility stays separate. Its full-year average price uses the left axis
-        and year-end authorized ROE uses the right axis; both scales are held fixed
-        across all six charts. ROE is a step line because it changes when a new
-        decision takes effect. The two axes support a descriptive comparison of
-        direction, not a claim that the measures are perfectly time-aligned or causal.
-        An orange-outlined price point still marks bundled coverage below 50%.
-      </p>
-      <p id="ct-case-study-finding" class="result-note"></p>
-      <p class="table-note">
-        Prices come from EIA. ROE comes from PURA, Massachusetts DPU, and New York PSC decisions,
-        with SEC or official company filings used where they provide the clearest
-        stable record. Each price is EIA's average for the full calendar year; each
-        ROE is the authorized rate in force at that year's end. Hover, tap, or focus
-        a point to open the source used for that year.
-        <a href="data/roe_case_study.csv">Download the six-utility data</a>
-        ·
-        <a href="data/roe_source_register.csv">View the source register</a>
-      </p>
-    </section>
 
-    <section id="regional-fuel-mix">
-      <h2>Regional generation mix</h2>
-      <p>
-        These charts show the fuel used by power plants in the NYISO and ISO-NE
-        balancing areas. They describe the regional supply environment shared by
-        utilities—not the power owned or purchased by any one utility.
-      </p>
-      <div id="iso-fuel-mix-legend" class="iso-fuel-mix-legend" aria-label="Fuel legend"></div>
-      <p id="iso-fuel-mix-status" class="chart-status" hidden></p>
-      <div id="iso-fuel-mix-charts" class="iso-fuel-mix-charts" aria-live="polite"></div>
-      <p class="table-note">
-        Source: plant-level net generation reported on
-        <a href="https://www.eia.gov/electricity/data/eia923/" target="_blank" rel="noopener">EIA Form 923</a>,
-        grouped using each plant’s annual EIA balancing-authority code through
-        <a href="https://catalystcoop-pudl.readthedocs.io/en/stable/data_sources/eia923.html" target="_blank" rel="noopener">PUDL</a>.
-        Imports are not included, so this is not the exact electricity mix delivered
-        to customers. The 2024 totals were checked against reports published by
-        <a href="https://www.iso-ne.com/static-assets/documents/100028/final-2024-air-emission-report.pdf" target="_blank" rel="noopener">ISO New England</a>
-        and
-        <a href="https://www.nyiso.com/documents/20142/2223020/2025-Power-Trends.pdf/" target="_blank" rel="noopener">NYISO</a>.
-      </p>
-      <p class="result-note">
-        Fuel mix can help explain changes in regional supply costs. It cannot, by
-        itself, explain why utilities with different ownership types charge different
-        retail prices while operating in the same regional market.
-      </p>
+      <div class="supplementary-block" id="roe-case-study">
+        <h3>Matched-state prices and authorized ROE</h3>
+        <p>
+          One DOM and one MTC utility are compared within Connecticut,
+          Massachusetts, and New York. Matching the regulator improves the
+          comparison, but six utilities are too few for a causal conclusion.
+        </p>
+        <div class="panel-controls ct-case-study-controls">
+          <label for="ct-case-customer-class">
+            Customer type
+            <select id="ct-case-customer-class">
+              <option value="residential">Residential</option>
+              <option value="commercial">Commercial</option>
+              <option value="industrial">Industrial</option>
+            </select>
+          </label>
+        </div>
+        <p id="ct-case-study-status" class="chart-status" hidden></p>
+        <div id="ct-case-study-charts" class="ct-case-study-grid" aria-live="polite"></div>
+        <p id="ct-case-study-finding" class="result-note"></p>
+        <p class="table-note">
+          Prices are full-year EIA averages. ROE is the regulator-authorized rate in
+          force at year-end. <a href="data/roe_case_study.csv">Download data</a>
+          · <a href="data/roe_source_register.csv">View sources</a>
+        </p>
+      </div>
+
+      <div class="supplementary-block" id="regional-fuel-mix">
+        <h3>Regional generation mix</h3>
+        <p>
+          Plant generation in NYISO and ISO-NE shows the regional supply setting.
+          It does not identify any utility’s contracts or the electricity delivered
+          to a specific customer.
+        </p>
+        <div id="iso-fuel-mix-legend" class="iso-fuel-mix-legend" aria-label="Fuel legend"></div>
+        <p id="iso-fuel-mix-status" class="chart-status" hidden></p>
+        <div id="iso-fuel-mix-charts" class="iso-fuel-mix-charts" aria-live="polite"></div>
+        <p class="table-note">
+          Source: EIA Form 923 plant-level net generation grouped by balancing
+          authority through PUDL. Imports are excluded.
+          <a href="data/iso_fuel_mix.csv">Download data</a>
+        </p>
+      </div>
     </section>
 
     <section id="methods">
-      <h2>Methods and sources</h2>
-      <ul>
-        <li>
-          <strong>Price:</strong> copied directly from the “Average Price
-          (cents/kWh)” columns in Tables 6–8 of EIA’s annual
-          <a href="https://www.eia.gov/electricity/sales_revenue_price/" target="_blank" rel="noopener">Electric Sales, Revenue, and Average Price report</a>.
-          These tables cover bundled residential, commercial, and industrial
-          service. The project does not recalculate these prices.
-        </li>
-        <li>
-          <strong>Inflation view:</strong> the overview can convert nominal prices to
-          constant 2024 cents by multiplying each year by the ratio of the 2024 annual
-          CPI-U to that year’s annual CPI-U. This follows
-          <a href="https://www.bls.gov/cpi/factsheets/purchasing-power-constant-dollars.htm" target="_blank" rel="noopener">BLS constant-dollar guidance</a>
-          and does not overwrite the published EIA values.
-        </li>
-        <li>
-          <strong>Coverage:</strong> bundled service for the selected customer type.
-          In states with retail choice, this can represent only the utility’s
-          full-service customers, not everyone connected to its distribution system
-          or every part of a customer’s bill.
-        </li>
-        <li>
-          <strong>Coverage check:</strong> total customers in each customer type are
-          the sum of bundled and delivery-only customers reported in
-          <a href="https://docs.catalyst.coop/pudl/en/stable/data_dictionaries/pudl_db.html" target="_blank" rel="noopener">PUDL’s EIA-861 yearly sales table</a>.
-          The displayed share is bundled customers divided by that total. The 1,477
-          populated EIA price-table rows reconcile exactly with PUDL’s bundled
-          counts. Missing published prices remain blank.
-        </li>
-        <li>
-          <strong>Coverage flag:</strong> “minority coverage” means the published
-          bundled price applies to less than 50% of bundled plus delivery-only
-          customers in the same customer class. The flag does not change the price.
-          The majority-coverage view is a project sensitivity check, not an EIA
-          quality standard.
-        </li>
-        <li>
-          <strong>Ownership summary:</strong> price lines are unweighted medians of the
-          42-utility regional sample: 11 MTC, 8 DOM, and 23 COOP utilities by 2024
-          ownership. Reliability lines use the reviewed 30-utility panel and report
-          the usable count. Price views add the observed minimum-to-maximum range.
-          Utilities are
-          grouped by their ownership code in that year, so an earlier group can contain
-          a different number. These results do not describe every utility in the region.
-        </li>
-        <li>
-          <strong>Price panel model:</strong> the separate
-          <a href="draft-panel-model.html">results page</a> models residential,
-          commercial, and industrial prices using ownership, state, and year. A
-          smaller matched-sample check compares the ownership estimates without and
-          with routine SAIDI. Prices are in constant 2024 cents, DOM is the reference
-          group, and uncertainty is clustered by utility. These are associations, not
-          causal estimates.
-        </li>
-        <li>
-          <strong>Reliability panel model:</strong> the separate
-          <a href="reliability-panel-model.html">results page</a> models routine
-          SAIDI using ownership, state, year, and reporting method. Major-event days
-          are excluded. Weather and infrastructure are not controlled, so the
-          estimates are descriptive associations.
-        </li>
-        <li>
-          <strong>Regional price sample:</strong> the 42 utilities report at least
-          10,000 residential customers in the existing 2024 roster, and the baseline
-          check confirms that every one also had at least 10,000 total residential
-          distribution customers in 2013. The additional reliability records have not
-          yet been source-audited, so reliability remains on the 30-utility panel.
-        </li>
-        <li>
-          <strong>Authorized return on equity:</strong> the matched-state pilot uses
-          the ROE approved by Connecticut PURA or Massachusetts DPU for the
-          shareholder-funded portion of rate base. Base ROE, effective ROE after an
-          in-force adjustment, and actual earned ROE remain separate in the
-          downloadable data. The chart shows effective authorized ROE in force at
-          year-end. The derived dollar value is an authorized common-equity return
-          component calculated only when the decision reports rate base and the
-          approved equity ratio. It is not shareholder compensation, dividends, a
-          customer price, or total company profit.
-        </li>
-        <li>
-          <strong>Regional generation:</strong> annual EIA-923 net generation at
-          plants assigned to the NYIS or ISNE balancing authority. Shares are based
-          on eight nonnegative fuel groups. PUDL’s “other” group is zero or slightly
-          negative in these years and is excluded from the percentage stack; the
-          excluded amount is less than 0.02% of annual positive generation. Imports
-          and utility-specific power contracts are not represented.
-        </li>
-        <li>
-          <strong>Reviewed reliability and utility-history sample:</strong> the ten
-          largest qualifying utilities in each 2024 ownership group, ranked by
-          residential customers in the regional PUDL roster. This gives 30 utilities
-          and 360 possible utility-years from 2013 through 2024. It is a deliberately
-          large-utility sample, not a random or fully representative sample of every
-          utility in the region.
-        </li>
-        <li>
-          <strong>Panel coverage:</strong> residential and commercial prices are
-          available for 347 of 360 utility-years; industrial prices are available
-          for 324. The reliability audit has a populated source row for 321;
-          missing measures are left blank.
-        </li>
-        <li>
-          <strong>Reliability:</strong> utility-reported SAIDI and SAIFI from
-          <a href="https://www.eia.gov/electricity/data/eia861/" target="_blank" rel="noopener">EIA Form 861</a>,
-          standardized through
-          <a href="https://catalystcoop-pudl.readthedocs.io/en/stable/data_sources/eia861.html" target="_blank" rel="noopener">PUDL’s yearly reliability table</a>.
-          PUDL derives CAIDI as SAIDI divided by SAIFI from those reported values.
-          The default view excludes major events; the alternate view includes them.
-        </li>
-        <li>
-          <strong>SAIDI price check:</strong> the price-model page adds routine SAIDI
-          only as an exploratory comparison. The versions without and with SAIDI use
-          the same utility-years and account for reliability-reporting method. This
-          check does not treat SAIDI as proof of what causes prices.
-        </li>
-        <li>
-          <strong>Reliability limits:</strong> Peabody and Fishers Island have no
-          populated reliability rows in this period; Taunton is blank in 2013–2015;
-          the current FirstEnergy entity is blank before 2024; and Central Hudson is
-          blank in 2014. Some reported rows also omit individual measures. Six
-          utilities change reporting methods during the panel. The overview therefore
-          labels its annual unweighted medians as descriptive and shows the number of
-          usable utilities. EIA allows either IEEE or another utility-defined method;
-          apparent differences can partly reflect those measurement choices.
-        </li>
-        <li>
-          <strong>Source check:</strong> for the selected utility rows, 2,841 fields
-          from the official 2013–2024 EIA reliability workbooks matched the PUDL
-          values exactly. Regulator reports then identified two NSTAR source
-          conflicts: routine SAIFI and derived CAIDI in 2017, and the full 2023 EIA
-          row. Those published values remain in the downloadable audit but are
-          withheld from the charts. The reasons and regulator links are stored with
-          each affected row.
-        </li>
-        <li>
-          <strong>Ownership:</strong> project-coded from documented ultimate-parent
-          evidence. United Illuminating is DOM through 2015 and MTC from 2016;
-          Narragansett Electric is MTC through 2021 and DOM from 2022. Central
-          Hudson’s Fortis acquisition closed in 2013, so the project’s
-          end-of-year rule codes it MTC for every displayed year.
-        </li>
-      </ul>
-      <p>
-        <a href="data/utility_price_panel_expanded.csv">Download the 42-utility price panel (CSV)</a>
-        ·
-        <a href="data/utility_price_panel.csv">Download the 30-utility history panel (CSV)</a>
-        ·
-        <a href="data/ownership_price_summary.csv">Download the ownership summary (CSV)</a>
-        ·
-        <a href="data/reliability_panel.csv">Download the reliability audit (CSV)</a>
-        ·
-        <a href="data/iso_fuel_mix.csv">Download the regional generation data (CSV)</a>
-        ·
-        <a href="data/roe_case_study.csv">Download the matched-state ROE data (CSV)</a>
-        ·
-        <a href="https://github.com/alexl1239/NE-NY-Generation-Analysis" target="_blank" rel="noopener">View the project repository</a>
+      <h2>Data, methods, and limits</h2>
+      <div class="methods-grid">
+        <div>
+          <h3>Data</h3>
+          <p>
+            Prices come from EIA Tables 6–8. Reliability comes from EIA Form 861 and
+            was checked against all selected official workbook fields. Ownership is
+            coded from documented ultimate-parent evidence using the owner in place
+            on December 31 of each year. The allowed categories are MTC, DOM, SOE,
+            and COOP; no selected utility is SOE.
+          </p>
+        </div>
+        <div>
+          <h3>Models</h3>
+          <p>
+            Price models include ownership, state, and year. The reliability model
+            also includes reporting method. Each utility-year counts once and
+            uncertainty is clustered by utility.
+          </p>
+        </div>
+        <div>
+          <h3>Limits</h3>
+          <p>
+            The samples are selected, not random. The models do not control every
+            difference in regulation, customer mix, infrastructure, or weather.
+            Results are descriptive associations, not causal effects.
+          </p>
+        </div>
+      </div>
+      <p class="data-links">
+        <a href="data/utility_price_panel_expanded.csv">Price panel (CSV)</a>
+        · <a href="data/reliability_panel.csv">Reliability audit (CSV)</a>
+        · <a href="price-model.html">Price model details</a>
+        · <a href="reliability-panel-model.html">Reliability model details</a>
+        · <a href="data/iso_fuel_mix.csv">Generation context (CSV)</a>
+        · <a href="data/roe_case_study.csv">ROE context (CSV)</a>
+        · <a href="https://github.com/alexl1239/NE-NY-Generation-Analysis" target="_blank" rel="noopener">Code and documentation</a>
       </p>
     </section>
-
   </main>
 
   <footer class="page-footer research-footer">
-    <p><a href="previous-findings.html">Earlier analysis archive</a></p>
+    <p>Published values remain downloadable so every chart and claim can be checked.</p>
   </footer>
 
   <script src="data/utility_price_panel.js?v=20260810a"></script>
   <script src="data/ownership_price_summary.js?v=20260831a"></script>
   <script src="data/reliability_panel.js?v=20260810a"></script>
-  <script src="data/iso_fuel_mix.js"></script>
+  <script src="data/iso_fuel_mix.js?v=20260916a"></script>
   <script src="data/roe_case_study.js?v=20260820b"></script>
-  <script src="panel.js?v=20260831a"></script>
+  <script src="panel.js?v=20260916a"></script>
 </body>
 </html>

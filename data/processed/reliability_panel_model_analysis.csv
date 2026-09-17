@@ -301,7 +301,7 @@ COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2023,COOP,ieee_standar
 COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2024,COOP,ieee_standard,39242.0,192.98,True,reported,,https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip
 MTC_CT_UI,19497,United Illuminating,CT,2013,DOM,ieee_standard,317544.0,57.8,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612013.zip
 MTC_CT_UI,19497,United Illuminating,CT,2014,DOM,other_standard,318490.0,62.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612014.zip
-MTC_CT_UI,19497,United Illuminating,CT,2015,DOM,other_standard,318285.0,43.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
+MTC_CT_UI,19497,United Illuminating,CT,2015,MTC,other_standard,318285.0,43.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612015.zip
 MTC_CT_UI,19497,United Illuminating,CT,2016,MTC,other_standard,330968.0,51.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612016.zip
 MTC_CT_UI,19497,United Illuminating,CT,2017,MTC,other_standard,332396.0,33.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612017.zip
 MTC_CT_UI,19497,United Illuminating,CT,2018,MTC,other_standard,333861.0,59.0,True,reported,,https://www.eia.gov/electricity/data/eia861/archive/zip/f8612018.zip

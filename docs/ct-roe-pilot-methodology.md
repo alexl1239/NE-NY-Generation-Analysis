@@ -7,7 +7,7 @@
 
 ## Purpose
 
-This pilot tests a practical way to investigate the professors' proposed shareholder-return mechanism before collecting rate cases for the full investor-owned sample. It places one domestic investor-owned utility and one multinational-owned utility under the same regulator in each of three states. The within-state pairing keeps regulatory and market context more similar than a cross-state comparison.
+This pilot tests a practical way to investigate a proposed shareholder-return mechanism before collecting rate cases for the full investor-owned sample. It places one domestic investor-owned utility and one multinational-owned utility under the same regulator in each of three states. The within-state pairing keeps regulatory and market context more similar than a cross-state comparison.
 
 The pilot does not test whether return on equity causes higher customer prices. It first establishes which regulatory quantities can be collected consistently and what each one means.
 
@@ -44,7 +44,7 @@ UI's August 2023 final decision is treated separately. The controlling final dec
 
 ## Ownership
 
-CL&P, NSTAR, and Con Edison are coded `DOM` throughout the pilot. Massachusetts Electric and NYSEG are coded `MTC` throughout. UI is coded `DOM` through 2015 and `MTC` from 2016, following the project's existing annual ownership convention after the Iberdrola/UIL combination closed in December 2015. The displayed matched pairs use each utility's 2024 ownership.
+CL&P, NSTAR, and Con Edison are coded `DOM` throughout the pilot. Massachusetts Electric and NYSEG are coded `MTC` throughout. UI is coded `DOM` through 2014 and `MTC` from 2015 because the Iberdrola/UIL combination closed on December 16, 2015. This follows the project's rule of assigning the owner in place on December 31 of each year. The displayed matched pairs use each utility's 2024 ownership.
 
 ## Source hierarchy
 

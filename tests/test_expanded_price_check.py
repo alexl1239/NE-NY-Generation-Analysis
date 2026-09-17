@@ -12,23 +12,23 @@ import pandas as pd
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(PROJECT_ROOT))
+sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 import build_expanded_price_check as expanded  # noqa: E402
 
 
 EXPECTED_PRIMARY = {
     "residential": {
-        "MTC": (-4.124, -8.567, 0.319, False),
-        "COOP": (-10.876, -15.118, -6.634, True),
+        "MTC": (-4.065, -8.551, 0.421, False),
+        "COOP": (-10.867, -15.161, -6.572, True),
     },
     "commercial": {
-        "MTC": (-4.120, -7.547, -0.693, True),
-        "COOP": (-7.057, -10.323, -3.791, True),
+        "MTC": (-4.086, -7.534, -0.637, True),
+        "COOP": (-7.062, -10.364, -3.760, True),
     },
     "industrial": {
-        "MTC": (-2.160, -6.582, 2.262, False),
-        "COOP": (-6.668, -10.263, -3.073, True),
+        "MTC": (-2.091, -6.528, 2.345, False),
+        "COOP": (-6.642, -10.269, -3.014, True),
     },
 }
 
@@ -56,6 +56,28 @@ class ExpandedPriceCheckTests(unittest.TestCase):
                 for row in self.candidates
             )
         )
+
+    def test_ownership_rule_is_explicit_and_machine_checked(self) -> None:
+        self.assertTrue(
+            all(row["legal_ownership_description"] for row in self.candidates)
+        )
+        self.assertTrue(
+            all(str(row["ownership_source_url"]).startswith("https://") for row in self.candidates)
+        )
+        for row in self.candidates:
+            entity_type = str(row["eia_entity_type"])
+            parent_level = str(row["parent_country_or_level"])
+            if entity_type == "Investor Owned":
+                expected = "DOM" if parent_level == "United States" else "MTC"
+            elif entity_type in expanded.STATE_OWNED_ENTITY_TYPES:
+                expected = "SOE"
+            elif entity_type in expanded.NONSHAREHOLDER_ENTITY_TYPES:
+                expected = "COOP"
+            else:
+                self.fail(f"Unrecognized ownership type: {entity_type}")
+            self.assertEqual(row["ownership_2024"], expected)
+
+        self.assertNotIn("SOE", {row["ownership_2024"] for row in self.candidates})
 
     def test_panel_preserves_all_candidate_years_and_published_missingness(self) -> None:
         self.assertEqual(len(self.panel), 504)
@@ -132,8 +154,8 @@ class ExpandedPriceCheckTests(unittest.TestCase):
         )
 
     def test_website_uses_the_expanded_sample_for_the_main_price_model(self) -> None:
-        html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
-        javascript = (PROJECT_ROOT / "site" / "draft-panel-model.js").read_text()
+        html = (PROJECT_ROOT / "site" / "price-model.html").read_text()
+        javascript = (PROJECT_ROOT / "site" / "price-model.js").read_text()
         self.assertIn("42-utility regional", html)
         self.assertIn('id="main-price-results-table"', html)
         self.assertIn("main_price_models", javascript)

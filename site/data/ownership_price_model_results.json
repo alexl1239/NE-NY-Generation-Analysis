@@ -35,24 +35,24 @@
       "utility_cluster_count": 30,
       "parameter_count": 20,
       "design_rank": 20,
-      "r_squared": 0.4257750786738873,
+      "r_squared": 0.42334811200226585,
       "ownership_results": [
         {
           "ownership": "MTC",
           "reference_ownership": "DOM",
-          "estimate_cents_kwh": -7.070180311646315,
-          "standard_error": 3.047539584430038,
-          "confidence_95_low": -13.303099695910163,
-          "confidence_95_high": -0.8372609273824674,
+          "estimate_cents_kwh": -6.996145421003692,
+          "standard_error": 3.066647270133053,
+          "confidence_95_low": -13.268144417297915,
+          "confidence_95_high": -0.7241464247094678,
           "confidence_interval_excludes_zero": true
         },
         {
           "ownership": "COOP",
           "reference_ownership": "DOM",
-          "estimate_cents_kwh": -12.04544151821412,
-          "standard_error": 3.029901043015027,
-          "confidence_95_low": -18.242286028419745,
-          "confidence_95_high": -5.848597008008497,
+          "estimate_cents_kwh": -12.06883014747642,
+          "standard_error": 3.0622342300330336,
+          "confidence_95_low": -18.33180346176688,
+          "confidence_95_high": -5.805856833185959,
           "confidence_interval_excludes_zero": true
         }
       ]
@@ -64,24 +64,24 @@
       "utility_cluster_count": 30,
       "parameter_count": 20,
       "design_rank": 20,
-      "r_squared": 0.4145216273261252,
+      "r_squared": 0.41176641805763925,
       "ownership_results": [
         {
           "ownership": "MTC",
           "reference_ownership": "DOM",
-          "estimate_cents_kwh": -7.247881331067379,
-          "standard_error": 3.106349215597734,
-          "confidence_95_low": -13.601079937284332,
-          "confidence_95_high": -0.8946827248504254,
+          "estimate_cents_kwh": -7.168570945591556,
+          "standard_error": 3.1293532484475315,
+          "confidence_95_low": -13.5688180899139,
+          "confidence_95_high": -0.7683238012692106,
           "confidence_interval_excludes_zero": true
         },
         {
           "ownership": "COOP",
           "reference_ownership": "DOM",
-          "estimate_cents_kwh": -11.708634196773254,
-          "standard_error": 3.214117717234268,
-          "confidence_95_low": -18.282244175592297,
-          "confidence_95_high": -5.135024217954212,
+          "estimate_cents_kwh": -11.731018153284333,
+          "standard_error": 3.2490962363043057,
+          "confidence_95_low": -18.376167248660987,
+          "confidence_95_high": -5.085869057907678,
           "confidence_interval_excludes_zero": true
         }
       ]
@@ -93,24 +93,24 @@
       "utility_cluster_count": 30,
       "parameter_count": 20,
       "design_rank": 20,
-      "r_squared": 0.44686521980480387,
+      "r_squared": 0.44452969366296935,
       "ownership_results": [
         {
           "ownership": "MTC",
           "reference_ownership": "DOM",
-          "estimate_cents_kwh": -6.010783548926616,
-          "standard_error": 1.9139503681802321,
-          "confidence_95_low": -9.925252260439873,
-          "confidence_95_high": -2.09631483741336,
+          "estimate_cents_kwh": -5.962947557731352,
+          "standard_error": 1.928558956477235,
+          "confidence_95_low": -9.907294192287289,
+          "confidence_95_high": -2.018600923175417,
           "confidence_interval_excludes_zero": true
         },
         {
           "ownership": "COOP",
           "reference_ownership": "DOM",
-          "estimate_cents_kwh": -7.720615635274645,
-          "standard_error": 2.0784618343436243,
-          "confidence_95_low": -11.971548132729255,
-          "confidence_95_high": -3.4696831378200343,
+          "estimate_cents_kwh": -7.747739811111009,
+          "standard_error": 2.09787397519279,
+          "confidence_95_low": -12.038374601394558,
+          "confidence_95_high": -3.4571050208274583,
           "confidence_interval_excludes_zero": true
         }
       ]
@@ -151,24 +151,24 @@
       "utility_cluster_count": 29,
       "parameter_count": 20,
       "design_rank": 20,
-      "r_squared": 0.4664693489926388,
+      "r_squared": 0.4650303121075814,
       "ownership_results": [
         {
           "ownership": "MTC",
           "reference_ownership": "DOM",
-          "estimate_cents_kwh": -2.615589177173812,
-          "standard_error": 2.21982123176194,
-          "confidence_95_low": -7.162686527063592,
-          "confidence_95_high": 1.9315081727159682,
+          "estimate_cents_kwh": -2.531145550200606,
+          "standard_error": 2.2290014659396418,
+          "confidence_95_low": -7.097047756041629,
+          "confidence_95_high": 2.0347566556404177,
           "confidence_interval_excludes_zero": false
         },
         {
           "ownership": "COOP",
           "reference_ownership": "DOM",
-          "estimate_cents_kwh": -6.110892738508842,
-          "standard_error": 1.8914503461503072,
-          "confidence_95_low": -9.985352867715555,
-          "confidence_95_high": -2.23643260930213,
+          "estimate_cents_kwh": -6.091429254423968,
+          "standard_error": 1.9072310010538316,
+          "confidence_95_low": -9.998214587599644,
+          "confidence_95_high": -2.1846439212482918,
           "confidence_interval_excludes_zero": true
         }
       ]

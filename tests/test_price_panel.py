@@ -47,8 +47,8 @@ class TestUtilityPricePanel(unittest.TestCase):
             (int(row["utility_id_eia"]), int(row["year"])): row["ownership"]
             for row in self.rows
         }
-        self.assertEqual(ownership[(19497, 2015)], "DOM")
-        self.assertEqual(ownership[(19497, 2016)], "MTC")
+        self.assertEqual(ownership[(19497, 2014)], "DOM")
+        self.assertEqual(ownership[(19497, 2015)], "MTC")
         self.assertEqual(ownership[(13214, 2021)], "MTC")
         self.assertEqual(ownership[(13214, 2022)], "DOM")
 
@@ -228,7 +228,7 @@ class TestUtilityPricePanel(unittest.TestCase):
 class TestPricePanelWebsite(unittest.TestCase):
     def test_navigation_separates_primary_pages_from_overview_sections(self):
         overview = (PROJECT_ROOT / "site" / "index.html").read_text()
-        price = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
+        price = (PROJECT_ROOT / "site" / "price-model.html").read_text()
         reliability = (
             PROJECT_ROOT / "site" / "reliability-panel-model.html"
         ).read_text()
@@ -237,28 +237,29 @@ class TestPricePanelWebsite(unittest.TestCase):
             '<nav class="research-nav" aria-label="Primary navigation">',
             1,
         )[1].split("</nav>", 1)[0]
-        self.assertEqual(primary.count("<a "), 4)
+        self.assertEqual(primary.count("<a "), 5)
         self.assertIn(">Overview</a>", primary)
-        self.assertIn(">Price model</a>", primary)
-        self.assertIn(">Reliability model</a>", primary)
-        self.assertIn(">Methods &amp; data</a>", primary)
+        self.assertIn(">Price results</a>", primary)
+        self.assertIn(">Reliability results</a>", primary)
+        self.assertIn(">Supplementary context</a>", primary)
+        self.assertIn(">Data &amp; methods</a>", primary)
         self.assertNotIn("Utility histories", primary)
-        self.assertNotIn("ROE", primary)
-        self.assertNotIn("Regional mix", primary)
         self.assertNotIn("Earlier analysis", primary)
-        self.assertIn('class="overview-section-nav"', overview)
+        self.assertNotIn('class="overview-section-nav"', overview)
 
         price_nav = price.split(
-            '<nav class="research-nav draft-model-nav"',
+            '<nav class="research-nav model-nav"',
             1,
         )[1].split("</nav>", 1)[0]
         reliability_nav = reliability.split(
-            '<nav class="research-nav draft-model-nav"',
+            '<nav class="research-nav model-nav"',
             1,
         )[1].split("</nav>", 1)[0]
-        self.assertEqual(price_nav.count("<a "), 3)
-        self.assertEqual(reliability_nav.count("<a "), 3)
-        self.assertIn("Earlier analysis archive", overview)
+        self.assertEqual(price_nav.count("<a "), 4)
+        self.assertEqual(reliability_nav.count("<a "), 4)
+        self.assertNotIn("Earlier analysis archive", overview)
+        self.assertIn('id="roe-case-study"', overview)
+        self.assertIn('id="regional-fuel-mix"', overview)
 
     def test_primary_visual_is_three_groups_of_two_by_five(self):
         html = (PROJECT_ROOT / "site" / "index.html").read_text()
@@ -308,7 +309,7 @@ class TestPricePanelWebsite(unittest.TestCase):
         self.assertIn("Prices included", html)
         self.assertIn("Only prices covering at least 50% of customers", html)
         self.assertIn(
-            "Do electricity prices differ across utility ownership types",
+            "Does utility ownership relate to electricity prices?",
             html,
         )
         self.assertIn("window.NE_NY_OWNERSHIP_PRICE_SUMMARY", script)
@@ -317,11 +318,10 @@ class TestPricePanelWebsite(unittest.TestCase):
         self.assertIn("mini-chart__point--low-coverage", styles)
         self.assertIn("CPI_U_ANNUAL_2013_100", script)
         self.assertIn("reliabilitySummaryRecords", script)
-        self.assertIn("Each line is a simple", html)
         self.assertIn("annual median", html)
-        self.assertIn("Regional prices and selected reliability outcomes by ownership", html)
-        self.assertIn("not represent every utility", html)
-        self.assertIn("42-utility regional sample", html)
+        self.assertIn("Observed outcomes by ownership", html)
+        self.assertIn("selected, not random", html)
+        self.assertIn("42-utility sample", html)
         self.assertIn("reviewed 30-utility sample", html)
         self.assertNotIn("Where fuel mix fits", html)
 
@@ -331,8 +331,7 @@ class TestPricePanelWebsite(unittest.TestCase):
         self.assertIn("isReliabilityFieldExcluded", script)
         self.assertIn("published value", script)
         self.assertIn("conflicts", script)
-        self.assertIn("withheld from the charts", html)
-        self.assertRegex(html, r"full\s+2023 EIA\s+row")
+        self.assertIn("any withheld value", html)
         self.assertNotIn("1,061-minute 2017 value", html)
 
     def test_regional_generation_context_is_visible_and_sourced(self):
@@ -340,10 +339,10 @@ class TestPricePanelWebsite(unittest.TestCase):
         script = (PROJECT_ROOT / "site" / "panel.js").read_text()
         styles = (PROJECT_ROOT / "site" / "styles.css").read_text()
         self.assertIn('id="regional-fuel-mix"', html)
-        self.assertIn('src="data/iso_fuel_mix.js"', html)
+        self.assertIn('src="data/iso_fuel_mix.js', html)
         self.assertIn("EIA Form 923", html)
-        self.assertIn("Imports are not included", html)
-        self.assertIn("Fuel mix can help explain changes in regional supply costs", html)
+        self.assertIn("Imports are excluded", html)
+        self.assertIn("does not identify any utility’s contracts", html)
         self.assertIn("setupIsoFuelMix", script)
         self.assertIn("iso-fuel-mix-chart__segment", script)
         self.assertIn(".iso-fuel-mix-charts", styles)

@@ -237,7 +237,7 @@ const ISO_FUEL_SLUGS = {
 const REVIEWED_DISPLAY_RULES = {};
 const OWNERSHIP_CHANGE_EXPLANATIONS = {
   MTC_CT_UI:
-    "Avangrid completed its acquisition of UIL Holdings on December 16, 2015. Under the project’s end-of-year rule, United Illuminating is coded MTC from 2016 because Avangrid’s ultimate parent is Iberdrola in Spain.",
+    "Avangrid completed its acquisition of UIL Holdings on December 16, 2015. Under the project’s year-end rule, United Illuminating is coded MTC from 2015 because Avangrid’s ultimate parent is Iberdrola in Spain.",
   DOM_RI_RIE:
     "PPL completed its acquisition of Narragansett Electric from National Grid on May 25, 2022. Under the project’s end-of-year rule, the utility is coded DOM from 2022 because PPL is US-based.",
 };

@@ -18,12 +18,12 @@
       },
       {
         "ownership": "DOM",
-        "observation_count": 90,
+        "observation_count": 89,
         "utility_count": 10
       },
       {
         "ownership": "MTC",
-        "observation_count": 125,
+        "observation_count": 126,
         "utility_count": 11
       }
     ]
@@ -43,30 +43,30 @@
     },
     "parameter_count": 21,
     "design_rank": 21,
-    "r_squared": 0.534088470648229,
+    "r_squared": 0.5334987781331317,
     "ownership_results": [
       {
         "ownership": "MTC",
         "reference_ownership": "DOM",
-        "estimate": 41.44322976318345,
+        "estimate": 40.96609743937576,
         "unit": "minutes per customer",
-        "standard_error": 24.90876988233152,
-        "t_statistic": 1.6638007400188912,
-        "p_value": 0.10863912154275368,
-        "confidence_95_low": -9.857353251503724,
-        "confidence_95_high": 92.74381277787063,
+        "standard_error": 25.088392200218763,
+        "t_statistic": 1.6328705766573015,
+        "p_value": 0.11502949029516785,
+        "confidence_95_low": -10.70442474427059,
+        "confidence_95_high": 92.63661962302211,
         "confidence_interval_excludes_zero": false
       },
       {
         "ownership": "COOP",
         "reference_ownership": "DOM",
-        "estimate": 38.59958881674115,
+        "estimate": 38.7549155507114,
         "unit": "minutes per customer",
-        "standard_error": 40.62477490510829,
-        "t_statistic": 0.9501489893027693,
-        "p_value": 0.35113233736206784,
-        "confidence_95_low": -45.068719466550675,
-        "confidence_95_high": 122.26789710003297,
+        "standard_error": 40.836202760844195,
+        "t_statistic": 0.9490332824939238,
+        "p_value": 0.3516883643704344,
+        "confidence_95_low": -45.3488366471549,
+        "confidence_95_high": 122.8586677485777,
         "confidence_interval_excludes_zero": false
       }
     ]
@@ -117,14 +117,14 @@
     {
       "year": 2015,
       "ownership": "DOM",
-      "median_saidi_minutes": 76.9,
-      "observation_count": 8
+      "median_saidi_minutes": 78.6,
+      "observation_count": 7
     },
     {
       "year": 2015,
       "ownership": "MTC",
-      "median_saidi_minutes": 136.91,
-      "observation_count": 10
+      "median_saidi_minutes": 124.42,
+      "observation_count": 11
     },
     {
       "year": 2016,

@@ -8,32 +8,6 @@
   --gridline: #e1e0d9;
   --border: rgba(11, 11, 11, 0.10);
 
-  --fuel-gas: #2a78d6;
-  --fuel-hydro: #008300;
-  --fuel-oil: #e87ba4;
-  --fuel-other: #eda100;
-  --fuel-solar: #1baf7a;
-
-  /* Regional grid mix section uses its own fixed 8-slot order (Coal, Gas,
-     Hydro, Nuclear, Oil, Solar, Waste, Wind) -- a separate section with its
-     own legend, so it doesn't need to match --fuel-* above slot for slot. */
-  --grid-coal: #2a78d6;
-  --grid-gas: #008300;
-  --grid-hydro: #e87ba4;
-  --grid-nuclear: #eda100;
-  --grid-oil: #1baf7a;
-  --grid-solar: #eb6834;
-  --grid-waste: #4a3aa7;
-  --grid-wind: #e34948;
-
-  /* Residential rate comparison reuses 4 already-validated hues from the
-     grid palette above, in a fixed per-utility order distinct from their
-     fuel meaning there -- separate chart, separate legend. */
-  --rate-nyseg: #2a78d6;
-  --rate-nstar: #eda100;
-  --rate-conedison: #e34948;
-  --rate-unitedilluminating: #4a3aa7;
-
   --ownership-mtc: #256a9b;
   --ownership-dom: #b95716;
   --ownership-coop: #2f7a3d;
@@ -62,26 +36,6 @@
     --ink-muted: #898781;
     --gridline: #2c2c2a;
     --border: rgba(255, 255, 255, 0.10);
-
-    --fuel-gas: #3987e5;
-    --fuel-hydro: #008300;
-    --fuel-oil: #d55181;
-    --fuel-other: #c98500;
-    --fuel-solar: #199e70;
-
-    --grid-coal: #3987e5;
-    --grid-gas: #008300;
-    --grid-hydro: #d55181;
-    --grid-nuclear: #c98500;
-    --grid-oil: #199e70;
-    --grid-solar: #d95926;
-    --grid-waste: #9085e9;
-    --grid-wind: #e66767;
-
-    --rate-nyseg: #3987e5;
-    --rate-nstar: #c98500;
-    --rate-conedison: #e66767;
-    --rate-unitedilluminating: #9085e9;
 
     --ownership-mtc: #63a9dc;
     --ownership-dom: #e68a4d;
@@ -117,29 +71,6 @@ body {
   color: var(--ink-primary);
 }
 
-.page-header {
-  padding: 2.5rem 1.5rem 1.5rem;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-.page-header h1 {
-  margin: 0 0 0.5rem;
-  font-size: 1.75rem;
-}
-
-.subtitle {
-  color: var(--ink-secondary);
-  margin: 0;
-  max-width: 640px;
-}
-
-main {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 1.5rem 3rem;
-}
-
 .chart-status {
   margin: 0 0 1.5rem;
   padding: 0.85rem 1rem;
@@ -147,89 +78,6 @@ main {
   background: var(--surface);
   color: var(--ink-secondary);
   line-height: 1.5;
-}
-
-.section-block {
-  margin-bottom: 2.5rem;
-}
-
-.section-title {
-  margin: 0 0 0.4rem;
-  font-size: 1.3rem;
-}
-
-.section-note {
-  color: var(--ink-secondary);
-  margin: 0 0 1.25rem;
-  max-width: 720px;
-  line-height: 1.5;
-}
-
-.charts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 1.5rem;
-}
-
-.chart-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem 1.25rem 1.5rem;
-}
-
-.chart-card h3 {
-  margin: 0 0 0.25rem;
-  font-size: 1.1rem;
-  color: var(--ink-primary);
-}
-
-.chart-entity {
-  margin: 0 0 0.75rem;
-  font-size: 0.8rem;
-  color: var(--ink-muted);
-  line-height: 1.4;
-}
-
-.chart-wrap {
-  position: relative;
-  height: 280px;
-}
-
-.chart-wrap--wide {
-  height: 360px;
-}
-
-.chart-caveat {
-  margin: 0.75rem 0 0;
-  font-size: 0.8rem;
-  color: var(--ink-muted);
-  line-height: 1.4;
-}
-
-.methodology {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem;
-}
-
-.methodology h2 {
-  margin-top: 0;
-  font-size: 1.1rem;
-}
-
-.methodology ul {
-  color: var(--ink-secondary);
-  line-height: 1.6;
-  padding-left: 1.25rem;
-}
-
-.methodology code {
-  background: var(--gridline);
-  padding: 0.1rem 0.3rem;
-  border-radius: 4px;
-  font-size: 0.9em;
 }
 
 .page-footer {
@@ -242,17 +90,17 @@ main {
   color: var(--ink-secondary);
 }
 
-/* Professor-facing draft panel model. */
+/* Price and reliability model pages. */
 
-.draft-model-header {
+.model-header {
   padding-top: 2.25rem;
 }
 
-.draft-model-nav {
+.model-nav {
   margin: 0 0 2.25rem;
 }
 
-.draft-eyebrow {
+.model-eyebrow {
   margin: 0 0 0.5rem !important;
   color: var(--ownership-mtc) !important;
   font-size: 0.76rem !important;
@@ -261,7 +109,7 @@ main {
   text-transform: uppercase;
 }
 
-.draft-warning {
+.model-warning {
   max-width: 720px;
   margin-top: 1.5rem;
   padding: 0.9rem 1rem;
@@ -273,40 +121,40 @@ main {
   line-height: 1.55;
 }
 
-.draft-warning strong {
+.model-warning strong {
   color: var(--ink-primary);
 }
 
-.draft-model-main section {
+.model-main section {
   padding-block: 2.75rem;
 }
 
-.draft-question-grid,
-.draft-stat-grid,
-.draft-decision-grid,
-.draft-definition-grid,
-.draft-method-grid,
-.draft-reliability-cards {
+.model-question-grid,
+.model-stat-grid,
+.model-decision-grid,
+.model-definition-grid,
+.model-method-grid,
+.model-reliability-cards {
   display: grid;
   gap: 1rem;
 }
 
-.draft-question-grid {
+.model-question-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 1.25rem;
 }
 
-.draft-question-grid article,
-.draft-decision-grid article,
-.draft-method-grid article,
-.draft-reliability-card {
+.model-question-grid article,
+.model-decision-grid article,
+.model-method-grid article,
+.model-reliability-card {
   padding: 1.25rem;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--surface);
 }
 
-.draft-question-grid article > span {
+.model-question-grid article > span {
   display: grid;
   width: 1.8rem;
   height: 1.8rem;
@@ -318,34 +166,34 @@ main {
   font-weight: 800;
 }
 
-.draft-question-grid h3,
-.draft-decision-grid h3,
-.draft-method-grid h3,
-.draft-reliability-card h3 {
+.model-question-grid h3,
+.model-decision-grid h3,
+.model-method-grid h3,
+.model-reliability-card h3 {
   margin: 0.85rem 0 0;
   font-size: 1rem;
 }
 
-.draft-question-grid p,
-.draft-decision-grid p,
-.draft-method-grid p,
-.draft-reliability-card p {
+.model-question-grid p,
+.model-decision-grid p,
+.model-method-grid p,
+.model-reliability-card p {
   margin-top: 0.45rem;
   font-size: 0.9rem;
 }
 
-.draft-section-heading {
+.model-section-heading {
   display: flex;
   align-items: end;
   justify-content: space-between;
   gap: 1.5rem;
 }
 
-.draft-section-heading h2 {
+.model-section-heading h2 {
   margin-bottom: 0;
 }
 
-.draft-select {
+.model-select {
   display: grid;
   flex: 0 0 auto;
   gap: 0.35rem;
@@ -354,7 +202,7 @@ main {
   font-weight: 700;
 }
 
-.draft-select select {
+.model-select select {
   min-width: 13.5rem;
   padding: 0.55rem 2rem 0.55rem 0.65rem;
   border: 1px solid var(--border);
@@ -365,7 +213,7 @@ main {
   font-weight: 500;
 }
 
-.draft-finding-card {
+.model-finding-card {
   margin-top: 1.4rem;
   padding: 1.35rem 1.5rem;
   border: 1px solid color-mix(in srgb, var(--ownership-mtc) 35%, var(--border));
@@ -373,7 +221,7 @@ main {
   background: color-mix(in srgb, var(--ownership-mtc) 6%, var(--surface));
 }
 
-.draft-finding-label {
+.model-finding-label {
   margin: 0 !important;
   color: var(--ownership-mtc) !important;
   font-size: 0.76rem !important;
@@ -382,31 +230,31 @@ main {
   text-transform: uppercase;
 }
 
-.draft-finding-card h3 {
+.model-finding-card h3 {
   margin: 0.45rem 0 0;
   font-size: clamp(1.2rem, 2.5vw, 1.55rem);
   line-height: 1.3;
 }
 
-.draft-finding-card p:last-child {
+.model-finding-card p:last-child {
   max-width: 980px;
   margin-top: 0.65rem;
 }
 
-.draft-stat-grid {
+.model-stat-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   max-width: 760px;
   margin-top: 1rem;
 }
 
-.draft-stat-grid article {
+.model-stat-grid article {
   padding: 1rem 1.1rem;
   border: 1px solid var(--border);
   border-radius: 7px;
   background: var(--surface);
 }
 
-.draft-stat-grid span {
+.model-stat-grid span {
   display: block;
   color: var(--ink-primary);
   font-size: 1.35rem;
@@ -414,12 +262,12 @@ main {
   font-variant-numeric: tabular-nums;
 }
 
-.draft-stat-grid p {
+.model-stat-grid p {
   margin: 0.15rem 0 0;
   font-size: 0.78rem;
 }
 
-.draft-chart-card {
+.model-chart-card {
   margin-top: 1.5rem;
   padding: 1.35rem 1.5rem;
   border: 1px solid var(--border);
@@ -427,24 +275,24 @@ main {
   background: var(--surface);
 }
 
-.draft-chart-heading {
+.model-chart-heading {
   display: flex;
   align-items: start;
   justify-content: space-between;
   gap: 1rem;
 }
 
-.draft-chart-heading h3 {
+.model-chart-heading h3 {
   margin: 0;
   font-size: 1.05rem;
 }
 
-.draft-chart-heading p {
+.model-chart-heading p {
   margin: 0.25rem 0 0;
   font-size: 0.82rem;
 }
 
-.draft-chart-legend {
+.model-chart-legend {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -452,29 +300,29 @@ main {
   font-size: 0.76rem;
 }
 
-.draft-chart-legend span {
+.model-chart-legend span {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
 }
 
-.draft-legend-line {
+.model-legend-line {
   width: 1.5rem;
   border-top: 3px solid var(--ink-secondary);
 }
 
-.draft-legend-dot {
+.model-legend-dot {
   width: 0.65rem;
   height: 0.65rem;
   border-radius: 999px;
   background: var(--ink-secondary);
 }
 
-.draft-ownership-chart {
+.model-ownership-chart {
   margin-top: 1.3rem;
 }
 
-.draft-axis-labels {
+.model-axis-labels {
   display: grid;
   grid-template-columns: 8.5rem 1fr 4.5rem;
   margin: 0 0 0.45rem;
@@ -483,23 +331,23 @@ main {
   font-variant-numeric: tabular-nums;
 }
 
-.draft-axis-labels div {
+.model-axis-labels div {
   display: flex;
   justify-content: space-between;
 }
 
-.draft-coef-group + .draft-coef-group {
+.model-coef-group + .model-coef-group {
   margin-top: 1.4rem;
   padding-top: 1.25rem;
   border-top: 1px solid var(--border);
 }
 
-.draft-coef-group h4 {
+.model-coef-group h4 {
   margin: 0 0 0.65rem;
   font-size: 0.88rem;
 }
 
-.draft-coef-row {
+.model-coef-row {
   display: grid;
   grid-template-columns: 8.5rem minmax(12rem, 1fr) 4.5rem;
   align-items: center;
@@ -507,18 +355,18 @@ main {
   gap: 0.75rem;
 }
 
-.draft-coef-model {
+.model-coef-model {
   color: var(--ink-secondary);
   font-size: 0.78rem;
 }
 
-.draft-coef-track {
+.model-coef-track {
   position: relative;
   height: 1.25rem;
   border-bottom: 1px solid var(--gridline);
 }
 
-.draft-coef-zero {
+.model-coef-zero {
   position: absolute;
   top: 0;
   bottom: -1px;
@@ -526,7 +374,7 @@ main {
   background: var(--ink-muted);
 }
 
-.draft-coef-interval {
+.model-coef-interval {
   position: absolute;
   top: 0.56rem;
   height: 3px;
@@ -534,7 +382,7 @@ main {
   background: var(--ownership-mtc);
 }
 
-.draft-coef-point {
+.model-coef-point {
   position: absolute;
   top: 0.29rem;
   width: 0.72rem;
@@ -546,57 +394,57 @@ main {
   box-shadow: 0 0 0 1px var(--ownership-mtc);
 }
 
-.draft-coef-row--coop .draft-coef-interval,
-.draft-coef-row--coop .draft-coef-point {
+.model-coef-row--coop .model-coef-interval,
+.model-coef-row--coop .model-coef-point {
   background: var(--ownership-coop);
 }
 
-.draft-coef-row--coop .draft-coef-point {
+.model-coef-row--coop .model-coef-point {
   box-shadow: 0 0 0 1px var(--ownership-coop);
 }
 
-.draft-coef-value,
-.draft-table-estimate,
-.draft-table-p {
+.model-coef-value,
+.model-table-estimate,
+.model-table-p {
   font-variant-numeric: tabular-nums;
 }
 
-.draft-coef-value {
+.model-coef-value {
   text-align: right;
   color: var(--ink-primary);
   font-size: 0.78rem;
   font-weight: 750;
 }
 
-.draft-results-table-wrap {
+.model-results-table-wrap {
   margin-top: 1.25rem;
 }
 
-.draft-results-table th:first-child {
+.model-results-table th:first-child {
   min-width: 9.5rem;
 }
 
-.draft-results-table td {
+.model-results-table td {
   white-space: nowrap;
 }
 
-.draft-table-estimate,
-.draft-table-p {
+.model-table-estimate,
+.model-table-p {
   display: block;
 }
 
-.draft-table-estimate {
+.model-table-estimate {
   color: var(--ink-primary);
   font-weight: 750;
 }
 
-.draft-table-p {
+.model-table-p {
   margin-top: 0.15rem;
   color: var(--ink-muted);
   font-size: 0.76rem;
 }
 
-.draft-secondary-finding {
+.model-secondary-finding {
   max-width: 920px;
   margin-top: 1.25rem !important;
   padding-left: 1rem;
@@ -605,75 +453,75 @@ main {
   font-size: 1rem;
 }
 
-.draft-reliability-cards {
+.model-reliability-cards {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   max-width: 860px;
   margin-top: 1.25rem;
 }
 
-.draft-reliability-card {
+.model-reliability-card {
   border-top: 4px solid var(--ownership-mtc);
 }
 
-.draft-reliability-card--coop {
+.model-reliability-card--coop {
   border-top-color: var(--ownership-coop);
 }
 
-.draft-reliability-card h3 {
+.model-reliability-card h3 {
   margin-top: 0;
 }
 
-.draft-reliability-card strong {
+.model-reliability-card strong {
   display: block;
   margin-top: 0.55rem;
   font-size: 1.4rem;
   font-variant-numeric: tabular-nums;
 }
 
-.draft-reliability-card span {
+.model-reliability-card span {
   display: block;
   margin-top: 0.6rem;
   color: var(--ink-muted);
   font-size: 0.78rem;
 }
 
-.draft-decision-grid {
+.model-decision-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 1.25rem;
 }
 
-.draft-decision-grid h3,
-.draft-method-grid h3 {
+.model-decision-grid h3,
+.model-method-grid h3 {
   margin-top: 0;
 }
 
-.draft-definition-grid {
+.model-definition-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 1.25rem;
 }
 
-.draft-definition-grid > div {
+.model-definition-grid > div {
   padding-top: 0.8rem;
   border-top: 3px solid var(--gridline);
 }
 
-.draft-definition-grid dt {
+.model-definition-grid dt {
   font-weight: 800;
 }
 
-.draft-definition-grid dd {
+.model-definition-grid dd {
   margin: 0.45rem 0 0;
   color: var(--ink-secondary);
   font-size: 0.9rem;
   line-height: 1.55;
 }
 
-.draft-method-grid {
+.model-method-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 1.25rem;
 }
 
-.draft-limit-box {
+.model-limit-box {
   margin-top: 1.25rem;
   padding: 1.25rem 1.35rem;
   border: 1px solid color-mix(in srgb, var(--ownership-dom) 40%, var(--border));
@@ -681,20 +529,20 @@ main {
   background: color-mix(in srgb, var(--ownership-dom) 6%, var(--surface));
 }
 
-.draft-limit-box h3 {
+.model-limit-box h3 {
   margin: 0;
   font-size: 1rem;
 }
 
-.draft-limit-box p {
+.model-limit-box p {
   margin-top: 0.5rem;
 }
 
-.draft-downloads {
+.model-downloads {
   margin-top: 1.35rem !important;
 }
 
-.draft-model-link-card {
+.model-link-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -706,17 +554,17 @@ main {
   background: color-mix(in srgb, var(--ownership-mtc) 6%, var(--surface));
 }
 
-.draft-model-link-card h3 {
+.model-link-card h3 {
   margin: 0;
   font-size: 1.05rem;
 }
 
-.draft-model-link-card p:not(.draft-eyebrow) {
+.model-link-card p:not(.model-eyebrow) {
   margin-top: 0.35rem;
   font-size: 0.88rem;
 }
 
-.draft-model-link-card > a {
+.model-link-card > a {
   flex: 0 0 auto;
   padding: 0.65rem 0.85rem;
   border-radius: 5px;
@@ -726,36 +574,36 @@ main {
 }
 
 @media (max-width: 760px) {
-  .draft-question-grid,
-  .draft-decision-grid,
-  .draft-definition-grid,
-  .draft-method-grid,
-  .draft-stat-grid,
-  .draft-reliability-cards {
+  .model-question-grid,
+  .model-decision-grid,
+  .model-definition-grid,
+  .model-method-grid,
+  .model-stat-grid,
+  .model-reliability-cards {
     grid-template-columns: 1fr;
   }
 
-  .draft-section-heading,
-  .draft-chart-heading {
+  .model-section-heading,
+  .model-chart-heading {
     align-items: stretch;
     flex-direction: column;
   }
 
-  .draft-select select {
+  .model-select select {
     width: 100%;
   }
 
-  .draft-axis-labels,
-  .draft-coef-row {
+  .model-axis-labels,
+  .model-coef-row {
     grid-template-columns: 6.8rem minmax(8rem, 1fr) 3.8rem;
     gap: 0.45rem;
   }
 
-  .draft-chart-card {
+  .model-chart-card {
     padding-inline: 1rem;
   }
 
-  .draft-model-link-card {
+  .model-link-card {
     align-items: flex-start;
     flex-direction: column;
     gap: 1rem;
@@ -764,23 +612,23 @@ main {
 
 /* Compact panel-regression page. */
 
-.draft-model-header {
+.model-header {
   padding-top: 1.75rem;
 }
 
-.draft-model-nav {
+.model-nav {
   margin-bottom: 1.5rem;
 }
 
-.draft-model-main section {
+.model-main section {
   padding-block: 1.75rem;
 }
 
-.draft-model-main h2 {
+.model-main h2 {
   font-size: 1.25rem;
 }
 
-.draft-equation {
+.model-equation {
   max-width: none;
   margin: 1rem 0;
   padding: 0.75rem 0;
@@ -790,38 +638,38 @@ main {
   font-size: 0.9rem;
 }
 
-.draft-method-list {
+.model-method-list {
   margin: 0;
   padding-left: 1.25rem;
   color: var(--ink-secondary);
   line-height: 1.6;
 }
 
-.draft-results-table-wrap {
+.model-results-table-wrap {
   margin-top: 1rem;
 }
 
-.draft-results-table {
+.model-results-table {
   min-width: 1050px;
   font-size: 0.78rem;
 }
 
-.draft-results-table--main {
+.model-results-table--main {
   min-width: 760px;
 }
 
-.draft-saidi-groups {
+.model-saidi-groups {
   display: grid;
   gap: 1.4rem;
   margin-top: 1.25rem;
 }
 
-.draft-saidi-group {
+.model-saidi-group {
   padding-top: 1rem;
   border-top: 1px solid var(--border);
 }
 
-.draft-saidi-group__header {
+.model-saidi-group__header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -829,70 +677,70 @@ main {
   margin-bottom: 0.55rem;
 }
 
-.draft-saidi-group__header h3,
-.draft-saidi-group__header p {
+.model-saidi-group__header h3,
+.model-saidi-group__header p {
   margin: 0;
 }
 
-.draft-saidi-group__header h3 {
+.model-saidi-group__header h3 {
   font-size: 1rem;
 }
 
-.draft-saidi-group__header p {
+.model-saidi-group__header p {
   color: var(--ink-muted);
   font-size: 0.76rem;
   font-variant-numeric: tabular-nums;
 }
 
-.draft-compact-table {
+.model-compact-table {
   width: 100%;
   table-layout: fixed;
   font-size: 0.78rem;
 }
 
-.draft-compact-table th,
-.draft-compact-table td {
+.model-compact-table th,
+.model-compact-table td {
   padding: 0.65rem 0.55rem;
   vertical-align: middle;
 }
 
-.draft-compact-table th:first-child {
+.model-compact-table th:first-child {
   width: 22%;
 }
 
-.draft-results-table th,
-.draft-results-table td {
+.model-results-table th,
+.model-results-table td {
   vertical-align: top;
 }
 
-.draft-results-table th:first-child {
+.model-results-table th:first-child {
   min-width: 7rem;
 }
 
-.draft-table-estimate,
-.draft-table-detail {
+.model-table-estimate,
+.model-table-detail {
   display: block;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 
-.draft-table-estimate {
+.model-table-estimate {
   color: var(--ink-primary);
   font-weight: 700;
 }
 
-.draft-table-detail {
+.model-table-detail {
   margin-top: 0.15rem;
   color: var(--ink-muted);
   font-size: 0.7rem;
 }
 
-.draft-model-result--uncertain,
-.draft-model-row--uncertain td {
+.model-result--uncertain,
+.model-row--uncertain td {
   background: var(--uncertain-bg);
 }
 
-.draft-table-interpretation {
+.model-table-interpretation {
   display: block;
   margin-top: 0.3rem;
   color: var(--uncertain-ink);
@@ -901,14 +749,14 @@ main {
   white-space: nowrap;
 }
 
-.draft-change-cell {
+.model-change-cell {
   color: var(--ink-secondary);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
-.draft-result-summary {
+.model-result-summary {
   margin-top: 1rem;
   padding-left: 0.85rem;
   border-left: 3px solid var(--ink-primary);
@@ -916,11 +764,11 @@ main {
   line-height: 1.55;
 }
 
-.draft-downloads {
+.model-downloads {
   margin: 0.75rem 0 1rem !important;
 }
 
-.draft-data-filter {
+.model-data-filter {
   display: grid;
   max-width: 32rem;
   gap: 0.35rem;
@@ -929,7 +777,7 @@ main {
   font-weight: 700;
 }
 
-.draft-data-filter input {
+.model-data-filter input {
   width: 100%;
   padding: 0.55rem 0.65rem;
   border: 1px solid var(--border);
@@ -940,24 +788,24 @@ main {
   font-weight: 400;
 }
 
-.draft-data-table-wrap {
+.model-data-table-wrap {
   margin-top: 0.75rem;
 }
 
-.draft-data-table {
+.model-data-table {
   width: max-content;
   min-width: 100%;
   font-size: 0.7rem;
 }
 
-.draft-data-table th,
-.draft-data-table td {
+.model-data-table th,
+.model-data-table td {
   max-width: 18rem;
   vertical-align: top;
   white-space: nowrap;
 }
 
-.draft-data-table thead th {
+.model-data-table thead th {
   position: sticky;
   top: 0;
   z-index: 1;
@@ -965,24 +813,24 @@ main {
 }
 
 @media (max-width: 760px) {
-  .draft-model-main section {
+  .model-main section {
     padding-block: 1.35rem;
   }
 
-  .draft-saidi-group__header {
+  .model-saidi-group__header {
     display: block;
   }
 
-  .draft-saidi-group__header p {
+  .model-saidi-group__header p {
     margin-top: 0.2rem;
   }
 
-  .draft-compact-table {
+  .model-compact-table {
     font-size: 0.72rem;
   }
 
-  .draft-compact-table th,
-  .draft-compact-table td {
+  .model-compact-table th,
+  .model-compact-table td {
     padding: 0.55rem 0.3rem;
   }
 }
@@ -1137,7 +985,7 @@ main {
   }
 }
 
-/* Current research overview and context above the preserved earlier analysis. */
+/* Current research overview. */
 
 .research-header,
 .research-main,
@@ -1165,6 +1013,15 @@ main {
   color: var(--ink-secondary);
   font-size: 1.05rem;
   line-height: 1.6;
+}
+
+.research-header > .research-kicker {
+  margin: 0 0 0.65rem;
+  color: var(--ownership-mtc);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .research-nav {
@@ -1235,6 +1092,65 @@ main {
 
 .research-main li + li {
   margin-top: 0.35rem;
+}
+
+.finding-grid,
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.finding-card,
+.methods-grid > div {
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.finding-card h3,
+.methods-grid h3 {
+  margin: 0.35rem 0 0;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.finding-card p,
+.methods-grid p {
+  font-size: 0.92rem;
+}
+
+.finding-card .finding-card__label {
+  margin: 0;
+  color: var(--ownership-mtc);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.scope-note {
+  max-width: 920px;
+  padding: 1rem 1.1rem;
+  border-left: 4px solid var(--ownership-dom);
+  background: var(--surface);
+}
+
+.data-links {
+  margin-top: 1.25rem !important;
+}
+
+.supplementary-block {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.supplementary-block h3 {
+  margin: 0;
+  font-size: 1.08rem;
 }
 
 .table-wrap {
@@ -2844,6 +2760,11 @@ main {
 }
 
 @media (max-width: 760px) {
+  .finding-grid,
+  .methods-grid {
+    grid-template-columns: 1fr;
+  }
+
   .ct-case-study-grid {
     grid-template-columns: 1fr;
   }

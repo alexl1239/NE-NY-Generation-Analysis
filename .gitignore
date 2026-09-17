@@ -1,9 +1,12 @@
 __pycache__/
 *.pyc
+.venv/
+.pytest_cache/
 .DS_Store
 
-# Large source PDFs and scratch work for the base-rates extraction -- kept
-# locally for audit purposes, not needed to build or serve the site.
-data/raw/
+# Large source files stay outside Git and travel in the separate handoff
+# archive. Keep the small documentation file visible to Git.
+data/raw/*
+!data/raw/README.md
 outputs/
 tmp/

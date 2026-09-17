@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(PROJECT_ROOT))
+sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 import build_price_models  # noqa: E402
 
@@ -17,18 +17,18 @@ import build_price_models  # noqa: E402
 EXPECTED_PRIMARY = {
     "residential": {
         "counts": (347, 30, 20, 20),
-        "MTC": (-7.070180, -13.303100, -0.837261),
-        "COOP": (-12.045442, -18.242286, -5.848597),
+        "MTC": (-6.996145, -13.268144, -0.724146),
+        "COOP": (-12.068830, -18.331803, -5.805857),
     },
     "commercial": {
         "counts": (347, 30, 20, 20),
-        "MTC": (-6.010784, -9.925252, -2.096315),
-        "COOP": (-7.720616, -11.971548, -3.469683),
+        "MTC": (-5.962948, -9.907294, -2.018601),
+        "COOP": (-7.747740, -12.038375, -3.457105),
     },
     "industrial": {
         "counts": (324, 29, 20, 20),
-        "MTC": (-2.615589, -7.162687, 1.931508),
-        "COOP": (-6.110893, -9.985353, -2.236433),
+        "MTC": (-2.531146, -7.097048, 2.034757),
+        "COOP": (-6.091429, -9.998215, -2.184644),
     },
 }
 
@@ -101,18 +101,18 @@ class PriceModelTests(unittest.TestCase):
         self.assertTrue(js_text.endswith(";"))
         self.assertEqual(json.loads(js_text[len(prefix) : -1]), processed)
 
-    def test_website_keeps_observed_data_and_links_the_new_draft_page(self) -> None:
+    def test_website_keeps_observed_data_and_links_the_price_page(self) -> None:
         html = (PROJECT_ROOT / "site" / "index.html").read_text()
-        draft_html = (PROJECT_ROOT / "site" / "draft-panel-model.html").read_text()
-        draft_javascript = (PROJECT_ROOT / "site" / "draft-panel-model.js").read_text()
+        price_html = (PROJECT_ROOT / "site" / "price-model.html").read_text()
+        price_javascript = (PROJECT_ROOT / "site" / "price-model.js").read_text()
         self.assertIn('id="observed-comparison-panel"', html)
-        self.assertIn('href="draft-panel-model.html"', html)
+        self.assertIn('href="price-model.html"', html)
         self.assertNotIn('id="adjusted-comparison-panel"', html)
-        self.assertIn("data/draft_panel_model_results.js", draft_html)
-        self.assertIn('id="main-price-results-table"', draft_html)
-        self.assertIn('id="saidi-comparison-groups"', draft_html)
-        self.assertIn("renderMainPriceResults", draft_javascript)
-        self.assertNotIn("renderOwnershipChart", draft_javascript)
+        self.assertIn("data/price_panel_model_results.js", price_html)
+        self.assertIn('id="main-price-results-table"', price_html)
+        self.assertIn('id="saidi-comparison-groups"', price_html)
+        self.assertIn("renderMainPriceResults", price_javascript)
+        self.assertNotIn("renderOwnershipChart", price_javascript)
 
 
 if __name__ == "__main__":

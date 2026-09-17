@@ -61,7 +61,7 @@ that they are identical.
 
 ## Reproducible outputs
 
-- Build script: `build_iso_fuel_mix.py`
+- Build script: `scripts/build_iso_fuel_mix.py`
 - Processed data: `data/processed/iso_fuel_mix_2013_2024.csv`
 - ISO cross-checks: `data/processed/iso_fuel_mix_crosschecks_2024.csv`
 - Website data: `site/data/iso_fuel_mix.csv`, `.json`, and `.js`

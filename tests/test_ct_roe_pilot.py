@@ -1,4 +1,6 @@
 import csv
+import re
+import unittest
 from pathlib import Path
 
 
@@ -36,8 +38,8 @@ def test_pilot_has_six_complete_annual_spines():
 
 def test_ownership_change_matches_project_rule():
     rows = read_rows(ANNUAL_PATH)
-    assert annual_row(rows, 19497, 2015)["ownership"] == "DOM"
-    assert annual_row(rows, 19497, 2016)["ownership"] == "MTC"
+    assert annual_row(rows, 19497, 2014)["ownership"] == "DOM"
+    assert annual_row(rows, 19497, 2015)["ownership"] == "MTC"
     assert {annual_row(rows, 4176, year)["ownership"] for year in range(2013, 2025)} == {"DOM"}
     assert {annual_row(rows, 54913, year)["ownership"] for year in range(2013, 2025)} == {"DOM"}
     assert {annual_row(rows, 11804, year)["ownership"] for year in range(2013, 2025)} == {"MTC"}
@@ -169,12 +171,22 @@ def test_website_uses_six_separate_dual_axis_utility_charts():
     panel = SITE_PANEL_PATH.read_text(encoding="utf-8")
     css = SITE_CSS_PATH.read_text(encoding="utf-8")
 
-    assert "Each utility stays separate" in html
-    assert "full-year average price uses the left axis" in html
-    assert "year-end authorized ROE uses the right axis" in html
+    assert 'id="roe-case-study"' in html
+    assert "Matched-state prices and authorized ROE" in html
+    assert "Prices are full-year EIA averages" in html
+    assert "regulator-authorized rate in force at year-end" in re.sub(r"\s+", " ", html)
     assert "Prices are full-year averages and ROE is measured at year-end" in panel
     assert "records.length !== 72" in panel
     assert "for (const utilityId of CT_CASE_STUDY_UTILITY_IDS)" in panel
     assert "buildCtCaseStudyCard(byUtility.get(utilityId), customerClass, priceMaximum)" in panel
     assert "ct-dual-chart__line--price" in css
     assert "ct-dual-chart__line--roe" in css
+
+
+def load_tests(loader, tests, pattern):
+    """Expose the function-style ROE checks to unittest discovery."""
+    suite = unittest.TestSuite()
+    for name, value in sorted(globals().items()):
+        if name.startswith("test_") and callable(value):
+            suite.addTest(unittest.FunctionTestCase(value))
+    return suite
