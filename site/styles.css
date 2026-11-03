@@ -1085,6 +1085,100 @@ body {
   margin: 0.75rem 0 0;
 }
 
+/* Downloadable paper assets. */
+
+.downloads-main section:first-child {
+  padding-top: 1.5rem;
+}
+
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.download-grid--figures {
+  grid-template-columns: minmax(0, 900px);
+}
+
+.downloads-section-intro {
+  max-width: 52rem;
+}
+
+.download-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.download-card__preview {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: #ffffff;
+}
+
+.download-card__preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.download-card__preview--figure {
+  aspect-ratio: 30 / 17;
+}
+
+.download-card__body {
+  padding: 1rem 1.1rem 1.15rem;
+}
+
+.download-card__body--title {
+  padding-bottom: 0.9rem;
+}
+
+.download-card__body--title + .download-card__preview {
+  border-top: 1px solid var(--border);
+}
+
+.download-card__body h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.download-card__body p {
+  margin: 0.45rem 0 0;
+  font-size: 0.9rem;
+}
+
+.download-card__body .figure-caption {
+  color: var(--ink-primary);
+}
+
+.download-card__body .figure-note {
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.download-button {
+  display: inline-block;
+  margin-top: 0.85rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 5px;
+  background: var(--ink-primary);
+  color: var(--page) !important;
+  font-size: 0.88rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.download-button:hover,
+.download-button:focus-visible {
+  opacity: 0.82;
+}
+
 .research-main ul {
   margin: 0.75rem 0 0;
   padding-left: 1.25rem;
