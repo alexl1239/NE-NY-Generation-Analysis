@@ -48,7 +48,7 @@
           </p>
         </div>
         <label class="model-select" for="extension-customer-class">
-          Customer type
+          Customer class — applies to all charts and comparisons below
           <select id="extension-customer-class">
             <option value="residential">Residential</option>
             <option value="commercial">Commercial</option>
@@ -71,8 +71,8 @@
         <div>
           <h2 id="utility-history-title">Individual utility history</h2>
           <p>
-            Select a utility and customer type, then select a point for its exact
-            price and bundled-customer count.
+            The nine highlighted utilities appear below. The customer-class selector
+            above switches all charts together. Select a point for its price and customer count.
           </p>
         </div>
         <label class="model-select" for="extension-utility">
@@ -80,6 +80,8 @@
           <select id="extension-utility"></select>
         </label>
       </div>
+      <div id="extension-small-panels" class="extension-small-panels"></div>
+      <h3>Explore a utility in detail</h3>
       <p id="extension-utility-status" class="chart-status" hidden></p>
       <div id="extension-utility-chart" class="extension-chart" aria-live="polite"></div>
       <div id="extension-point-detail" class="extension-point-detail" aria-live="polite"></div>
@@ -88,13 +90,15 @@
 
     <section id="ownership-changes" aria-labelledby="ownership-changes-title">
       <h2 id="ownership-changes-title">Reviewed ownership changes</h2>
+      <p>The figures beside each acquisition compare average prices before and after the ownership change, for the customer class selected above. They also show how prices changed over the same years at utilities that did not change ownership. All amounts use inflation-adjusted 2024 cents per kWh; averages give each year and each comparison utility equal weight. The acquisition year is left out. These descriptive comparisons do not establish causation.</p>
       <p>
         Nine clean ownership-class changes occur between 2001 and 2024: eight from
-        DOM to MTC and one from MTC to DOM.
+        DOM to MTC and one from MTC to DOM. DOM means a U.S.-owned investor utility;
+        MTC means a utility with a foreign or multinational parent.
       </p>
       <div class="extension-event-list">
         <article>
-          <h3>Versant Power lineage (Bangor Hydro) · October 10, 2001</h3>
+          <h3>Versant Power lineage (Bangor Hydro) · October 10, 2001 · <strong>DOM → MTC</strong></h3>
           <p>
             Emera Inc. of Canada acquired Bangor Hydro-Electric, the utility lineage
             now shown as Versant Power. Because the acquisition closed in the first
@@ -103,7 +107,7 @@
           </p>
         </article>
         <article>
-          <h3>Niagara Mohawk · January 31, 2002</h3>
+          <h3>Niagara Mohawk · January 31, 2002 · <strong>DOM → MTC</strong></h3>
           <p>
             National Grid plc of the United Kingdom acquired Niagara Mohawk. Only
             2001 is available as a full pre-closing year, so this change does not
@@ -112,7 +116,7 @@
           </p>
         </article>
         <article>
-          <h3>Green Mountain Power · April 12, 2007</h3>
+          <h3>Green Mountain Power · April 12, 2007 · <strong>DOM → MTC</strong></h3>
           <p>
             Gaz Metro Limited Partnership of Canada acquired Green Mountain Power;
             the legal utility and EIA identifier continued under the new parent.
@@ -121,17 +125,18 @@
           </p>
         </article>
         <article>
-          <h3>Central Maine Power · September 16, 2008</h3>
+          <h3>Central Maine Power · September 16, 2008 · <strong>DOM → MTC</strong></h3>
           <p>
             Iberdrola S.A. of Spain acquired Energy East, changing Central Maine
-            Power's ultimate parent. The residential and commercial bundled-customer
-            series are extremely thin, and the industrial series lacks the planned
-            immediate window, so this case is not a primary comparison.
+            Power's ultimate parent. Its published bundled prices cover as few as
+            27 residential customers and 6 commercial customers in the comparison
+            years. These small groups do not provide a representative utility-wide
+            comparison. Industrial prices lack sufficient consecutive years.
             <a href="https://www.sec.gov/Archives/edgar/data/1046861/000104686108000163/e8k091608.htm">Source</a>
           </p>
         </article>
         <article>
-          <h3>NYSEG · September 16, 2008</h3>
+          <h3>NYSEG · September 16, 2008 · <strong>DOM → MTC</strong></h3>
           <p>
             The same Iberdrola–Energy East transaction moved NYSEG from a U.S.
             parent to a Spanish parent. Residential, commercial, and industrial
@@ -140,7 +145,7 @@
           </p>
         </article>
         <article>
-          <h3>Rochester Gas &amp; Electric · September 16, 2008</h3>
+          <h3>Rochester Gas &amp; Electric · September 16, 2008 · <strong>DOM → MTC</strong></h3>
           <p>
             Rochester Gas &amp; Electric changed parent in the Iberdrola acquisition
             of Energy East. All three customer classes have the planned four-year
@@ -149,7 +154,7 @@
           </p>
         </article>
         <article>
-          <h3>Central Hudson · June 27, 2013</h3>
+          <h3>Central Hudson · June 27, 2013 · <strong>DOM → MTC</strong></h3>
           <p>
             Fortis Inc. of Canada acquired CH Energy Group, moving Central Hudson
             from a U.S. parent to a Canadian parent. The 2013 closing year is mixed;
@@ -158,7 +163,7 @@
           </p>
         </article>
         <article>
-          <h3>United Illuminating · December 16, 2015</h3>
+          <h3>United Illuminating · December 16, 2015 · <strong>DOM → MTC</strong></h3>
           <p>
             Iberdrola S.A. acquired UIL Holdings through Avangrid, changing United
             Illuminating from a U.S. parent to a Spanish parent. The first full
@@ -167,7 +172,7 @@
           </p>
         </article>
         <article>
-          <h3>Rhode Island Energy · May 25, 2022</h3>
+          <h3>Rhode Island Energy · May 25, 2022 · <strong>MTC → DOM</strong></h3>
           <p>
             PPL Corporation acquired Narragansett Electric from National Grid and
             rebranded the operation Rhode Island Energy. This is the one reviewed

@@ -215,9 +215,18 @@
   }])).values()].sort((left, right) => (
     left.state.localeCompare(right.state) || left.name.localeCompare(right.name)
   ));
-  utilitySelect.innerHTML = utilities.map((utility) => (
-    `<option value="${escapeHtml(utility.panelId)}">${escapeHtml(utility.state)} · ${escapeHtml(utility.name)}</option>`
-  )).join("");
+  const highlightedEvents = new Map(designRows.map((event) => [event.treated_panel_id, event]));
+  const utilityOption = (utility) => {
+    const event = highlightedEvents.get(utility.panelId);
+    const label = event
+      ? ` · ${event.year_end_treatment_year}: ${event.old_ownership_class} → ${event.new_ownership_class}`
+      : "";
+    return `<option value="${escapeHtml(utility.panelId)}">${escapeHtml(utility.state)} · ${escapeHtml(utility.name)}${escapeHtml(label)}</option>`;
+  };
+  utilitySelect.innerHTML = `<optgroup label="Highlighted ownership changes">${utilities
+    .filter((utility) => highlightedEvents.has(utility.panelId)).map(utilityOption).join("")}</optgroup>
+    <optgroup label="Other utilities">${utilities
+    .filter((utility) => !highlightedEvents.has(utility.panelId)).map(utilityOption).join("")}</optgroup>`;
   utilitySelect.value = utilities.some((utility) => utility.panelId === "MTC_VT_GMP")
     ? "MTC_VT_GMP"
     : utilities[0].panelId;
@@ -353,6 +362,68 @@
     renderBasisNote(priceBasis);
     renderTrend(customerClass, priceBasis);
     renderUtility(customerClass, priceBasis);
+    renderSmallPanels(customerClass, priceBasis);
+    const events = [...new Set(designRows.map((row) => row.event_id))];
+    document.querySelectorAll(".extension-event-list article").forEach((article, index) => {
+      let cell = article.querySelector(".extension-event-result");
+      if (!cell) {
+        const description = document.createElement("div");
+        while (article.firstChild) description.appendChild(article.firstChild);
+        article.appendChild(description);
+        cell = document.createElement("div");
+        cell.className = "extension-event-result";
+        article.appendChild(cell);
+      }
+      const event = designRows.find((row) => row.event_id === events[index] && row.customer_class === customerClass);
+      if (!event || event.before_real_2024 === "" || event.before_real_2024 == null) {
+        cell.textContent = event?.phase6_window_role === "excluded_extremely_thin_customer_base"
+          ? `Comparison omitted: the published bundled price covers as few as ${formatCustomers(event.treated_min_bundled_customers_selected_years)} ${customerClass} customers in the selected years. This small group does not adequately represent the utility’s customers.`
+          : "Comparison omitted: too few consecutive years of published prices before or after the acquisition.";
+        return;
+      }
+      const signed = (value) => `${Number(value) >= 0 ? "+" : ""}${Number(value).toFixed(2)}¢`;
+      const before = Number(event.before_real_2024);
+      const after = Number(event.after_real_2024);
+      const pre = event.selected_pre_years.split("|");
+      const post = event.selected_post_years.split("|");
+      const relative = Number(event.relative_change_real_2024);
+      cell.innerHTML = `<strong>${customerLabels[customerClass]} prices</strong>
+        <p>Before (${pre[0]}–${pre.at(-1)}): <strong>${formatPrice(before)}</strong><br>
+        After (${post[0]}–${post.at(-1)}): <strong>${formatPrice(after)}</strong></p>
+        <p>This utility’s change: ${signed(after-before)}<br>
+        Average change at ${event.eligible_control_count} utilities without an ownership change: ${signed(event.comparison_change_real_2024)}</p>
+        <p><strong>${Math.abs(relative).toFixed(2)}¢ ${relative >= 0 ? "higher" : "lower"} than the change at comparison utilities.</strong></p>
+        <small>All prices are inflation-adjusted 2024 cents/kWh.${event.phase6_window_role.includes("sensitivity") ? " Short comparison: only two full years on each side." : ""}</small>
+        <details><summary>View comparison utilities</summary><ul>${event.eligible_control_panel_ids.split("|").map((id) => `<li>${escapeHtml(utilities.find((utility) => utility.panelId === id)?.name || id)}</li>`).join("")}</ul></details>`;
+    });
+  }
+
+  function renderSmallPanels(customerClass, priceBasis) {
+    const container = document.getElementById("extension-small-panels");
+    container.innerHTML = "";
+    const maximum = roundMaximum(Math.max(...rows.filter((row) =>
+      highlightedEvents.has(row.panel_id) && row.customer_class === customerClass && row.average_price_cents_kwh != null
+    ).map((row) => priceForBasis(row.average_price_cents_kwh, row.year, priceBasis))) * 1.1);
+    highlightedEvents.forEach((event, panelId) => {
+      const utility = utilities.find((item) => item.panelId === panelId);
+      const points = rows.filter((row) => row.panel_id === panelId && row.customer_class === customerClass && row.average_price_cents_kwh != null).sort((a, b) => a.year-b.year);
+      const frame = chartFrame(maximum, `${utility.name}: ${customerLabels[customerClass]}, ${priceBasisLabels[priceBasis]}`);
+      const panel = document.createElement("article");
+      panel.innerHTML = `<h3>${escapeHtml(utility.name)}</h3><p>${event.year_end_treatment_year}: <strong>${event.old_ownership_class} → ${event.new_ownership_class}</strong></p>
+        <svg viewBox="0 0 ${frame.width} ${frame.height}" role="img" aria-label="${escapeHtml(frame.ariaLabel)}">${frame.grid}${frame.labels}
+        <line x1="${frame.xScale(event.year_end_treatment_year)}" x2="${frame.xScale(event.year_end_treatment_year)}" y1="${frame.margin.top}" y2="${frame.height-frame.margin.bottom}" class="extension-event-marker" />
+        <path d="${linePath(points.map((row) => ({year: row.year, value: priceForBasis(row.average_price_cents_kwh, row.year, priceBasis)})), frame.xScale, frame.yScale)}" fill="none" stroke="${colors.ink}" stroke-width="2.5" />
+        ${points.map((row, index) => `<circle data-index="${index}" cx="${frame.xScale(row.year)}" cy="${frame.yScale(priceForBasis(row.average_price_cents_kwh, row.year, priceBasis))}" r="6" fill="${colors[row.ownership_class]}" tabindex="0" role="button" aria-label="${row.year}: ${formatPrice(priceForBasis(row.average_price_cents_kwh, row.year, priceBasis))}"><title>${row.year}: ${formatPrice(priceForBasis(row.average_price_cents_kwh, row.year, priceBasis))}</title></circle>`).join("")}</svg><p class="extension-small-detail" aria-live="polite">Select a point for details. Dashed line: acquisition year.</p>`;
+      panel.querySelectorAll("circle").forEach((point) => {
+        const show = () => {
+          const row = points[Number(point.dataset.index)];
+          panel.querySelector(".extension-small-detail").textContent = `${row.year}: ${formatPrice(priceForBasis(row.average_price_cents_kwh, row.year, priceBasis))}/kWh · ${formatCustomers(row.bundled_customers)} bundled customers · ${row.ownership_class}`;
+        };
+        ["click", "pointerenter", "focus"].forEach((type) => point.addEventListener(type, show));
+        point.addEventListener("keydown", (key) => { if (key.key === "Enter" || key.key === " ") { key.preventDefault(); show(); } });
+      });
+      container.appendChild(panel);
+    });
   }
 
   document.getElementById("extension-price-basis").addEventListener("change", renderAll);

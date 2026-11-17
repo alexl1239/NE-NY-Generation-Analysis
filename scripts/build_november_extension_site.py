@@ -86,6 +86,11 @@ PRICE_FIELDS = [
 
 DESIGN_FIELDS = [
     "event_id",
+    "eligible_control_panel_ids",
+    "before_real_2024",
+    "after_real_2024",
+    "comparison_change_real_2024",
+    "relative_change_real_2024",
     "transaction_id",
     "treated_panel_id",
     "treated_utility",
@@ -234,7 +239,33 @@ def main() -> None:
         )
 
     price_rows = select_fields(extension_price_source, PRICE_FIELDS)
+    for source in extension_design_source:
+        for field in ("before_real_2024", "after_real_2024", "comparison_change_real_2024", "relative_change_real_2024"):
+            source[field] = ""
     design_rows = select_fields(extension_design_source, DESIGN_FIELDS)
+    cpi = CPI_U_ANNUAL_2013_100
+    def period_mean(panel_id, sector, years):
+        values = [float(row["average_price_cents_kwh"]) * cpi[2024] / cpi[int(row["year"])]
+                  for row in price_source if row["panel_id"] == panel_id
+                  and row["customer_class"] == sector and int(row["year"]) in years
+                  and row["average_price_cents_kwh"] != ""]
+        if len(values) != len(years):
+            raise ValueError(f"Incomplete event comparison: {panel_id} {sector}")
+        return sum(values) / len(values)
+    for row, source in zip(design_rows, extension_design_source):
+        if not source["selected_pre_years"] or source["phase6_window_role"].startswith("excluded"):
+            continue
+        pre = {int(year) for year in source["selected_pre_years"].split("|")}
+        post = {int(year) for year in source["selected_post_years"].split("|")}
+        sector = source["customer_class"]
+        before = period_mean(source["treated_panel_id"], sector, pre)
+        after = period_mean(source["treated_panel_id"], sector, post)
+        controls = source["eligible_control_panel_ids"].split("|")
+        comparison = sum(period_mean(control, sector, post) - period_mean(control, sector, pre)
+                         for control in controls) / len(controls)
+        row.update(before_real_2024=before, after_real_2024=after,
+                   comparison_change_real_2024=comparison,
+                   relative_change_real_2024=after-before-comparison)
     write_csv(PRICE_CSV, PRICE_FIELDS, price_rows)
     write_csv(DESIGN_CSV, DESIGN_FIELDS, design_rows)
 

@@ -2947,10 +2947,27 @@ body {
   border-top: 1px solid var(--border);
 }
 
+.extension-small-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+.extension-small-panels article { min-width: 0; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+.extension-small-panels h3 { margin-bottom: 0.25rem; font-size: 1rem; }
+.extension-small-panels p { font-size: 0.85rem; }
+.extension-small-panels svg { width: 100%; display: block; }
+.extension-small-panels circle, .extension-event-result summary { cursor: pointer; }
+@media (max-width: 700px) { .extension-small-panels { grid-template-columns: 1fr; } }
+
 .extension-event-list article {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+  gap: 1.5rem;
   padding: 1rem 0;
   border-bottom: 1px solid var(--border);
 }
+
+@media (max-width: 700px) {
+  .extension-event-list article { grid-template-columns: 1fr; }
+}
+
+.extension-event-result { font-size: 0.9rem; line-height: 1.7; }
 
 .extension-event-list h3 {
   margin: 0;
