@@ -81,6 +81,19 @@ DESCRIPTIONS = {
     "eia_source_file_url": "URL of the official annual EIA source archive.",
     "pudl_source_url": "URL of the standardized PUDL source or data access route.",
     "retrieved_date": "Date the frozen source extract was retrieved.",
+    "customer_class": "Retail customer class represented by the row: residential, commercial, or industrial.",
+    "treated_panel_id": "Stable panel identifier for the utility experiencing the reviewed ownership change.",
+    "candidate_panel_id": "Stable panel identifier for one utility evaluated as a potential control.",
+    "treated_market": "Regional electricity market assigned to the treated utility: NYISO or ISO-NE.",
+    "candidate_market": "Regional electricity market assigned to the potential control: NYISO or ISO-NE.",
+    "phase6_window_role": "Phase 6 use category: primary four-year window, short-window sensitivity, or an explicit exclusion.",
+    "selected_years_each_side": "Number of consecutive pre-event and post-event years retained on each side of the closing year.",
+    "control_pool_eligible": "Boolean flag showing whether the candidate satisfies every recorded Phase 6 potential-control rule.",
+    "control_pool_tier": "Geographic potential-control tier: same state, same regional market, cross-market, or not eligible.",
+    "eligibility_reasons": "Pipe-delimited reasons a utility is excluded from the event-specific potential-control pool.",
+    "treated_customer_base_screen_status": "Result of the extreme-thinness customer-count screen for the treated event-sector row.",
+    "candidate_customer_base_screen_status": "Result of the extreme-thinness customer-count screen for the potential-control row.",
+    "customer_base_screen_rule": "Documented minimum bundled-customer rule used only to remove extremely thin treated or control series.",
 }
 
 UNIT_RULES = (

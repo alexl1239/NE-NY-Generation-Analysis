@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a minimal, checksummed ZIP for the professor handoff."""
+"""Create a minimal, checksummed ZIP for the optional professor handoff."""
 
 from __future__ import annotations
 
@@ -13,15 +13,24 @@ import zipfile
 from datetime import date
 from pathlib import Path
 
-from rebuild_project import PROJECT_ROOT, required_inputs
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+SCRIPTS_DIR = PROJECT_ROOT / "scripts"
+sys.path.insert(0, str(SCRIPTS_DIR))
+
+from rebuild_project import required_inputs  # noqa: E402
 
 
 PACKAGE_ROOT_NAME = "NE-NY-Generation-Analysis-professor-handoff"
 ROOT_FILES = (
-    "PROFESSOR_HANDOFF.md",
     "README.md",
     "requirements.txt",
 )
+HANDOFF_FILES = {
+    "tools/professor_handoff/README.md": "PROFESSOR_HANDOFF.md",
+    "tools/professor_handoff/build.py": "tools/professor_handoff/build.py",
+    "tools/professor_handoff/verify.py": "tools/professor_handoff/verify.py",
+}
 ALLOWED_SUFFIXES = {
     "data/manual": {".csv"},
     "data/processed": {".csv", ".json"},
@@ -41,23 +50,34 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def collect_files() -> list[Path]:
+def collect_files() -> list[tuple[Path, Path]]:
     """Collect the explicit handoff allowlist and reject unsafe entries."""
-    files = {PROJECT_ROOT / relative for relative in ROOT_FILES}
+    files = {
+        PROJECT_ROOT / relative: Path(relative)
+        for relative in ROOT_FILES
+    }
+    files.update(
+        {
+            PROJECT_ROOT / source: Path(archive_path)
+            for source, archive_path in HANDOFF_FILES.items()
+        }
+    )
     for directory, suffixes in ALLOWED_SUFFIXES.items():
         base = PROJECT_ROOT / directory
         files.update(
-            path
-            for path in base.rglob("*")
-            if path.is_file() and path.suffix.lower() in suffixes
+            {
+                path: path.relative_to(PROJECT_ROOT)
+                for path in base.rglob("*")
+                if path.is_file() and path.suffix.lower() in suffixes
+            }
         )
 
-    files.add(PROJECT_ROOT / "data" / "raw" / "README.md")
-    files.update(
-        path
-        for path in required_inputs()
-        if path.is_relative_to(PROJECT_ROOT / "data" / "raw")
-    )
+    raw_readme = PROJECT_ROOT / "data" / "raw" / "README.md"
+    files[raw_readme] = raw_readme.relative_to(PROJECT_ROOT)
+
+    for path in required_inputs():
+        if path.is_relative_to(PROJECT_ROOT / "data" / "raw"):
+            files[path] = path.relative_to(PROJECT_ROOT)
 
     missing = [path for path in sorted(files) if not path.is_file()]
     if missing:
@@ -66,14 +86,26 @@ def collect_files() -> list[Path]:
             + "\n- ".join(str(path.relative_to(PROJECT_ROOT)) for path in missing)
         )
 
-    selected: list[Path] = []
-    for path in sorted(files):
-        relative = path.relative_to(PROJECT_ROOT)
+    selected: list[tuple[Path, Path]] = []
+    archive_paths: set[Path] = set()
+    for path, archive_path in sorted(
+        files.items(), key=lambda item: item[1].as_posix()
+    ):
+        source_relative = path.relative_to(PROJECT_ROOT)
         if path.is_symlink():
-            raise SystemExit(f"Refusing symlink in handoff: {relative}")
-        if any(part in FORBIDDEN_PARTS for part in relative.parts):
-            raise SystemExit(f"Refusing forbidden path in handoff: {relative}")
-        selected.append(path)
+            raise SystemExit(f"Refusing symlink in handoff: {source_relative}")
+        if any(part in FORBIDDEN_PARTS for part in source_relative.parts):
+            raise SystemExit(
+                f"Refusing forbidden source path in handoff: {source_relative}"
+            )
+        if archive_path.is_absolute() or ".." in archive_path.parts:
+            raise SystemExit(f"Refusing unsafe archive path: {archive_path}")
+        if any(part in FORBIDDEN_PARTS for part in archive_path.parts):
+            raise SystemExit(f"Refusing forbidden archive path: {archive_path}")
+        if archive_path in archive_paths:
+            raise SystemExit(f"Duplicate archive path: {archive_path}")
+        archive_paths.add(archive_path)
+        selected.append((path, archive_path))
     return selected
 
 
@@ -136,7 +168,7 @@ def main() -> None:
     )
     selected = collect_files()
     relative_paths = {
-        path.relative_to(PROJECT_ROOT).as_posix() for path in selected
+        archive_path.as_posix() for _, archive_path in selected
     }
     timestamp = (
         package_date.year,
@@ -155,8 +187,7 @@ def main() -> None:
 
     with tempfile.TemporaryDirectory(prefix="professor-handoff-build-") as temp_name:
         temp_root = Path(temp_name) / PACKAGE_ROOT_NAME
-        for source in selected:
-            relative = source.relative_to(PROJECT_ROOT)
+        for source, relative in selected:
             destination = temp_root / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(source, destination)
@@ -191,7 +222,9 @@ def main() -> None:
     )
 
     raw_files = [
-        path for path in selected if path.is_relative_to(PROJECT_ROOT / "data" / "raw")
+        path
+        for path, _ in selected
+        if path.is_relative_to(PROJECT_ROOT / "data" / "raw")
     ]
     print(f"Created {zip_path}")
     print(f"Created {external_hash_path}")

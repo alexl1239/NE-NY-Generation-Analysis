@@ -45,7 +45,7 @@ To verify an extracted professor package, including every SHA-256 fingerprint,
 the full rebuild, tests, and the generated data dictionary, run:
 
 ```bash
-python3 scripts/verify_professor_handoff.py --rebuild
+python3 tools/professor_handoff/verify.py --rebuild
 ```
 
 The optional formatted ROE workbook uses the `@oai/artifact-tool` Node package.
@@ -54,3 +54,25 @@ It is not required for the CSV data or website:
 ```bash
 python3 scripts/rebuild_project.py --with-workbook
 ```
+
+## Historical-extension work
+
+The historical work is currently separate from the normal 2013-2024 rebuild.
+After placing the annual archives listed in `data/raw/README.md`, run:
+
+```bash
+python3 scripts/build_historical_schema_pilot.py
+python3 scripts/build_utility_identity_history.py
+python3 scripts/build_ownership_history.py
+python3 scripts/build_historical_price_panel.py
+python3 scripts/build_event_window_review.py
+python3 scripts/build_research_design_inputs.py
+python3 scripts/build_november_extension_site.py
+python3 -m unittest tests.test_historical_schema_pilot tests.test_utility_identity_history tests.test_ownership_history tests.test_historical_price_panel tests.test_event_window_review tests.test_research_design_inputs tests.test_november_extension_site
+```
+
+The utility-history build reads annual EIA workbooks from 2001 through 2024.
+LibreOffice is required for the years distributed as legacy `.xls` files.
+The website build exports the complete 2001–2024 research panel to the
+Extended Historical Data page, together with the reviewed ownership changes and
+control-screen records.

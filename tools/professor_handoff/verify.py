@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify a professor handoff ZIP, optionally with a clean-room rebuild."""
+"""Verify an optional professor handoff ZIP with an optional clean-room rebuild."""
 
 from __future__ import annotations
 

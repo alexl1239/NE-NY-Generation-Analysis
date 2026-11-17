@@ -237,10 +237,11 @@ class TestPricePanelWebsite(unittest.TestCase):
             '<nav class="research-nav" aria-label="Primary navigation">',
             1,
         )[1].split("</nav>", 1)[0]
-        self.assertEqual(primary.count("<a "), 5)
+        self.assertEqual(primary.count("<a "), 6)
         self.assertIn(">Overview</a>", primary)
         self.assertIn(">Price results</a>", primary)
         self.assertIn(">Reliability results</a>", primary)
+        self.assertIn(">Extended historical data</a>", primary)
         self.assertIn(">Supplementary context</a>", primary)
         self.assertIn(">Data &amp; methods</a>", primary)
         self.assertNotIn("Utility histories", primary)
@@ -255,8 +256,10 @@ class TestPricePanelWebsite(unittest.TestCase):
             '<nav class="research-nav model-nav"',
             1,
         )[1].split("</nav>", 1)[0]
-        self.assertEqual(price_nav.count("<a "), 4)
-        self.assertEqual(reliability_nav.count("<a "), 4)
+        self.assertEqual(price_nav.count("<a "), 5)
+        self.assertEqual(reliability_nav.count("<a "), 5)
+        self.assertIn(">Extended historical data</a>", price_nav)
+        self.assertIn(">Extended historical data</a>", reliability_nav)
         self.assertNotIn("Earlier analysis archive", overview)
         self.assertIn('id="roe-case-study"', overview)
         self.assertIn('id="regional-fuel-mix"', overview)

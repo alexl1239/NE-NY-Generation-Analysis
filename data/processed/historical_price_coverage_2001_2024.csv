@@ -1,0 +1,43 @@
+panel_id,current_utility_id_eia,display_name,state,earliest_defensible_reported_entity_year,earliest_residential_price_year,latest_residential_price_year,years_with_residential_price,complete_three_sector_price_years,published_price_observations,not_reported_zero_bundled_observations,unresolved_positive_bundled_observations,territory_review_required,fixed_territory_gap_years,review_status,notes
+COOP_CT_7716,7716,Groton Dept of Utilities - (CT),CT,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_CT_NORWICH,13831,Norwich Public Utilities,CT,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_CT_WALLINGFORD,20038,Wallingford Electric Division,CT,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_12473,12473,Town of Middleborough - (MA),MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_13679,13679,Town of North Attleborough - (MA),MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_13839,13839,City of Norwood - (MA),MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_17127,17127,Town of Shrewsbury - (MA),MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_20481,20481,City of Westfield - (MA),MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_2144,2144,Town of Braintree - (MA),MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_5480,5480,Town of Danvers,MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_8774,8774,City of Holyoke - (MA),MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_8973,8973,Town of Hudson - (MA),MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_CHICOPEE,3477,Chicopee Electric Light,MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_PEABODY,14605,Peabody Municipal Light Plant,MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_READING,15748,Reading Municipal Light Department,MA,2001,2001,2024,24,13,61,11,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_MA_TAUNTON,18488,Taunton Municipal Lighting Plant,MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_ME_5609,5609,Eastern Maine Electric Coop,ME,2001,2015,2024,10,10,38,34,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_NH_NHEC,13441,New Hampshire Electric Cooperative,NH,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_NY_6775,6775,Village of Freeport - (NY),NY,2001,2001,2024,24,2,50,22,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_NY_9645,9645,Jamestown Board of Public Util,NY,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_NY_FAIRPORT,5930,Fairport Municipal Commission,NY,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_VT_BURLINGTON,2548,Burlington Electric Department,VT,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+COOP_VT_VEC,19791,Vermont Electric Cooperative,VT,2001,2001,2024,24,24,72,0,0,true,2003|2004,reviewed_phase_4,Reported-entity records begin in 2001. The fixed-territory comparison leaves 2003-2004 unavailable rather than forcing Citizens/VEC component data.
+DOM_CT_CLP,4176,Connecticut Light & Power (Eversource Connecticut),CT,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+DOM_MA_FITCHBURG,6374,Fitchburg Gas & Electric Light,MA,2001,2001,2024,24,23,71,1,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+DOM_MA_NSTAR,54913,NSTAR Electric (Eversource Massachusetts),MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+DOM_NH_PSNH,15472,Public Service Company of New Hampshire,NH,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+DOM_NH_UNITIL,24590,Unitil Energy Systems,NH,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+DOM_NY_CECONY,4226,Con Edison (CECONY),NY,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+DOM_NY_ORU,14154,Orange & Rockland Utilities,NY,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+DOM_RI_RIE,13214,Rhode Island Energy (legal entity: Narragansett Electric),RI,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+MTC_CT_UI,19497,United Illuminating,CT,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+MTC_MA_MECO,11804,Massachusetts Electric (National Grid),MA,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+MTC_MA_NANTUCKET,13206,Nantucket Electric,MA,2001,2001,2024,24,19,67,5,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+MTC_ME_CMP,3266,Central Maine Power,ME,2001,2001,2024,24,12,60,12,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+MTC_ME_VERSANT,1179,Versant Power,ME,2001,2001,2024,12,12,36,36,0,true,,reviewed_phase_4,Reported-entity records begin in 2001. A separate table shows the acquired-territory comparison.
+MTC_NH_LIBERTY,26510,Liberty Utilities (Granite State Electric),NH,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+MTC_NY_CENTHUD,3249,Central Hudson,NY,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+MTC_NY_NIMO,13573,Niagara Mohawk (National Grid),NY,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+MTC_NY_NYSEG,13511,NYSEG,NY,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+MTC_NY_RGE,16183,Rochester Gas & Electric,NY,2001,2001,2024,24,24,72,0,0,false,,reviewed_phase_4,Reported-entity records begin in 2001.
+MTC_VT_GMP,7601,Green Mountain Power,VT,2001,2001,2024,24,24,72,0,0,true,,reviewed_phase_4,Reported-entity records begin in 2001. A separate table shows the acquired-territory comparison.

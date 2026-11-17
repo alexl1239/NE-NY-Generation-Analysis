@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Extended historical data for the New York and New England utility price and ownership panel from 2001 through 2024.">
+  <title>Extended historical data | Utility ownership research</title>
+  <link rel="stylesheet" href="styles.css?v=20261116c">
+</head>
+<body>
+  <header class="research-header model-header extension-header">
+    <nav class="research-nav model-nav" aria-label="Research navigation">
+      <a href="index.html">Overview</a>
+      <a href="price-model.html">Price results</a>
+      <a href="reliability-panel-model.html">Reliability results</a>
+      <a href="november-data-extension.html" aria-current="page">Extended historical data</a>
+      <a href="#downloads">Data downloads</a>
+    </nav>
+    <p class="model-eyebrow">Extended historical data · 2001–2024</p>
+    <h1>Extended historical price and ownership panel</h1>
+    <p>
+      The same 42 utilities followed from the earliest common year through the
+      latest reviewed project data.
+    </p>
+    <div class="extension-scope-line">
+      <label class="model-select" for="extension-price-basis">
+        Price basis
+        <select id="extension-price-basis">
+          <option value="nominal">Published nominal cents</option>
+          <option value="real_2024">Inflation-adjusted 2024 cents</option>
+        </select>
+      </label>
+      <p id="extension-basis-note">
+        Published nominal cents per kWh. The page is descriptive and does not
+        report a causal estimate.
+      </p>
+    </div>
+  </header>
+
+  <main class="research-main research-main--wide model-main extension-main">
+    <section id="ownership-trends" aria-labelledby="ownership-trends-title">
+      <div class="model-section-heading extension-section-heading">
+        <div>
+          <h2 id="ownership-trends-title">Annual median prices</h2>
+          <p>
+            Median of the available utility prices in each ownership group and year.
+            Hover over or select a point for its value, group size, and range.
+          </p>
+        </div>
+        <label class="model-select" for="extension-customer-class">
+          Customer type
+          <select id="extension-customer-class">
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="industrial">Industrial</option>
+          </select>
+        </label>
+      </div>
+      <div class="ownership-key ownership-key--intro" aria-label="Ownership categories">
+        <span><i class="ownership-swatch ownership-swatch--mtc"></i><strong>MTC</strong> Foreign or multinational parent</span>
+        <span><i class="ownership-swatch ownership-swatch--dom"></i><strong>DOM</strong> U.S.-owned investor utility</span>
+        <span><i class="ownership-swatch ownership-swatch--coop"></i><strong>COOP</strong> Local non-shareholder ownership</span>
+      </div>
+      <p id="extension-trend-status" class="chart-status" hidden></p>
+      <div id="extension-trend-chart" class="extension-chart" aria-live="polite"></div>
+      <div id="extension-trend-detail" class="extension-point-detail" aria-live="polite"></div>
+    </section>
+
+    <section id="utility-history" aria-labelledby="utility-history-title">
+      <div class="model-section-heading extension-section-heading">
+        <div>
+          <h2 id="utility-history-title">Individual utility history</h2>
+          <p>
+            Select a utility and customer type, then select a point for its exact
+            price and bundled-customer count.
+          </p>
+        </div>
+        <label class="model-select" for="extension-utility">
+          Utility
+          <select id="extension-utility"></select>
+        </label>
+      </div>
+      <p id="extension-utility-status" class="chart-status" hidden></p>
+      <div id="extension-utility-chart" class="extension-chart" aria-live="polite"></div>
+      <div id="extension-point-detail" class="extension-point-detail" aria-live="polite"></div>
+      <p id="extension-utility-summary" class="result-note"></p>
+    </section>
+
+    <section id="ownership-changes" aria-labelledby="ownership-changes-title">
+      <h2 id="ownership-changes-title">Reviewed ownership changes</h2>
+      <p>
+        Nine clean ownership-class changes occur between 2001 and 2024: eight from
+        DOM to MTC and one from MTC to DOM.
+      </p>
+      <div class="extension-event-list">
+        <article>
+          <h3>Versant Power lineage (Bangor Hydro) · October 10, 2001</h3>
+          <p>
+            Emera Inc. of Canada acquired Bangor Hydro-Electric, the utility lineage
+            now shown as Versant Power. Because the acquisition closed in the first
+            panel year, there is no full four-year pre-change window.
+            <a href="https://www.sec.gov/Archives/edgar/data/9548/000000954801500012/bheem8ka.txt">Source</a>
+          </p>
+        </article>
+        <article>
+          <h3>Niagara Mohawk · January 31, 2002</h3>
+          <p>
+            National Grid plc of the United Kingdom acquired Niagara Mohawk. Only
+            2001 is available as a full pre-closing year, so this change does not
+            have the planned four-year comparison window.
+            <a href="https://www.sec.gov/Archives/edgar/data/1004315/000100431502000005/form6-k.txt">Source</a>
+          </p>
+        </article>
+        <article>
+          <h3>Green Mountain Power · April 12, 2007</h3>
+          <p>
+            Gaz Metro Limited Partnership of Canada acquired Green Mountain Power;
+            the legal utility and EIA identifier continued under the new parent.
+            All three customer classes have four full years before and after.
+            <a href="https://www.sec.gov/Archives/edgar/data/43704/000004370407000017/form_8-kmergercompletion.pdf">Source</a>
+          </p>
+        </article>
+        <article>
+          <h3>Central Maine Power · September 16, 2008</h3>
+          <p>
+            Iberdrola S.A. of Spain acquired Energy East, changing Central Maine
+            Power's ultimate parent. The residential and commercial bundled-customer
+            series are extremely thin, and the industrial series lacks the planned
+            immediate window, so this case is not a primary comparison.
+            <a href="https://www.sec.gov/Archives/edgar/data/1046861/000104686108000163/e8k091608.htm">Source</a>
+          </p>
+        </article>
+        <article>
+          <h3>NYSEG · September 16, 2008</h3>
+          <p>
+            The same Iberdrola–Energy East transaction moved NYSEG from a U.S.
+            parent to a Spanish parent. Residential, commercial, and industrial
+            prices each have four full years before and after the closing year.
+            <a href="https://www.sec.gov/Archives/edgar/data/1046861/000104686108000163/e8k091608.htm">Source</a>
+          </p>
+        </article>
+        <article>
+          <h3>Rochester Gas &amp; Electric · September 16, 2008</h3>
+          <p>
+            Rochester Gas &amp; Electric changed parent in the Iberdrola acquisition
+            of Energy East. All three customer classes have the planned four-year
+            before-and-after price window.
+            <a href="https://www.sec.gov/Archives/edgar/data/1046861/000104686108000163/e8k091608.htm">Source</a>
+          </p>
+        </article>
+        <article>
+          <h3>Central Hudson · June 27, 2013</h3>
+          <p>
+            Fortis Inc. of Canada acquired CH Energy Group, moving Central Hudson
+            from a U.S. parent to a Canadian parent. The 2013 closing year is mixed;
+            2014 is the first full year under Fortis.
+            <a href="https://www.sec.gov/Archives/edgar/data/1061393/000119312513274933/d561415dex991.htm">Source</a>
+          </p>
+        </article>
+        <article>
+          <h3>United Illuminating · December 16, 2015</h3>
+          <p>
+            Iberdrola S.A. acquired UIL Holdings through Avangrid, changing United
+            Illuminating from a U.S. parent to a Spanish parent. The first full
+            post-closing year is 2016.
+            <a href="https://www.sec.gov/Archives/edgar/data/1634997/000119312515407879/d105528d8k.htm">Source</a>
+          </p>
+        </article>
+        <article>
+          <h3>Rhode Island Energy · May 25, 2022</h3>
+          <p>
+            PPL Corporation acquired Narragansett Electric from National Grid and
+            rebranded the operation Rhode Island Energy. This is the one reviewed
+            change from a multinational parent back to a U.S. parent; only two full
+            post-closing years are available through 2024.
+            <a href="https://investors.pplweb.com/2022-05-25-PPL-Corporation-completes-acquisition-of-Rhode-Islands-primary-electric-and-natural-gas-utility">Source</a>
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="downloads" aria-labelledby="extension-downloads-title">
+      <h2 id="extension-downloads-title">Data and notes</h2>
+      <p>Exact 2001–2024 records used on this page:</p>
+      <ul class="extension-download-list">
+        <li><a href="data/november_extension_price_history.csv">Historical price and ownership records</a></li>
+        <li><a href="data/november_extension_research_design.csv">Historical ownership-event readiness table</a></li>
+        <li><a href="data/november_extension_control_pool.csv">Historical potential-control audit</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="page-footer research-footer">
+    <p><a href="index.html">Return to the project overview</a></p>
+  </footer>
+
+  <script src="data/november_extension_price_history.js?v=20261116c"></script>
+  <script src="data/november_extension_research_design.js?v=20261116c"></script>
+  <script src="november-data-extension.js?v=20261116c"></script>
+</body>
+</html>

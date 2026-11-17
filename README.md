@@ -25,17 +25,42 @@ ISO-NE generation mix, and matched-state price/authorized-ROE comparisons.
 ## Repository guide
 
 - `site/`: public website and browser-ready data
-- `scripts/`: all build and validation programs
+- `scripts/`: core build and validation programs used by the reproducible analysis
 - `data/processed/`: analysis-ready tables and exact model outputs
 - `data/manual/`: manually reviewed cross-check registers
 - `data/raw/`: separately shared source archive; excluded from Git because of size
 - `docs/`: methods, source-audit notes, environment instructions, and data dictionary
 - `tests/`: automated data, model, and website checks
+- `tools/`: optional, special-purpose packaging and figure-export workflows
+- `outputs/`: ignored generated artifacts from optional tools
 
-For a professor-facing map of the package and its verification steps, start with
-[`PROFESSOR_HANDOFF.md`](PROFESSOR_HANDOFF.md). The complete field-level inventory
-is in [`docs/data-dictionary.csv`](docs/data-dictionary.csv), with a short reading
-guide in [`docs/data-dictionary.md`](docs/data-dictionary.md).
+The complete field-level inventory is in
+[`docs/data-dictionary.csv`](docs/data-dictionary.csv), with a short reading guide
+in [`docs/data-dictionary.md`](docs/data-dictionary.md).
+
+The planned 2001–2024 historical extension starts in
+[`docs/historical-expansion-setup.md`](docs/historical-expansion-setup.md). The
+representative-year file check is documented in
+[`docs/historical-schema-pilot.md`](docs/historical-schema-pilot.md), and the
+reviewed Phase 2 utility-history connections are in
+[`docs/utility-history-phase-2.md`](docs/utility-history-phase-2.md). The
+reviewed Phase 3 ownership events, annual owner assignments, and territory
+warnings are in
+[`docs/ownership-history-phase-3.md`](docs/ownership-history-phase-3.md).
+The completed Phase 4 historical price, revenue, sales, customer, and territory
+tables are documented in
+[`docs/historical-price-panel-phase-4.md`](docs/historical-price-panel-phase-4.md).
+The Phase 5 review of consecutive price coverage around clean ownership changes
+is in
+[`docs/event-window-review-phase-5.md`](docs/event-window-review-phase-5.md).
+The Phase 6 fixed event windows, customer-base screen, and transparent
+potential-control pools are in
+[`docs/research-design-phase-6.md`](docs/research-design-phase-6.md).
+The Phase 7 Extended Historical Data page for the full 2001–2024 panel is
+documented in
+[`docs/november-data-extension-phase-7.md`](docs/november-data-extension-phase-7.md).
+It presents both published nominal prices and inflation-adjusted 2024 prices,
+without adding a new causal analysis.
 
 ## Rebuild and verify
 
@@ -68,3 +93,10 @@ check; it is not needed in the extracted professor package.
 
 Detailed model assumptions are in
 [`docs/statistical-models.md`](docs/statistical-models.md).
+
+## Optional workflows
+
+Special-purpose exports are intentionally outside the normal rebuild. See
+[`tools/README.md`](tools/README.md) for the professor handoff packager and the
+paper-ready JPEG exporter. These tools consume the core project outputs but do
+not add generated documents or images to the tracked analysis or public site.

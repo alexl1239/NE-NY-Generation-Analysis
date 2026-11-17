@@ -29,12 +29,25 @@ No utility in either selected sample is coded SOE. `legal_ownership_description`
 
 | File | Role | Rows | Columns |
 | --- | --- | ---: | ---: |
+| `data/manual/historical_source_coverage.csv` | Manually reviewed cross-check | 9 | 20 |
 | `data/manual/iso_fuel_mix_crosschecks.csv` | Manually reviewed cross-check | 2 | 7 |
+| `data/manual/ownership_event_sources.csv` | Manually reviewed cross-check | 20 | 11 |
+| `data/manual/ownership_events.csv` | Manually reviewed cross-check | 20 | 32 |
 | `data/manual/reliability_independent_checks.csv` | Manually reviewed cross-check | 7 | 14 |
+| `data/manual/utility_lineage.csv` | Manually reviewed cross-check | 50 | 17 |
+| `data/manual/utility_name_aliases.csv` | Manually reviewed cross-check | 241 | 15 |
 | `data/processed/expanded_utility_candidates_2024.csv` | Analysis-ready output | 42 | 15 |
+| `data/processed/historical_price_coverage_2001_2024.csv` | Analysis-ready output | 42 | 16 |
+| `data/processed/historical_price_schema_pilot.csv` | Analysis-ready output | 630 | 32 |
+| `data/processed/historical_schema_pilot.csv` | Analysis-ready output | 25 | 23 |
+| `data/processed/historical_territory_comparison_2001_2024.csv` | Analysis-ready output | 216 | 26 |
 | `data/processed/iso_fuel_mix_2013_2024.csv` | Analysis-ready output | 192 | 15 |
 | `data/processed/iso_fuel_mix_crosschecks_2024.csv` | Analysis-ready output | 2 | 10 |
+| `data/processed/ownership_event_window_review_2001_2024.csv` | Analysis-ready output | 27 | 38 |
 | `data/processed/ownership_price_summary_2013_2024.csv` | Analysis-ready output | 216 | 17 |
+| `data/processed/ownership_research_design_control_pool_2001_2024.csv` | Analysis-ready output | 756 | 52 |
+| `data/processed/ownership_research_design_events_2001_2024.csv` | Analysis-ready output | 27 | 41 |
+| `data/processed/ownership_transaction_window_summary_2001_2024.csv` | Analysis-ready output | 7 | 28 |
 | `data/processed/price_panel_model_analysis.csv` | Analysis-ready output | 504 | 34 |
 | `data/processed/reliability_coverage_audit_2013_2024.csv` | Analysis-ready output | 360 | 59 |
 | `data/processed/reliability_panel_model_analysis.csv` | Analysis-ready output | 360 | 13 |
@@ -43,7 +56,10 @@ No utility in either selected sample is coded SOE. `legal_ownership_description`
 | `data/processed/roe_ownership_sources.csv` | Analysis-ready output | 7 | 9 |
 | `data/processed/roe_rate_case_events.csv` | Analysis-ready output | 25 | 17 |
 | `data/processed/roe_source_register.csv` | Analysis-ready output | 37 | 8 |
+| `data/processed/utility_identity_coverage_2001_2024.csv` | Analysis-ready output | 1,008 | 16 |
+| `data/processed/utility_ownership_history_2001_2024.csv` | Analysis-ready output | 1,008 | 21 |
 | `data/processed/utility_panel_candidates_2024.csv` | Analysis-ready output | 30 | 20 |
+| `data/processed/utility_price_history_2001_2024.csv` | Analysis-ready output | 3,024 | 32 |
 | `data/processed/utility_price_panel_2013_2024.csv` | Analysis-ready output | 360 | 54 |
 | `data/processed/utility_price_panel_expanded_2013_2024.csv` | Analysis-ready output | 504 | 37 |
 | `data/raw/eia861/pudl_reliability_top10_2013_2024.csv` | Frozen source input | 642 | 22 |
@@ -52,6 +68,9 @@ No utility in either selected sample is coded SOE. `legal_ownership_description`
 | `data/raw/eia_esr/pudl_customer_coverage_top10_2013_2024.csv` | Frozen source input | 1,698 | 6 |
 | `data/raw/pudl_eia861_ne_ny_2024_roster.csv` | Frozen source input | 55 | 7 |
 | `site/data/iso_fuel_mix.csv` | Browser-ready copy | 192 | 15 |
+| `site/data/november_extension_control_pool.csv` | Browser-ready copy | 756 | 52 |
+| `site/data/november_extension_price_history.csv` | Browser-ready copy | 3,024 | 16 |
+| `site/data/november_extension_research_design.csv` | Browser-ready copy | 27 | 22 |
 | `site/data/ownership_price_summary.csv` | Browser-ready copy | 216 | 17 |
 | `site/data/price_panel_model_analysis.csv` | Browser-ready copy | 504 | 34 |
 | `site/data/reliability_panel.csv` | Browser-ready copy | 360 | 59 |

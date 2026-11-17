@@ -1,6 +1,19 @@
 # Professor handoff guide
 
-This package contains the raw source files and code needed to rebuild the website's data and test the main claims. Start with this file, then use `README.md` for the research summary.
+This optional workflow creates a portable, checksummed package containing the
+raw source files and code needed to rebuild the website's data and test the main
+claims. It is separate from the normal analysis workflow.
+
+## Create the package
+
+From the repository root, run:
+
+```bash
+python3 tools/professor_handoff/build.py
+```
+
+Generated ZIPs and verification files are written to
+`outputs/professor-handoff/`, which is intentionally ignored by Git.
 
 ## What is included
 
@@ -9,7 +22,8 @@ This package contains the raw source files and code needed to rebuild the websit
 | `data/raw/` | Frozen EIA and PUDL source files used by the rebuild |
 | `data/manual/` | Small source-check tables reviewed by hand |
 | `data/processed/` | Analysis-ready tables and exact model results |
-| `scripts/` | Code that validates sources, builds the data, runs the models, creates the dictionary, and packages the handoff |
+| `scripts/` | Core code that validates sources, builds the data, runs the models, and creates the dictionary |
+| `tools/professor_handoff/` | Optional package builder and verifier |
 | `tests/` | Automated checks for data coverage, calculations, model outputs, and website claims |
 | `site/` | The three-page website and browser-ready copies of the data |
 | `docs/data-dictionary.csv` | Field-by-field profile of every delivered CSV |
@@ -26,7 +40,7 @@ Use Python 3.12 with the package versions in `requirements.txt`. Node.js and Lib
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install -r requirements.txt
-python3 scripts/verify_professor_handoff.py --rebuild
+python3 tools/professor_handoff/verify.py --rebuild
 ```
 
 The verifier performs these checks in a temporary or extracted copy:
