@@ -347,6 +347,9 @@
       : " No reviewed ownership-class change in this period.";
     document.getElementById("extension-utility-summary").textContent =
       `${utilityName}: ${available.length} of ${years.length} prices available; ${missingCount} missing.${eventText}`;
+    if (panelId === "MTC_ME_VERSANT") {
+      document.getElementById("extension-utility-summary").textContent += " The gap reflects unavailable bundled-service prices in this EIA series, not an absence of utility operations or all published rates. Residential bundled-customer counts are zero in 2003–2014. Maine reports electricity supply and delivery separately; those other measures are not substituted here. The utility territory also expanded in 2014.";
+    }
   }
 
   function renderBasisNote(priceBasis) {
@@ -423,6 +426,11 @@
         point.addEventListener("keydown", (key) => { if (key.key === "Enter" || key.key === " ") { key.preventDefault(); show(); } });
       });
       container.appendChild(panel);
+      if (panelId === "MTC_ME_VERSANT") {
+        const note = document.createElement("p");
+        note.textContent = "Gap: no published bundled-service price in the intervening years. This does not mean the utility stopped reporting all data. Maine supply and delivery rates are separate measures. Territory expanded in 2014.";
+        panel.appendChild(note);
+      }
     });
   }
 
